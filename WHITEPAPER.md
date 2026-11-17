@@ -1,5 +1,7 @@
 <div align="center">
 
+![BabelTele Whitepaper: model-native semantic communication and memory](./assets/babeltele-cover.png)
+
 # 巴别语：一种模型原生的高密度语义通信与记忆体系
 ### BabelTele: A Model-Native High-Density Semantic Communication and Memory System
 

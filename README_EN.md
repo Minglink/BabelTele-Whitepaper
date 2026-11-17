@@ -1,5 +1,7 @@
 <div align="center">
 
+![BabelTele Whitepaper: model-native semantic communication and memory](./assets/babeltele-cover.png)
+
 # 🗼 BabelTele Whitepaper (`BT-Spec v1.0`)
 ### *A Model-Native High-Density Semantic Communication & Memory System*
 

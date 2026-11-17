@@ -1,5 +1,7 @@
 <div align="center">
 
+![BabelTele Whitepaper: model-native semantic communication and memory](./assets/babeltele-cover.png)
+
 # BabelTele: A Model-Native High-Density Semantic Communication and Memory System
 
 **MingLin** (`@Minglink`)  

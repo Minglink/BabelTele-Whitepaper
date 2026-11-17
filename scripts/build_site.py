@@ -287,6 +287,9 @@ def render_inline(text, current_md, current_html):
     # 5. Standalone images ![alt](src)
     def repl_img(m):
         alt, src = m.group(1), m.group(2)
+        if not re.match(r"(?:[a-z][a-z0-9+.-]*:|/|#)", src, flags=re.I):
+            source_path = posixpath.normpath(posixpath.join(posixpath.dirname(current_md), src))
+            src = rel_url(current_html, source_path)
         return put(f'<img src="{src}" alt="{html_lib.escape(alt, True)}" />')
     text = re.sub(r"\!\[([^\]]*)\]\(([^)]+)\)", repl_img, text)
 
