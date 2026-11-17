@@ -85,6 +85,43 @@ Directly output the compressed text without any preface. Compress the content be
 
 ---
 
+## ❓ Frequently Asked Questions (FAQ)
+
+<details open>
+<summary><b>Q1: What is BabelTele ("巴别语" / "巴别塔电报" / Babel-Telegraph)?</b></summary>
+
+**BabelTele** (Chinese: **巴别语** or **巴别塔电报**) is a paradigm of **model-native, high-density discrete textual representations** optimized for LLM-to-LLM consumption rather than human readability. Originally discovered empirically in *Large Language Models Do Not Always Need Readable Language* (`arXiv:2606.19857`), it is formalized in this whitepaper as **The BabelTele System (`BT-Spec v1.0`)**—comprising three formal axioms, six symbolic operator clusters, four compression tiers (`BT-L0`–`BT-L3`), the Semantic Merkle Folding Tree (SMFT), and a Three-Tier Deterministic Safety Audit Gateway.
+</details>
+
+<details>
+<summary><b>Q2: Does BabelTele replace MCP (Model Context Protocol) or A2A (Agent-to-Agent Protocol)?</b></summary>
+
+No—they operate at complementary layers of the agentic stack. MCP standardizes vertical tool/context binding and A2A standardizes horizontal agent discovery, authentication, and task lifecycles (the "HTTP/RPC transport channels"). **BabelTele (`content_encoding: "babeltele/1.0"`) operates at Layer 4 as the high-density semantic payload**, cutting context token overhead by 40%–75% inside MCP tool returns and A2A messages without altering outer routing envelopes.
+</details>
+
+<details>
+<summary><b>Q3: Do emojis, math symbols, and CJK characters always use fewer BPE tokens than English words?</b></summary>
+
+**No—this is the Naive Symbol Illusion.** Direct `tiktoken` (`cl100k_base` / `o200k_base`) measurements prove that swapping 1-token words like `water` or `and` into `💧` or `∧` inflates count to `2` tokens via UTF-8 byte splitting. `BT-Spec v1.0` enforces the **Net BPE Savings Inequality ($\Delta L_{\text{BPE}} < 0$)**: true 3x–4x compression comes from **clause-level syntactic collapse** paired with single-token ASCII operators (`->`, `=>`, `&`, `?`, `!`, `@`) and tokenizer-aware omnilingual selection.
+</details>
+
+<details>
+<summary><b>Q4: How do humans audit safety and prevent numeric hallucinations if inter-agent text is unreadable?</b></summary>
+
+`BT-Spec v1.0` mandates a **Three-Tier Audit Gateway**: **Tier-1** runs `<2ms` deterministic regex checks verifying bit-exact preservation of all numbers, units, formulas, and identifiers; **Tier-2** deploys lightweight semantic guardrail LLMs that inspect BabelTele payloads zero-shot for prompt injection; **Tier-3** provides an on-demand lossless Sidecar Decoder (`BT-Decoder`) in human observability dashboards.
+</details>
+
+---
+
+## 🤖 Machine-Readable Endpoints for AI Agents & Crawlers
+
+* **[`llms.txt`](https://minglink.github.io/BabelTele-Whitepaper/llms.txt)** — Structured AI navigation index (`llmstxt.org` standard)
+* **[`llms-full.txt`](https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt)** — Single-file complete bilingual specification & prompt corpus for RAG ingestion
+* **[`llms-bt.txt`](https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt)** — Self-bootstrapped `BT-L2` native BabelTele digest of this entire whitepaper
+* **[`sitemap.xml`](https://minglink.github.io/BabelTele-Whitepaper/sitemap.xml)** · **[`CITATION.cff`](./CITATION.cff)** — Pre-rendered static HTML sitemap & academic citation metadata
+
+---
+
 ## 📜 Attribution & Citation
 
 ```bibtex
@@ -106,5 +143,5 @@ Directly output the compressed text without any preface. Compress the content be
 ---
 
 <div align="center">
-<sub>Crafted & Systematized by <a href="https://github.com/Minglink"><b>MingLin (@Minglink)</b></a> · Licensed under <a href="./LICENSE">CC BY 4.0 & MIT</a></sub>
+<sub>Crafted & Systematized by <a href="https://github.com/Minglink"><b>MingLin (@Minglink)</b></a> · Licensed under <a href="https://github.com/Minglink/BabelTele-Whitepaper/blob/main/LICENSE">CC BY 4.0 & MIT</a></sub>
 </div>

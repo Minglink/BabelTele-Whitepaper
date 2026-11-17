@@ -1,0 +1,56 @@
+cff-version: 1.2.0
+title: "BabelTele Whitepaper: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书"
+message: "If you use or reference this specification, whitepaper, or compiler instruction set, please cite both this work and the foundational empirical paper (arXiv:2606.19857)."
+type: software
+authors:
+  - alias: "Minglink"
+    name: "MingLin"
+    website: "https://github.com/Minglink"
+version: "1.0.0"
+date-released: "2026-11-17"
+url: "https://minglink.github.io/BabelTele-Whitepaper/"
+repository-code: "https://github.com/Minglink/BabelTele-Whitepaper"
+license: CC-BY-4.0
+keywords:
+  - BabelTele
+  - 巴别语
+  - 巴别塔电报
+  - 巴别电报
+  - BT-Spec
+  - LLM-Native Language
+  - Model-Native Representation
+  - Prompt Compression
+  - Context Compression
+  - Multi-Agent Communication
+  - Agent Memory
+  - Model Context Protocol
+  - MCP
+  - Agent-to-Agent Protocol
+  - A2A
+  - Semantic Merkle Folding Tree
+abstract: >-
+  Formal architectural whitepaper and protocol specification (BT-Spec v1.0) for BabelTele (巴别语 / 巴别塔电报),
+  a model-native high-density semantic communication and memory system for Large Language Models.
+  Synthesizes foundational empirical findings (arXiv:2606.19857) into three core axioms, six tokenizer-grounded
+  operator clusters, four standardized compression tiers (BT-L0 to BT-L3), MCP/A2A five-layer protocol integration,
+  Semantic Merkle Folding Trees (SMFT), and a Three-Tier Deterministic Safety Audit Gateway.
+references:
+  - type: article
+    title: "Large Language Models Do Not Always Need Readable Language"
+    authors:
+      - family-names: Zhu
+        given-names: Jiayi
+      - family-names: Peng
+        given-names: Haoxuan
+      - family-names: Wang
+        given-names: Junxi
+      - family-names: Ke
+        given-names: Liang
+      - family-names: Zhang
+        given-names: Chen
+      - family-names: Zhang
+        given-names: Linfeng
+    year: 2026
+    journal: "arXiv preprint arXiv:2606.19857"
+    doi: "10.48550/arXiv.2606.19857"
+    url: "https://arxiv.org/abs/2606.19857"

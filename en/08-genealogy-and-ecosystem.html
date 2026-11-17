@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 08: Context Compression Taxonomy, Empirical Errata &amp; Global Open-Source Ecosystem — BabelTele Whitepaper</title>
+  <meta name="description" content="Comparing LLMLingua-2, Gist Tokens, Interlat, GibberLink, and BabelTele; primary-source errata on photosynthesis OCR; 6 GitHub tools; 3 Hugging Face datasets; and 7-step eval protocol." />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/en/08-genealogy-and-ecosystem.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/08-genealogy-and-ecosystem.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="Chapter 08: Context Compression Taxonomy, Empirical Errata &amp; Global Open-Source Ecosystem — BabelTele Whitepaper" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/en/08-genealogy-and-ecosystem.html" />
+  <meta name="citation_language" content="en" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="Chapter 08: Context Compression Taxonomy, Empirical Errata &amp; Global Open-Source Ecosystem — BabelTele Whitepaper" />
+  <meta property="og:description" content="Comparing LLMLingua-2, Gist Tokens, Interlat, GibberLink, and BabelTele; primary-source errata on photosynthesis OCR; 6 GitHub tools; 3 Hugging Face datasets; and 7-step eval protocol." />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/en/08-genealogy-and-ecosystem.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Chapter 08: Context Compression Taxonomy, Empirical Errata &amp; Global Open-Source Ecosystem — BabelTele Whitepaper" />
+  <meta name="twitter:description" content="Comparing LLMLingua-2, Gist Tokens, Interlat, GibberLink, and BabelTele; primary-source errata on photosynthesis OCR; 6 GitHub tools; 3 Hugging Face datasets; and 7-step eval protocol." />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/en/08-genealogy-and-ecosystem.html#article",
+      "headline": "Chapter 08: Context Compression Taxonomy, Empirical Errata & Global Open-Source Ecosystem — BabelTele Whitepaper",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "Comparing LLMLingua-2, Gist Tokens, Interlat, GibberLink, and BabelTele; primary-source errata on photosynthesis OCR; 6 GitHub tools; 3 Hugging Face datasets; and 7-step eval protocol.",
+      "inLanguage": "en",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/en/08-genealogy-and-ecosystem.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/en/08-genealogy-and-ecosystem.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="Search chapters..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../docs/08-genealogy-and-ecosystem.html" title="Switch Language">🇨🇳 简体中文</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" target="_blank" rel="noopener">📥 English PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">Overview & Canonical Treatise</div>
+      <a class="nav-link" href="index.html">🏠 Whitepaper Portal</a>
+      <a class="nav-link" href="whitepaper.html">📜 Complete Single-File Whitepaper</a>
+      <div class="nav-group-title">BT-Spec v1.0 Modular Specification</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · Manifesto & Readability Tax</a>
+      <a class="nav-link" href="02-theoretical-foundations.html">02 · Information Theory & Decoupling</a>
+      <a class="nav-link" href="03-core-axioms-and-grammar.html">03 · Core Axioms & Grammar Spec</a>
+      <a class="nav-link" href="04-compression-tiers-and-cot.html">04 · Compression Tiers & CoT Dynamics</a>
+      <a class="nav-link" href="05-agentic-protocol-stack.html">05 · Agentic Stack & Merkle Memory</a>
+      <a class="nav-link" href="06-cross-model-consensus-and-audit.html">06 · Cross-Model & Audit Gateway</a>
+      <a class="nav-link" href="07-canonical-instruction-set.html">07 · Canonical Compiler Prompts</a>
+      <a class="nav-link active" href="08-genealogy-and-ecosystem.html">08 · Genealogy, Errata & Ecosystem</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">Chapter 08 — Academic Genealogy, Empirical Errata &amp; Open-Source Ecosystem</h1>
+<blockquote><p><a href="07-canonical-instruction-set.html">← Chapter 07: Canonical Instruction Set</a> · <a href="index.html">Back to Portal (README_EN)</a> · <a href="whitepaper.html">Read Single-File Whitepaper (WHITEPAPER_EN)</a></p></blockquote>
+<hr />
+<h2 id="sec-0">8.1 Comparative Taxonomy of Context Compression &amp; M2M Paradigms</h2>
+<div class="table-wrap"><table><thead><tr><th>Dimension</th><th>Extractive / Abstractive Prose<br><em>(Selective Context, LLMLingua-2, RECOMP)</em></th><th>Continuous Latent Vectors<br><em>(Gist Tokens, AutoCompressors, Activation Beacon, Interlat)</em></th><th>Constrained Telegraphese / Fixed Metalanguages<br><em>(1866 Telegraphese, Caveman, MetaGlyph)</em></th><th><strong>The BabelTele System</strong><br><em>(BT-Spec v1.0 / arXiv:2606.19857)</em></th></tr></thead><tbody><tr><td><strong>Physical Carrier</strong></td><td>Discrete natural-language prose</td><td>Continuous hidden-state tensors / KV-cache soft vectors</td><td>Monolingual abridged text or hand-crafted symbol tables</td><td><strong>Discrete omnilingual &amp; formal-logic symbolic graphs</strong></td></tr><tr><td><strong>Human Legibility</strong></td><td>High – Medium</td><td>Zero (opaque float arrays)</td><td>Medium (human-skimmable)</td><td><strong>Low (opaque by default; lossless on-demand decoding)</strong></td></tr><tr><td><strong>Black-Box API Support</strong></td><td>✅ Native</td><td>❌ <strong>No</strong> (requires weight access &amp; custom architectures)</td><td>✅ Native</td><td><strong>✅ Native (zero-shot prompt compilation, no fine-tuning)</strong></td></tr><tr><td><strong>Cross-Family Portability</strong></td><td>✅ Supported</td><td>❌ <strong>Incompatible</strong> across heterogeneous hidden dimensions</td><td>✅ Supported</td><td><strong>✅ Zero-shot cross-family comprehension</strong></td></tr><tr><td><strong>Deep Compression Fidelity</strong><br><em>(&lt;30% Retention)</em></td><td>Low (token deletion breaks negation/syntax; summaries drop facts)</td><td>High (within homogeneous fine-tuned model)</td><td>Moderate (bounded by single-language word length)</td><td><strong>Very High (up to 99.5% QA fidelity at 27.9% length)</strong></td></tr><tr><td><strong>Deterministic Auditability</strong></td><td>Naked-eye reading</td><td>Unauditable black-box vectors</td><td>Naked-eye reading</td><td><strong>3-Tier mechanical anchor check + Sidecar Decoder</strong></td></tr></tbody></table></div>
+<hr />
+<h2 id="sec-1">8.2 Official Errata on Viral Misconceptions</h2>
+<h3 id="sec-2">Erratum 1: The Photosynthesis Micro-Example &amp; Subword Token Counting</h3>
+<ul><li><strong>Viral Corrupted String</strong>: <code>光合: CO2+H2O::(ox/red)&lt;&gt;O2!+Glucose.💧-e-,CO2+e-</code> (secondary blogs misread poor screenshot OCR, falsely claiming <code>&lt;&gt;</code> meant "reversible" and <code>!</code> meant "emphasis").</li><li><strong>Verified Primary Figure (<code>arXiv:2606.19857</code> §3.2)</strong>: ```text 🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻. ```</li><li><strong>Verification Notes</strong>:<ul><li>The original figure begins with <code>🌿</code> (<em>plants</em>), uses unidirectional hollow arrows <code>⇨ ... ⇨</code> (forward transformation), and standard chemistry gas-evolution notation <code>O2↑</code>.</li><li>While the paper's schematic figure labels the compression as <code>45 tokens -&gt; 11 tokens</code> (reflecting whitespace-delimited visual chunks), strict BPE subword tokenization (<code>tiktoken</code> <code>cl100k_base</code> / <code>o200k_base</code>) encodes the viral string into <code>33</code> / <code>32</code> tokens due to multi-byte punctuation/emoji splits. Under <code>BT-Spec v1.0</code> ASCII rules (<code>Photosynthesis(plants): CO2+H2O -&gt;(ox/red)-&gt; O2^ + Glucose; H2O -e-, CO2 +e-.</code>), true BPE count drops cleanly to <code>19</code> tokens.</li></ul></li></ul>
+<h3 id="sec-3">Erratum 2: Complete Five-University Authorship &amp; Fidelity Definition</h3>
+<ul><li><em>Large Language Models Do Not Always Need Readable Language</em> (<code>arXiv:2606.19857</code>) was authored jointly across <strong>five institutions</strong>: <strong>Shanghai Jiao Tong University</strong> (Jiayi Zhu, Linfeng Zhang), <strong>The University of Sydney</strong> (Haoxuan Peng), <strong>Hefei University of Technology</strong> (Junxi Wang), <strong>Xi'an Jiaotong University</strong> (Liang Ke), and <strong>Nanjing University</strong> (Chen Zhang).</li><li>The headline metric (<code>99.5%</code> semantic fidelity at <code>27.9%</code> length) measures normalized downstream QA accuracy retention relative to uncompressed inputs—not verbatim character-for-character reconstruction of original prose style.</li></ul>
+<h3 id="sec-4">Erratum 3: BabelTele vs. GibberLink &amp; The RL Roadmap</h3>
+<ul><li><strong>Distinction from GibberLink</strong>: Unlike <a href="https://github.com/PennyroyalTea/gibberlink" target="_blank" rel="noopener">PennyroyalTea/gibberlink</a>—where voice agents switch from spoken English to <code>ggwave</code> audio-modem frequencies—BabelTele operates purely within discrete text tokens by relaxing human readability priors.</li><li><strong>End-to-End RL Trajectory</strong>: As first author Jiayi Zhu noted in his June 2026 <em>Shangguan News</em> interview, current BabelTele relies on prompt-elicited generation; the next research frontier trains <strong>native RL compressors</strong> optimizing joint BPE length and cross-model QA recovery directly.</li></ul>
+<hr />
+<h2 id="sec-5">8.3 Global Open-Source Ecosystem &amp; Public Datasets</h2>
+<h3 id="sec-6">A. Open-Source Libraries &amp; Tooling</h3>
+<ol><li><strong><a href="https://github.com/1cyberlangke1/BabelTeleSkill" target="_blank" rel="noopener">1cyberlangke1/BabelTeleSkill</a></strong> — Modular Agent Skill packaging all 14 canonical prompt probes (<code>C.1</code>, <code>BT-P1</code>–<code>BT-P13</code>) across four engineering scenarios (MIT).</li><li><strong><a href="https://github.com/1cyberlangke1/compressed-context" target="_blank" rel="noopener">1cyberlangke1/compressed-context</a></strong> — OpenCode context-compression plugin (npm) implementing <code>T1 -&gt; T2 -&gt; T3</code> hierarchical memory folding with lossless rollback.</li><li><strong><a href="https://github.com/AliFlux/langchain-babeltele" target="_blank" rel="noopener">AliFlux/langchain-babeltele</a></strong> — Python/PyPI package (<code>pip install langchain-babeltele</code>) providing LangChain document compressors, history middleware, fidelity checks, and fallbacks.</li><li><strong><a href="https://github.com/lukaszgryglicki/babeltele" target="_blank" rel="noopener">lukaszgryglicki/babeltele</a></strong> — Offline, token-aware Rust UNIX filter supporting 19 languages, JSON, code, CSV, and logs with dual <code>-O tokens</code> vs. <code>-O chars</code> optimization targets.</li><li><strong><a href="https://github.com/mikenrafter/babeltele" target="_blank" rel="noopener">mikenrafter/babeltele</a></strong> — CLI &amp; NixOS module delivering automated compaction hooks for <strong>Claude Code</strong> (<code>PreCompact</code>), <strong>Codex</strong> (<code>SessionStart</code> compact), and <strong>Cursor</strong> (<code>preCompact</code>).</li><li><strong><a href="https://github.com/m-rui001/babeltele" target="_blank" rel="noopener">m-rui001/babeltele</a></strong> — 95 multi-source primary specification entries reconciled in BabelTele with a zero-dependency 3-tier mechanical audit suite (<code>audit.py</code>).</li></ol>
+<h3 id="sec-7">B. Hugging Face Empirical Datasets</h3>
+<ol><li><strong><a href="https://huggingface.co/datasets/m-rui/babeltele-squad-encodings" target="_blank" rel="noopener">m-rui/babeltele-squad-encodings</a></strong> — SQuAD passages encoded in BabelTele (<code>30.56%</code> char retention; <code>90.38%</code> fidelity on unmemorized context-dependent QA).</li><li><strong><a href="https://huggingface.co/datasets/m-rui/babeltele-chinese-encodings" target="_blank" rel="noopener">m-rui/babeltele-chinese-encodings</a></strong> — 240 Chinese passages paired with 942 factual probes and iterative verification logs (<code>33.0%</code> char retention).</li><li><strong><a href="https://huggingface.co/datasets/m-rui/babeltele-coig-cqia-compressed" target="_blank" rel="noopener">m-rui/babeltele-coig-cqia-compressed</a></strong> — Compressed Chinese QA records (<code>32.1%</code> char / <code>29.2%</code> token retention).</li></ol>
+<hr />
+<h2 id="sec-8">8.4 Seven-Step Production Evaluation Protocol</h2>
+<p>Before deploying BabelTele in production pipelines, teams should execute this seven-step benchmark protocol:</p>
+<ol><li><strong>Lock Versions &amp; Tokenizers</strong>: Pin exact upstream compiler version, downstream reader version, target BPE tokenizer, and temperature.</li><li><strong>Use Unmemorized Corpus</strong>: Test on private or post-cutoff documents containing names, exact numbers, negations, and nested exceptions; run a no-context baseline to rule out parametric memorization.</li><li><strong>Match Token Budgets</strong>: Compare uncompressed prose, standard summaries, structured bullet lists, LLMLingua-2, and BabelTele at identical real BPE budgets.</li><li><strong>Enforce Task-Agnostic Compilation</strong>: Never expose downstream test questions to the compressor; evaluate factual QA, relational reasoning, and honest abstention (<code>?</code> / <code>NULL</code>).</li><li><strong>Full-Lifecycle Cost Accounting</strong>: Log characters, true BPE input tokens, compiler input/output cost, reader CoT tokens, wall-clock latency, and total API spend.</li><li><strong>Multi-Hop Drift Testing</strong>: Measure cumulative semantic drift across multi-agent relays and <code>T1 -&gt; T2 -&gt; T3</code> memory merges.</li><li><strong>Archive Audit Trails</strong>: Retain cold-storage originals and Tier-1 literal anchor logs; fluent decoding prose alone is never proof of factual accuracy.</li></ol>
+<div class="pager"><div><a class="pager-card" href="07-canonical-instruction-set.html"><div class="pager-label">← Previous</div><div class="pager-title">07 · Canonical Compiler Prompts</div></a></div><div></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">On This Page</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">8.1 Comparative Taxonomy of Context Compression &amp;amp; M2M Paradigms</a>
+        <a class="toc-item toc-h2" href="#sec-1">8.2 Official Errata on Viral Misconceptions</a>
+        <a class="toc-item toc-h3" href="#sec-2">Erratum 1: The Photosynthesis Micro-Example &amp;amp; Subword Token Counting</a>
+        <a class="toc-item toc-h3" href="#sec-3">Erratum 2: Complete Five-University Authorship &amp;amp; Fidelity Definition</a>
+        <a class="toc-item toc-h3" href="#sec-4">Erratum 3: BabelTele vs. GibberLink &amp;amp; The RL Roadmap</a>
+        <a class="toc-item toc-h2" href="#sec-5">8.3 Global Open-Source Ecosystem &amp;amp; Public Datasets</a>
+        <a class="toc-item toc-h3" href="#sec-6">A. Open-Source Libraries &amp;amp; Tooling</a>
+        <a class="toc-item toc-h3" href="#sec-7">B. Hugging Face Empirical Datasets</a>
+        <a class="toc-item toc-h2" href="#sec-8">8.4 Seven-Step Production Evaluation Protocol</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "en";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

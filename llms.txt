@@ -1,0 +1,47 @@
+# BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)
+
+> **BabelTele** (Chinese: **巴别语** / **巴别塔电报** / **巴别电报**) is a model-native, high-density discrete semantic communication and memory protocol system (`BT-Spec v1.0`) for Large Language Models (LLMs) and Multi-Agent Networks. Systematized by **MingLin (`@Minglink`)**, building upon the foundational empirical discovery *Large Language Models Do Not Always Need Readable Language* (`arXiv:2606.19857` by Jiayi Zhu, Haoxuan Peng, Junxi Wang, Liang Ke, Chen Zhang, and Linfeng Zhang, June 2026).
+
+- **Canonical Online Reader**: https://minglink.github.io/BabelTele-Whitepaper/
+- **GitHub Repository**: https://github.com/Minglink/BabelTele-Whitepaper
+- **Complete Bilingual Corpus (Single File)**: https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt
+- **Self-Bootstrapped Native BabelTele Digest**: https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt
+- **Typeset PDF (Chinese v1.0)**: https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf
+- **Typeset PDF (English v1.0)**: https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf
+
+## Key Facts & Verified Empirical Metrics
+
+- **Core Principle (Tripartite Decoupling)**: Decouples (1) Human Surface Readability (Dale-Chall `16.70`), (2) Natural-Language Distributional Typicality (`+1,320%` to `+2,061%` base-model PPL surge across Llama-3, Qwen, DeepSeek-V4-Pro, Kimi K2.6, GLM-5.1), and (3) Model-Side Semantic Recoverability (up to **`99.5%`** downstream QA fidelity at **`27.9%`** original length).
+- **Three Fundamental Axioms (`BT-Spec v1.0`)**:
+  1. *Omnilingual Token Minimization* governed by the **Net BPE Savings Inequality ($\Delta L_{\text{BPE}} < 0$)** (preventing naive multi-byte Emoji/Unicode splits like `water` [1 tok] -> `💧` [2 tok] in `cl100k_base` / `o200k_base`, focusing instead on clause-level syntactic collapse and 1-token ASCII operators `->`, `=>`, `&`, `|`, `!`, `?`, `@`, `#`).
+  2. *Relational Graph Collapse* into six standardized operator clusters.
+  3. *Zero-Codebook Self-Recoverability* with strict verbatim Hard-Data Invariance for numbers, units, formulas, and `BIBREF` placeholders.
+- **Four Standardized Compression Tiers**: `BT-L0` (55%–70% retention), `BT-L1` (40%–55% retention, triggers `<1.0x` CoT denoising acceleration), `BT-L2` (25%–40% retention, recommended sweet spot), and `BT-L3` / `BT-L3-ASCII` (5%–25% retention for breaking context window limits).
+- **Agentic Protocol Stack & Memory**: Supplies Layer 4 (`content_encoding: "babeltele/1.0"`) atop **MCP** (L2 vertical tool bus) and **A2A** (L3 horizontal agent routing), saving **`44.21%`** tokens at **`99.7%`** score in heterogeneous multi-agent tasks (Gemini 3.1 Pro <-> GPT-5.4) and boosting `1.65M-token` Code Repo QA accuracy by **`+10.34%`** on GLM-5.1 (`62.07% -> 72.41%`). Introduces **Semantic Merkle Folding Trees (SMFT)** (`Raw -> T1 -> T2/T3` + lossless cold-storage pointers) and a **Three-Tier Deterministic Safety Audit Gateway**.
+
+## Canonical Whitepapers
+
+- [Chinese Canonical Whitepaper (单文件完整典藏版)](https://minglink.github.io/BabelTele-Whitepaper/whitepaper.html): Complete 10-section architectural treatise in Simplified Chinese ([Markdown source](https://raw.githubusercontent.com/Minglink/BabelTele-Whitepaper/main/WHITEPAPER.md)).
+- [English Canonical Whitepaper](https://minglink.github.io/BabelTele-Whitepaper/en/whitepaper.html): Complete 10-section architectural treatise in English ([Markdown source](https://raw.githubusercontent.com/Minglink/BabelTele-Whitepaper/main/WHITEPAPER_EN.md)).
+
+## BT-Spec v1.0 Modular Specification (English)
+
+- [Chapter 01 — The Anthropocentric Readability Tax & The Babel Metaphor](https://minglink.github.io/BabelTele-Whitepaper/en/01-manifesto-and-problem.html): Biological prose padding, MCP/A2A channel limits, and historical telegraphese.
+- [Chapter 02 — Information-Theoretical Foundations & Decoupling](https://minglink.github.io/BabelTele-Whitepaper/en/02-theoretical-foundations.html): Rate-distortion formulation, Dale-Chall & 8-model PPL diagnostics, latent isomorphism.
+- [Chapter 03 — Core Axioms & Canonical Grammar Specification](https://minglink.github.io/BabelTele-Whitepaper/en/03-core-axioms-and-grammar.html): `tiktoken` BPE paradox table, six operator clusters, photosynthesis & X.509 RFC walkthroughs.
+- [Chapter 04 — Compression Tiers & Chain-of-Thought Dynamics](https://minglink.github.io/BabelTele-Whitepaper/en/04-compression-tiers-and-cot.html): 116-run CoT space-time trade-off, lifecycle cost amortization equation, `BT-L0`–`BT-L3` tiers.
+- [Chapter 05 — Agentic Protocol Stack & Semantic Merkle Memory Tree](https://minglink.github.io/BabelTele-Whitepaper/en/05-agentic-protocol-stack.html): JSON-RPC `babeltele/1.0` envelope header, SMFT `T1/T2/T3` memory folding, 1.65M code repo results.
+- [Chapter 06 — Cross-Model Consensus & Three-Tier Safety Audit Gateway](https://minglink.github.io/BabelTele-Whitepaper/en/06-cross-model-consensus-and-audit.html): 19-model portability laws, dense vs. MoE scaling, Tier 1–3 deterministic anchor & guardrail verification.
+- [Chapter 07 — Canonical Compiler & Decoder Instruction Set](https://minglink.github.io/BabelTele-Whitepaper/en/07-canonical-instruction-set.html): Production system prompts (`BT-Core`, `BT-Memory`, `BT-Skeleton`, `BT-Zero`, `BT-Decoder`) and `BT-P1`–`BT-P13` index.
+- [Chapter 08 — Academic Genealogy, Empirical Errata & Ecosystem](https://minglink.github.io/BabelTele-Whitepaper/en/08-genealogy-and-ecosystem.html): Paradigm comparison, photosynthesis OCR & GibberLink errata, 6 GitHub projects, 3 Hugging Face datasets, 7-step evaluation protocol.
+
+## BT-Spec v1.0 深度规范分册（简体中文）
+
+- [第 01 章：人类可读性税与巴别塔隐喻](https://minglink.github.io/BabelTele-Whitepaper/docs/01-manifesto-and-problem.html)
+- [第 02 章：信息论基础与解耦定理](https://minglink.github.io/BabelTele-Whitepaper/docs/02-theoretical-foundations.html)
+- [第 03 章：巴别语三大公理与标准语法算子规范](https://minglink.github.io/BabelTele-Whitepaper/docs/03-core-axioms-and-grammar.html)
+- [第 04 章：四级压缩档位与推理认知税动力学](https://minglink.github.io/BabelTele-Whitepaper/docs/04-compression-tiers-and-cot.html)
+- [第 05 章：智能体通信协议栈与语义默克尔记忆树](https://minglink.github.io/BabelTele-Whitepaper/docs/05-agentic-protocol-stack.html)
+- [第 06 章：异构跨模型共识与三层安全审计网关](https://minglink.github.io/BabelTele-Whitepaper/docs/06-cross-model-consensus-and-audit.html)
+- [第 07 章：巴别语标准编译与解码指令集](https://minglink.github.io/BabelTele-Whitepaper/docs/07-canonical-instruction-set.html)
+- [第 08 章：学术谱系、实证勘误与开源生态全景](https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html)

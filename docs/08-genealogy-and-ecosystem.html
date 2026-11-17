@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第八章：上下文压缩学术谱系对比、光合作用 OCR 勘误与全球开源生态全景 — 巴别语白皮书</title>
+  <meta name="description" content="横向对比 LLMLingua-2、Gist Tokens、Interlat、GibberLink 与巴别语，勘误网传光合作用符号 OCR 谬误，收录 6 大 GitHub 开源项目、3 份 Hugging Face 数据集与七步严谨评测规程。" />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/08-genealogy-and-ecosystem.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="第八章：上下文压缩学术谱系对比、光合作用 OCR 勘误与全球开源生态全景 — 巴别语白皮书" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html" />
+  <meta name="citation_language" content="zh-CN" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="第八章：上下文压缩学术谱系对比、光合作用 OCR 勘误与全球开源生态全景 — 巴别语白皮书" />
+  <meta property="og:description" content="横向对比 LLMLingua-2、Gist Tokens、Interlat、GibberLink 与巴别语，勘误网传光合作用符号 OCR 谬误，收录 6 大 GitHub 开源项目、3 份 Hugging Face 数据集与七步严谨评测规程。" />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="第八章：上下文压缩学术谱系对比、光合作用 OCR 勘误与全球开源生态全景 — 巴别语白皮书" />
+  <meta name="twitter:description" content="横向对比 LLMLingua-2、Gist Tokens、Interlat、GibberLink 与巴别语，勘误网传光合作用符号 OCR 谬误，收录 6 大 GitHub 开源项目、3 份 Hugging Face 数据集与七步严谨评测规程。" />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html#article",
+      "headline": "第八章：上下文压缩学术谱系对比、光合作用 OCR 勘误与全球开源生态全景 — 巴别语白皮书",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "横向对比 LLMLingua-2、Gist Tokens、Interlat、GibberLink 与巴别语，勘误网传光合作用符号 OCR 谬误，收录 6 大 GitHub 开源项目、3 份 Hugging Face 数据集与七步严谨评测规程。",
+      "inLanguage": "zh-CN",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="../index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="搜索全书章节..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../en/08-genealogy-and-ecosystem.html" title="Switch Language">🇬🇧 English</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" target="_blank" rel="noopener">📥 中文 PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">总览与单卷典藏本</div>
+      <a class="nav-link" href="../index.html">🏠 白皮书门户导览</a>
+      <a class="nav-link" href="../whitepaper.html">📜 单文件完整典藏白皮书</a>
+      <div class="nav-group-title">BT-Spec v1.0 深度规范分册</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · 人类可读性税与巴别塔隐喻</a>
+      <a class="nav-link" href="02-theoretical-foundations.html">02 · 信息论基础与解耦定理</a>
+      <a class="nav-link" href="03-core-axioms-and-grammar.html">03 · 三大公理与标准语法算子</a>
+      <a class="nav-link" href="04-compression-tiers-and-cot.html">04 · 四级压缩档位与认知税动力学</a>
+      <a class="nav-link" href="05-agentic-protocol-stack.html">05 · 智能体协议栈与默克尔记忆树</a>
+      <a class="nav-link" href="06-cross-model-consensus-and-audit.html">06 · 跨模型共识与三层安全审计</a>
+      <a class="nav-link" href="07-canonical-instruction-set.html">07 · 标准编译与解码指令集</a>
+      <a class="nav-link active" href="08-genealogy-and-ecosystem.html">08 · 学术谱系、勘误与开源生态</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">第八章：学术谱系、实证勘误与开源生态全景</h1>
+<p><strong>Chapter 08 — Academic Genealogy, Empirical Errata &amp; Open-Source Ecosystem</strong></p>
+<blockquote><p><a href="07-canonical-instruction-set.html">← 第七章：巴别语标准编译与解码指令集</a> · <a href="../index.html">返回门户首页 (README)</a> · <a href="../whitepaper.html">阅读单文件完整版白皮书 (WHITEPAPER)</a></p></blockquote>
+<hr />
+<h2 id="sec-0">8.1 上下文压缩与机器通信四大技术路线对比</h2>
+<p>为了清晰界定巴别语（BabelTele）在整个人工智能技术版图中的坐标，我们将其与另外三大主流研究范式进行全维度对比：</p>
+<div class="table-wrap"><table><thead><tr><th>评估维度</th><th>抽取/摘要式自然语言压缩<br><em>(Selective Context, LLMLingua-2, RECOMP)</em></th><th>潜空间/连续激活值通信<br><em>(Gist Tokens, AutoCompressors, Activation Beacon, Latent Collab)</em></th><th>人工受限电报体 / 固定元语言<br><em>(1866 Telegraphese, Caveman, MetaGlyph)</em></th><th><strong>巴别语体系（BabelTele System）</strong><br><em>(BT-Spec v1.0 / arXiv:2606.19857)</em></th></tr></thead><tbody><tr><td><strong>物理载体形态</strong></td><td>离散人类自然语言文本</td><td>连续隐藏层浮点数张量 / KV Cache 软向量</td><td>单语种精简短语或人工硬编码符号表</td><td><strong>离散全语种 + 形式逻辑高密度符号图谱</strong></td></tr><tr><td><strong>人类直读可读性</strong></td><td>高 ～ 中</td><td>完全不可读（二进制浮点数组）</td><td>中（人类稍加辨认即可读）</td><td><strong>低（对人类形同加密电报，按需经旁路解码）</strong></td></tr><tr><td><strong>纯黑盒 API 兼容</strong></td><td>✅ 原生支持</td><td>❌ <strong>不支持</strong>（需改模型架构、开放权重与内部状态）</td><td>✅ 原生支持</td><td><strong>✅ 原生支持（纯提示词编译，零微调）</strong></td></tr><tr><td><strong>异构跨模型互通</strong></td><td>✅ 支持</td><td>❌ <strong>极难</strong>（GPT、Claude、DeepSeek、Qwen 隐藏层维度与流形互不兼容）</td><td>✅ 支持</td><td><strong>✅ 支持零样本跨家族高保真互通</strong></td></tr><tr><td><strong>深水区压缩保真度</strong><br><em>(&lt;30% 保留率)</em></td><td>低（删词导致语法崩坏或摘要丢失关键细节）</td><td>高（限于同构微调模型内部）</td><td>中（受限于单语种词长上限）</td><td><strong>极高（最高在 27.9% 体积下维持 99.5% 保真）</strong></td></tr><tr><td><strong>可审计与可验证性</strong></td><td>肉眼直读</td><td>极难审计（黑盒张量不可逆）</td><td>肉眼直读</td><td><strong>支持三层确定性机检 + 旁路无损还原审计</strong></td></tr></tbody></table></div>
+<hr />
+<h2 id="sec-1">8.2 社区传播常见误区与一手文献勘误档案（Official Errata）</h2>
+<p>在“巴别语”概念破圈传播的过程中，部分技术自媒体因二手转述与截图 OCR 识别失误引入了若干偏差。本白皮书特立此勘误档案，以正视听：</p>
+<h3 id="sec-2">勘误一：光合作用经典微观示例的符号还原与分词计数边界</h3>
+<ul><li><strong>网传错误版本</strong>：<code>光合: CO2+H2O::(ox/red)&lt;&gt;O2!+Glucose.💧-e-,CO2+e-</code>（部分文章据此误读 <code>&lt;&gt;</code> 为“方向可逆”、<code>!</code> 为“强调语气”）。</li><li><strong>论文 Section 3.2 原图（<code>babeltele_micro_example</code>）真实文本</strong>： ```text 🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻. ```</li><li><strong>核查说明</strong>：<ul><li>原图开头包含代表植物（<em>plants</em>）的 <code>🌿</code>，反应推导符为单向空心右箭头 <code>⇨ ... ⇨</code>（并非可逆反应），<code>O2</code> 之后是气体逸出箭头 <code>↑</code> 而非感叹号 <code>!</code>；</li><li>原图示意标注的“45 tokens → 11 tokens”接近按空白分隔的视觉语义块计数；若使用 <code>tiktoken</code>（<code>cl100k_base</code> / <code>o200k_base</code>）对网传字符串做严格子词级（Subword BPE）编码，实际为 <code>33</code> / <code>32</code> tokens。若要实现严格 BPE 意义下的极致压缩，应采用 <code>BT-Spec v1.0</code> 推荐的纯 ASCII 算子版：<code>Photosynthesis: CO2+H2O -&gt; O2 + Glucose (H2O -e-, CO2 +e-)</code>。</li></ul></li></ul>
+<h3 id="sec-3">勘误二：联合研究机构完整名录与语义保真口径</h3>
+<ul><li>原创实证论文 <em>Large Language Models Do Not Always Need Readable Language</em>（<code>arXiv:2606.19857</code>）完整联合署名机构为 <strong>五所高校</strong>：<strong>上海交通大学</strong>（第一作者朱家毅、通讯作者张林峰）、<strong>悉尼大学</strong>（彭浩轩）、<strong>合肥工业大学</strong>（王俊熙）、<strong>西安交通大学</strong>（梁珂）与<strong>南京大学</strong>（张辰）。</li><li>论文报告的“长度保留 <code>27.9%</code> 时维持 <code>99.5%</code> 语义保真”，是以<strong>下游任务问答准确率相对未压缩基线的保留比例</strong>作为代理指标（Proxy Metric），并不等同于任意细节均可逐字逆向还原原文。</li></ul>
+<h3 id="sec-4">勘误三：“自发暗语”、GibberLink 声波协议与强化学习演进方向</h3>
+<ul><li><strong>与 GibberLink 的本质区别</strong>：社区常将巴别语与 <strong>GibberLink</strong>（<a href="https://github.com/PennyroyalTea/gibberlink" target="_blank" rel="noopener">PennyroyalTea/gibberlink</a>）混为一谈。GibberLink 是两个语音智能体识别对方为 AI 后切换至 <code>ggwave</code> 音频调制解调协议传输结构化数据（物理声道切换）；而 BabelTele 是在离散文本空间内通过放宽人类可读性先验诱发的高密度多语种符号编码。</li><li><strong>未来演进（RL 原生涌现）</strong>：正如第一作者朱家毅在接受《上观新闻》专访时指出，当前阶段巴别语主要经由提示词引导（Prompt-Elicited）生成；下一代核心演进方向是通过<strong>端到端强化学习（Reinforcement Learning）</strong>，直接以“输入输出总 Token 开销最小化 + 下游阅读保真度最大化”作为奖励函数，训练具备原生巴别语编译能力的模型。</li></ul>
+<hr />
+<h2 id="sec-5">8.3 全球开源工具链与公开评测语料索引（Open-Source Ecosystem &amp; Datasets）</h2>
+<p>围绕巴别语范式，全球开发者与评测社区已构建起涵盖<strong>技能包、框架中间件、Rust 底层管道、IDE 压缩钩子、机检知识库与公开基准数据集</strong>的生态矩阵：</p>
+<h3 id="sec-6">A. 开源软件与工程组件</h3>
+<ol><li><strong><a href="https://github.com/1cyberlangke1/BabelTeleSkill" target="_blank" rel="noopener">1cyberlangke1/BabelTeleSkill</a></strong> 按通用长文、代码骨架、长期记忆检查清单与零开销键值四大业务场景模块化封装全套 <code>C.1</code> 与 <code>BT-P1</code>～<code>BT-P13</code> 提示词规范（MIT License）。</li><li><strong><a href="https://github.com/1cyberlangke1/compressed-context" target="_blank" rel="noopener">1cyberlangke1/compressed-context</a></strong> 面向 OpenCode 生态的上下文压缩插件（npm 包），实践了 <code>T1 → T2 → T3</code> 树高滚动折叠与按需无损回溯架构。</li><li><strong><a href="https://github.com/AliFlux/langchain-babeltele" target="_blank" rel="noopener">AliFlux/langchain-babeltele</a></strong> 发布于 PyPI（<code>pip install langchain-babeltele</code>）的 Python 组件，为 LangChain 流水线提供检索文档压缩、历史与工具输出中间件、保真检查与自动回退机制。</li><li><strong><a href="https://github.com/lukaszgryglicki/babeltele" target="_blank" rel="noopener">lukaszgryglicki/babeltele</a></strong> 基于 Rust 编写的离线、Token 感知型 UNIX 标准管道过滤器（AGPL-3.0），自动识别 19 种自然语言、JSON、源码、CSV 与日志，严格区分 <code>-O tokens</code>（省计费 Token）与 <code>-O chars</code>（省字符）双优化目标。</li><li><strong><a href="https://github.com/mikenrafter/babeltele" target="_blank" rel="noopener">mikenrafter/babeltele</a></strong> 面向终端与 AI 编程智能体的会话转录压缩 CLI 与 NixOS 模块，支持 <strong>Claude Code</strong>（<code>PreCompact</code>）、<strong>Codex</strong>（<code>SessionStart</code> compact）与 <strong>Cursor</strong>（<code>preCompact</code>）自动压缩注入钩子。</li><li><strong><a href="https://github.com/m-rui001/babeltele" target="_blank" rel="noopener">m-rui001/babeltele</a></strong> 高密度多源一手技术标准对照语料库（95 条跨 RFC / 行业规范精确对齐条目），配备纯标准库三层机检保真硬门槛（<code>audit.py</code>）。</li></ol>
+<h3 id="sec-7">B. Hugging Face 社区开放试验数据集</h3>
+<ol><li><strong><a href="https://huggingface.co/datasets/m-rui/babeltele-squad-encodings" target="_blank" rel="noopener">m-rui/babeltele-squad-encodings</a></strong>：基于 SQuAD 英文段落的巴别语编码对照集（首批 120 段、480 题，字符保留率约 <code>30.56%</code>；在排除模型预训练先验记忆的纯上下文依赖子集上报告保真度 <code>90.38%</code>）。</li><li><strong><a href="https://huggingface.co/datasets/m-rui/babeltele-chinese-encodings" target="_blank" rel="noopener">m-rui/babeltele-chinese-encodings</a></strong>：240 条中文样本与 942 个细粒度事实探针、审计及迭代修补记录（字符保留率约 <code>33.0%</code>）。</li><li><strong><a href="https://huggingface.co/datasets/m-rui/babeltele-coig-cqia-compressed" target="_blank" rel="noopener">m-rui/babeltele-coig-cqia-compressed</a></strong>：中文高质量问答语料压缩试验集（报告平均字符保留 <code>32.1%</code>、Token 保留 <code>29.2%</code>）。</li></ol>
+<hr />
+<h2 id="sec-8">8.4 巴别语工程落地七步严谨评测基准（Standard Evaluation Protocol）</h2>
+<p>为避免工程团队被外观简短或模型预训练记忆误导，BT-Spec v1.0 规定任何生产级巴别语部署应遵循以下七步盲测规程：</p>
+<ol><li><strong>环境锁死</strong>：显式固定上游编译模型、下游阅读模型、版本号、目标 Tokenizer（如 <code>o200k_base</code> / Qwen Tokenizer）与采样温度。</li><li><strong>反记忆泄漏语料</strong>：选用模型预训练截止后或企业私有的未公开事实材料（含人名、精确数值、单位、否定、豁免例外与多层嵌套条件），加入“无上下文裸答基线”排除模型凭参数记忆蒙对。</li><li><strong>等预算横评</strong>：在完全相同的 Token 保留预算下，同步对比原文、普通摘要、结构化键值列表、LLMLingua-2 与巴别语。</li><li><strong>严格任务无关（Task-Agnostic）</strong>：编译器绝不可提前获知下游测试问题；下游同时测试事实抽取、关系推理、完整重建与“面对未知信息诚实拒答（<code>?</code>/<code>NULL</code>）”。</li><li><strong>全链路成本记账</strong>：同时披露字符数、真实分词 Token 数、编译器输入输出开销、阅读端推理思维链（CoT）Token 数、端到端耗时与总 API 费用。</li><li><strong>多跳传话漂移测试</strong>：在多智能体链式转发与多轮重复折叠（<code>T1 → T2 → T3</code>）中检测数值与条件边界是否发生累积漂移。</li><li><strong>可回溯证据归档</strong>：保留冷存储原文与 Tier-1 锚点核验日志，绝不将“解码语句读起来通顺”等同于“事实保真”。</li></ol>
+<hr />
+<h2 id="sec-9">8.4 核心参考文献（Selected References）</h2>
+<ol><li><strong>Zhu, J., Peng, H., Wang, J., Ke, L., Zhang, C., &amp; Zhang, L.</strong> (2026). <em>Large Language Models Do Not Always Need Readable Language</em>. arXiv preprint <a href="https://arxiv.org/abs/2606.19857" target="_blank" rel="noopener">arXiv:2606.19857</a>.</li><li><strong>Shannon, C. E.</strong> (1948). <em>A Mathematical Theory of Communication</em>. The Bell System Technical Journal, 27(3), 379–423.</li><li><strong>Nakamoto, S.</strong> (2008). <em>Bitcoin: A Peer-to-Peer Electronic Cash System</em>. <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">https://bitcoin.org/bitcoin.pdf</a></li><li><strong>Delétang, G., Ruoss, A., Duquenne, P.-A., et al.</strong> (2024). <em>Language Modeling Is Compression</em>. In Proceedings of ICLR 2024.</li><li><strong>Jiang, H., Wu, Q., Lin, C.-Y., Yang, Y., &amp; Qiu, L.</strong> (2023). <em>LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models</em>. In Proceedings of EMNLP 2023.</li><li><strong>Pan, Z., Wu, Q., Jiang, H., et al.</strong> (2024). <em>LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression</em>. In Findings of ACL 2024.</li><li><strong>Mu, J., Li, X., &amp; Goodman, N.</strong> (2023). <em>Learning to Compress Prompts with Gist Tokens</em>. In Advances in NeurIPS 2023.</li><li><strong>Chevalier, A., Wettig, A., Ajith, A., &amp; Chen, D.</strong> (2023). <em>Adapting Language Models to Compress Contexts (AutoCompressors)</em>. In Proceedings of EMNLP 2023.</li><li><strong>Packer, C., Fang, V., Patil, S. G., Lin, K., Wooders, S., &amp; Gonzalez, J. E.</strong> (2023). <em>MemGPT: Towards LLMs as Operating Systems</em>. arXiv:2310.08560.</li><li><strong>Liu, N. F., Lin, K., Hewitt, J., et al.</strong> (2024). <em>Lost in the Middle: How Language Models Use Long Contexts</em>. TACL, 12, 157–173.</li><li><strong>Zou, J., Yang, X., Qiu, R., et al.</strong> (2025). <em>Latent Collaboration in Multi-Agent Systems</em>. arXiv:2511.20639.</li><li><strong>Du, Z., Wang, R., Bai, H., et al.</strong> (2025). <em>Enabling Agents to Communicate Entirely in Latent Space</em>. arXiv:2511.09149.</li><li><strong>van Gassen, E.</strong> (2026). <em>Semantic Compression of LLM Instructions via Symbolic Metalanguages (MetaGlyph)</em>. arXiv:2601.07354.</li></ol>
+<div class="pager"><div><a class="pager-card" href="07-canonical-instruction-set.html"><div class="pager-label">← 上一章</div><div class="pager-title">07 · 标准编译与解码指令集</div></a></div><div></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">本页目录</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">8.1 上下文压缩与机器通信四大技术路线对比</a>
+        <a class="toc-item toc-h2" href="#sec-1">8.2 社区传播常见误区与一手文献勘误档案（Official Errata）</a>
+        <a class="toc-item toc-h3" href="#sec-2">勘误一：光合作用经典微观示例的符号还原与分词计数边界</a>
+        <a class="toc-item toc-h3" href="#sec-3">勘误二：联合研究机构完整名录与语义保真口径</a>
+        <a class="toc-item toc-h3" href="#sec-4">勘误三：“自发暗语”、GibberLink 声波协议与强化学习演进方向</a>
+        <a class="toc-item toc-h2" href="#sec-5">8.3 全球开源工具链与公开评测语料索引（Open-Source Ecosystem &amp;amp; Datasets）</a>
+        <a class="toc-item toc-h3" href="#sec-6">A. 开源软件与工程组件</a>
+        <a class="toc-item toc-h3" href="#sec-7">B. Hugging Face 社区开放试验数据集</a>
+        <a class="toc-item toc-h2" href="#sec-8">8.4 巴别语工程落地七步严谨评测基准（Standard Evaluation Protocol）</a>
+        <a class="toc-item toc-h2" href="#sec-9">8.4 核心参考文献（Selected References）</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "zh";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

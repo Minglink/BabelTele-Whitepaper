@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 03: Three Core Axioms, Tokenizer BPE Paradox &amp; Canonical Grammar (BT-Spec v1.0) — BabelTele Whitepaper</title>
+  <meta name="description" content="Formalizing Omnilingual Token Minimization (ΔL_BPE &lt; 0 proved via tiktoken cl100k_base/o200k_base), Relational Graph Collapse, Zero-Codebook Invariance, and Six Canonical Operator Clusters." />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/en/03-core-axioms-and-grammar.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/03-core-axioms-and-grammar.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/03-core-axioms-and-grammar.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="Chapter 03: Three Core Axioms, Tokenizer BPE Paradox &amp; Canonical Grammar (BT-Spec v1.0) — BabelTele Whitepaper" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/en/03-core-axioms-and-grammar.html" />
+  <meta name="citation_language" content="en" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="Chapter 03: Three Core Axioms, Tokenizer BPE Paradox &amp; Canonical Grammar (BT-Spec v1.0) — BabelTele Whitepaper" />
+  <meta property="og:description" content="Formalizing Omnilingual Token Minimization (ΔL_BPE &lt; 0 proved via tiktoken cl100k_base/o200k_base), Relational Graph Collapse, Zero-Codebook Invariance, and Six Canonical Operator Clusters." />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/en/03-core-axioms-and-grammar.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Chapter 03: Three Core Axioms, Tokenizer BPE Paradox &amp; Canonical Grammar (BT-Spec v1.0) — BabelTele Whitepaper" />
+  <meta name="twitter:description" content="Formalizing Omnilingual Token Minimization (ΔL_BPE &lt; 0 proved via tiktoken cl100k_base/o200k_base), Relational Graph Collapse, Zero-Codebook Invariance, and Six Canonical Operator Clusters." />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/en/03-core-axioms-and-grammar.html#article",
+      "headline": "Chapter 03: Three Core Axioms, Tokenizer BPE Paradox & Canonical Grammar (BT-Spec v1.0) — BabelTele Whitepaper",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "Formalizing Omnilingual Token Minimization (ΔL_BPE < 0 proved via tiktoken cl100k_base/o200k_base), Relational Graph Collapse, Zero-Codebook Invariance, and Six Canonical Operator Clusters.",
+      "inLanguage": "en",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/en/03-core-axioms-and-grammar.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/en/03-core-axioms-and-grammar.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="Search chapters..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../docs/03-core-axioms-and-grammar.html" title="Switch Language">🇨🇳 简体中文</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" target="_blank" rel="noopener">📥 English PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">Overview & Canonical Treatise</div>
+      <a class="nav-link" href="index.html">🏠 Whitepaper Portal</a>
+      <a class="nav-link" href="whitepaper.html">📜 Complete Single-File Whitepaper</a>
+      <div class="nav-group-title">BT-Spec v1.0 Modular Specification</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · Manifesto & Readability Tax</a>
+      <a class="nav-link" href="02-theoretical-foundations.html">02 · Information Theory & Decoupling</a>
+      <a class="nav-link active" href="03-core-axioms-and-grammar.html">03 · Core Axioms & Grammar Spec</a>
+      <a class="nav-link" href="04-compression-tiers-and-cot.html">04 · Compression Tiers & CoT Dynamics</a>
+      <a class="nav-link" href="05-agentic-protocol-stack.html">05 · Agentic Stack & Merkle Memory</a>
+      <a class="nav-link" href="06-cross-model-consensus-and-audit.html">06 · Cross-Model & Audit Gateway</a>
+      <a class="nav-link" href="07-canonical-instruction-set.html">07 · Canonical Compiler Prompts</a>
+      <a class="nav-link" href="08-genealogy-and-ecosystem.html">08 · Genealogy, Errata & Ecosystem</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">Chapter 03 — The Three Core Axioms &amp; Canonical Grammar Specification (<code>BT-Spec v1.0</code>)</h1>
+<blockquote><p><a href="02-theoretical-foundations.html">← Chapter 02: Theoretical Foundations</a> · <a href="index.html">Back to Portal (README_EN)</a> · <a href="04-compression-tiers-and-cot.html">Next: Chapter 04 — Compression Tiers &amp; CoT Dynamics →</a></p></blockquote>
+<hr />
+<h2 id="sec-0">3.1 The Three Fundamental Axioms</h2>
+<p>BabelTele is not a rigid artificial vocabulary, but a generative representation system governed by <strong>three formal axioms</strong>:</p>
+<h3 id="sec-1">Axiom I: Omnilingual Token Minimization</h3>
+<p>For any semantic concept <span class="math-inline">$c$</span> with unambiguous candidate expressions <span class="math-inline">$\mathcal{L}(c)$</span> across world languages, scientific notations, and symbolic operators, the compiler selects the representation <span class="math-inline">$w^*$</span> minimizing subword token count and conditional semantic entropy under the target tokenizer:</p>
+<div class="math-display">$$w^*(c) = \arg\min_{w \in \mathcal{L}(c)} \Big[ \text{Tokens}(w) + \lambda \cdot H(C \mid w, \text{Context}) \Big]$$</div>
+<div class="gh-alert gh-alert-caution"><div class="gh-alert-title">🛡️ Caution</div><p><strong>The Tokenizer Paradox &amp; Naive Symbol Illusion (<span class="math-inline">$\Delta L_{\text{BPE}} &lt; 0$</span>)</strong> <strong>Fewer visual characters do NOT automatically mean fewer BPE tokens!</strong> Popular blog posts often claim that emojis, math symbols, or CJK characters <em>always</em> cost fewer tokens than English words. Direct empirical measurement using <code>tiktoken</code> (<code>cl100k_base</code> / <code>o200k_base</code>) disproves this naive assumption on isolated words:</p>
+<div class="table-wrap"><table><thead><tr><th>Concept</th><th style="text-align:center">English / ASCII (<code>cl100k</code> / <code>o200k</code>)</th><th style="text-align:center">Unicode / Emoji / CJK (<code>cl100k</code> / <code>o200k</code>)</th><th>Empirical Verdict</th></tr></thead><tbody><tr><td>Water</td><td style="text-align:center"><code>water</code> (<strong><code>1</code> / <code>1</code></strong>)</td><td style="text-align:center"><code>💧</code> (<code>2</code> / <code>2</code>)</td><td>Emoji triggers UTF-8 byte split (2x costlier)</td></tr><tr><td>Because</td><td style="text-align:center"><code> because</code> (<strong><code>1</code> / <code>1</code></strong>)</td><td style="text-align:center"><code>∵</code> (<code>2</code> / <code>2</code>)</td><td>Rare math glyph costs more than <code>&quot; because&quot;</code></td></tr><tr><td>And</td><td style="text-align:center"><code> and</code> (<strong><code>1</code> / <code>1</code></strong>) · <code>&amp;</code> (<strong><code>1</code> / <code>1</code></strong>)</td><td style="text-align:center"><code>∧</code> (<code>2</code> / <code>2</code>)</td><td>Single-char ASCII <code>&amp;</code> wins; <code>∧</code> inflates tokens</td></tr><tr><td>Photosynthesis</td><td style="text-align:center"><code>photosynthesis</code> (<strong><code>2</code> / <code>2</code></strong>)</td><td style="text-align:center"><code>光合</code> (<code>3</code> / <code>2</code>) · <code>光合作用</code> (<code>5</code> / <code>3</code>)</td><td>Common English stem is already compact in BPE</td></tr><tr><td>Glucose</td><td style="text-align:center"><code>Glucose</code> (<strong><code>2</code> / <code>2</code></strong>)</td><td style="text-align:center"><code>葡萄糖</code> (<code>8</code> / <code>3</code>)</td><td>Scientific English <code>Glucose</code> beats legacy CJK splits</td></tr><tr><td>Hospital</td><td style="text-align:center"><code>hospital</code> (<strong><code>1</code> / <code>1</code></strong>)</td><td style="text-align:center"><code>医院</code> (<code>3</code> / <code>1</code>)</td><td>Modern multilingual vocab (<code>o200k</code>/Qwen/DeepSeek) equalizes CJK</td></tr></tbody></table></div>
+<p><strong>Evolution from Naive Shorthand to <code>BT-Spec v1.0</code></strong>: Real 3x–4x token compression comes <strong>not</strong> from swapping 1-token English words into 2-token emojis, but from <strong>collapsing multi-word syntactic clauses</strong> (e.g., collapsing the 12-token clause <em>"while the carbon dioxide is reduced, gaining electrons"</em> into <code>CO2+e-</code>). Therefore, <code>BT-Spec v1.0</code> mandates:</p>
+<ol><li><strong>Prefer 1-token ASCII operators</strong> (<code>-&gt;</code>, <code>=&gt;</code>, <code>&amp;</code>, <code>|</code>, <code>!</code>, <code>?</code>, <code>:</code>, <code>@</code>, <code>#</code>, <code>=</code>) over multi-byte decorative Unicode glyphs;</li><li><strong>Adapt omnilingual lexical choice to tokenizer families</strong>: leverage dense CJK compounds aggressively on CJK-optimized tokenizers (Qwen, DeepSeek, GLM, <code>o200k_base</code>), while favoring concise English stems and scientific notation on English-centric BPE vocabularies.</li></ol></div>
+<h3 id="sec-2">Axiom II: Relational Graph Collapse</h3>
+<p>Linear grammatical scaffolding—articles, copulas, passive voice auxiliaries, and relative clauses—must collapse into explicit <strong>Node–Operator–Attribute</strong> relational edges.</p>
+<h3 id="sec-3">Axiom III: Zero-Codebook Self-Recoverability</h3>
+<p>Stateful external private codebooks are strictly prohibited. Inline first-use macro declarations (<code>@[Abbr=FullName]</code>) within the same context window are permitted because any capable LLM can resolve them self-containedly.</p>
+<ul><li><strong>Hard-Data Invariance</strong>: Exact numbers, units, hyperparameters, formulas, version strings, and original placeholders (<code>BIBREF</code>, <code>TABREF</code>) <strong>must be preserved verbatim without rounding or estimation</strong>; missing or unspecified facts must be marked <code>?</code> or <code>NULL</code>.</li></ul>
+<hr />
+<h2 id="sec-4">3.2 The Six Canonical Operator Clusters (<code>BT-Spec v1.0</code>)</h2>
+<h3 id="sec-5">Cluster I: Causality, Entailment &amp; Sequential Flow</h3>
+<div class="table-wrap"><table><thead><tr><th>Relation</th><th>Verbose Natural Language</th><th style="text-align:center">Canonical Operator</th><th>Example</th></tr></thead><tbody><tr><td>Causation / Entailment</td><td>leads to, therefore, resulting in</td><td style="text-align:center"><code>=&gt;</code> or <code>⇨</code></td><td><code>Inflation↑ =&gt; Rate↑</code></td></tr><tr><td>Equivalence</td><td>if and only if, is equivalent to</td><td style="text-align:center"><code>&lt;=&gt;</code></td><td><code>Equilibrium &lt;=&gt; Supply==Demand</code></td></tr><tr><td>Pipeline / Sequence</td><td>first A, followed by B, then C</td><td style="text-align:center"><code>-&gt;</code> or <code>&gt;</code></td><td><code>Seq: Ingest-&gt;Clean-&gt;Distill</code></td></tr><tr><td>Provenance / Reason</td><td>due to the fact that, caused by</td><td style="text-align:center"><code>&lt;-</code></td><td><code>Reject &lt;- ExpiredToken</code></td></tr></tbody></table></div>
+<h3 id="sec-6">Cluster II: Boolean Logic &amp; Conditional Boundaries</h3>
+<div class="table-wrap"><table><thead><tr><th>Relation</th><th>Verbose Natural Language</th><th style="text-align:center">Canonical Operator</th><th>Example</th></tr></thead><tbody><tr><td>Conjunction (AND / Contrast)</td><td>and simultaneously, while, however</td><td style="text-align:center"><code>&amp;</code> or <code>∧</code></td><td><code>Staff@Corp &amp; !FullTime</code></td></tr><tr><td>Disjunction (OR)</td><td>either option A or option B</td><td style="text-align:center"><code>|</code> or <code>∨</code></td><td><code>Auth: OAuth2 | APIKey</code></td></tr><tr><td>Negation (NOT / Lacks)</td><td>without, does not require, lacks</td><td style="text-align:center"><code>!</code> or <code>¬</code></td><td><code>!FineTune &amp; !HiddenState</code></td></tr><tr><td>Conditional Branch</td><td>if [condition] holds, execute [action]</td><td style="text-align:center"><code>?cond =&gt; act</code></td><td><code>?Budget&gt;10k =&gt; Approve(VP)</code></td></tr><tr><td>Exception / Exemption</td><td>except in the case of, excluding</td><td style="text-align:center"><code>!target: detail</code></td><td><code>RemoteAll !Ops:OnCall</code></td></tr></tbody></table></div>
+<h3 id="sec-7">Cluster III: Sets, Quantifiers &amp; Spatiotemporal Anchors</h3>
+<div class="table-wrap"><table><thead><tr><th>Relation</th><th>Verbose Natural Language</th><th style="text-align:center">Canonical Operator</th><th>Example</th></tr></thead><tbody><tr><td>Set Membership</td><td>belongs to, is an element of</td><td style="text-align:center"><code>∈</code> / <code>∉</code></td><td><code>GPT-5.4 ∈ Proprietary</code></td></tr><tr><td>Universal / Existential</td><td>for every chunk, there exists</td><td style="text-align:center"><code>∀</code> / <code>∃</code></td><td><code>∀chunk(200K) -&gt; Compress</code></td></tr><tr><td>Location / Time / Scope</td><td>in October, at the Berlin office</td><td style="text-align:center"><code>@</code></td><td><code>BerlinShipApp@Oct</code></td></tr><tr><td>Macro Section Header</td><td>regarding the topic of...</td><td style="text-align:center"><code>#Topic</code> or <code>S[Topic]</code></td><td><code>#EvalSetup</code></td></tr><tr><td>Inline Macro Definition</td><td>hereinafter referred to as...</td><td style="text-align:center"><code>@[X=FullName]</code></td><td><code>@[BT=BabelTele]</code></td></tr></tbody></table></div>
+<h3 id="sec-8">Cluster IV: Entity Binding &amp; Array Flattening</h3>
+<div class="table-wrap"><table><thead><tr><th>Relation</th><th>Verbose Natural Language</th><th style="text-align:center">Canonical Operator</th><th>Example</th></tr></thead><tbody><tr><td>Attribute Key-Value Binding</td><td>entity E has property K set to V</td><td style="text-align:center"><code>@Ent(K=V)</code></td><td><code>@Qwen3.6(ctx=256K, acc=62.07%)</code></td></tr><tr><td>Parallel Array Flattening</td><td>including A, B, as well as C</td><td style="text-align:center"><code>[A, B, C]</code></td><td><code>Baselines:[Orig, Summ, LLMLingua2]</code></td></tr><tr><td>Hierarchical Containment</td><td>module P comprises subcomponents</td><td style="text-align:center"><code>Parent:{c1, c2}</code></td><td><code>Stack:{MCP, A2A, BT}</code></td></tr><tr><td>Exact Parameter &amp; Unit</td><td>configured with parameter P at V</td><td style="text-align:center"><code>$param:V(unit)</code></td><td><code>$lr:3e-4, $chunk:200K(tok)</code></td></tr></tbody></table></div>
+<h3 id="sec-9">Cluster V: Comparison, Conflict &amp; Trends</h3>
+<div class="table-wrap"><table><thead><tr><th>Relation</th><th>Verbose Natural Language</th><th style="text-align:center">Canonical Operator</th><th>Example</th></tr></thead><tbody><tr><td>Comparative Matrix</td><td>compared against B, A achieves</td><td style="text-align:center"><code>A &lt;&gt; B : result</code></td><td><code>BT &lt;&gt; Truncate : +10.34%(@GLM5.1)</code></td></tr><tr><td>Cross-Source Conflict</td><td>contradicts / differs across specs</td><td style="text-align:center"><code>⇎</code></td><td><code>RFC2459:? ⇎ RFC3280:&lt;=20oct</code></td></tr><tr><td>Growth / Gas Evolution</td><td>rises significantly, releases gas</td><td style="text-align:center"><code>↑</code> or <code>📈</code></td><td><code>O2↑</code>, <code>Q3rev↑~30%YoY</code></td></tr><tr><td>Reduction / Drop</td><td>decreases by, drops to</td><td style="text-align:center"><code>↓</code> or <code>📉</code></td><td><code>tok↓72.1%, fid≈99.5%</code></td></tr></tbody></table></div>
+<h3 id="sec-10">Cluster VI: Epistemic &amp; Anti-Hallucination Anchors</h3>
+<div class="table-wrap"><table><thead><tr><th>Relation</th><th>Verbose Natural Language</th><th style="text-align:center">Canonical Operator</th><th>Example</th></tr></thead><tbody><tr><td>Unspecified / Unknown</td><td>not mentioned in source document</td><td style="text-align:center"><code>NULL</code> or <code>?</code></td><td><code>ReleaseDate=?</code></td></tr><tr><td>Approximate Source Value</td><td>roughly around, approximately</td><td style="text-align:center"><code>~</code> or <code>≈</code></td><td><code>len≈27.9%</code></td></tr><tr><td>Citation / Table Placeholders</td><td>original reference markers</td><td style="text-align:center">Verbatim <code>BIBREF</code> / <code>TABREF</code></td><td><code>cf. BIBREF_12</code></td></tr></tbody></table></div>
+<hr />
+<h2 id="sec-11">3.3 Canonical Encoding Walkthroughs</h2>
+<h3 id="sec-12">Walkthrough 1: Scientific Mechanism (Photosynthesis — Verified Primary Figure vs. ASCII BPE Mode)</h3>
+<ul><li><strong>Original English (45 tokens)</strong>: &gt; <em>"During photosynthesis, plants take in carbon dioxide and water. The water is oxidized, losing electrons, while the carbon dioxide is reduced, gaining electrons. This transforms them into oxygen and glucose."</em></li><li><strong>Paper Visual Micro-Example (<code>arXiv:2606.19857</code> §3.2)</strong>: ```text 🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻. ```</li><li><strong><code>BT-Spec v1.0</code> Strict BPE-Optimal ASCII Form (19 <code>o200k_base</code> tokens, <code>-57.8%</code> true BPE reduction)</strong>: ```text Photosynthesis(plants): CO2+H2O -&gt;(ox/red)-&gt; O2^ + Glucose; H2O -e-, CO2 +e-. ```</li></ul>
+<h3 id="sec-13">Walkthrough 2: Multi-Standard Technical Reconciliation (RFC Audit Grade)</h3>
+<ul><li><strong>Original Prose (118 tokens)</strong>: Five authoritative specifications define X.509 certificate serial number length differently across RFC 2459, RFC 3280, RFC 5280, CA/B Forum TLS Baseline Requirements, and Let's Encrypt documentation.</li><li><strong><code>BT-L2</code> Encoding</strong>: ```text #X509_SerialLen @[LE=Let'sEncrypt]: RFC2459:? ⇎ RFC3280:&lt;=20oct ⇎ RFC5280:{&lt;=20oct &amp; int&gt;0(sign-bit)} ⇎ CA/B_TLS_BR:{&lt;2^159 &amp; entropy&gt;=64b(CSPRNG)} ⇎ LE_doc:8B(63b). ```</li></ul>
+<p>Every numeric bound (<code>2459</code>, <code>3280</code>, <code>5280</code>, <code>20oct</code>, <code>2^159</code>, <code>64b</code>, <code>8B</code>, <code>63b</code>) is preserved bit-for-bit while exposing cross-specification discrepancies explicitly via <code>⇎</code>.</p>
+<hr />
+<blockquote><p><strong>Next Chapter</strong>: <a href="04-compression-tiers-and-cot.html">Chapter 04 — Standardized Compression Tiers &amp; Chain-of-Thought Cognitive Dynamics →</a></p></blockquote>
+<div class="pager"><div><a class="pager-card" href="02-theoretical-foundations.html"><div class="pager-label">← Previous</div><div class="pager-title">02 · Information Theory & Decoupling</div></a></div><div><a class="pager-card next" href="04-compression-tiers-and-cot.html"><div class="pager-label">Next →</div><div class="pager-title">04 · Compression Tiers & CoT Dynamics</div></a></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">On This Page</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">3.1 The Three Fundamental Axioms</a>
+        <a class="toc-item toc-h3" href="#sec-1">Axiom I: Omnilingual Token Minimization</a>
+        <a class="toc-item toc-h3" href="#sec-2">Axiom II: Relational Graph Collapse</a>
+        <a class="toc-item toc-h3" href="#sec-3">Axiom III: Zero-Codebook Self-Recoverability</a>
+        <a class="toc-item toc-h2" href="#sec-4">3.2 The Six Canonical Operator Clusters (BT-Spec v1.0)</a>
+        <a class="toc-item toc-h3" href="#sec-5">Cluster I: Causality, Entailment &amp;amp; Sequential Flow</a>
+        <a class="toc-item toc-h3" href="#sec-6">Cluster II: Boolean Logic &amp;amp; Conditional Boundaries</a>
+        <a class="toc-item toc-h3" href="#sec-7">Cluster III: Sets, Quantifiers &amp;amp; Spatiotemporal Anchors</a>
+        <a class="toc-item toc-h3" href="#sec-8">Cluster IV: Entity Binding &amp;amp; Array Flattening</a>
+        <a class="toc-item toc-h3" href="#sec-9">Cluster V: Comparison, Conflict &amp;amp; Trends</a>
+        <a class="toc-item toc-h3" href="#sec-10">Cluster VI: Epistemic &amp;amp; Anti-Hallucination Anchors</a>
+        <a class="toc-item toc-h2" href="#sec-11">3.3 Canonical Encoding Walkthroughs</a>
+        <a class="toc-item toc-h3" href="#sec-12">Walkthrough 1: Scientific Mechanism (Photosynthesis — Verified Primary Figure vs. ASCII BPE Mode)</a>
+        <a class="toc-item toc-h3" href="#sec-13">Walkthrough 2: Multi-Standard Technical Reconciliation (RFC Audit Grade)</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "en";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

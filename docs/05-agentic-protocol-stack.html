@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第五章：MCP/A2A/BabelTele 五层智能体协议栈与语义默克尔记忆折叠树 (SMFT) — 巴别语白皮书</title>
+  <meta name="description" content="规范 JSON-RPC babeltele/1.0 载荷信封头，实测异构多智能体通信节省 44.21% Token（保持 99.7% 得分），提出 T1-T3 语义默克尔记忆树与 1.65M 超长代码仓库分块扩窗方案。" />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/docs/05-agentic-protocol-stack.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/05-agentic-protocol-stack.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/05-agentic-protocol-stack.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="第五章：MCP/A2A/BabelTele 五层智能体协议栈与语义默克尔记忆折叠树 (SMFT) — 巴别语白皮书" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/05-agentic-protocol-stack.html" />
+  <meta name="citation_language" content="zh-CN" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="第五章：MCP/A2A/BabelTele 五层智能体协议栈与语义默克尔记忆折叠树 (SMFT) — 巴别语白皮书" />
+  <meta property="og:description" content="规范 JSON-RPC babeltele/1.0 载荷信封头，实测异构多智能体通信节省 44.21% Token（保持 99.7% 得分），提出 T1-T3 语义默克尔记忆树与 1.65M 超长代码仓库分块扩窗方案。" />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/05-agentic-protocol-stack.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="第五章：MCP/A2A/BabelTele 五层智能体协议栈与语义默克尔记忆折叠树 (SMFT) — 巴别语白皮书" />
+  <meta name="twitter:description" content="规范 JSON-RPC babeltele/1.0 载荷信封头，实测异构多智能体通信节省 44.21% Token（保持 99.7% 得分），提出 T1-T3 语义默克尔记忆树与 1.65M 超长代码仓库分块扩窗方案。" />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/docs/05-agentic-protocol-stack.html#article",
+      "headline": "第五章：MCP/A2A/BabelTele 五层智能体协议栈与语义默克尔记忆折叠树 (SMFT) — 巴别语白皮书",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "规范 JSON-RPC babeltele/1.0 载荷信封头，实测异构多智能体通信节省 44.21% Token（保持 99.7% 得分），提出 T1-T3 语义默克尔记忆树与 1.65M 超长代码仓库分块扩窗方案。",
+      "inLanguage": "zh-CN",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/docs/05-agentic-protocol-stack.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/docs/05-agentic-protocol-stack.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="../index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="搜索全书章节..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../en/05-agentic-protocol-stack.html" title="Switch Language">🇬🇧 English</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" target="_blank" rel="noopener">📥 中文 PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">总览与单卷典藏本</div>
+      <a class="nav-link" href="../index.html">🏠 白皮书门户导览</a>
+      <a class="nav-link" href="../whitepaper.html">📜 单文件完整典藏白皮书</a>
+      <div class="nav-group-title">BT-Spec v1.0 深度规范分册</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · 人类可读性税与巴别塔隐喻</a>
+      <a class="nav-link" href="02-theoretical-foundations.html">02 · 信息论基础与解耦定理</a>
+      <a class="nav-link" href="03-core-axioms-and-grammar.html">03 · 三大公理与标准语法算子</a>
+      <a class="nav-link" href="04-compression-tiers-and-cot.html">04 · 四级压缩档位与认知税动力学</a>
+      <a class="nav-link active" href="05-agentic-protocol-stack.html">05 · 智能体协议栈与默克尔记忆树</a>
+      <a class="nav-link" href="06-cross-model-consensus-and-audit.html">06 · 跨模型共识与三层安全审计</a>
+      <a class="nav-link" href="07-canonical-instruction-set.html">07 · 标准编译与解码指令集</a>
+      <a class="nav-link" href="08-genealogy-and-ecosystem.html">08 · 学术谱系、勘误与开源生态</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">第五章：智能体通信协议栈与语义默克尔记忆树</h1>
+<p><strong>Chapter 05 — The Agentic Protocol Stack &amp; Semantic Merkle Memory Tree</strong></p>
+<blockquote><p><a href="04-compression-tiers-and-cot.html">← 第四章：四级压缩档位与推理认知税动力学</a> · <a href="../index.html">返回门户首页 (README)</a> · <a href="06-cross-model-consensus-and-audit.html">下一章：异构跨模型共识与三层安全审计网关 →</a></p></blockquote>
+<hr />
+<h2 id="sec-0">5.1 智能体五层协议栈（The Five-Layer Agentic Communication Stack）</h2>
+<p>网络舆论中常有一种误解，认为巴别语（BabelTele）与人类设计的 MCP、A2A 协议是“你死我活的替代关系”。从系统架构视角审视，<strong>MCP/A2A 解决的是“连接与路由”，巴别语解决的是“高密度语义表示”</strong>——三者共同构成了完整的现代智能体通信协议栈（类比互联网 TCP/IP + HTTP + Brotli/Protobuf 体系）：</p>
+<div class="mermaid-box"><pre class="mermaid">flowchart TB
+    L5[&quot;L5 人类交互表现层 (Human Presentation Layer): 仅在终端向人类汇报或请求审批时解码为母语自然语言&quot;]
+    L4[&quot;L4 机器原生语义表示层 (Semantic Payload Layer — BabelTele): BT-L1/L2/L3 全语种符号语义图谱编码&quot;]
+    L3[&quot;L3 智能体协同与任务路由层 (Horizontal Orchestration — A2A): Agent Card 发现、任务分发与状态同步&quot;]
+    L2[&quot;L2 工具与外部上下文总线层 (Vertical Context Bus — MCP): 数据库、文件系统、API 工具挂载&quot;]
+    L1[&quot;L1 基础传输与序列化层 (Transport &amp; Framing): HTTP/2 · SSE · WebSocket · JSON-RPC 2.0&quot;]
+
+    L5 &lt;--&gt; L4 &lt;--&gt; L3 &lt;--&gt; L2 &lt;--&gt; L1</pre></div>
+<h3 id="sec-1">标准消息信封声明规范（Standard Envelope Header）</h3>
+<p>在兼容现有 A2A 与 MCP JSON-RPC 消息格式的条件下，无需破坏外层路由结构，仅需在内容块元数据中声明巴别语编码头（类比 HTTP 的 <code>Content-Encoding</code>）：</p>
+<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-json">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;tasks/send&quot;,
+  &quot;params&quot;: {
+    &quot;id&quot;: &quot;task_9f82a1&quot;,
+    &quot;message&quot;: {
+      &quot;role&quot;: &quot;agent&quot;,
+      &quot;metadata&quot;: {
+        &quot;content_encoding&quot;: &quot;babeltele/1.0&quot;,
+        &quot;bt_tier&quot;: &quot;BT-L2&quot;,
+        &quot;compressor_model&quot;: &quot;claude-sonnet-4.6&quot;,
+        &quot;source_sha256&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb924...&quot;
+      },
+      &quot;parts&quot;: [
+        {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;text&quot;: &quot;#RepoAudit @[Auth=src/auth/jwt.ts]: !vuln(CVE-like):alg==&#x27;none&#x27;绕过@L142 ∧ exp未校验 =&gt; 建议:?header.alg∉[RS256,EdDSA]=&gt;reject(401).&quot;
+        }
+      ]
+    }
+  }
+}</code></pre></div>
+<h3 id="sec-2">多智能体通信实测收益</h3>
+<p>在 <strong>DeepResearch Bench</strong> 双智能体深度研究协作测试中，将智能体间传递的中间调研报告与状态消息切换为巴别语编码：</p>
+<ul><li><strong>同构智能体组（Gemini 3.1 Pro <span class="math-inline">$\leftrightarrow$</span> Gemini 3.1 Pro）</strong>：直接节省 <strong>38.96%</strong> 通信 Token，最终任务得分保持在未压缩基线的 <strong>96.6%</strong>；</li><li><strong>异构智能体组（Gemini 3.1 Pro <span class="math-inline">$\leftrightarrow$</span> GPT-5.4）</strong>：节省 <strong>44.21%</strong> 通信 Token，最终任务得分高达未压缩基线的 <strong>99.7%</strong>！证明巴别语可直接充当跨厂商黑盒 API 智能体之间的高带宽“通用工作语”。</li></ul>
+<hr />
+<h2 id="sec-3">5.2 回收上下文空间：语义默克尔记忆折叠树（Semantic Merkle Folding Tree）</h2>
+<p>在中本聪的比特币白皮书第七节（<em>Reclaiming Disk Space</em>）中，为了防止区块链历史交易无限膨胀撑爆节点硬盘，系统将早期交易哈希逐层向上折叠进 <strong>Merkle Tree（默克尔树）</strong>，修剪掉老旧分支明细而仅保留高阶根摘要。</p>
+<p>长程运行的大模型智能体面临完全相同的物理瓶颈：<strong>随着会话持续数天乃至数月，工具输出与历史对话不断追加，必然撞上上下文窗口天花板或注意力退化墙。</strong> 传统滑动窗口（直接丢弃早期历史）会导致灾难性遗忘；传统单次摘要则会因反复概括产生“传话筒失真”。</p>
+<p>融合 <code>arXiv:2606.19857</code>（LoCoMo 记忆实验）与开源社区 <code>compressed-context</code> 的分层架构，巴别语体系正式定义 <strong>语义默克尔记忆折叠树（Semantic Merkle Folding Tree, SMFT）</strong>：</p>
+<div class="mermaid-box"><pre class="mermaid">flowchart TD
+    subgraph Cold_Storage[&quot;冷存储持久化层 (Disk / Vector DB — 原文可无损按需回溯)&quot;]
+        Raw1[&quot;原始对话流 #1–#20&quot;]
+        Raw2[&quot;原始对话流 #21–#40&quot;]
+        Raw3[&quot;原始对话流 #41–#60&quot;]
+        Raw4[&quot;原始对话流 #61–#80&quot;]
+    end
+
+    subgraph Context_Window[&quot;活跃上下文窗口 (Active LLM Context Window)&quot;]
+        T1_A[&quot;[T1 巴别语块 #1] {h1}&quot;]
+        T1_B[&quot;[T1 巴别语块 #2] {h1}&quot;]
+        T2_AB[&quot;[T2 滚动合并巴别语块 #1+#2] {h2} (BT-L2 高密图谱)&quot;]
+        T1_C[&quot;[T1 保留区巴别语块 #3] {h1} (BT-L1)&quot;]
+        T1_D[&quot;[T1 保留区巴别语块 #4] {h1} (BT-L1)&quot;]
+        Active[&quot;最近活跃原始对话流 (#81–当前)&quot;]
+    end
+
+    Raw1 --&gt; T1_A
+    Raw2 --&gt; T1_B
+    T1_A &amp; T1_B --&gt; T2_AB
+    Raw3 --&gt; T1_C
+    Raw4 --&gt; T1_D</pre></div>
+<h3 id="sec-4">SMFT 四大运行机制</h3>
+<ol><li><strong>活跃保留区（Active Frontier）</strong>：最近若干轮正在进行的活跃对话保持原始自然语言，确保当前交互零延迟。</li><li><strong>一级检查点折叠（<code>T1</code> Folding）</strong>：当活跃区溢出阈值时，后台编译器采用 <code>BT-L1 / BT-P1</code>（带潜空间注意力检查清单）将溢出片段编码为自包含的巴别语块 <code>[T1] {h1}</code>，原始消息移入本地冷存储并生成唯一块 ID 指针。</li><li><strong>高阶树状滚动归并（<code>T2 / T3</code> Hierarchical Merge）</strong>：当窗口内 <code>T1</code> 块堆积逼近预算上限时，优先合并最古老的相邻同层块，升维为树高 <code>height = max(child) + 1</code> 的 <code>[T2] {h2}</code> 乃至封顶 <code>[T3]</code> 累积记忆块——实现<strong>“近期记忆高分辨率、远期记忆高密度拓扑化”</strong>。</li><li><strong>按需无损解引用（Lossless Dereferencing）</strong>：由于巴别语严格保留了所有实体名、精确指标与指针 ID，一旦模型在推理时发现某条远期 <code>[T3]</code> 块中的细节需要逐字核对原文，可直接调用 <code>decompress(block_id)</code> 从冷存储拉回对应原始片段，彻底消除不可逆信息丢失。</li></ol>
+<hr />
+<h2 id="sec-5">5.3 突破物理上下文窗口上限（Context Window Extension）</h2>
+<p>当面对单次输入即远超模型最大物理上下文容量的超大型任务（例如平均体积达 <strong>1.65M（165 万）Tokens</strong> 的完整企业代码仓库问答 <code>LongBench v2 — Code Repo QA Long</code>）时，常规模型（窗口上限 200K–256K）只能采取<strong>暴力截断（Truncation）</strong>，直接丢失 85% 以上的代码文件。</p>
+<p>采用巴别语 <strong>分块编译浓缩流水线（Chunked BabelTele Compilation）</strong>：</p>
+<ol><li>将 <code>1.65M tokens</code> 的原始代码库切分为 <code>200K tokens</code> 的独立分块；</li><li>由高吞吐压缩器并行将每个分块编译为 <code>BT-L3</code> 巴别语骨架；</li><li>将全部压缩分块拼接后一次性装入 <code>200K–256K</code> 窗口的目标推理模型。</li></ol>
+<div class="table-wrap"><table><thead><tr><th>目标推理模型（物理窗口上限）</th><th style="text-align:center">暴力截断基线准确率（Original Truncated）</th><th style="text-align:center">巴别语分块浓缩准确率（BabelTele）</th><th style="text-align:center">绝对性能提升</th></tr></thead><tbody><tr><td><strong>Qwen3.6 Max</strong> (<code>256K</code>)</td><td style="text-align:center"><code>55.17%</code></td><td style="text-align:center"><strong><code>62.07%</code></strong></td><td style="text-align:center"><strong><code>+6.90%</code></strong></td></tr><tr><td><strong>GLM-5.1</strong> (<code>200K</code>)</td><td style="text-align:center"><code>62.07%</code></td><td style="text-align:center"><strong><code>72.41%</code></strong></td><td style="text-align:center"><strong><code>+10.34%</code></strong></td></tr><tr><td><strong>Kimi 2.5 / 2.6</strong> (<code>256K</code>)</td><td style="text-align:center"><code>44.82%</code></td><td style="text-align:center"><strong><code>48.28%</code></strong></td><td style="text-align:center"><strong><code>+3.46%</code></strong></td></tr></tbody></table></div>
+<p>在不升级硬件显存、不重训长窗口位置编码的前提下，巴别语相当于在软件表示层将大模型的<strong>有效语义感知视野放大了 4 至 8 倍</strong>。</p>
+<hr />
+<blockquote><p><strong>下一章预告</strong>：如果由模型 A 压缩的巴别语交给不同厂商的模型 B 读取，哪些组合最稳健？当金融、医疗与安全场景要求 100% 杜绝数值篡改与黑盒暗语风险时，我们如何建立可机检的验证防线？请阅读 <a href="06-cross-model-consensus-and-audit.html">第六章：异构跨模型共识与三层安全审计网关 →</a>。</p></blockquote>
+<div class="pager"><div><a class="pager-card" href="04-compression-tiers-and-cot.html"><div class="pager-label">← 上一章</div><div class="pager-title">04 · 四级压缩档位与认知税动力学</div></a></div><div><a class="pager-card next" href="06-cross-model-consensus-and-audit.html"><div class="pager-label">下一章 →</div><div class="pager-title">06 · 跨模型共识与三层安全审计</div></a></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">本页目录</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">5.1 智能体五层协议栈（The Five-Layer Agentic Communication Stack）</a>
+        <a class="toc-item toc-h3" href="#sec-1">标准消息信封声明规范（Standard Envelope Header）</a>
+        <a class="toc-item toc-h3" href="#sec-2">多智能体通信实测收益</a>
+        <a class="toc-item toc-h2" href="#sec-3">5.2 回收上下文空间：语义默克尔记忆折叠树（Semantic Merkle Folding Tree）</a>
+        <a class="toc-item toc-h3" href="#sec-4">SMFT 四大运行机制</a>
+        <a class="toc-item toc-h2" href="#sec-5">5.3 突破物理上下文窗口上限（Context Window Extension）</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "zh";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

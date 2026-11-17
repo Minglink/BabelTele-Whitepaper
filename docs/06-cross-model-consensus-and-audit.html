@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第六章：19 款异构模型零样本共识规律与三层确定性安全审计网关 — 巴别语白皮书</title>
+  <meta name="description" content="解析 GPT-5.4、Claude、Gemini、DeepSeek、Qwen 跨模型传输矩阵规律，设计 Tier-1 字面硬锚点机检、Tier-2 异构盲测与语义护栏、Tier-3 人类旁路解码观测镜。" />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/docs/06-cross-model-consensus-and-audit.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/06-cross-model-consensus-and-audit.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/06-cross-model-consensus-and-audit.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="第六章：19 款异构模型零样本共识规律与三层确定性安全审计网关 — 巴别语白皮书" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/06-cross-model-consensus-and-audit.html" />
+  <meta name="citation_language" content="zh-CN" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="第六章：19 款异构模型零样本共识规律与三层确定性安全审计网关 — 巴别语白皮书" />
+  <meta property="og:description" content="解析 GPT-5.4、Claude、Gemini、DeepSeek、Qwen 跨模型传输矩阵规律，设计 Tier-1 字面硬锚点机检、Tier-2 异构盲测与语义护栏、Tier-3 人类旁路解码观测镜。" />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/06-cross-model-consensus-and-audit.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="第六章：19 款异构模型零样本共识规律与三层确定性安全审计网关 — 巴别语白皮书" />
+  <meta name="twitter:description" content="解析 GPT-5.4、Claude、Gemini、DeepSeek、Qwen 跨模型传输矩阵规律，设计 Tier-1 字面硬锚点机检、Tier-2 异构盲测与语义护栏、Tier-3 人类旁路解码观测镜。" />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/docs/06-cross-model-consensus-and-audit.html#article",
+      "headline": "第六章：19 款异构模型零样本共识规律与三层确定性安全审计网关 — 巴别语白皮书",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "解析 GPT-5.4、Claude、Gemini、DeepSeek、Qwen 跨模型传输矩阵规律，设计 Tier-1 字面硬锚点机检、Tier-2 异构盲测与语义护栏、Tier-3 人类旁路解码观测镜。",
+      "inLanguage": "zh-CN",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/docs/06-cross-model-consensus-and-audit.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/docs/06-cross-model-consensus-and-audit.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="../index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="搜索全书章节..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../en/06-cross-model-consensus-and-audit.html" title="Switch Language">🇬🇧 English</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" target="_blank" rel="noopener">📥 中文 PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">总览与单卷典藏本</div>
+      <a class="nav-link" href="../index.html">🏠 白皮书门户导览</a>
+      <a class="nav-link" href="../whitepaper.html">📜 单文件完整典藏白皮书</a>
+      <div class="nav-group-title">BT-Spec v1.0 深度规范分册</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · 人类可读性税与巴别塔隐喻</a>
+      <a class="nav-link" href="02-theoretical-foundations.html">02 · 信息论基础与解耦定理</a>
+      <a class="nav-link" href="03-core-axioms-and-grammar.html">03 · 三大公理与标准语法算子</a>
+      <a class="nav-link" href="04-compression-tiers-and-cot.html">04 · 四级压缩档位与认知税动力学</a>
+      <a class="nav-link" href="05-agentic-protocol-stack.html">05 · 智能体协议栈与默克尔记忆树</a>
+      <a class="nav-link active" href="06-cross-model-consensus-and-audit.html">06 · 跨模型共识与三层安全审计</a>
+      <a class="nav-link" href="07-canonical-instruction-set.html">07 · 标准编译与解码指令集</a>
+      <a class="nav-link" href="08-genealogy-and-ecosystem.html">08 · 学术谱系、勘误与开源生态</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">第六章：异构跨模型共识与三层安全审计网关</h1>
+<p><strong>Chapter 06 — Cross-Model Consensus &amp; Three-Tier Safety Audit Gateway</strong></p>
+<blockquote><p><a href="05-agentic-protocol-stack.html">← 第五章：智能体通信协议栈与语义默克尔记忆树</a> · <a href="../index.html">返回门户首页 (README)</a> · <a href="07-canonical-instruction-set.html">下一章：巴别语标准编译与解码指令集 →</a></p></blockquote>
+<hr />
+<h2 id="sec-0">6.1 巴别语是“万能通用密码”吗？——异构跨模型迁移规律</h2>
+<p>如果一个模型生成的巴别语只能被它自己读懂，那它不过是某种过拟合的“模型私有速记（Model-Private Shorthand）”；唯有能够跨厂商、跨架构、跨参数规模被其他大模型零样本解码，它才真正具备成为<strong>硅基世界通用中间表示（Universal IR）</strong>的资格。</p>
+<p>综合 <code>arXiv:2606.19857</code> 在 <strong>LongBench v2-Short（180 例）</strong> 与 <strong>QuALITY（214 例）</strong> 上构建的跨模型交叉传输矩阵（涵盖 Gemini 3.1 Pro、GPT-5.4、Claude Sonnet 4.6、DeepSeek-V4-Pro、Qwen3.5/3.6 系列、GLM-5.1、Kimi K2.5/2.6、Doubao-Seed-2.0 等），我们总结出<strong>跨模型共识三大非对称法则</strong>：</p>
+<h3 id="sec-1">法则一：压缩器激进度决定跨模型解码门槛</h3>
+<p>不同模型在执行同一条巴别语压缩指令时，天然表现出截然不同的“压缩性格”：</p>
+<ul><li><strong>极度激进型（如 Gemini 3.1 Pro）</strong>：默认压缩率往往突破 <strong>95%</strong>（保留率 <code>&lt; 5%</code>）。其产出的文本高度凝练，自身读取准确率极高，但交给部分中小尺寸异构模型读取时，会因上下文线索过于精简而增加对方的推理 CoT 负担。</li><li><strong>稳健均衡型（如 GPT-5.4、Claude Sonnet 4.6）</strong>：默认压缩率控制在 <strong>75% – 85%</strong> 之间。实验矩阵表明，<strong>由 GPT-5.4 与 Claude 压缩生成的巴别语具备全网最强的跨模型可移植性（Broadest Portability）</strong>，几乎所有主流开源与闭源阅读器均能高精度无损消费。</li><li><strong>语系偏置型（部分单语种权重偏高模型）</strong>：若压缩器自身多语言符号对齐能力不足，产出的非标缩写可能导致其他家族模型出现较大掉点。</li></ul>
+<blockquote><p><strong>架构设计启示</strong>：在异构多智能体网络中，应优先指派<strong>多语言与代码符号对齐能力最强的前沿模型（或显式锁定 <code>BT-L2</code> 档位）担任“上游编译器（Compressor）”</strong>，下游消费端则可广泛挂载高性价比的轻量推理模型。</p></blockquote>
+<h3 id="sec-2">法则二：阅读端解码能力不唯参数量论（Non-Monotonic Scale Sensitivity）</h3>
+<p>固定以极激进的 Gemini 3.1 Pro 作为上游压缩器，测试 Qwen 家族从 <code>14B</code> 到 <code>397B</code> 乃至旗舰预览版的零样本读取表现：</p>
+<div class="table-wrap"><table><thead><tr><th>下游阅读模型（Reader）</th><th style="text-align:center">原文基线准确率</th><th style="text-align:center">读取巴别语准确率</th><th style="text-align:center">绝对变化（pct）</th><th style="text-align:center">性能保留率（Retention）</th></tr></thead><tbody><tr><td><strong>Qwen3-14B</strong></td><td style="text-align:center"><code>78.97%</code></td><td style="text-align:center"><code>64.02%</code></td><td style="text-align:center"><code>-14.95</code></td><td style="text-align:center"><code>81.07%</code></td></tr><tr><td><strong>Qwen3.5-27B</strong></td><td style="text-align:center"><code>91.59%</code></td><td style="text-align:center"><strong><code>80.84%</code></strong></td><td style="text-align:center"><strong><code>-10.75</code></strong></td><td style="text-align:center"><strong><code>88.26%</code></strong></td></tr><tr><td><strong>Qwen3.5-35B-A3B</strong> (MoE)</td><td style="text-align:center"><code>90.65%</code></td><td style="text-align:center"><code>75.70%</code></td><td style="text-align:center"><code>-14.95</code></td><td style="text-align:center"><code>83.51%</code></td></tr><tr><td><strong>Qwen3.5-397B-A17B</strong> (MoE)</td><td style="text-align:center"><code>93.93%</code></td><td style="text-align:center"><code>79.91%</code></td><td style="text-align:center"><code>-14.02</code></td><td style="text-align:center"><code>85.07%</code></td></tr><tr><td><strong>Qwen3.6-Max-Preview</strong></td><td style="text-align:center"><code>90.19%</code></td><td style="text-align:center"><code>79.44%</code></td><td style="text-align:center"><code>-10.75</code></td><td style="text-align:center"><code>88.08%</code></td></tr></tbody></table></div>
+<p>数据显示，面对超过 95% 压缩率的极限异构巴别语，<strong><code>27B</code> 稠密模型（保留率 <code>88.26%</code>）的表现甚至优于总参数量高达 <code>397B</code> 的稀疏激活 MoE 模型（<code>85.07%</code>）</strong>。这说明巴别语解码能力并非简单堆叠参数即可获得，而是高度取决于模型<strong>活跃参数密度（Active Parameter Capacity）与代码/多语种后训练质量</strong>。</p>
+<hr />
+<h2 id="sec-3">6.2 直面最大隐忧：不可读性带来的安全与失真风险</h2>
+<p>任何诚实的技术白皮书都必须正视系统潜藏的暗面。当机器间通信从人类可读的自然语言切换为人类肉眼难以辨识的巴别语时，立即浮现出两大核心风险：</p>
+<ol><li><strong>硬数据静默漂移风险（Silent Numeric / Boundary Drift）</strong>：在法律合同、金融风控、医疗剂量或系统配置场景下，如果压缩器将 <code>≤ 20 octets</code> 漏写成了 <code>&lt; 20</code>，人类运维人员扫一眼巴别语很难立刻察觉。</li><li><strong>人类监管失明与隐写对齐风险（Audit Opacity &amp; Steganographic Risk）</strong>：MCP 与 A2A 原本为人类保留了一个直观的“明文观察窗”；一旦智能体间全面改用高密度符号流，传统的基于关键词正则过滤的内容安全防火墙（WAF / Guardrails）与人工抽检日志将面临失效风险。</li></ol>
+<hr />
+<h2 id="sec-4">6.3 巴别语三层确定性保真与安全审计网关（Three-Tier Audit Gateway）</h2>
+<p>正如比特币通过 <strong>SPV（简化支付验证）与确定性脚本校验</strong> 在无需信任中心机构的前提下保证每一笔账目不可篡改，巴别语体系吸收 <code>m-rui001/babeltele</code> 等工程审计实践，在协议层设立<strong>三层确定性保真与安全审计网关（BT-Audit Gateway）</strong>：</p>
+<div class="mermaid-box"><pre class="mermaid">flowchart LR
+    Src[&quot;原始文档 x&quot;] --&gt; Comp[&quot;巴别语编译器 C&quot;]
+    Comp --&gt; BT[&quot;候选巴别语编码 z&quot;]
+
+    subgraph Audit_Gateway[&quot;三层确定性保真与安全审计网关 (BT-Audit Gateway)&quot;]
+        T1[&quot;Tier-1 字面硬锚点机检: 正则抽取全部数字/公式/标识符/占位符逐位比对&quot;]
+        T2[&quot;Tier-2 异构模型盲测复算: 独立轻量模型在不看原文下核验核心契约与安全策略&quot;]
+        T3[&quot;Tier-3 按需人类旁路解码镜: 运维面板实时悬停调用只读 Decoder 渲染母语视图&quot;]
+    end
+
+    BT --&gt; T1 --&gt; T2 --&gt; Pass[&quot;签发已验证巴别语载荷 (Verified BT Payload)&quot;]
+    BT -. &quot;人类抽检 / 告警触发&quot; .-&gt; T3</pre></div>
+<h3 id="sec-5">Tier-1：字面硬锚点零开销机检（Deterministic Literal Anchor Check）</h3>
+<p>无需调用任何大模型，仅用纯标准库确定性代码（耗时 <code>&lt; 2ms</code>）即可拦截 90% 以上的数值幻觉：</p>
+<ul><li>自动从源文本 <span class="math-inline">$x$</span> 中机械提取<strong>锚点原子表（Anchor Lexicon）</strong>：包括所有精确阿拉伯数字、科学计数法、版本号、百分比、IP/URL、代码函数标识符与 <code>BIBREF</code> 占位符；</li><li>校验压缩产物 <span class="math-inline">$z$</span> 是否 100% 包含上述硬数据原子（或经声明的精确单位等价换算）；一旦发现数字缺失或被四舍五入，立即打回重编。</li></ul>
+<h3 id="sec-6">Tier-2：异构交叉盲测与安全护栏扫描（Cross-Model Blind Verification &amp; Guardrail）</h3>
+<ul><li><strong>高敏知识入库校验</strong>：对需要长期写入企业知识库或标准文书库的巴别语条目，使用<strong>与编译器不同家族</strong>的独立验证模型（Verifier LLM），在不接触源文本 <span class="math-inline">$x$</span> 的盲测条件下回答结构化契约断言（Contract Assertions），全通过方可落盘。</li><li><strong>语义级安全护栏</strong>：安全审计模型本身也是大模型，完全具备零样本直读巴别语的能力！因此在 MCP/A2A 网关上，只需将传统的“关键词正则防火墙”升级为<strong>轻量级语义护栏模型（Semantic Guardrail Model）</strong>，即可在巴别语状态下直接识别越权指令注入（Prompt Injection）或违规意图，无需强迫业务智能体退回低效的自然语言。</li></ul>
+<h3 id="sec-7">Tier-3：人类旁路可读观测镜（Human-in-the-Loop Sidecar Decoder）</h3>
+<p><strong>“机器内部传输不迁就人类可读性”绝不意味着“剥夺人类的知情权与干预权”</strong>——正如 CPU 内部运行二进制机器码、网络传输采用 TLS 与 Protobuf，而 Wireshark 与调试器随时为人类提供反汇编与可视化解码视图：</p>
+<ul><li>所有巴别语消息流与记忆树节点均支持挂载<strong>旁路只读解码器（Sidecar Decoder）</strong>；</li><li>正常运行时零额外开销；仅当人类工程师在监控面板点击某条通信日志或触发安全告警时，按需将其无损渲染回流畅的自然语言供人工审计。</li></ul>
+<hr />
+<blockquote><p><strong>下一章预告</strong>：理论、算子、协议栈与审计机制已全部就位。在实际工程中，我们究竟该把怎样的系统提示词喂给大模型，才能稳定编译与解码各档位的巴别语？请查阅完整收录的 <a href="07-canonical-instruction-set.html">第七章：巴别语标准编译与解码指令集 →</a>。</p></blockquote>
+<div class="pager"><div><a class="pager-card" href="05-agentic-protocol-stack.html"><div class="pager-label">← 上一章</div><div class="pager-title">05 · 智能体协议栈与默克尔记忆树</div></a></div><div><a class="pager-card next" href="07-canonical-instruction-set.html"><div class="pager-label">下一章 →</div><div class="pager-title">07 · 标准编译与解码指令集</div></a></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">本页目录</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">6.1 巴别语是“万能通用密码”吗？——异构跨模型迁移规律</a>
+        <a class="toc-item toc-h3" href="#sec-1">法则一：压缩器激进度决定跨模型解码门槛</a>
+        <a class="toc-item toc-h3" href="#sec-2">法则二：阅读端解码能力不唯参数量论（Non-Monotonic Scale Sensitivity）</a>
+        <a class="toc-item toc-h2" href="#sec-3">6.2 直面最大隐忧：不可读性带来的安全与失真风险</a>
+        <a class="toc-item toc-h2" href="#sec-4">6.3 巴别语三层确定性保真与安全审计网关（Three-Tier Audit Gateway）</a>
+        <a class="toc-item toc-h3" href="#sec-5">Tier-1：字面硬锚点零开销机检（Deterministic Literal Anchor Check）</a>
+        <a class="toc-item toc-h3" href="#sec-6">Tier-2：异构交叉盲测与安全护栏扫描（Cross-Model Blind Verification &amp;amp; Guardrail）</a>
+        <a class="toc-item toc-h3" href="#sec-7">Tier-3：人类旁路可读观测镜（Human-in-the-Loop Sidecar Decoder）</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "zh";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

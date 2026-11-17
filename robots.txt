@@ -1,0 +1,61 @@
+# BabelTele Whitepaper (BT-Spec v1.0) — Open Access for Search Engines & AI Agents
+# Canonical Site: https://minglink.github.io/BabelTele-Whitepaper/
+# AI Structured Index: https://minglink.github.io/BabelTele-Whitepaper/llms.txt
+# AI Full Corpus: https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt
+# Native BabelTele Digest: https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt
+
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+Sitemap: https://minglink.github.io/BabelTele-Whitepaper/sitemap.xml

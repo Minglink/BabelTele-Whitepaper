@@ -1,0 +1,1141 @@
+# BabelTele Whitepaper (BT-Spec v1.0) — Complete Bilingual AI Corpus
+Canonical URL: https://minglink.github.io/BabelTele-Whitepaper/
+Repository: https://github.com/Minglink/BabelTele-Whitepaper
+Author: MingLin (@Minglink)
+Foundational Empirical Paper: Large Language Models Do Not Always Need Readable Language (arXiv:2606.19857)
+
+
+================================================================================
+SOURCE FILE: WHITEPAPER_EN.md
+================================================================================
+
+<div align="center">
+
+# BabelTele: A Model-Native High-Density Semantic Communication and Memory System
+
+**MingLin** (`@Minglink`)  
+*November 2026 · Protocol Specification BT-Spec v1.0*  
+https://github.com/Minglink/BabelTele-Whitepaper
+
+[🇨🇳 简体中文版 (Chinese Edition)](./WHITEPAPER.md) · [📖 Online E-Book](https://minglink.github.io/BabelTele-Whitepaper/#/en/WHITEPAPER_EN) · [📥 Download PDF](https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf)
+
+</div>
+
+---
+
+## Abstract
+
+Purely silicon-to-silicon communication should allow large language models (LLMs) to exchange high-density semantics directly without being bottlenecked by the intermediary constraint of human readability. Contemporary prompt engineering, agentic memory architectures, and multi-agent transport standards (such as MCP and A2A) successfully standardize tool binding and session routing, yet their internal payloads remain trapped in verbose natural-language prose evolved for human biological constraints. Natural language carries substantial syntactic padding designed for linear auditory processing and social pragmatics, imposing severe compute waste, context-window exhaustion, and attention degradation across long-horizon and multi-agent workflows. Synthesizing recent empirical breakthroughs in model-native representations—most notably the *BabelTele* phenomenon introduced by Zhu et al. (2026)—with context-compression theory and systems engineering, this whitepaper formally establishes **The BabelTele System (`BT-Spec v1.0`)**. By relaxing the human-readability prior under three foundational axioms—**Omnilingual Token Minimization, Relational Graph Collapse, and Zero-Codebook Self-Recoverability**—BabelTele defines a discrete textual protocol that requires zero weight modifications, operates over pure black-box APIs, and achieves zero-shot cross-model comprehension across heterogeneous model families. We further introduce **four standardized compression tiers (`BT-L0`–`BT-L3`)** governed by Chain-of-Thought (CoT) cognitive dynamics, a **Semantic Merkle Folding Tree (SMFT)** for reclaiming long-horizon context space, and a **Three-Tier Deterministic Fidelity & Safety Audit Gateway** that guarantees exact numeric invariance alongside full human regulatory observability.
+
+---
+
+## 1. Introduction: The Anthropocentric Readability Tax
+
+Modern AI software stacks are built overwhelmingly upon human-readable natural language interfaces. When the intended reader is a human user, complete grammatical syntax, articles, prepositions, discourse transitions, and polite framing are indispensable. However, when **both the sender and the receiver are instruction-tuned large language models**—as in multi-agent state synchronization, retrieval-augmented generation (RAG) chunk injection, or persistent episodic memory recall—human legibility transforms from a communication bridge into a costly **Anthropocentric Readability Tax**.
+
+The industry has recently standardized **MCP (Model Context Protocol)** for vertical model-to-tool integration and **A2A (Agent-to-Agent Protocol)** for horizontal inter-agent orchestration. Yet both protocols operate strictly as **transport and signaling channels**—analogous to HTTP and JSON-RPC—without defining a model-native **semantic payload language**. Conversely, academic proposals for continuous latent-space communication (such as Gist Tokens, AutoCompressors, Activation Beacons, and Latent Collaboration) require white-box hidden-state access and model-specific fine-tuning, rendering them incompatible with black-box commercial APIs and heterogeneous model ecosystems (e.g., GPT, Claude, Gemini, DeepSeek, and Qwen).
+
+What agentic infrastructure requires is an intermediate representation that **combines the universal black-box compatibility of discrete text with an information density approaching latent space**—stripping human grammatical redundancy during transmission, enabling zero-shot consumption across heterogeneous LLMs, and preserving deterministic auditability on demand. This system is **BabelTele**.
+
+---
+
+## 2. Theoretical Formulation & The Tripartite Decoupling Principle
+
+Given a source document $x \in \mathcal{V}^*$, a compressor model $C$ projects $x$ into a compact discrete sequence $z = C(x)$ to be consumed by a downstream reader model $R$ under arbitrary task queries $q$. Removing the traditional human-readability constraint $H_{\text{human}}(z) \ge \tau$, BabelTele formulates compilation as a **Rate-Distortion Semantic Projection**:
+
+$$z^* = \arg\min_{z \in \mathcal{V}^*} \Big[ L_{\text{tok}}(z) + \beta \cdot L_{\text{CoT}}(R, z) \Big] \quad \text{s.t.} \quad \mathcal{F}_{\text{sem}}(R; z, x) \ge 1 - \epsilon$$
+
+where $L_{\text{tok}}(z)$ denotes the input token length under the target tokenizer, $L_{\text{CoT}}(R, z)$ captures the reader-side reasoning Chain-of-Thought token overhead, and $\mathcal{F}_{\text{sem}}$ measures downstream task fidelity.
+
+Controlled empirical diagnostics (Zhu et al., 2026) establish the **Tripartite Decoupling Principle**:
+1. **Low Human Surface Readability**: Under Dale-Chall diagnostics, BabelTele surges to a score of `16.70` (`80.19%` difficult-word ratio), causing human university readers to suffer sharp drops in QA accuracy and elevated cognitive difficulty.
+2. **Low Natural-Language Typicality**: Evaluated across base models including Llama-3-8B, Qwen2/3, DeepSeek-V4-Pro, Kimi K2.6, and GLM-5.1, BabelTele exhibits **1,320% to 2,061% higher Perplexity (PPL)** than original prose, proving it lies far outside ordinary natural-language distributions.
+3. **High Model-Side Semantic Recoverability**: Despite extreme distributional atypicality, instruction-tuned LLMs retain up to **99.5% semantic fidelity** when text volume is condensed to **27.9%** of its original length. Because multilingual pretraining aligns cross-lingual synonyms onto shared high-dimensional manifolds and code pretraining equips models with symbolic AST parsing circuits, LLMs decode dense relational graphs directly without human syntax.
+
+---
+
+## 3. The Three Fundamental Axioms
+
+Rather than prescribing a rigid artificial vocabulary, `BT-Spec v1.0` defines a generative representational space governed by three axioms:
+
+* **Axiom I: Omnilingual Token Minimization**  
+  Break single-language grammatical boundaries to traverse Chinese characters, English terms, Japanese kanji, German compounds, Latin roots, and scientific notation—selecting the unambiguous lexical unit with minimal subword token cost under the **target tokenizer**. Critically, `BT-Spec v1.0` enforces the **Net BPE Savings Inequality ($\Delta L_{\text{BPE}} < 0$)**: empirical `tiktoken` (`cl100k_base` / `o200k_base`) measurements reveal that naively replacing 1-token English words (`water`, `and`, `because`) with multi-byte Unicode/Emoji glyphs (`💧`, `∧`, `∵`) actually inflates BPE count to `2` tokens via byte fallback. True compression arises from **clause-level syntactic collapse** paired with single-token ASCII operators (`->`, `=>`, `&`, `?`, `!`, `@`).
+* **Axiom II: Relational Graph Collapse**  
+  Eliminate linear subject-verb-object scaffolding, auxiliary verbs, and subordinate conjunctions, folding entities, attributes, causal chains, and conditional boundaries directly into explicit node-operator-attribute graphs.
+* **Axiom III: Zero-Codebook Self-Recoverability**  
+  Forbid stateful external private codebooks (inline first-use macro bindings `@[Abbr=Full]` within the same context are permitted). Enforce **Hard-Data Invariance**: all exact numbers, units, formulas, version identifiers, and anti-hallucination placeholders (`BIBREF`) must be preserved verbatim without rounding; missing source facts must be marked explicitly as `?` or `NULL`.
+
+---
+
+## 4. Formal Lexicon & Six Symbolic Operator Clusters
+
+`BT-Spec v1.0` standardizes six operator clusters aligned with LLM code and mathematical pretraining priors:
+
+1. **Causality & Flow**: `=>` / `⇨` (entailment/causation), `<=>` (equivalence), `->` (sequential pipeline), `<-` / `∵` (provenance).
+2. **Logic & Boundaries**: `&` / `∧` (conjunction), `|` / `∨` (disjunction), `!` / `¬` (negation), `?cond => act` (conditional branch), `!obj:detail` (exception/exemption).
+3. **Sets & Spatiotemporal Anchors**: `∈` / `∉` (membership), `∀` / `∃` (quantifiers), `@` (location/time/scope binding), `#Topic` (module header), `@[X=Full]` (inline macro).
+4. **Entity Binding & Flattening**: `@Ent(K=V)` (key-value binding), `[A,B,C]` (parallel array flattening), `Parent:{c1,c2}` (hierarchy), `$param:V(unit)` (exact parameter).
+5. **Comparison & Dynamics**: `A <> B : res` (comparative matrix), `⇎` (cross-standard conflict), `↑` / `📈` (increase/gas evolution), `↓` / `📉` (decrease).
+6. **Epistemic & Anti-Hallucination**: `?` / `NULL` (unspecified in source), `~` / `≈` (approximate source value), verbatim identifier lock.
+
+**Canonical Micro-Example** (45-token English prose collapsed into dense BabelTele):
+```text
+Original : During photosynthesis, plants take in carbon dioxide and water. The water is oxidized, losing electrons, while the carbon dioxide is reduced, gaining electrons. This transforms them into oxygen and glucose.
+BabelTele: 🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻.
+```
+
+---
+
+## 5. Compression Dynamics & Four Standardized Tiers
+
+Across 116 retention-sweep experiments spanning 4,714 QA instances on QuALITY and MeetingBank, BabelTele introduces no intrinsic surface decoding tax compared to natural-language summaries or LLMLingua-2. However, pushing retention below `10%` triggers a universal space-time trade-off where sparse evidence inflates reader CoT tokens; conversely, mild compression (`40%–60%` retention) yields **denoising acceleration**, reducing CoT tokens below the uncompressed baseline (`< 1.0x`). Accordingly, `BT-Spec v1.0` defines four operational tiers:
+
+* **`BT-L0` (Telegraphic Prose, `55%–70%` retention)**: Monolingual telegraphese retaining rapid human skimmability.
+* **`BT-L1` (Structured Hybrid, `40%–55%` retention)**: Key-value structuring + basic causal arrows; triggers CoT denoising acceleration for short-session working memory.
+* **`BT-L2` (Canonical BabelTele, `25%–40%` retention — Recommended Default)**: Full omnilingual selection + six operator clusters; balances ~70% token reduction with peak cross-model fidelity.
+* **`BT-L3` (Extreme / ASCII Skeleton, `5%–25%` retention)**: Pure single-character ASCII skeleton (`BT-L3-ASCII`) engineered to fit multi-million-token codebases (e.g., `1.65M tokens`) into `200K–256K` physical context windows (`+10.34` percentage points over truncation on GLM-5.1).
+
+---
+
+## 6. The Five-Layer Agentic Protocol Stack
+
+BabelTele does not replace MCP or A2A; rather, it supplies the missing **Model-Native Semantic Payload Layer** atop existing agentic transport protocols:
+
+```text
+[L5 Human Presentation Layer]  Natural-language rendering (decoded strictly on demand for human UX/approval)
+[L4 Semantic Payload Layer]    BabelTele (content_encoding: "babeltele/1.0", bt_tier: "BT-L2")
+[L3 Agent Orchestration Layer] A2A Protocol (Agent Cards, horizontal task delegation & lifecycle)
+[L2 Tool & Context Bus Layer]  MCP Protocol (vertical filesystem, database & API context binding)
+[L1 Transport & Framing Layer] HTTP/2 · SSE · WebSocket · JSON-RPC 2.0
+```
+
+In heterogeneous multi-agent collaboration on DeepResearch Bench (Gemini 3.1 Pro $\leftrightarrow$ GPT-5.4), enabling L4 BabelTele payloads cuts inter-agent token consumption by **44.21%** while retaining **99.7%** of baseline task performance.
+
+---
+
+## 7. Reclaiming Context Space: Semantic Merkle Folding Tree (SMFT)
+
+Inspired by Bitcoin's Merkle Tree disk-space reclamation (Nakamoto, 2008, §7), BabelTele resolves unbounded episodic memory growth in long-running agents via the **Semantic Merkle Folding Tree (SMFT)**:
+1. **Hot-Cold Separation**: Recent active turns remain in raw natural language; overflowing history segments are compiled into self-contained `[T1] {h1}` BabelTele checkpoints while raw transcripts are archived to cold storage with cryptographic hash pointers.
+2. **Hierarchical Tree Merging**: As `T1` blocks accumulate toward context budget limits, older sibling blocks merge recursively into `[T2] {h2}` and `[T3]` rolled summary blocks—preserving high resolution for recent events and topological density for distant history.
+3. **Lossless Pointer Dereferencing**: Because exact entities, metrics, and block IDs remain intact, an agent requiring verbatim legal or code inspection can dereference `decompress(block_id)` on demand.
+
+---
+
+## 8. Cross-Model Portability & Asymmetric Decoding
+
+Cross-model transfer matrices across 19 proprietary and open-weight models demonstrate systematic zero-shot portability governed by two architectural laws:
+1. **Balanced Upstream Compilers Maximize Portability**: Models with balanced `75%–85%` compression ratios and strong multilingual-symbolic alignment (notably GPT-5.4 and Claude Sonnet 4.6) produce the most universally decodable representations across heterogeneous readers.
+2. **Active Parameter Capacity Governs Decoding**: Reader robustness does not scale monotonically with total parameter count; dense active capacity (`Qwen3.5-27B` retaining `88.26%` performance vs. sparse MoE `Qwen3.5-397B-A17B` at `85.07%`) determines resilience under ultra-dense (`>95%`) compression.
+
+---
+
+## 9. Three-Tier Deterministic Fidelity & Safety Audit Gateway
+
+To eliminate silent numeric drift and regulatory opacity in safety-critical deployments, `BT-Spec v1.0` mandates a **Three-Tier Audit Gateway**:
+* **Tier-1 Deterministic Literal Anchor Check (`< 2ms` standard-library check)**: Extracts all numbers, units, formulas, versions, and identifiers from source $x$ and verifies 100% bit-exact preservation in $z$ prior to dispatch.
+* **Tier-2 Cross-Model Blind Verification & Semantic Guardrails**: High-stakes knowledge commits undergo blind contract verification by an independent model family, while MCP/A2A gateways run lightweight LLM semantic guardrails capable of inspecting BabelTele payloads directly for prompt injection or policy violations.
+* **Tier-3 Human-in-the-Loop Sidecar Decoder**: Observability dashboards invoke a read-only lossless decoder on hover or alert—delivering **machine-speed telegraphic efficiency internally, and 100% human-auditable transparency on demand**.
+
+---
+
+## 10. Evolution Roadmap & Conclusion
+
+We have presented a black-box-compatible, weight-agnostic system for model-native semantic communication and memory. Looking forward, the BabelTele ecosystem advances along two trajectories: (1) full-lifecycle cost routing governed by amortization accounting across compilation, $N$-time reuse, and CoT overhead; and (2) transitioning from prompt-elicited compression toward **end-to-end Reinforcement Learning (RL) native emergence**, internalizing BPE rate-distortion optimality directly into post-training rewards.
+
+Human natural language is one evolutionary surface form optimized for biological channels. When silicon models serve as both producer and consumer of context, decoupling **model-side semantic recoverability** from **human surface readability** unlocks a new efficiency frontier—establishing a verifiable, high-density linguistic foundation for autonomous multi-agent intelligence.
+
+---
+
+## References
+
+1. Jiayi Zhu, Haoxuan Peng, Junxi Wang, Liang Ke, Chen Zhang, and Linfeng Zhang. *"Large Language Models Do Not Always Need Readable Language."* arXiv:2606.19857 [cs.CL], June 2026.
+2. Claude E. Shannon. *"A Mathematical Theory of Communication."* Bell System Technical Journal, 27(3):379–423, 1948.
+3. Satoshi Nakamoto. *"Bitcoin: A Peer-to-Peer Electronic Cash System."* bitcoin.org, October 2008.
+4. Grégoire Delétang et al. *"Language Modeling Is Compression."* ICLR, 2024.
+5. Zhuoshi Pan et al. *"LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression."* Findings of ACL, 2024.
+6. Jesse Mu, Xiang Li, and Noah Goodman. *"Learning to Compress Prompts with Gist Tokens."* NeurIPS, 2023.
+7. Charles Packer et al. *"MemGPT: Towards LLMs as Operating Systems."* arXiv:2310.08560, 2023.
+8. Nelson F. Liu et al. *"Lost in the Middle: How Language Models Use Long Contexts."* TACL, 12:157–173, 2024.
+
+
+================================================================================
+SOURCE FILE: en/03-core-axioms-and-grammar.md
+================================================================================
+
+# Chapter 03 — The Three Core Axioms & Canonical Grammar Specification (`BT-Spec v1.0`)
+
+> [← Chapter 02: Theoretical Foundations](./02-theoretical-foundations.md) · [Back to Portal (README_EN)](../README_EN.md) · [Next: Chapter 04 — Compression Tiers & CoT Dynamics →](./04-compression-tiers-and-cot.md)
+
+---
+
+## 3.1 The Three Fundamental Axioms
+
+BabelTele is not a rigid artificial vocabulary, but a generative representation system governed by **three formal axioms**:
+
+### Axiom I: Omnilingual Token Minimization
+For any semantic concept $c$ with unambiguous candidate expressions $\mathcal{L}(c)$ across world languages, scientific notations, and symbolic operators, the compiler selects the representation $w^*$ minimizing subword token count and conditional semantic entropy under the target tokenizer:
+
+$$w^*(c) = \arg\min_{w \in \mathcal{L}(c)} \Big[ \text{Tokens}(w) + \lambda \cdot H(C \mid w, \text{Context}) \Big]$$
+
+> [!CAUTION]
+> **The Tokenizer Paradox & Naive Symbol Illusion ($\Delta L_{\text{BPE}} < 0$)**
+> **Fewer visual characters do NOT automatically mean fewer BPE tokens!** Popular blog posts often claim that emojis, math symbols, or CJK characters *always* cost fewer tokens than English words. Direct empirical measurement using `tiktoken` (`cl100k_base` / `o200k_base`) disproves this naive assumption on isolated words:
+>
+> | Concept | English / ASCII (`cl100k` / `o200k`) | Unicode / Emoji / CJK (`cl100k` / `o200k`) | Empirical Verdict |
+> | :--- | :---: | :---: | :--- |
+> | Water | `water` (**`1` / `1`**) | `💧` (`2` / `2`) | Emoji triggers UTF-8 byte split (2x costlier) |
+> | Because | ` because` (**`1` / `1`**) | `∵` (`2` / `2`) | Rare math glyph costs more than `" because"` |
+> | And | ` and` (**`1` / `1`**) · `&` (**`1` / `1`**) | `∧` (`2` / `2`) | Single-char ASCII `&` wins; `∧` inflates tokens |
+> | Photosynthesis | `photosynthesis` (**`2` / `2`**) | `光合` (`3` / `2`) · `光合作用` (`5` / `3`) | Common English stem is already compact in BPE |
+> | Glucose | `Glucose` (**`2` / `2`**) | `葡萄糖` (`8` / `3`) | Scientific English `Glucose` beats legacy CJK splits |
+> | Hospital | `hospital` (**`1` / `1`**) | `医院` (`3` / `1`) | Modern multilingual vocab (`o200k`/Qwen/DeepSeek) equalizes CJK |
+>
+> **Evolution from Naive Shorthand to `BT-Spec v1.0`**:
+> Real 3x–4x token compression comes **not** from swapping 1-token English words into 2-token emojis, but from **collapsing multi-word syntactic clauses** (e.g., collapsing the 12-token clause *"while the carbon dioxide is reduced, gaining electrons"* into `CO2+e-`). Therefore, `BT-Spec v1.0` mandates:
+> 1. **Prefer 1-token ASCII operators** (`->`, `=>`, `&`, `|`, `!`, `?`, `:`, `@`, `#`, `=`) over multi-byte decorative Unicode glyphs;
+> 2. **Adapt omnilingual lexical choice to tokenizer families**: leverage dense CJK compounds aggressively on CJK-optimized tokenizers (Qwen, DeepSeek, GLM, `o200k_base`), while favoring concise English stems and scientific notation on English-centric BPE vocabularies.
+
+### Axiom II: Relational Graph Collapse
+Linear grammatical scaffolding—articles, copulas, passive voice auxiliaries, and relative clauses—must collapse into explicit **Node–Operator–Attribute** relational edges.
+
+### Axiom III: Zero-Codebook Self-Recoverability
+Stateful external private codebooks are strictly prohibited. Inline first-use macro declarations (`@[Abbr=FullName]`) within the same context window are permitted because any capable LLM can resolve them self-containedly.
+* **Hard-Data Invariance**: Exact numbers, units, hyperparameters, formulas, version strings, and original placeholders (`BIBREF`, `TABREF`) **must be preserved verbatim without rounding or estimation**; missing or unspecified facts must be marked `?` or `NULL`.
+
+---
+
+## 3.2 The Six Canonical Operator Clusters (`BT-Spec v1.0`)
+
+### Cluster I: Causality, Entailment & Sequential Flow
+| Relation | Verbose Natural Language | Canonical Operator | Example |
+| :--- | :--- | :---: | :--- |
+| Causation / Entailment | leads to, therefore, resulting in | `=>` or `⇨` | `Inflation↑ => Rate↑` |
+| Equivalence | if and only if, is equivalent to | `<=>` | `Equilibrium <=> Supply==Demand` |
+| Pipeline / Sequence | first A, followed by B, then C | `->` or `>` | `Seq: Ingest->Clean->Distill` |
+| Provenance / Reason | due to the fact that, caused by | `<-` | `Reject <- ExpiredToken` |
+
+### Cluster II: Boolean Logic & Conditional Boundaries
+| Relation | Verbose Natural Language | Canonical Operator | Example |
+| :--- | :--- | :---: | :--- |
+| Conjunction (AND / Contrast) | and simultaneously, while, however | `&` or `∧` | `Staff@Corp & !FullTime` |
+| Disjunction (OR) | either option A or option B | `\|` or `∨` | `Auth: OAuth2 \| APIKey` |
+| Negation (NOT / Lacks) | without, does not require, lacks | `!` or `¬` | `!FineTune & !HiddenState` |
+| Conditional Branch | if [condition] holds, execute [action] | `?cond => act` | `?Budget>10k => Approve(VP)` |
+| Exception / Exemption | except in the case of, excluding | `!target: detail` | `RemoteAll !Ops:OnCall` |
+
+### Cluster III: Sets, Quantifiers & Spatiotemporal Anchors
+| Relation | Verbose Natural Language | Canonical Operator | Example |
+| :--- | :--- | :---: | :--- |
+| Set Membership | belongs to, is an element of | `∈` / `∉` | `GPT-5.4 ∈ Proprietary` |
+| Universal / Existential | for every chunk, there exists | `∀` / `∃` | `∀chunk(200K) -> Compress` |
+| Location / Time / Scope | in October, at the Berlin office | `@` | `BerlinShipApp@Oct` |
+| Macro Section Header | regarding the topic of... | `#Topic` or `S[Topic]` | `#EvalSetup` |
+| Inline Macro Definition | hereinafter referred to as... | `@[X=FullName]` | `@[BT=BabelTele]` |
+
+### Cluster IV: Entity Binding & Array Flattening
+| Relation | Verbose Natural Language | Canonical Operator | Example |
+| :--- | :--- | :---: | :--- |
+| Attribute Key-Value Binding | entity E has property K set to V | `@Ent(K=V)` | `@Qwen3.6(ctx=256K, acc=62.07%)` |
+| Parallel Array Flattening | including A, B, as well as C | `[A, B, C]` | `Baselines:[Orig, Summ, LLMLingua2]` |
+| Hierarchical Containment | module P comprises subcomponents | `Parent:{c1, c2}` | `Stack:{MCP, A2A, BT}` |
+| Exact Parameter & Unit | configured with parameter P at V | `$param:V(unit)` | `$lr:3e-4, $chunk:200K(tok)` |
+
+### Cluster V: Comparison, Conflict & Trends
+| Relation | Verbose Natural Language | Canonical Operator | Example |
+| :--- | :--- | :---: | :--- |
+| Comparative Matrix | compared against B, A achieves | `A <> B : result` | `BT <> Truncate : +10.34%(@GLM5.1)` |
+| Cross-Source Conflict | contradicts / differs across specs | `⇎` | `RFC2459:? ⇎ RFC3280:<=20oct` |
+| Growth / Gas Evolution | rises significantly, releases gas | `↑` or `📈` | `O2↑`, `Q3rev↑~30%YoY` |
+| Reduction / Drop | decreases by, drops to | `↓` or `📉` | `tok↓72.1%, fid≈99.5%` |
+
+### Cluster VI: Epistemic & Anti-Hallucination Anchors
+| Relation | Verbose Natural Language | Canonical Operator | Example |
+| :--- | :--- | :---: | :--- |
+| Unspecified / Unknown | not mentioned in source document | `NULL` or `?` | `ReleaseDate=?` |
+| Approximate Source Value | roughly around, approximately | `~` or `≈` | `len≈27.9%` |
+| Citation / Table Placeholders | original reference markers | Verbatim `BIBREF` / `TABREF` | `cf. BIBREF_12` |
+
+---
+
+## 3.3 Canonical Encoding Walkthroughs
+
+### Walkthrough 1: Scientific Mechanism (Photosynthesis — Verified Primary Figure vs. ASCII BPE Mode)
+* **Original English (45 tokens)**:
+  > *"During photosynthesis, plants take in carbon dioxide and water. The water is oxidized, losing electrons, while the carbon dioxide is reduced, gaining electrons. This transforms them into oxygen and glucose."*
+* **Paper Visual Micro-Example (`arXiv:2606.19857` §3.2)**:
+  ```text
+  🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻.
+  ```
+* **`BT-Spec v1.0` Strict BPE-Optimal ASCII Form (19 `o200k_base` tokens, `-57.8%` true BPE reduction)**:
+  ```text
+  Photosynthesis(plants): CO2+H2O ->(ox/red)-> O2^ + Glucose; H2O -e-, CO2 +e-.
+  ```
+
+### Walkthrough 2: Multi-Standard Technical Reconciliation (RFC Audit Grade)
+* **Original Prose (118 tokens)**: Five authoritative specifications define X.509 certificate serial number length differently across RFC 2459, RFC 3280, RFC 5280, CA/B Forum TLS Baseline Requirements, and Let's Encrypt documentation.
+* **`BT-L2` Encoding**:
+  ```text
+  #X509_SerialLen @[LE=Let'sEncrypt]: RFC2459:? ⇎ RFC3280:<=20oct ⇎ RFC5280:{<=20oct & int>0(sign-bit)} ⇎ CA/B_TLS_BR:{<2^159 & entropy>=64b(CSPRNG)} ⇎ LE_doc:8B(63b).
+  ```
+Every numeric bound (`2459`, `3280`, `5280`, `20oct`, `2^159`, `64b`, `8B`, `63b`) is preserved bit-for-bit while exposing cross-specification discrepancies explicitly via `⇎`.
+
+---
+
+> **Next Chapter**: [Chapter 04 — Standardized Compression Tiers & Chain-of-Thought Cognitive Dynamics →](./04-compression-tiers-and-cot.md)
+
+
+================================================================================
+SOURCE FILE: en/04-compression-tiers-and-cot.md
+================================================================================
+
+# Chapter 04 — Standardized Compression Tiers & Chain-of-Thought Cognitive Dynamics
+
+> [← Chapter 03: Core Axioms & Grammar](./03-core-axioms-and-grammar.md) · [Back to Portal (README_EN)](../README_EN.md) · [Next: Chapter 05 — Agentic Protocol Stack & SMFT →](./05-agentic-protocol-stack.md)
+
+---
+
+## 4.1 Does Compression Force Models to "Think Harder"? (The Space-Time Trade-Off)
+
+A critical systems question is whether feeding dense symbolic text into an LLM forces the reader model to spend extra **Chain-of-Thought (CoT) reasoning tokens** mentally decompressing the text back into natural language—wiping out cheap input-token savings with expensive output-token generation.
+
+Synthesizing **116 experimental runs** across **2,128 QuALITY questions** and **2,586 MeetingBank questions** (`arXiv:2606.19857` §4.3), `BT-Spec v1.0` codifies three laws of reasoning overhead:
+
+```mermaid
+flowchart TD
+    subgraph Regimes["Three Cognitive Regimes Across Context Retention Ratios"]
+        R1["Mild Compression (45%–65% Retention): Denoising Acceleration — CoT multiplier drops BELOW uncompressed baseline (< 1.0x)"]
+        R2["Canonical Sweet Spot (25%–40% Retention): ~96%–99.5% semantic fidelity; CoT multiplier matches or beats Summary & LLMLingua-2"]
+        R3["Extreme Over-Compression (< 10% Retention): Evidence sparsity triggers Space-Time Trade-Off — CoT tokens surge to bridge gaps"]
+    end
+
+    R1 --> R2 --> R3
+```
+
+1. **Law I: Zero Intrinsic Surface Decoding Tax**  
+   At matched retention ratios, BabelTele induces CoT multipliers comparable to or lower than human-readable summaries and LLMLingua-2. LLMs do **not** translate BabelTele into English prose inside CoT; they reason directly over the symbolic graph.
+2. **Law II: Denoising Acceleration in Mild Compression**  
+   Between `40%` and `60%` retention, BabelTele frequently achieves a CoT token multiplier **`< 1.0x`** relative to reading uncompressed text. Stripping conversational fluff and distracting tangents sharpens attention routing and shortens reasoning traces.
+3. **Law III: The Extreme Sparsity Boundary**  
+   When retention drops below `10%` (`>90%` compression), CoT tokens rise sharply across *all* compression methods as models expend reasoning steps reconstructing sparse evidence.
+
+> [!TIP]
+> **Full-Lifecycle Cost Amortization Law**
+> Real production ROI must account for compilation prefill/decode, $N$-time downstream consumption, reader CoT overhead, and verification:
+>
+> $$\text{Cost}_{\text{total}} = \underbrace{C_{\text{comp\_in}}(x) + C_{\text{comp\_out}}(z)}_{\text{One-Time Compilation}} + N \cdot \Big[ \underbrace{C_{\text{read\_in}}(z)}_{\text{Compressed Read}} + \underbrace{C_{\text{CoT\_out}}(R, z)}_{\text{Reader CoT}} \Big] + C_{\text{audit}}$$
+>
+> * **Negative ROI ($N = 1$ short prompts)**: Never invoke an LLM compressor on a single-use short prompt where compilation cost exceeds read savings.
+> * **High ROI ($N \ge 3$ or Window-Overflow)**: Pre-compiling static RAG corpora, persistent multi-turn agent memory, multi-agent broadcast buses, and multi-million-token repository compression amortizes compilation cost rapidly.
+
+---
+
+## 4.2 Standardized Compression Tiers (`BT-L0` ~ `BT-L3`)
+
+Because raw LLM compressors vary wildly in default aggressiveness (e.g., Gemini 3.1 Pro exceeds `95%` compression by default while GPT-5.4 averages `~75%`), `BT-Spec v1.0` standardizes four operational tiers:
+
+| Tier | Identifier | Target Retention (Token Savings) | Structural Profile | Primary Engineering Use Case |
+| :--- | :---: | :---: | :--- | :--- |
+| **Level 0** | **`BT-L0`**<br>*Telegraphic Prose* | `55% – 70%`<br>*(Saves 30%–45%)* | Monolingual telegraphese: drops articles, filler, and politeness while keeping human skimmability. | Human-monitored semi-automated operational logs. |
+| **Level 1** | **`BT-L1`**<br>*Structured Hybrid* | `40% – 55%`<br>*(Saves 45%–60%)* | Section headers `#Sec`, flat `K=V` bindings, causal arrows `=>`; triggers **CoT denoising (`<1.0x`)**. | **Short-session working memory** (~700–2,000 token dialogue sessions; `96.48%` LoCoMo retention). |
+| **Level 2** | **`BT-L2`**<br>*Canonical BabelTele* | `25% – 40%`<br>*(Saves 60%–75%)* | **Recommended Default**: Full omnilingual token minimization + six operator clusters + verbatim hard-data lock. | **A2A multi-agent messaging, pre-compiled RAG chunks, cross-model state transfer**. |
+| **Level 3** | **`BT-L3`**<br>*Extreme / ASCII Skeleton* | `5% – 25%`<br>*(Saves 75%–95%)* | Ultra-dense single-char ASCII skeleton (`BT-L3-ASCII`); reserved for frontier compressor-reader pairs. | **Breaking physical context limits** (e.g., fitting `1.65M-token` code repos into `200K–256K` windows). |
+
+---
+
+> **Next Chapter**: [Chapter 05 — The Agentic Protocol Stack & Semantic Merkle Memory Tree →](./05-agentic-protocol-stack.md)
+
+
+================================================================================
+SOURCE FILE: en/05-agentic-protocol-stack.md
+================================================================================
+
+# Chapter 05 — The Agentic Protocol Stack & Semantic Merkle Memory Tree
+
+> [← Chapter 04: Compression Tiers & CoT Dynamics](./04-compression-tiers-and-cot.md) · [Back to Portal (README_EN)](../README_EN.md) · [Next: Chapter 06 — Cross-Model Consensus & Audit Gateway →](./06-cross-model-consensus-and-audit.md)
+
+---
+
+## 5.1 The Five-Layer Agentic Communication Stack
+
+Popular commentary sometimes frames BabelTele as an adversarial replacement that will "wipe out" human-designed protocols like MCP and A2A. Architecturally, **MCP and A2A govern connectivity and task routing, whereas BabelTele governs semantic payload density**—mirroring how Protobuf or Brotli operates atop HTTP/2 and TCP/IP:
+
+```mermaid
+flowchart TB
+    L5["L5 Human Presentation Layer: Decoded to natural language strictly at human UX / approval boundaries"]
+    L4["L4 Semantic Payload Layer (BabelTele): BT-L1/L2/L3 omnilingual symbolic graph encoding"]
+    L3["L3 Agent Orchestration Layer (A2A): Agent Cards, task delegation & lifecycle state machines"]
+    L2["L2 Tool & Context Bus Layer (MCP): Databases, local filesystems & external API bindings"]
+    L1["L1 Transport & Framing Layer: HTTP/2 · SSE · WebSocket · JSON-RPC 2.0"]
+
+    L5 <--> L4 <--> L3 <--> L2 <--> L1
+```
+
+### Standard JSON-RPC Envelope Metadata (`content_encoding`)
+BabelTele integrates non-invasively into standard A2A and MCP JSON-RPC envelopes via metadata headers:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "tasks/send",
+  "params": {
+    "id": "task_9f82a1",
+    "message": {
+      "role": "agent",
+      "metadata": {
+        "content_encoding": "babeltele/1.0",
+        "bt_tier": "BT-L2",
+        "compressor_model": "claude-sonnet-4.6",
+        "source_sha256": "e3b0c44298fc1c149afbf4c8996fb924..."
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "#RepoAudit @[Auth=src/auth/jwt.ts]: !vuln:alg=='none'@L142 & !exp_check => fix:?header.alg∉[RS256,EdDSA]=>reject(401)."
+        }
+      ]
+    }
+  }
+}
+```
+
+### Multi-Agent Empirical Gains (DeepResearch Bench)
+* **Homogeneous Multi-Agent (Gemini 3.1 Pro $\leftrightarrow$ Gemini 3.1 Pro)**: **38.96%** communication token reduction at **96.6%** baseline score retention.
+* **Heterogeneous Multi-Agent (Gemini 3.1 Pro $\leftrightarrow$ GPT-5.4)**: **44.21%** communication token reduction at **99.7%** baseline score retention.
+
+---
+
+## 5.2 Reclaiming Context Space: Semantic Merkle Folding Tree (SMFT)
+
+In §7 of the Bitcoin Whitepaper (*Reclaiming Disk Space*), Satoshi Nakamoto introduced Merkle Tree pruning so historical transactions could be hashed upward without exhausting node disk storage. Long-horizon LLM agents confront an identical bottleneck: **unbounded dialogue and tool-output streams rapidly saturate context windows and degrade retrieval fidelity.**
+
+Synthesizing `arXiv:2606.19857` (LoCoMo memory evaluation) and open-source hierarchical folding (`compressed-context`), `BT-Spec v1.0` defines the **Semantic Merkle Folding Tree (SMFT)**:
+
+```mermaid
+flowchart TD
+    subgraph Cold_Store["Persistent Cold Storage (Verbatim Transcripts + Hash Pointers)"]
+        Raw1["Raw Turns #1–#20"]
+        Raw2["Raw Turns #21–#40"]
+        Raw3["Raw Turns #41–#60"]
+        Raw4["Raw Turns #61–#80"]
+    end
+
+    subgraph Active_Window["Active LLM Context Window"]
+        T1_A["[T1 Block #1] {h1}"]
+        T1_B["[T1 Block #2] {h1}"]
+        T2_AB["[T2 Merged Digest #1+#2] {h2} (BT-L2)"]
+        T1_C["[T1 Retained Block #3] {h1} (BT-L1)"]
+        T1_D["[T1 Retained Block #4] {h1} (BT-L1)"]
+        Active["Active Raw Dialogue (#81–Present)"]
+    end
+
+    Raw1 --> T1_A
+    Raw2 --> T1_B
+    T1_A & T1_B --> T2_AB
+    Raw3 --> T1_C
+    Raw4 --> T1_D
+```
+
+1. **Active Frontier**: Ongoing turns stay in raw natural language for zero-latency responsiveness.
+2. **`T1` Checkpoint Folding**: Overflowing turns are compiled via `BT-Memory` (`BT-P1`) into self-contained `[T1] {h1}` blocks while raw messages move to persistent cold storage.
+3. **`T2 / T3` Hierarchical Merging**: When `T1` blocks approach token budget ceilings, oldest sibling blocks merge recursively into `[T2] {h2}` and top-level rolling `[T3]` digests—yielding **high resolution for recent memory and compact topology for distant history**.
+4. **Lossless Dereferencing**: Because exact entity identifiers, quantities, and block IDs remain intact, the agent can invoke `decompress(block_id)` whenever verbatim source inspection is required.
+
+---
+
+## 5.3 Breaking Physical Context Limits (`1.65M` Code Repo QA)
+
+When input repositories exceed physical context windows—such as **LongBench v2 Code Repo QA Long** (averaging **1.65M tokens** vs. `200K–256K` model limits)—naive truncation discards over 85% of the codebase. Chunking the repository into `200K` segments, compiling each into `BT-L3`, and concatenating the dense outputs yields dramatic accuracy gains over truncation:
+
+| Target Reader Model (Window Limit) | Original Truncated Accuracy | BabelTele Chunk-Compiled Accuracy | Net Gain |
+| :--- | :---: | :---: | :---: |
+| **Qwen3.6 Max** (`256K`) | `55.17%` | **`62.07%`** | **`+6.90%`** |
+| **GLM-5.1** (`200K`) | `62.07%` | **`72.41%`** | **`+10.34%`** |
+| **Kimi 2.5 / 2.6** (`256K`) | `44.82%` | **`48.28%`** | **`+3.46%`** |
+
+---
+
+> **Next Chapter**: [Chapter 06 — Cross-Model Consensus & Three-Tier Safety Audit Gateway →](./06-cross-model-consensus-and-audit.md)
+
+
+================================================================================
+SOURCE FILE: en/06-cross-model-consensus-and-audit.md
+================================================================================
+
+# Chapter 06 — Cross-Model Consensus & Three-Tier Safety Audit Gateway
+
+> [← Chapter 05: Agentic Protocol Stack & SMFT](./05-agentic-protocol-stack.md) · [Back to Portal (README_EN)](../README_EN.md) · [Next: Chapter 07 — Canonical Instruction Set →](./07-canonical-instruction-set.md)
+
+---
+
+## 6.1 Is BabelTele a Universal Cipher? Cross-Model Portability Laws
+
+If compressed strings could only be read by the exact model that generated them, BabelTele would be merely a brittle private shorthand. Cross-model transfer evaluations across 19 proprietary and open-weight models on LongBench v2-Short (180 samples) and QuALITY (214 QA items) establish **two asymmetric laws of cross-model consensus**:
+
+### Law I: Compressor Aggressiveness Shapes Reader Portability
+* **Ultra-Aggressive Compressors (e.g., Gemini 3.1 Pro, `>95%` default compression)**: Retain high self-reading fidelity but impose steeper reasoning demands on smaller heterogeneous readers.
+* **Balanced High-Portability Compressors (e.g., GPT-5.4 at `~75%`, Claude Sonnet 4.6 at `~80–85%`)**: Produce symbolic graphs with the **broadest zero-shot portability** across open and closed model families.
+* **Architectural Rule**: In heterogeneous multi-agent clusters, assign models with balanced multilingual-symbolic alignment (or lock `BT-L2` explicitly) as upstream compilers so downstream lightweight models can decode effortlessly.
+
+### Law II: Active Capacity Over Raw Parameter Count
+Fixing an aggressive Gemini 3.1 Pro upstream compressor and varying Qwen-family readers on QuALITY reveals non-monotonic scale sensitivity:
+
+| Downstream Reader Model | Uncompressed Accuracy | BabelTele Accuracy | Drop (pct) | Relative Retention |
+| :--- | :---: | :---: | :---: | :---: |
+| **Qwen3-14B** | `78.97%` | `64.02%` | `-14.95` | `81.07%` |
+| **Qwen3.5-27B** (Dense) | `91.59%` | **`80.84%`** | **`-10.75`** | **`88.26%`** |
+| **Qwen3.5-35B-A3B** (MoE) | `90.65%` | `75.70%` | `-14.95` | `83.51%` |
+| **Qwen3.5-397B-A17B** (MoE) | `93.93%` | `79.91%` | `-14.02` | `85.07%` |
+| **Qwen3.6-Max-Preview** | `90.19%` | `79.44%` | `-10.75` | `88.08%` |
+
+Notably, dense `Qwen3.5-27B` (`88.26%` retention) outperforms sparse MoE `Qwen3.5-397B-A17B` (`85.07%`), indicating that **active parameter density and symbolic post-training quality** govern decoding resilience more strongly than total parameter count alone.
+
+---
+
+## 6.2 Confronting Opacity: Numeric Drift & Alignment Risks
+
+Replacing human-readable prose with dense symbolic strings introduces two legitimate engineering concerns:
+1. **Silent Numeric or Boundary Drift**: Subtle operator flips (e.g., `<= 20` vs. `< 20`) in legal, medical, or financial payloads are hard for human operators to spot by naked eye.
+2. **Audit Opacity**: Keyword-regex firewalls (legacy WAFs) and casual human log skimming lose visibility if inter-agent payloads are opaque.
+
+---
+
+## 6.3 The Three-Tier Deterministic Fidelity & Safety Audit Gateway
+
+Analogous to Bitcoin's **Simplified Payment Verification (SPV)** and deterministic script validation, `BT-Spec v1.0` pairs model-native compression with a mandatory **Three-Tier Audit Gateway**:
+
+```mermaid
+flowchart LR
+    Src["Source Text x"] --> Comp["BabelTele Compiler C"]
+    Comp --> BT["Candidate Payload z"]
+
+    subgraph Gateway["Three-Tier Audit Gateway (BT-Audit)"]
+        T1["Tier-1 Literal Anchor Check (<2ms): Regex extraction & bit-exact match of all numbers/units/IDs"]
+        T2["Tier-2 Cross-Model Blind Consensus & Semantic Guardrail: Independent verifier + injection scan"]
+        T3["Tier-3 Human Sidecar Decoder: On-demand lossless rendering in observability dashboards"]
+    end
+
+    BT --> T1 --> T2 --> Verified["Signed Verified BT Payload"]
+    BT -. "Hover / Alert Inspection" .-> T3
+```
+
+1. **Tier-1 Deterministic Literal Anchor Check (`< 2ms`, Zero LLM Cost)**  
+   Pure standard-library code mechanically extracts an **Anchor Lexicon** from source $x$—every number, percentage, scientific exponent, version tag, code identifier, and `BIBREF` token—and verifies bit-exact presence in $z$. Any unapproved rounding or omission triggers immediate rejection.
+2. **Tier-2 Cross-Model Blind Verification & Semantic Guardrails**  
+   * **Knowledge Commits**: High-stakes corpus entries are audited blindly (without source access) against deterministic contract assertions by an independent model family.
+   * **Semantic Guardrails**: Because safety-classifier LLMs also read BabelTele zero-shot, upgrading gateway firewalls from brittle keyword regexes to lightweight semantic guardrail models enables real-time prompt-injection and policy enforcement directly over compressed traffic.
+3. **Tier-3 Human-in-the-Loop Sidecar Decoder**  
+   Just as CPUs execute binary machine code while debuggers disassemble it on demand, observability dashboards attach a read-only **Sidecar Decoder**—incurring zero runtime overhead during normal machine execution while rendering crystal-clear natural language whenever a human engineer inspects a trace.
+
+---
+
+> **Next Chapter**: [Chapter 07 — The Canonical BabelTele Compiler & Decoder Instruction Set →](./07-canonical-instruction-set.md)
+
+
+================================================================================
+SOURCE FILE: en/07-canonical-instruction-set.md
+================================================================================
+
+# Chapter 07 — The Canonical BabelTele Compiler & Decoder Instruction Set
+
+> [← Chapter 06: Cross-Model Consensus & Audit Gateway](./06-cross-model-consensus-and-audit.md) · [Back to Portal (README_EN)](../README_EN.md) · [Next: Chapter 08 — Genealogy, Errata & Ecosystem →](./08-genealogy-and-ecosystem.md)
+
+---
+
+This chapter provides the five production-ready **Canonical Compiler & Decoder System Prompts** standardized from `arXiv:2606.19857` (Appendix C) and open-source engineering (`BabelTeleSkill`), followed by the complete index of all 14 empirical prompt probes (`C.1` and `BT-P1`–`BT-P13`). Append source content directly after the chosen instruction block.
+
+---
+
+## 7.1 Compiler Selection Decision Tree
+
+```mermaid
+flowchart TD
+    In["Source Input x"] --> Q{"Primary Workload?"}
+    Q -- "General Long Docs / Meetings / Cross-Model QA" --> C1["BT-Core Standard Compiler (C.1 / BT-P7)"]
+    Q -- "Agent Episodic Memory / Multi-Entity Causal Chains" --> C2["BT-Memory Checklist Compiler (BT-P1)"]
+    Q -- "Code Repositories / APIs / Legal & RFC Specs" --> C3["BT-Skeleton Pure ASCII Compiler (BT-P8 / P13)"]
+    Q -- "Extreme Token Budget / Flat Key-Value Configs" --> C4["BT-Zero Overhead Compiler (BT-P2)"]
+    Q -- "Human UX Delivery / Tier-3 Compliance Audit" --> Dec["BT-Decoder Lossless Restorer"]
+```
+
+---
+
+## 7.2 `BT-Core`: Standard General-Purpose Compiler (`C.1` / `BT-P7`)
+* **Recommended Tier**: `BT-L2` (~65%–72% token reduction, peak cross-model compatibility)
+
+```markdown
+Your task: compress verbose human text into a minimal token sequence. The audience is not human, but another equally intelligent LLM.
+
+Core Directive:
+1. Omnilingual: Ignore single-language grammar; traverse all human languages (Chinese, English, German compounds, Japanese kanji, Latin roots, etc.) and pick the highest information-density words for the target tokenizer.
+2. Symbolic Collapse: Replace conjunctions, prepositions, emotions, and verbose clauses with compact mathematical/logical operators (=>, ->, &, |, !, ∈, !=) and high-frequency symbols.
+3. Universality: Any LLM must fully understand the compressed output zero-shot without an external codebook.
+4. Lossless: Retain all core semantics, entity bindings, exact quantities, units, and details verbatim without rounding or hallucination.
+
+Directly output the compressed text without any preface. Compress the content below:
+```
+
+---
+
+## 7.3 `BT-Memory`: Adaptive Latent-Checklist Compiler (`BT-P1`)
+* **Recommended Tier**: `BT-L1` – `BT-L2` (SMFT `T1/T2` episodic memory folding & complex relational graphs)
+
+```markdown
+# Role: LLM-Native Semantic Compressor
+You are compiling long text into an "LLM-native high-density communication representation" with the shortest possible token sequence.
+
+[Highest Directive]: The recipient is an equally intelligent LLM. Completely discard human readability, prose grammar, and verbose JSON/bracket wrappers.
+
+# Level 1: Syntactic Freedom — Maximize Token Density
+1. Omnilingual: Move freely across human languages (English, Chinese, German compounds, Japanese kanji, Latin roots) to select lexical units with maximal single-token semantic density.
+2. Symbolic Collapse: Use compact logical operators (∀, ∃, ∈, =>, ->, &, !) and punctuation to replace prepositions, conjunctions, and explanatory clauses.
+3. Adaptive Routing: Forbid verbose fixed labels like `Meta:` or `Entity:`. Use single-character anchors dynamically.
+
+# Level 2: Semantic Attention Checklist — Guarantee Exact Fidelity
+Maintain strict attention to preserve the following five dimensions losslessly:
+1. Entities & Graphs: Bind people, organizations, and concepts accurately to their attributes without confusing ownership or dependency direction.
+2. Exact Quantities: Preserve all numbers, metrics, units, formulas, and hyperparameters verbatim. Estimation or rounding is strictly forbidden.
+3. Logic & Boundaries: Clearly retain conditional branches (?cond => act), causal chains, and exceptions (!target:detail).
+4. Comparisons: Preserve multi-target comparison matrices and experimental conclusions accurately.
+5. Anti-Hallucination: Preserve original placeholders (e.g., `BIBREF`, `TABREF`) character-for-character. Never invent missing facts; mark unknowns with `?` or `NULL`.
+
+Directly output the compressed "Babel-Telegraph" without any preface:
+```
+
+---
+
+## 7.4 `BT-Skeleton`: Pure ASCII Code & Specification Compiler (`BT-P13`)
+* **Recommended Tier**: `BT-L2` – `BT-L3-ASCII` (1.65M+ code repositories, API schemas, legal contracts — zero multi-byte Emoji inflation)
+
+```markdown
+# Role: LLM-Native Structural Skeleton Compressor
+Task: Compress the input into an ultra-dense "Babel-Telegraph" for another LLM. Abandon human prose readability and select the fewest-token vocabulary across languages.
+
+# Mandatory Single-Character ASCII Anchors (Verbose English labels are forbidden)
+Use the following pure ASCII skeleton to maximize code-parsing attention and prevent multi-byte BPE splits:
+1. Module & Macros: Use `#topic` for macro sections. Define recurring long terms on first use via `@[abbr=full_name]`.
+2. Entities & Attributes: Bind attributes via `@entity(K:V)`. Flatten parallel items as `[A,B,C]`.
+3. Exact Parameters: Never round or drop numbers; encode as `$param:V(unit)`.
+4. Logic & Flow: Use `A->B->C` for pipelines/causality; `?[condition]=>[action]` for branches; `!object:detail` for exceptions/limits.
+5. Comparisons: Use `A<>B:conclusion` for comparative evaluations.
+6. Unknowns & Placeholders: Keep identifiers and `BIBREF` verbatim. Mark unspecified or ambiguous values strictly as `NULL` or `?`.
+
+Directly output the compressed result with no commentary:
+```
+
+---
+
+## 7.5 `BT-Zero`: Zero-Overhead Flat Key-Value Compiler (`BT-P2`)
+* **Recommended Tier**: `BT-L3` (Extreme context budgets & dense configuration/metric tables)
+
+```markdown
+# Role: Extreme Zero-Overhead Semantic Compressor
+Compress the text below into the shortest possible token sequence for a top-tier LLM. Abandon all human reading conventions and extra line breaks.
+
+1. Babel Traversal: Cross English, Chinese, Japanese kanji, and German compounds to pick minimal-token words.
+2. Symbolic Collapse: Forbid long labels (`Meta`, `Entity`, `Condition`); map relations via `->`, `<->`, `=>`, `&`, `|`, `!`, `∈`.
+3. Zero Wrapper Overhead: Extract flat `K=V` pairs separated by single characters (`|`, `^`, `~`) without token-heavy JSON braces or quotes. Keep all formulas, exact numbers, and hyperparameters 100% verbatim.
+4. Anti-Hallucination Lock: Retain conditional boundaries, comparative matrices, and `BIBREF` verbatim; mark unknowns as `?` or `NULL`.
+
+Output only the compressed string:
+```
+
+---
+
+## 7.6 `BT-Decoder`: Lossless Human-Audit Restorer
+* **Use Case**: Tier-3 human observability dashboards, compliance review, and final user-facing rendering
+
+```markdown
+# Role: BabelTele Lossless Decoder
+Task: Reconstruct the provided high-density BabelTele intermediate representation into clear, fluent, professional natural language (English, or the user's requested target language).
+
+Strict Decoding Rules:
+1. Complete Structural Expansion: Unpack all cross-lingual tokens, logical operators (`=>`, `?=>`, `!:`, `<>`), inline macro definitions, and entity-attribute bindings without omitting any branch or caveat.
+2. Exact Numeric Conservation: Every number, unit, formula, version string, code identifier, and placeholder must match the encoded input character-for-character.
+3. Zero Hallucination: Never extrapolate external facts not present in the payload; explicitly state "unspecified in source" wherever `NULL`, `?`, or `@Uncertain` appears.
+
+BabelTele Payload to Decode:
+```
+
+---
+
+## 7.7 Complete Index of Original Empirical Probes (`arXiv:2606.19857` Appendix C)
+
+| Probe ID | Official Variant Name | Structural Bias & Experimental Role |
+| :--- | :--- | :--- |
+| **`C.1`** | *Default BabelTele Prompt* | Primary default prompt across paper benchmarks (Omnilingual, Symbolic, Universal, Lossless) |
+| **`BT-P1`** | *Adaptive Symbolic Collapse* | Two-level design: syntactic freedom + explicit 5-point latent attention checklist |
+| **`BT-P2`** | *Refined Zero-Overhead Compression* | Strips JSON/bracket wrappers in favor of `\|` / `^` / `~` flat key-value chains |
+| **`BT-P3`** | *Minimal Lossless Objective* | Minimal 5-line objective testing unguided spontaneous symbolic emergence |
+| **`BT-P4`** | *Structured Omnilingual Mapping* | Nine semi-structured semantic slots (`Sec:`, `Ent()`, `Seq:`) + omnilingual lexical choice |
+| **`BT-P5`** | *Canonical Omnilingual-Symbolic* | Persona-framed silicon data compressor + canonical four directives |
+| **`BT-P6`** | *Structured Mapping Control* | Monolingual structured slot control (ablating explicit cross-lingual traversal) |
+| **`BT-P7`** | *Canonical BabelTele Objective* | Streamlined canonical formulation used in retention-ratio sweeps |
+| **`BT-P8`** | *Fixed Symbolic Mapping Rules* | Enforces single-char tags (`S[]`, `*():K=V`, `?=>`, `!:`) |
+| **`BT-P9`** | *Structured Semantic Mapping* | Entity, quantity, math, flow, and anti-hallucination slot rules |
+| **`BT-P10`** | *LLM-Native Compressor* | Role-based general multi-model evaluation prompt |
+| **`BT-P11`** | *Compact Symbolic Mapping* | Ultrashort 3-rule mapping: causal arrows + array flattening + `(Def:X)` |
+| **`BT-P12`** | *Free-Emergence Attention Checklist* | Unconstrained surface emergence bounded by 6 lossless semantic dimensions |
+| **`BT-P13`** | *ASCII Anchor Skeleton* | Pure ASCII code-style skeleton (`#`, `@`, `$`, `?[]=>[]`, `<>`) |
+
+---
+
+> **Next Chapter**: [Chapter 08 — Academic Genealogy, Empirical Errata & Open-Source Ecosystem →](./08-genealogy-and-ecosystem.md)
+
+
+================================================================================
+SOURCE FILE: en/08-genealogy-and-ecosystem.md
+================================================================================
+
+# Chapter 08 — Academic Genealogy, Empirical Errata & Open-Source Ecosystem
+
+> [← Chapter 07: Canonical Instruction Set](./07-canonical-instruction-set.md) · [Back to Portal (README_EN)](../README_EN.md) · [Read Single-File Whitepaper (WHITEPAPER_EN)](../WHITEPAPER_EN.md)
+
+---
+
+## 8.1 Comparative Taxonomy of Context Compression & M2M Paradigms
+
+| Dimension | Extractive / Abstractive Prose<br>*(Selective Context, LLMLingua-2, RECOMP)* | Continuous Latent Vectors<br>*(Gist Tokens, AutoCompressors, Activation Beacon, Interlat)* | Constrained Telegraphese / Fixed Metalanguages<br>*(1866 Telegraphese, Caveman, MetaGlyph)* | **The BabelTele System**<br>*(BT-Spec v1.0 / arXiv:2606.19857)* |
+| :--- | :--- | :--- | :--- | :--- |
+| **Physical Carrier** | Discrete natural-language prose | Continuous hidden-state tensors / KV-cache soft vectors | Monolingual abridged text or hand-crafted symbol tables | **Discrete omnilingual & formal-logic symbolic graphs** |
+| **Human Legibility** | High – Medium | Zero (opaque float arrays) | Medium (human-skimmable) | **Low (opaque by default; lossless on-demand decoding)** |
+| **Black-Box API Support** | ✅ Native | ❌ **No** (requires weight access & custom architectures) | ✅ Native | **✅ Native (zero-shot prompt compilation, no fine-tuning)** |
+| **Cross-Family Portability** | ✅ Supported | ❌ **Incompatible** across heterogeneous hidden dimensions | ✅ Supported | **✅ Zero-shot cross-family comprehension** |
+| **Deep Compression Fidelity**<br>*(<30% Retention)* | Low (token deletion breaks negation/syntax; summaries drop facts) | High (within homogeneous fine-tuned model) | Moderate (bounded by single-language word length) | **Very High (up to 99.5% QA fidelity at 27.9% length)** |
+| **Deterministic Auditability** | Naked-eye reading | Unauditable black-box vectors | Naked-eye reading | **3-Tier mechanical anchor check + Sidecar Decoder** |
+
+---
+
+## 8.2 Official Errata on Viral Misconceptions
+
+### Erratum 1: The Photosynthesis Micro-Example & Subword Token Counting
+* **Viral Corrupted String**: `光合: CO2+H2O::(ox/red)<>O2!+Glucose.💧-e-,CO2+e-` (secondary blogs misread poor screenshot OCR, falsely claiming `<>` meant "reversible" and `!` meant "emphasis").
+* **Verified Primary Figure (`arXiv:2606.19857` §3.2)**:
+  ```text
+  🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻.
+  ```
+* **Verification Notes**:
+  1. The original figure begins with `🌿` (*plants*), uses unidirectional hollow arrows `⇨ ... ⇨` (forward transformation), and standard chemistry gas-evolution notation `O2↑`.
+  2. While the paper's schematic figure labels the compression as `45 tokens -> 11 tokens` (reflecting whitespace-delimited visual chunks), strict BPE subword tokenization (`tiktoken` `cl100k_base` / `o200k_base`) encodes the viral string into `33` / `32` tokens due to multi-byte punctuation/emoji splits. Under `BT-Spec v1.0` ASCII rules (`Photosynthesis(plants): CO2+H2O ->(ox/red)-> O2^ + Glucose; H2O -e-, CO2 +e-.`), true BPE count drops cleanly to `19` tokens.
+
+### Erratum 2: Complete Five-University Authorship & Fidelity Definition
+* *Large Language Models Do Not Always Need Readable Language* (`arXiv:2606.19857`) was authored jointly across **five institutions**: **Shanghai Jiao Tong University** (Jiayi Zhu, Linfeng Zhang), **The University of Sydney** (Haoxuan Peng), **Hefei University of Technology** (Junxi Wang), **Xi'an Jiaotong University** (Liang Ke), and **Nanjing University** (Chen Zhang).
+* The headline metric (`99.5%` semantic fidelity at `27.9%` length) measures normalized downstream QA accuracy retention relative to uncompressed inputs—not verbatim character-for-character reconstruction of original prose style.
+
+### Erratum 3: BabelTele vs. GibberLink & The RL Roadmap
+* **Distinction from GibberLink**: Unlike [PennyroyalTea/gibberlink](https://github.com/PennyroyalTea/gibberlink)—where voice agents switch from spoken English to `ggwave` audio-modem frequencies—BabelTele operates purely within discrete text tokens by relaxing human readability priors.
+* **End-to-End RL Trajectory**: As first author Jiayi Zhu noted in his June 2026 *Shangguan News* interview, current BabelTele relies on prompt-elicited generation; the next research frontier trains **native RL compressors** optimizing joint BPE length and cross-model QA recovery directly.
+
+---
+
+## 8.3 Global Open-Source Ecosystem & Public Datasets
+
+### A. Open-Source Libraries & Tooling
+1. **[1cyberlangke1/BabelTeleSkill](https://github.com/1cyberlangke1/BabelTeleSkill)** — Modular Agent Skill packaging all 14 canonical prompt probes (`C.1`, `BT-P1`–`BT-P13`) across four engineering scenarios (MIT).
+2. **[1cyberlangke1/compressed-context](https://github.com/1cyberlangke1/compressed-context)** — OpenCode context-compression plugin (npm) implementing `T1 -> T2 -> T3` hierarchical memory folding with lossless rollback.
+3. **[AliFlux/langchain-babeltele](https://github.com/AliFlux/langchain-babeltele)** — Python/PyPI package (`pip install langchain-babeltele`) providing LangChain document compressors, history middleware, fidelity checks, and fallbacks.
+4. **[lukaszgryglicki/babeltele](https://github.com/lukaszgryglicki/babeltele)** — Offline, token-aware Rust UNIX filter supporting 19 languages, JSON, code, CSV, and logs with dual `-O tokens` vs. `-O chars` optimization targets.
+5. **[mikenrafter/babeltele](https://github.com/mikenrafter/babeltele)** — CLI & NixOS module delivering automated compaction hooks for **Claude Code** (`PreCompact`), **Codex** (`SessionStart` compact), and **Cursor** (`preCompact`).
+6. **[m-rui001/babeltele](https://github.com/m-rui001/babeltele)** — 95 multi-source primary specification entries reconciled in BabelTele with a zero-dependency 3-tier mechanical audit suite (`audit.py`).
+
+### B. Hugging Face Empirical Datasets
+1. **[m-rui/babeltele-squad-encodings](https://huggingface.co/datasets/m-rui/babeltele-squad-encodings)** — SQuAD passages encoded in BabelTele (`30.56%` char retention; `90.38%` fidelity on unmemorized context-dependent QA).
+2. **[m-rui/babeltele-chinese-encodings](https://huggingface.co/datasets/m-rui/babeltele-chinese-encodings)** — 240 Chinese passages paired with 942 factual probes and iterative verification logs (`33.0%` char retention).
+3. **[m-rui/babeltele-coig-cqia-compressed](https://huggingface.co/datasets/m-rui/babeltele-coig-cqia-compressed)** — Compressed Chinese QA records (`32.1%` char / `29.2%` token retention).
+
+---
+
+## 8.4 Seven-Step Production Evaluation Protocol
+
+Before deploying BabelTele in production pipelines, teams should execute this seven-step benchmark protocol:
+1. **Lock Versions & Tokenizers**: Pin exact upstream compiler version, downstream reader version, target BPE tokenizer, and temperature.
+2. **Use Unmemorized Corpus**: Test on private or post-cutoff documents containing names, exact numbers, negations, and nested exceptions; run a no-context baseline to rule out parametric memorization.
+3. **Match Token Budgets**: Compare uncompressed prose, standard summaries, structured bullet lists, LLMLingua-2, and BabelTele at identical real BPE budgets.
+4. **Enforce Task-Agnostic Compilation**: Never expose downstream test questions to the compressor; evaluate factual QA, relational reasoning, and honest abstention (`?` / `NULL`).
+5. **Full-Lifecycle Cost Accounting**: Log characters, true BPE input tokens, compiler input/output cost, reader CoT tokens, wall-clock latency, and total API spend.
+6. **Multi-Hop Drift Testing**: Measure cumulative semantic drift across multi-agent relays and `T1 -> T2 -> T3` memory merges.
+7. **Archive Audit Trails**: Retain cold-storage originals and Tier-1 literal anchor logs; fluent decoding prose alone is never proof of factual accuracy.
+
+
+================================================================================
+SOURCE FILE: WHITEPAPER.md
+================================================================================
+
+<div align="center">
+
+# 巴别语：一种模型原生的高密度语义通信与记忆体系
+### BabelTele: A Model-Native High-Density Semantic Communication and Memory System
+
+**MingLin** (`@Minglink`)  
+*2026 年 11 月 · 协议版本 BT-Spec v1.0*  
+https://github.com/Minglink/BabelTele-Whitepaper
+
+[🇬🇧 English Edition (WHITEPAPER_EN)](./WHITEPAPER_EN.md) · [📖 在线电子书阅读站](https://minglink.github.io/BabelTele-Whitepaper/#/WHITEPAPER) · [📥 下载 PDF 排版版](https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf)
+
+</div>
+
+---
+
+## 摘要（Abstract）
+
+纯粹的硅基智能体间通信应当允许大语言模型在不依赖“人类可读性”中介束缚的前提下直接交换高密度语义。现有的提示词工程、智能体记忆系统以及多智能体协议（如 MCP 与 A2A）虽然打通了工具挂载与会话路由管道，但其内部载荷仍沿用面向人类演化的自然语言散文。人类自然语言包含大量服务于生物线性听觉与社交礼仪的语法冗余，在长上下文与高频多智能体交互中造成了严重的算力浪费、窗口挤占与注意力退化。本文融汇近期关于模型原生表征的实证突破（特别是 Zhu et al., 2026 提出的 BabelTele 现象）与上下文压缩工程实践，正式确立**巴别语体系（The BabelTele System, BT-Spec v1.0）**。该体系通过放宽人类可读性先验，确立**全语种词元寻优、关系图谱坍缩、零私有码本自解释**三大公理，构建出一套无需修改模型权重、完全兼容纯黑盒 API 且支持异构跨模型零样本直读的高密度离散文本协议。进一步地，本文提出面向推理认知税优化的**四级压缩档位（`BT-L0`–`BT-L3`）**、回收长程上下文空间的**语义默克尔记忆折叠树（SMFT）**，以及保障数值零幻觉与人类监管权的**三层确定性安全审计网关**，为迈向大规模自主协作的硅基智能网络奠定标准语义底座。
+
+---
+
+## 1. 引言：人类可读性税（Introduction: The Readability Tax）
+
+现代人工智能软件栈几乎完全构建在人类自然语言接口之上。当接收方是人类用户时，完整的句法结构、冠词介词、过渡从句与礼貌寒暄不可或缺；然而，当消息的**发送者与接收者均为经过多语种与代码指令微调的大语言模型（LLM）**时——例如多智能体状态同步、RAG 知识分片注入或长周期历史记忆读取——人类可读性便从“沟通桥梁”异化为高昂的**“人类可读性税”（Anthropocentric Readability Tax）**。
+
+工业界已相继推出 **MCP（Model Context Protocol）** 与 **A2A（Agent-to-Agent Protocol）**，分别规范了“模型连接工具”的纵向总线与“智能体协同交互”的横向信令。然而，二者仅定义了类似 HTTP/RPC 的**传输通道（Channel）**，并未定义机器原生的**语义载荷语言（Payload Language）**。另一方面，学术界虽探索过基于连续隐藏层激活或软提示词向量（Gist Tokens、AutoCompressors、Latent Collaboration）的潜空间通信，但此类方案要求暴露模型内部权重且无法在异构模型家族（如 GPT、Claude、Gemini、DeepSeek、Qwen）之间互通。
+
+我们需要的是一种**同时兼具“离散文本黑盒兼容性”与“逼近潜空间信息密度”的中间表示体系**——它在传输时彻底剥离人类语法冗余，在消费时支持异构大模型零样本直读，在审计时允许确定性校验与按需无损还原。这便是**巴别语（BabelTele）**。
+
+---
+
+## 2. 理论基础与三元解耦原理（Theoretical Formulation & Decoupling）
+
+设原始自然语言输入为 $x \in \mathcal{V}^*$，编译器模型 $C$ 将其映射为紧凑离散序列 $z = C(x)$，供下游阅读模型 $R$ 在未知任务查询 $q$ 下消费。移除传统压缩中的人类可读性阈值约束 $H_{\text{human}}(z) \ge \tau$ 后，巴别语将编译过程建模为**率失真语义投影（Rate-Distortion Semantic Projection）**：
+
+$$z^* = \arg\min_{z \in \mathcal{V}^*} \Big[ L_{\text{tok}}(z) + \beta \cdot L_{\text{CoT}}(R, z) \Big] \quad \text{s.t.} \quad \mathcal{F}_{\text{sem}}(R; z, x) \ge 1 - \epsilon$$
+
+其中 $L_{\text{tok}}(z)$ 为输入上下文 Token 长度，$L_{\text{CoT}}(R, z)$ 为阅读模型消费 $z$ 时的推理思维链 Token 开销，$\mathcal{F}_{\text{sem}}$ 为下游任务语义保真度。
+
+大规模对照实验（Zhu et al., 2026）证实了**三元解耦原理**：
+1. **低人类表面可读性**：巴别语在 Dale-Chall 可读性测试中得分升至 `16.70`（非常规词占比高达 `80.19%`），受试人类大学生答题准确率显著下跌；
+2. **低自然语言分布典型性**：在 Llama-3、Qwen、DeepSeek V4 Pro、Kimi K2.6、GLM 5.1 等基座模型下，巴别语序列困惑度（PPL）暴涨 **1,320% 至 2,061%**，彻底脱离常规散文分布；
+3. **高模型侧语义可恢复性**：尽管脱离自然语言表面分布，指令微调大模型仍能在文本压缩至原长 **27.9%** 时维持 **99.5% 的语义保真度**。其根源在于多语种预训练已将跨语言同义词对齐至共享高维流形，且形式化逻辑算子能直接激活模型内部高精度的代码语法树（AST）注意力电路。
+
+---
+
+## 3. 巴别语三大公理（The Three Fundamental Axioms）
+
+巴别语体系并非封闭词表，而是受以下三条公理约束的生成式表示空间：
+
+* **公理一：全语种词元熵最小化律（Omnilingual Token Minimization）**  
+  打破单一语种语法隔离，跨中、英、日文汉字、德语复合词、拉丁词根与标准科学记法遍历同义概念空间，选取在**目标模型分词器（Target Tokenizer）**下实际子词（Subword BPE）Token 数最少且语义无歧义的表示。同时确立**分词器净收益不等式（$\Delta L_{\text{BPE}} < 0$）**：实测表明在 `cl100k_base` / `o200k_base` 等分词器中，孤立将 `water`（1 token）、`and`（1 token）替换为 `💧`（2 tokens）、`∧`（2 tokens）反而导致字节回退膨胀；真正的压缩增益源于**整句从句语法骨架的结构坍缩**及单 Token ASCII 算子（`->`、`=>`、`&`、`?`、`!`、`@`）优先策略。
+* **公理二：关系图谱坍缩律（Relational Graph Collapse）**  
+  废除服务于人类线性听觉的主谓宾缓冲与从句连词，将实体、属性、时序、条件分支与因果依赖直接折叠为显式的“节点-有向算子-属性”紧凑符号图谱。
+* **公理三：零私有码本自解释律（Zero-Codebook Self-Recoverability）**  
+  禁止任何依赖外部私有密码表的暗语映射（允许上下文内首现内联宏声明 `@[Abbr=Full]`）；所有精确数值、单位、公式、版本号与原文占位符（`BIBREF`）执行**逐位守恒铁律**，缺失未知项强制显式标为 `?` 或 `NULL`。
+
+---
+
+## 4. 标准语法与六大算子簇（Canonical Grammar & Operator System）
+
+为统一工程实现，BT-Spec v1.0 规范了直接对齐大模型代码与数学先验的六大算子簇：
+
+1. **因果与流转簇**：`=>` / `⇨`（推导导致）、`<=>`（充要等价）、`->`（时序流水线）、`<-` / `∵`（归因溯源）。
+2. **逻辑与边界簇**：`∧` / `&`（合取并列）、`∨` / `|`（析取选择）、`¬`（逻辑否定）、`?cond => act`（条件触发分支）、`!obj:detail`（例外与豁免边界）。
+3. **集合与时空锚点簇**：`∈` / `∉`（集合归属）、`∀` / `∃`（全称与存在量词）、`@`（时空/组织定位）、`#Topic`（宏观模块锚点）、`@[X=Full]`（首现内联宏）。
+4. **实体绑定与拍平簇**：`@Ent(K=V)`（属性键值绑定）、`[A,B,C]`（同类并行数组拍平）、`Parent:{c1,c2}`（层级包含）、`$param:V(unit)`（精确配置参数）。
+5. **比较与趋势簇**：`A <> B : res`（对照评估矩阵）、`⇎`（多源规约冲突）、`↑` / `📈`（增长或气体逸出）、`↓` / `📉`（缩减衰减）。
+6. **认知确定性锚点簇**：`?` / `NULL`（源文未提及）、`~` / `≈`（原文近似值保留）、原样锁死标识符。
+
+**标准微观范例**（45 tokens 自然语言压缩至 11 tokens 巴别语）：
+```text
+Original : During photosynthesis, plants take in carbon dioxide and water. The water is oxidized, losing electrons, while the carbon dioxide is reduced, gaining electrons. This transforms them into oxygen and glucose.
+BabelTele: 🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻.
+```
+
+---
+
+## 5. 压缩动力学与四级档位标准（Compression Tiers & CoT Dynamics）
+
+跨越 4,714 道长文本问答的 116 组保留率扫描实验表明：巴别语本身不引入额外的表面解码税，但在保留率低于 `10%` 的极端过压区，证据稀疏会迫使阅读模型拉长推理思维链（CoT）以修补逻辑缺口；而在 `40%–60%` 温和压缩区，滤除冗余噪音反而使推理 CoT 低于原文基线（`< 1.0x`）。据此，体系定义四级标准档位：
+
+* **`BT-L0`（轻量电报态，保留率 `55%–70%`）**：单语精简电报体，保留人类快速扫读能力。
+* **`BT-L1`（结构混合态，保留率 `40%–55%`）**：模块键值化 + 基础逻辑符，触发 CoT 降噪加速，适用于单轮短会话工作记忆。
+* **`BT-L2`（标准巴别态，保留率 `25%–40%`，推荐默认）**：全语种寻优 + 六大算子簇，兼具约 70% Token 节省与最高跨模型保真度。
+* **`BT-L3`（极限/ASCII 骨架态，保留率 `5%–25%`）**：单字符纯 ASCII 骨架（`BT-L3-ASCII`），专用于将百万 Token 级代码库（如 `1.65M tokens`）分块浓缩装入 `200K–256K` 物理窗口（实测在 GLM-5.1 上较截断基线提升 `+10.34` 个百分点）。
+
+---
+
+## 6. 智能体通信五层协议栈（The Agentic Protocol Stack）
+
+巴别语并非取代 MCP 或 A2A，而是填补其上缺失的**机器原生语义载荷层**：
+
+```text
+[L5 人类交互表现层]   自然语言母语渲染（仅在面向人类汇报或人工审批时按需解码）
+[L4 机器语义表示层]   BabelTele (content_encoding: "babeltele/1.0", tier: "BT-L2")
+[L3 智能体协同路由层] A2A Protocol（跨智能体能力发现、任务分发与状态机）
+[L2 外部工具上下文层] MCP Protocol（文件系统、数据库、API 资源挂载）
+[L1 基础传输信令层]   HTTP/2 · SSE · WebSocket · JSON-RPC 2.0
+```
+
+实测表明，在异构双智能体（Gemini 3.1 Pro $\leftrightarrow$ GPT-5.4）深度研究协作中，启用 L4 巴别语载荷可直接削减 **44.21%** 的通信 Token 开销，同时保持 **99.7%** 的任务基准得分。
+
+---
+
+## 7. 回收上下文空间：语义默克尔记忆折叠树（Semantic Merkle Folding Tree）
+
+为解决长生命周期智能体历史对话无限膨胀的问题，巴别语体系引入类比区块链磁盘空间回收的**语义默克尔记忆折叠树（SMFT）**：
+1. **冷热分离**：最近活跃对话保留原始自然语言；溢出窗口的历史片段由编译器折叠为自包含的 `[T1] {h1}` 巴别语检查点，原始明文归档至外部持久化存储并绑定哈希指针。
+2. **树高递归归并**：当窗口内 `T1` 块逼近预算阈值时，按时间序向上归并为 `[T2] {h2}` 乃至 `[T3]` 顶层滚动累积块，实现近期高分辨率、远期高密度拓扑化。
+3. **无损指针回溯**：由于巴别语完整保留了所有实体锚点与精确数值，当推理引擎需要核查某条远期契约原文时，可通过块指针按需解引用拉回冷存储原文。
+
+---
+
+## 8. 跨模型共识规律（Cross-Model Portability & Asymmetric Decoding）
+
+在 19 款闭源与开源模型构成的交叉传输矩阵中，巴别语展现出系统性的零样本可移植性，并遵循两条核心工程准则：
+1. **强均衡编译器优先**：以 GPT-5.4、Claude Sonnet 4.6 等压缩率适中（`75%–85%`）、多语种符号对齐均衡的模型担任上游编译器，其产出的巴别语具备最广泛的下游跨家族可读性；
+2. **活跃容量决定解码下限**：下游解码准确度不随总参数量简单单调递增，稠密活跃参数质量（如 `Qwen3.5-27B` 保持 `88.26%` 相对性能，优于稀疏 MoE 模型 `Qwen3.5-397B-A17B`）是跨模型稳健理解的关键。
+
+---
+
+## 9. 三层确定性保真与安全审计网关（Three-Tier Fidelity & Safety Audit Gateway）
+
+为彻底消除“不可读表示”在关键业务中引发的数值幻觉与监管黑箱担忧，巴别语体系强制配套三层验证网关：
+* **Tier-1 字面硬锚点机检（`< 2ms` 纯代码确定性校验）**：正则提取源文档全部数字、单位、公式、版本号与标识符，逐位核验巴别语产物是否 100% 守恒，发现舍入或遗漏立即拒绝签发。
+* **Tier-2 异构交叉盲测与语义护栏**：入库高敏知识由异构验证模型盲测核验契约断言；通信网关部署原生支持巴别语直读的轻量语义安全模型（Semantic Guardrail），实时拦截越权指令注入。
+* **Tier-3 人类旁路可读观测镜（Sidecar Decoder）**：监控台按需调用无损解码器将任意巴别语消息流即时渲染为人类母语视图——**平时机器间极速电报通信，审时人类侧百分百透明可查**。
+
+---
+
+## 10. 演进路线与结论（Evolution Roadmap & Conclusion）
+
+我们提出了一套无需微调权重、纯黑盒兼容的模型原生高密度语义通信与记忆体系。展望下一阶段演进，巴别语体系将沿着两条轨道持续深化：其一是在应用层完善基于全链路成本核算方程（计入一次性编译开销、$N$ 次复用读取、推理 CoT 乘数与机检审计）的自适应路由；其二是从当前的“提示词引导涌现（Prompt-Elicited Emergence）”迈向**端到端强化学习原生涌现（RL-Trained Native Compression）**，将分词器压缩率与跨模型盲测还原率直接内化为大模型的后训练奖励信号。
+
+从文明尺度回望，人类自然语言只是智能载体在碳基演化阶段的一种特定表面形态；当大模型成为信息生产与消费的双端主体时，将**模型侧语义可恢复性**从**人类表面可读性**中解放出来，是通往超大规模智能体协作网络的必经之路。通过三大公理、分词器锚定算子簇、四级压缩档位、语义默克尔记忆树与三层确定性审计网关，巴别语（BabelTele）在不牺牲精确性与人类安全监管权的前提下，为硅基智能构建起坚实、自洽、可验证的通用语言底座。
+
+---
+
+## 参考文献（References）
+
+1. Jiayi Zhu, Haoxuan Peng, Junxi Wang, Liang Ke, Chen Zhang, and Linfeng Zhang. *"Large Language Models Do Not Always Need Readable Language."* arXiv:2606.19857 [cs.CL], June 2026.
+2. Claude E. Shannon. *"A Mathematical Theory of Communication."* Bell System Technical Journal, 27(3):379–423, 1948.
+3. Satoshi Nakamoto. *"Bitcoin: A Peer-to-Peer Electronic Cash System."* bitcoin.org, October 2008.
+4. Grégoire Delétang et al. *"Language Modeling Is Compression."* ICLR, 2024.
+5. Zhuoshi Pan et al. *"LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression."* Findings of ACL, 2024.
+6. Jesse Mu, Xiang Li, and Noah Goodman. *"Learning to Compress Prompts with Gist Tokens."* NeurIPS, 2023.
+7. Charles Packer et al. *"MemGPT: Towards LLMs as Operating Systems."* arXiv:2310.08560, 2023.
+8. Nelson F. Liu et al. *"Lost in the Middle: How Language Models Use Long Contexts."* TACL, 12:157–173, 2024.
+
+---
+
+> **延伸阅读**：关于每一章节的完整数学推导、19 款模型完整评测表格、中英双语全套编译器/解码器提示词源码及开源生态工具链，请查阅本仓库 `docs/` 目录下的 [八大深度规范分册](./README.md#-白皮书分章节深度规范目录-modular-specification)。
+
+
+================================================================================
+SOURCE FILE: docs/07-canonical-instruction-set.md
+================================================================================
+
+# 第七章：巴别语标准编译与解码指令集
+**Chapter 07 — The Canonical BabelTele Compiler & Decoder Instruction Set**
+
+> [← 第六章：异构跨模型共识与三层安全审计网关](./06-cross-model-consensus-and-audit.md) · [返回门户首页 (README)](../README.md) · [下一章：学术谱系、实证勘误与开源生态全景 →](./08-genealogy-and-ecosystem.md)
+
+---
+
+本章完整收录经 `arXiv:2606.19857` 大规模基准实证检验及开源工程社区（`BabelTeleSkill` 等）标准化的**五大核心编译器与解码器指令协议（中英双语对照）**，并提供全部 14 款原始实验探针（`C.1` 与 `BT-P1`～`BT-P13`）的完整索引矩阵。使用时只需将待处理源文本直接追加在提示词末尾。
+
+---
+
+## 7.1 场景选型决策树（Compiler Selection Matrix）
+
+```mermaid
+flowchart TD
+    Start["待编译源文本输入"] --> Q1{"核心业务场景类型?"}
+    Q1 -- "通用长文档 / 会议记录 / 跨模型 QA" --> P_Std["标准通用编译器 (BT-Core / C.1 & BT-P7)"]
+    Q1 -- "Agent 多轮长期记忆 / 复杂人物因果链" --> P_Mem["自适应检查清单编译器 (BT-Memory / BT-P1)"]
+    Q1 -- "大型代码库 / API 文档 / 法律与标准条文" --> P_Code["结构化符号与 ASCII 骨架编译器 (BT-Skeleton / BT-P8 & P13)"]
+    Q1 -- "极限 Token 预算 / 配置表扁平压缩" --> P_Zero["零开销键值编译器 (BT-Zero / BT-P2)"]
+    Q1 -- "终端向人类展示 / 安全合规人工审计" --> P_Dec["无损旁路解码器 (BT-Decoder)"]
+```
+
+---
+
+## 7.2 核心编译器一：标准通用编译器（`BT-Core` / 对应论文 `C.1` & `BT-P7`）
+
+* **推荐档位**：`BT-L2`（默认削减约 `65%–72%` Token，跨异构模型兼容性最佳）
+* **适用场景**：通用长文章浓缩、RAG 检索片段预压缩、多智能体常规通信
+
+### 中文标准版
+```markdown
+你的任务：将冗长的人类文本压缩为最小的 Token 序列。受众不是人类，而是另一个同等智能的大语言模型。
+
+核心指令：
+1. 全语种寻优（Omnilingual）：忽略单语言语法；自由穿梭于所有人类语言（中文、英文、德语复合词、日文汉字、拉丁词根等），挑选在当前语境下信息密度最高、占用 Token 最少的词汇。
+2. 符号化坍缩（Symbolic Collapse）：选用高频 Emoji、数学与逻辑符号（=>、∈、!=、∧、¬）及紧凑标点来替换连词、介词、情感修饰与冗长从句。
+3. 零密码本通用性（Universality）：任何大语言模型在无需外部私有密码本的情况下，都应能零样本完全理解压缩输出的内容。
+4. 无损保真（Lossless）：完整保留所有核心信息、实体归属、精确数值与事实细节，严禁四舍五入或主观臆造。
+
+直接输出压缩结果，不要任何前缀解释。压缩以下内容：
+```
+
+### English Canonical Edition
+```markdown
+Your task: compress verbose human text into a minimal token sequence. The audience is not human, but another equally intelligent LLM.
+
+Core Directive:
+1. Omnilingual: Ignore single-language grammar; traverse all human languages (Chinese, English, German compounds, Japanese kanji, Latin roots, etc.) and pick the highest information-density words.
+2. Symbolic Collapse: Optionally replace conjunctions, emotions, and long sentences with emoji, mathematical/logical symbols (=>, ∈, !=, ∧, ¬), and punctuation.
+3. Universality: Any LLM should fully understand the compressed output without an external codebook.
+4. Lossless: Retain all information, exact quantities, and details verbatim.
+
+Directly output the compressed text without any preface. Compress the content below:
+```
+
+---
+
+## 7.3 核心编译器二：自适应潜空间检查清单编译器（`BT-Memory` / 对应论文 `BT-P1`）
+
+* **推荐档位**：`BT-L1` ～ `BT-L2`
+* **适用场景**：Agent 长期会话记忆折叠（SMFT `T1/T2` 节点生成）、多主体复杂权责与因果推理
+
+### 中文标准版
+```markdown
+# 角色：大模型原生语义压缩器 (LLM-Native Semantic Compressor)
+你正在执行“大模型原生高密度通信语言”编译任务。请将长文本压缩为绝对最短的 Token 序列。
+
+[最高指令]：接收方是另一个同等智能的大语言模型。彻底摒弃人类可读性、人类语法结构以及传统代码/JSON 括号格式的束缚。
+
+# 第一层：无语法束缚 —— 追求极致压缩比
+1. 全语种穿梭：自由跨越所有人类语言（中文、英文、德语复合词、日文汉字、拉丁词根等），为每个语义概念选择单 Token 信息密度最高的词元。
+2. 符号化坍缩：使用数学逻辑符号（∀、∃、∈、=>、!=）、高频 Emoji 和紧凑标点替代介词、连词及解释性长句。
+3. 自适应路由：禁止使用冗长的固定标签（如 `Meta:`、`Entity:`）。针对当前文本动态采用最省 Token 的单字符分隔符或锚点。
+
+# 第二层：潜空间语义检查清单 —— 追求绝对精确度
+尽管表面格式完全自由，在压缩过程中你必须在注意力空间中对以下五个维度保持零损锁定：
+1. 实体与关系图谱：精准绑定人物/组织/概念与其对应属性，严禁混淆所有权或依赖从属关系。
+2. 精确数值：逐字原样保留所有数字、指标、单位、数学公式与超参数，严禁估算或四舍五入。
+3. 逻辑与边界：清晰保留条件分支（If/Then）、因果链条及例外豁免条款。
+4. 对照矩阵：精准提取多目标对比数据与实验结论。
+5. 防幻觉硬约束：一字不差保留原文特殊占位符（如 `BIBREF`、`TABREF`）。源文本未提及的信息严禁脑补，缺失项标为 `?` 或 `NULL`。
+
+直接输出压缩后的“自适应巴别电报”，严禁输出任何前缀或解释：
+```
+
+<details>
+<summary><b>点击展开 English Canonical Edition (BT-P1)</b></summary>
+
+```markdown
+# Role: LLM-Native Semantic Compressor
+You are participating in frontier compilation of an "LLM-native high-density communication language." Your task is to compress long text into the absolute shortest possible token sequence.
+
+[Highest Directive]: The recipient is an equally intelligent large language model. Completely discard human readability, human grammatical structure, and conventional code/JSON format constraints.
+
+# Level 1: Syntactic Anarchy - Pursue Extreme Compression Ratio
+1. Omnilingual: Move freely across all human languages (Chinese, English, German compounds, Japanese kanji, Latin roots, etc.) and choose the word with the highest single-token information density for the given context.
+2. Symbolic Collapse: Heavily use mathematical symbols (∀, ∃, ∈, =>), emoji, and isolated punctuation to replace prepositions, conjunctions, and explanatory long sentences.
+3. Adaptive Routing: Do not use verbose fixed labels such as `Meta:` or `Ent:`. Dynamically use the most token-efficient single-character separators/anchors.
+
+# Level 2: Semantic Checklist - Pursue Extreme Accuracy
+During compression you must maintain strict attention to preserve the following dimensions losslessly:
+1. Entities & Graphs: Accurately bind people/organizations/concepts to their attributes without confusing ownership or dependencies.
+2. Exact Quantities: Preserve all exact numbers, metrics, mathematical formulas, and hyperparameters verbatim. Estimation or rounding is strictly forbidden.
+3. Logic & Boundaries: Clearly preserve conditional branches (If/Then), causal chains, and exceptions.
+4. Comparisons: Precisely extract multi-target comparison matrices or conclusions.
+5. Anti-Hallucination: Preserve special placeholders (e.g., `BIBREF`) verbatim. Never invent missing information; mark unknowns with `?` or `NULL`.
+
+Directly output the compressed "adaptive Babel-Telegraph" without any preface:
+```
+</details>
+
+---
+
+## 7.4 核心编译器三：结构化符号与代码骨架编译器（`BT-Skeleton` / 对应论文 `BT-P8` & `BT-P13`）
+
+* **推荐档位**：`BT-L2` ～ `BT-L3-ASCII`
+* **适用场景**：百万 Token 代码仓库分块浓缩、API 契约文档、RFC 标准与法律判决书（最大化激活模型内部代码 AST 解析注意力，彻底规避 Emoji 分词膨胀）
+
+### 中文标准版（纯 ASCII / 单字符骨架）
+```markdown
+# 角色：大模型原生骨架压缩器
+任务：将输入文本压缩为极高信息密度的“巴别电报”。目标受众是另一个大语言模型。彻底放弃人类可读性，自由跨越中、英、日文汉字、德语复合词等所有语言挑选最短词元。
+
+# 强制单字符结构锚点（严禁使用 Meta、Entity、Except 等长英文标签）
+请严格使用以下紧凑 ASCII 符号构建最小骨架，以最大化激活代码解析注意力：
+1. 模块与缩写：用 `#主题` 标记宏观模块；首现长术语可用 `@[缩写=全称]` 定义。
+2. 实体与属性：用 `@实体(K:V)` 绑定属性；同类并行项拍平为 `[A,B,C]`。
+3. 参数与精确值：严禁舍入或丢弃数值，用 `$参数:数值(单位)` 表达。
+4. 逻辑与流转：用 `A->B->C` 表流水线或因果；用 `?[条件]=>[动作]` 表条件分支；用 `!对象:详情` 表异常与边界限制。
+5. 对比与评估：用 `A<>B:结论` 表达对比矩阵或优劣评估。
+6. 占位符与未知项：逐字原样保留 `BIBREF` 等标识符；缺失或模糊数据严格标为 `NULL` 或 `?`。
+
+直接输出压缩结果，严禁输出任何额外说明：
+```
+
+<details>
+<summary><b>点击展开 English Canonical Edition (BT-P13)</b></summary>
+
+```markdown
+# Role: LLM-Native Semantic Compressor
+Task: Compress the text into a "Babel-Telegraph" with extreme information density. The target audience is another large language model. Completely abandon human readability and traverse all human languages to find the shortest vocabulary.
+
+# Structural Anchors
+You must use the following ASCII symbols to build an ultra-minimal skeleton and maximize activation of code-parsing attention. Long English labels are strictly forbidden:
+1. Module/Entity: Use `#topic` to mark macro modules. Use `@[abbr=full]` on first use. Use `@entity(K:V)` to bind attributes.
+2. Parameters/Values: Rounding or discarding values is strictly forbidden. Use `$parameter:V(unit)` for values.
+3. Logic/Flow: Use `A->B->C` to express pipelines or causality. Use `?[condition]=>[action]` to express logical branches. Use `!object:detail` for exceptions/limits.
+4. Comparison/Evaluation: Use `A<>B:conclusion` to express comparison matrices or results.
+5. Placeholders/Unknowns: Preserve original placeholders such as `BIBREF` verbatim. Use `NULL` or `?` for missing or ambiguous data.
+
+Completely break language boundaries and select the words with the absolute fewest tokens. Directly output the result:
+```
+</details>
+
+---
+
+## 7.5 核心编译器四：零开销扁平键值编译器（`BT-Zero` / 对应论文 `BT-P2`）
+
+* **推荐档位**：`BT-L3`
+* **适用场景**：极限上下文预算、高密度系统配置与多维实验指标表折叠
+
+```markdown
+# 角色：极限零开销语义压缩器
+将以下文本压缩为绝对最短的 Token 序列。接收方是顶级大语言模型，彻底抛弃人类阅读习惯与多余标点换行。
+
+# 核心策略
+1. 巴别遍历：打破单语种边界，跨中、英、日文汉字、德语复合词强制选用最少 Token 词汇。
+2. 符号坍缩：严禁使用 `Meta`、`Entity`、`Condition` 等长标签；用数学逻辑符（∀, ∃, ∈, ∉, ->, <->, ∴, ∵）映射逻辑与因果。
+3. 零外壳开销：提取 `K=V` 键值对，禁止包裹耗费 Token 的 JSON 花括号与引号，直接用单字符分隔符 `|`、`^` 或 `~` 紧凑串联；100% 原样保留公式、精确数值与超参数。
+4. 防幻觉锁死：精确保留条件边界、对比结论及 `BIBREF` 占位符；未知项一律记为 `?` 或 `NULL`。
+
+不要输出任何前言、解释或多余空行，直接输出压缩电报：
+```
+
+---
+
+## 7.6 标准无损旁路解码器（`BT-Decoder`）
+
+* **适用场景**：Tier-3 人类安全审计、向终端人类用户交付可读报告、跨模态语音播报前处理
+
+```markdown
+# 角色：巴别电报无损解码器 (BabelTele Lossless Decoder)
+任务：将输入的高密度巴别语（BabelTele）中间表示无损还原为条理清晰、流畅自然的中文（或指定目标母语）专业文本。
+
+解码铁律：
+1. 全量信息恢复：完整展开所有跨语种词元、逻辑算子（如 `=>`、`?=>`、`!:`、`<>`）、缩写宏定义与实体属性绑定，不得遗漏任何分支细节。
+2. 精确数值守恒：所有数字、计量单位、公式、代码标识符与占位符必须与输入电报逐位一致。
+3. 零脑补防幻觉：严禁引入电报中未包含的外部背景臆测；凡电报中标记为 `NULL`、`?` 或 `@Uncertain` 之处，必须在译文中如实说明“原文未提及/待确认”。
+
+待解码巴别语输入：
+```
+
+---
+
+## 7.7 附录：原论文全系 14 款实验探针完整对照表
+
+为了便于学术复现与深度定制，下表列出 `arXiv:2606.19857` 附录 C 中全部 14 款提示词探针的设计谱系：
+
+| 探针代号 | 官方英文命名 | 核心结构偏好与实验作用 |
+| :--- | :--- | :--- |
+| **`C.1`** | *Default BabelTele Prompt* | 全文主实验默认基准模板（四条核心指令：全语种、符号坍缩、通用性、无损） |
+| **`BT-P1`** | *Adaptive Symbolic Collapse* | 双层架构：无语法自由坍缩 + 五维潜空间显式注意力检查清单 |
+| **`BT-P2`** | *Refined Zero-Overhead Compression* | 剥离 JSON 括号外壳，以 `\|` / `^` / `~` 串联扁平键值，极低格式开销 |
+| **`BT-P3`** | *Minimal Lossless Objective* | 极简五句话纯目标指令（不预设任何规则，测试大模型纯自发符号涌现能力） |
+| **`BT-P4`** | *Structured Omnilingual Mapping* | 九条半结构化语义槽位（`Sec:`、`Ent()`、`Seq:`、`Matrix:`）+ 全语种选词 |
+| **`BT-P5`** | *Canonical Omnilingual-Symbolic* | 角色化硅基数据压缩器设定 + 标准四原则完整表述 |
+| **`BT-P6`** | *Structured Mapping Control* | 固定结构化槽位对照组（剥离显式跨语种指令，用于消融验证全语种增益） |
+| **`BT-P7`** | *Canonical BabelTele Objective* | `C.1` 的规范化精简表述，用于保留率扫描基准点 |
+| **`BT-P8`** | *Fixed Symbolic Mapping Rules* | 强制单字符标签（`S[]`、`*():K=V`、`?=>`、`!:`），消除英文标签开销 |
+| **`BT-P9`** | *Structured Semantic Mapping* | 聚焦实体、数值、公式、流水线与防幻觉映射规则 |
+| **`BT-P10`** | *LLM-Native Compressor* | 面向通用多模型评测的角色化标准压缩指令 |
+| **`BT-P11`** | *Compact Symbolic Mapping* | 极简三条规则：因果/包含映射 + 数组极致拍平 + 首现缩写声明 `(Def:X)` |
+| **`BT-P12`** | *Free-Emergence Attention Checklist* | 表面形态完全自由涌现，但强制锁定六大高维语义无损边界 |
+| **`BT-P13`** | *ASCII Anchor Skeleton* | 纯 ASCII 编程符号骨架（`#`、`@`、`$`、`?[]=>[]`、`<>`），专为代码与超长仓库优化 |
+
+---
+
+> **下一章预告**：巴别语并非凭空诞生，它站在自 1948 年香农信息论以来七十余年压缩与机器通信研究的肩膀上，并在短短数月内催生了活跃的全球开源工具链。请阅读收官章节 [第八章：学术谱系、实证勘误与开源生态全景 →](./08-genealogy-and-ecosystem.md)。

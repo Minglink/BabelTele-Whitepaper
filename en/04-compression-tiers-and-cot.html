@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 04: Standardized Compression Tiers (BT-L0 to BT-L3) &amp; Chain-of-Thought Cognitive Dynamics — BabelTele Whitepaper</title>
+  <meta name="description" content="Space-time CoT trade-off across 116 experimental runs, mild-compression denoising acceleration (&lt;1.0x CoT), full-lifecycle cost amortization formula, and BT-L0..BT-L3 operational tiers." />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/en/04-compression-tiers-and-cot.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/04-compression-tiers-and-cot.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/04-compression-tiers-and-cot.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="Chapter 04: Standardized Compression Tiers (BT-L0 to BT-L3) &amp; Chain-of-Thought Cognitive Dynamics — BabelTele Whitepaper" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/en/04-compression-tiers-and-cot.html" />
+  <meta name="citation_language" content="en" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="Chapter 04: Standardized Compression Tiers (BT-L0 to BT-L3) &amp; Chain-of-Thought Cognitive Dynamics — BabelTele Whitepaper" />
+  <meta property="og:description" content="Space-time CoT trade-off across 116 experimental runs, mild-compression denoising acceleration (&lt;1.0x CoT), full-lifecycle cost amortization formula, and BT-L0..BT-L3 operational tiers." />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/en/04-compression-tiers-and-cot.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Chapter 04: Standardized Compression Tiers (BT-L0 to BT-L3) &amp; Chain-of-Thought Cognitive Dynamics — BabelTele Whitepaper" />
+  <meta name="twitter:description" content="Space-time CoT trade-off across 116 experimental runs, mild-compression denoising acceleration (&lt;1.0x CoT), full-lifecycle cost amortization formula, and BT-L0..BT-L3 operational tiers." />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/en/04-compression-tiers-and-cot.html#article",
+      "headline": "Chapter 04: Standardized Compression Tiers (BT-L0 to BT-L3) & Chain-of-Thought Cognitive Dynamics — BabelTele Whitepaper",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "Space-time CoT trade-off across 116 experimental runs, mild-compression denoising acceleration (<1.0x CoT), full-lifecycle cost amortization formula, and BT-L0..BT-L3 operational tiers.",
+      "inLanguage": "en",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/en/04-compression-tiers-and-cot.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/en/04-compression-tiers-and-cot.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="Search chapters..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../docs/04-compression-tiers-and-cot.html" title="Switch Language">🇨🇳 简体中文</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" target="_blank" rel="noopener">📥 English PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">Overview & Canonical Treatise</div>
+      <a class="nav-link" href="index.html">🏠 Whitepaper Portal</a>
+      <a class="nav-link" href="whitepaper.html">📜 Complete Single-File Whitepaper</a>
+      <div class="nav-group-title">BT-Spec v1.0 Modular Specification</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · Manifesto & Readability Tax</a>
+      <a class="nav-link" href="02-theoretical-foundations.html">02 · Information Theory & Decoupling</a>
+      <a class="nav-link" href="03-core-axioms-and-grammar.html">03 · Core Axioms & Grammar Spec</a>
+      <a class="nav-link active" href="04-compression-tiers-and-cot.html">04 · Compression Tiers & CoT Dynamics</a>
+      <a class="nav-link" href="05-agentic-protocol-stack.html">05 · Agentic Stack & Merkle Memory</a>
+      <a class="nav-link" href="06-cross-model-consensus-and-audit.html">06 · Cross-Model & Audit Gateway</a>
+      <a class="nav-link" href="07-canonical-instruction-set.html">07 · Canonical Compiler Prompts</a>
+      <a class="nav-link" href="08-genealogy-and-ecosystem.html">08 · Genealogy, Errata & Ecosystem</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">Chapter 04 — Standardized Compression Tiers &amp; Chain-of-Thought Cognitive Dynamics</h1>
+<blockquote><p><a href="03-core-axioms-and-grammar.html">← Chapter 03: Core Axioms &amp; Grammar</a> · <a href="index.html">Back to Portal (README_EN)</a> · <a href="05-agentic-protocol-stack.html">Next: Chapter 05 — Agentic Protocol Stack &amp; SMFT →</a></p></blockquote>
+<hr />
+<h2 id="sec-0">4.1 Does Compression Force Models to "Think Harder"? (The Space-Time Trade-Off)</h2>
+<p>A critical systems question is whether feeding dense symbolic text into an LLM forces the reader model to spend extra <strong>Chain-of-Thought (CoT) reasoning tokens</strong> mentally decompressing the text back into natural language—wiping out cheap input-token savings with expensive output-token generation.</p>
+<p>Synthesizing <strong>116 experimental runs</strong> across <strong>2,128 QuALITY questions</strong> and <strong>2,586 MeetingBank questions</strong> (<code>arXiv:2606.19857</code> §4.3), <code>BT-Spec v1.0</code> codifies three laws of reasoning overhead:</p>
+<div class="mermaid-box"><pre class="mermaid">flowchart TD
+    subgraph Regimes[&quot;Three Cognitive Regimes Across Context Retention Ratios&quot;]
+        R1[&quot;Mild Compression (45%–65% Retention): Denoising Acceleration — CoT multiplier drops BELOW uncompressed baseline (&lt; 1.0x)&quot;]
+        R2[&quot;Canonical Sweet Spot (25%–40% Retention): ~96%–99.5% semantic fidelity; CoT multiplier matches or beats Summary &amp; LLMLingua-2&quot;]
+        R3[&quot;Extreme Over-Compression (&lt; 10% Retention): Evidence sparsity triggers Space-Time Trade-Off — CoT tokens surge to bridge gaps&quot;]
+    end
+
+    R1 --&gt; R2 --&gt; R3</pre></div>
+<ol><li><strong>Law I: Zero Intrinsic Surface Decoding Tax</strong> At matched retention ratios, BabelTele induces CoT multipliers comparable to or lower than human-readable summaries and LLMLingua-2. LLMs do <strong>not</strong> translate BabelTele into English prose inside CoT; they reason directly over the symbolic graph.</li><li><strong>Law II: Denoising Acceleration in Mild Compression</strong> Between <code>40%</code> and <code>60%</code> retention, BabelTele frequently achieves a CoT token multiplier <strong><code>&lt; 1.0x</code></strong> relative to reading uncompressed text. Stripping conversational fluff and distracting tangents sharpens attention routing and shortens reasoning traces.</li><li><strong>Law III: The Extreme Sparsity Boundary</strong> When retention drops below <code>10%</code> (<code>&gt;90%</code> compression), CoT tokens rise sharply across <em>all</em> compression methods as models expend reasoning steps reconstructing sparse evidence.</li></ol>
+<div class="gh-alert gh-alert-tip"><div class="gh-alert-title">💡 Tip</div><p><strong>Full-Lifecycle Cost Amortization Law</strong> Real production ROI must account for compilation prefill/decode, <span class="math-inline">$N$</span>-time downstream consumption, reader CoT overhead, and verification:</p>
+<div class="math-display">$$\text{Cost}_{\text{total}} = \underbrace{C_{\text{comp\_in}}(x) + C_{\text{comp\_out}}(z)}_{\text{One-Time Compilation}} + N \cdot \Big[ \underbrace{C_{\text{read\_in}}(z)}_{\text{Compressed Read}} + \underbrace{C_{\text{CoT\_out}}(R, z)}_{\text{Reader CoT}} \Big] + C_{\text{audit}}$$</div>
+<ul><li><strong>Negative ROI (<span class="math-inline">$N = 1$</span> short prompts)</strong>: Never invoke an LLM compressor on a single-use short prompt where compilation cost exceeds read savings.</li><li><strong>High ROI (<span class="math-inline">$N \ge 3$</span> or Window-Overflow)</strong>: Pre-compiling static RAG corpora, persistent multi-turn agent memory, multi-agent broadcast buses, and multi-million-token repository compression amortizes compilation cost rapidly.</li></ul></div>
+<hr />
+<h2 id="sec-1">4.2 Standardized Compression Tiers (<code>BT-L0</code> ~ <code>BT-L3</code>)</h2>
+<p>Because raw LLM compressors vary wildly in default aggressiveness (e.g., Gemini 3.1 Pro exceeds <code>95%</code> compression by default while GPT-5.4 averages <code>~75%</code>), <code>BT-Spec v1.0</code> standardizes four operational tiers:</p>
+<div class="table-wrap"><table><thead><tr><th>Tier</th><th style="text-align:center">Identifier</th><th style="text-align:center">Target Retention (Token Savings)</th><th>Structural Profile</th><th>Primary Engineering Use Case</th></tr></thead><tbody><tr><td><strong>Level 0</strong></td><td style="text-align:center"><strong><code>BT-L0</code></strong><br><em>Telegraphic Prose</em></td><td style="text-align:center"><code>55% – 70%</code><br><em>(Saves 30%–45%)</em></td><td>Monolingual telegraphese: drops articles, filler, and politeness while keeping human skimmability.</td><td>Human-monitored semi-automated operational logs.</td></tr><tr><td><strong>Level 1</strong></td><td style="text-align:center"><strong><code>BT-L1</code></strong><br><em>Structured Hybrid</em></td><td style="text-align:center"><code>40% – 55%</code><br><em>(Saves 45%–60%)</em></td><td>Section headers <code>#Sec</code>, flat <code>K=V</code> bindings, causal arrows <code>=&gt;</code>; triggers <strong>CoT denoising (<code>&lt;1.0x</code>)</strong>.</td><td><strong>Short-session working memory</strong> (~700–2,000 token dialogue sessions; <code>96.48%</code> LoCoMo retention).</td></tr><tr><td><strong>Level 2</strong></td><td style="text-align:center"><strong><code>BT-L2</code></strong><br><em>Canonical BabelTele</em></td><td style="text-align:center"><code>25% – 40%</code><br><em>(Saves 60%–75%)</em></td><td><strong>Recommended Default</strong>: Full omnilingual token minimization + six operator clusters + verbatim hard-data lock.</td><td><strong>A2A multi-agent messaging, pre-compiled RAG chunks, cross-model state transfer</strong>.</td></tr><tr><td><strong>Level 3</strong></td><td style="text-align:center"><strong><code>BT-L3</code></strong><br><em>Extreme / ASCII Skeleton</em></td><td style="text-align:center"><code>5% – 25%</code><br><em>(Saves 75%–95%)</em></td><td>Ultra-dense single-char ASCII skeleton (<code>BT-L3-ASCII</code>); reserved for frontier compressor-reader pairs.</td><td><strong>Breaking physical context limits</strong> (e.g., fitting <code>1.65M-token</code> code repos into <code>200K–256K</code> windows).</td></tr></tbody></table></div>
+<hr />
+<blockquote><p><strong>Next Chapter</strong>: <a href="05-agentic-protocol-stack.html">Chapter 05 — The Agentic Protocol Stack &amp; Semantic Merkle Memory Tree →</a></p></blockquote>
+<div class="pager"><div><a class="pager-card" href="03-core-axioms-and-grammar.html"><div class="pager-label">← Previous</div><div class="pager-title">03 · Core Axioms & Grammar Spec</div></a></div><div><a class="pager-card next" href="05-agentic-protocol-stack.html"><div class="pager-label">Next →</div><div class="pager-title">05 · Agentic Stack & Merkle Memory</div></a></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">On This Page</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">4.1 Does Compression Force Models to &quot;Think Harder&quot;? (The Space-Time Trade-Off)</a>
+        <a class="toc-item toc-h2" href="#sec-1">4.2 Standardized Compression Tiers (BT-L0 ~ BT-L3)</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "en";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

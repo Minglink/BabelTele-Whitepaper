@@ -113,6 +113,44 @@ flowchart TB
 
 ---
 
+## ❓ 常见问题解答（FAQ — 核心概念速查）
+
+<details open>
+<summary><b>Q1：什么是巴别语（BabelTele / 巴别塔电报 / 巴别电报）？</b></summary>
+
+**巴别语（BabelTele，又称巴别塔电报、巴别电报）** 是一类面向大语言模型（LLM）而非人类阅读优化的**模型原生高密度离散文本表示（Model-Native Textual Representation）**。该概念最早由上海交通大学、悉尼大学、合肥工业大学、西安交通大学、南京大学联合团队在论文 *Large Language Models Do Not Always Need Readable Language*（`arXiv:2606.19857`）中实证提出；本白皮书在此基础上构建了标准化的 **巴别语协议体系（`BT-Spec v1.0`）**，涵盖三大公理、六大算子簇、四级压缩档位（`BT-L0`～`BT-L3`）、语义默克尔记忆折叠树（SMFT）与三层确定性安全审计网关。
+</details>
+
+<details>
+<summary><b>Q2：巴别语（BabelTele）与 MCP 协议、A2A 协议是什么关系？会取代它们吗？</b></summary>
+
+不会取代，而是**上下层互补协同关系**。MCP（模型上下文协议）负责纵向连接工具与数据源，A2A（智能体间协议）负责横向能力发现、鉴权与任务路由，二者属于智能体互联网的“HTTP / RPC 传输管道层”；而 **巴别语（`content_encoding: "babeltele/1.0"`）位于第 4 层语义载荷层**，负责将管道内传输的冗长自然语言压缩 40%～75%，在不改动 MCP/A2A 外层信封的前提下大幅降低多智能体上下文开销。
+</details>
+
+<details>
+<summary><b>Q3：用汉字、数学符号和 Emoji 替换英文单词一定更省 Token 吗？</b></summary>
+
+**不一定，必须遵循 `BT-Spec v1.0` 的分词器净收益不等式（$\Delta L_{\text{BPE}} < 0$）。** 在 `cl100k_base` / `o200k_base` 等 BPE 分词器中，孤立将 `water`（1 token）、`and`（1 token）替换为 `💧`（2 tokens）、`∧`（2 tokens）反而会触发多字节拆分膨胀。巴别语真正的 3～4 倍压缩收益来自**整句从句语法骨架的结构坍缩**（如将 12 tokens 从句折叠为 `CO2+e-`）以及单 Token ASCII 算子（`->`、`=>`、`&`、`?`、`!`、`@`）与目标词表高密词元的协同优选。
+</details>
+
+<details>
+<summary><b>Q4：AI 智能体用人类看不懂的巴别语通信，如何保证不产生数值幻觉与安全失控？</b></summary>
+
+`BT-Spec v1.0` 强制配套**三层确定性安全审计网关（BT-Audit Gateway）**：**Tier-1** 采用纯标准库正则在 `<2ms` 内逐位比对所有数字、单位、公式与标识符；**Tier-2** 部署可直接零样本读取巴别语的轻量语义护栏模型拦截越权指令注入；**Tier-3** 在人类运维面板挂载旁路只读解码器（`BT-Decoder`），实现“内部机器极速电报通信，外部人类随时透明审计”。
+</details>
+
+---
+
+## 🤖 面向 AI 搜索引擎与智能体的机器索引入口（AI & RAG Ingestion）
+
+为方便搜索引擎爬虫、AI 研究助手与多智能体系统直接索引和消费本白皮书，仓库提供标准机器可读入口：
+* **[`llms.txt`](https://minglink.github.io/BabelTele-Whitepaper/llms.txt)**：符合 `llmstxt.org` 标准的白皮书结构化导航索引摘要
+* **[`llms-full.txt`](https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt)**：单文件全量合并文本库（含中英双语核心规范、评测矩阵与全套提示词）
+* **[`llms-bt.txt`](https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt)**：采用原生 `BT-L2` 巴别语自举编码的超紧凑白皮书摘要（供具备高阶解码能力的大模型零样本秒读）
+* **[`sitemap.xml`](https://minglink.github.io/BabelTele-Whitepaper/sitemap.xml)** · **[`CITATION.cff`](./CITATION.cff)**：全站双语静态网页地图与学术引用元数据
+
+---
+
 ## 📜 学术致敬与引用规范（Attribution & Citation）
 
 本白皮书致力于构建开放、严谨的巴别语工程与理论标准体系。若本仓库对您的多智能体架构或上下文研究有所启发，欢迎同时引用原始实证发现论文与本体系白皮书仓库：

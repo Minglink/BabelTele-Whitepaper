@@ -3,703 +3,339 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)</title>
-  <meta name="description" content="BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) — Systematized by MingLin (@Minglink)" />
+  <title>巴别语体系白皮书 (BabelTele Whitepaper · BT-Spec v1.0) — 面向硅基智能的模型原生高密度语义通信与记忆规范</title>
+  <meta name="description" content="巴别语（BabelTele / 巴别塔电报）官方体系白皮书（BT-Spec v1.0）：融汇 arXiv:2606.19857 实证成果，定义全语种词元寻优、关系图谱坍缩、零密码本自解释三大公理，MCP/A2A 五层协议栈、语义默克尔记忆折叠树（SMFT）与三层确定性安全审计网关。" />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="巴别语体系白皮书 (BabelTele Whitepaper · BT-Spec v1.0) — 面向硅基智能的模型原生高密度语义通信与记忆规范" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/" />
+  <meta name="citation_language" content="zh-CN" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="巴别语体系白皮书 (BabelTele Whitepaper · BT-Spec v1.0) — 面向硅基智能的模型原生高密度语义通信与记忆规范" />
+  <meta property="og:description" content="巴别语（BabelTele / 巴别塔电报）官方体系白皮书（BT-Spec v1.0）：融汇 arXiv:2606.19857 实证成果，定义全语种词元寻优、关系图谱坍缩、零密码本自解释三大公理，MCP/A2A 五层协议栈、语义默克尔记忆折叠树（SMFT）与三层确定性安全审计网关。" />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="巴别语体系白皮书 (BabelTele Whitepaper · BT-Spec v1.0) — 面向硅基智能的模型原生高密度语义通信与记忆规范" />
+  <meta name="twitter:description" content="巴别语（BabelTele / 巴别塔电报）官方体系白皮书（BT-Spec v1.0）：融汇 arXiv:2606.19857 实证成果，定义全语种词元寻优、关系图谱坍缩、零密码本自解释三大公理，MCP/A2A 五层协议栈、语义默克尔记忆折叠树（SMFT）与三层确定性安全审计网关。" />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#article",
+      "headline": "巴别语体系白皮书 (BabelTele Whitepaper · BT-Spec v1.0) — 面向硅基智能的模型原生高密度语义通信与记忆规范",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "巴别语（BabelTele / 巴别塔电报）官方体系白皮书（BT-Spec v1.0）：融汇 arXiv:2606.19857 实证成果，定义全语种词元寻优、关系图谱坍缩、零密码本自解释三大公理，MCP/A2A 五层协议栈、语义默克尔记忆折叠树（SMFT）与三层确定性安全审计网关。",
+      "inLanguage": "zh-CN",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "什么是巴别语（BabelTele / 巴别塔电报 / 巴别电报）？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "巴别语（BabelTele，又称巴别塔电报）是一类面向大语言模型（LLM）而非人类阅读优化的模型原生高密度离散文本表示。该现象最初由上海交通大学、悉尼大学、合肥工业大学、西安交通大学、南京大学团队在论文 arXiv:2606.19857 中实证提出；本白皮书正式构建了标准化的巴别语协议体系（BT-Spec v1.0），包含三大公理、六大算子簇、四级压缩档位（BT-L0~BT-L3）、语义默克尔记忆折叠树（SMFT）与三层确定性安全审计网关。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "巴别语（BabelTele）与 MCP 协议、A2A 协议是什么关系？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "二者是上下层互补协同关系而非替代关系。MCP 负责纵向连接外部工具与数据源，A2A 负责横向智能体发现与任务路由（传输与信令管道）；巴别语（content_encoding: babeltele/1.0）位于第 4 层语义载荷层，在保持外层协议不变的前提下将内部消息压缩 40%–75%。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "用汉字、数学符号和 Emoji 替换英文单词一定更省 Token 吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不一定，必须遵循 BT-Spec v1.0 的分词器净收益不等式（ΔL_BPE < 0）。tiktoken（cl100k_base / o200k_base）实测表明孤立将 water（1 token）、and（1 token）换为 💧（2 tokens）、∧（2 tokens）反而因多字节回退膨胀。真正的 3–4 倍压缩来自整句从句语法骨架坍缩与单 Token ASCII 算子（->, =>, &, ?, !, @）优先策略。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "AI 智能体用不可读的巴别语通信，如何防止数值幻觉与安全失控？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BT-Spec v1.0 配套三层确定性安全审计网关：Tier-1 用正则在 2ms 内逐位核验全部数字、单位、公式与标识符；Tier-2 用支持零样本直读巴别语的轻量语义护栏模型拦截指令注入；Tier-3 在人类运维面板挂载旁路无损解码器（BT-Decoder）按需还原母语视图。"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
-  <style>
-    :root {
-      --bg: #ffffff;
-      --bg-sidebar: #f8fafc;
-      --bg-elevated: #f1f5f9;
-      --bg-code: #f6f8fa;
-      --text: #0f172a;
-      --text-muted: #475569;
-      --text-faint: #64748b;
-      --border: #e2e8f0;
-      --accent: #2563eb;
-      --accent-soft: rgba(37, 99, 235, 0.1);
-      --header-h: 60px;
-      --sidebar-w: 292px;
-      --toc-w: 236px;
-      --shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
-    }
-    [data-theme="dark"] {
-      --bg: #0b1120;
-      --bg-sidebar: #0f172a;
-      --bg-elevated: #1e293b;
-      --bg-code: #131c2e;
-      --text: #e2e8f0;
-      --text-muted: #94a3b8;
-      --text-faint: #64748b;
-      --border: #1e293b;
-      --accent: #60a5fa;
-      --accent-soft: rgba(96, 165, 250, 0.14);
-      --shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
-    }
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0; padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-      line-height: 1.72;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* Top Navbar */
-    .topbar {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: var(--header-h);
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 20px;
-      z-index: 100;
-      backdrop-filter: blur(10px);
-    }
-    .brand {
-      display: flex; align-items: center; gap: 10px;
-      font-weight: 700; font-size: 16px; color: var(--text);
-      text-decoration: none !important;
-    }
-    .brand-badge {
-      font-size: 11px; font-weight: 600;
-      padding: 2px 7px; border-radius: 999px;
-      background: var(--accent-soft); color: var(--accent);
-      border: 1px solid rgba(37, 99, 235, 0.25);
-    }
-    .menu-btn {
-      display: none; background: transparent; border: 1px solid var(--border);
-      color: var(--text); border-radius: 6px; padding: 5px 9px; cursor: pointer; font-size: 16px;
-    }
-    .top-actions { display: flex; align-items: center; gap: 8px; }
-    .search-box {
-      position: relative; display: flex; align-items: center;
-    }
-    .search-input {
-      width: 210px; padding: 6px 12px; border-radius: 7px;
-      border: 1px solid var(--border); background: var(--bg-sidebar);
-      color: var(--text); font-size: 13px; outline: none;
-      transition: border-color 0.15s, width 0.2s;
-    }
-    .search-input:focus { border-color: var(--accent); width: 260px; }
-    .search-dropdown {
-      position: absolute; top: 38px; right: 0; width: 340px; max-height: 380px;
-      overflow-y: auto; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-      display: none; z-index: 200; padding: 6px;
-    }
-    .search-item {
-      display: block; padding: 8px 10px; border-radius: 6px;
-      color: var(--text) !important; text-decoration: none !important;
-      font-size: 13px; border-bottom: 1px solid var(--border);
-    }
-    .search-item:last-child { border-bottom: none; }
-    .search-item:hover { background: var(--accent-soft); }
-    .search-item-title { font-weight: 600; color: var(--accent); margin-bottom: 2px; }
-    .search-item-snip { font-size: 12px; color: var(--text-muted); }
-
-    .btn-pill {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 6px 11px; border-radius: 7px; font-size: 13px; font-weight: 500;
-      border: 1px solid var(--border); background: var(--bg-sidebar);
-      color: var(--text) !important; cursor: pointer; text-decoration: none !important;
-      transition: all 0.15s;
-    }
-    .btn-pill:hover { border-color: var(--accent); color: var(--accent) !important; }
-    .btn-primary {
-      background: var(--accent); color: #fff !important; border-color: var(--accent);
-    }
-    .btn-primary:hover { opacity: 0.92; color: #fff !important; }
-
-    /* Layout */
-    .layout {
-      display: flex;
-      padding-top: var(--header-h);
-      min-height: 100vh;
-    }
-    .sidebar {
-      position: fixed; top: var(--header-h); bottom: 0; left: 0;
-      width: var(--sidebar-w);
-      background: var(--bg-sidebar);
-      border-right: 1px solid var(--border);
-      overflow-y: auto; padding: 20px 14px 40px;
-      z-index: 90;
-    }
-    .nav-group-title {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.06em; color: var(--text-faint);
-      margin: 18px 10px 6px;
-    }
-    .nav-group-title:first-child { margin-top: 4px; }
-    .nav-link {
-      display: flex; align-items: center; gap: 8px;
-      padding: 7px 10px; border-radius: 7px;
-      font-size: 13.5px; color: var(--text-muted) !important;
-      text-decoration: none !important; margin-bottom: 2px;
-      transition: background 0.12s, color 0.12s;
-    }
-    .nav-link:hover { background: var(--bg-elevated); color: var(--text) !important; }
-    .nav-link.active {
-      background: var(--accent-soft); color: var(--accent) !important;
-      font-weight: 600;
-    }
-
-    .main-wrap {
-      flex: 1;
-      margin-left: var(--sidebar-w);
-      margin-right: var(--toc-w);
-      display: flex; justify-content: center;
-    }
-    .article {
-      width: 100%; max-width: 860px;
-      padding: 38px 44px 80px;
-      min-width: 0;
-    }
-
-    /* Right Outline TOC */
-    .toc-aside {
-      position: fixed; top: var(--header-h); right: 0; bottom: 0;
-      width: var(--toc-w);
-      padding: 28px 16px 40px 12px;
-      overflow-y: auto;
-      border-left: 1px solid var(--border);
-      font-size: 12.5px;
-    }
-    .toc-heading {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.06em; color: var(--text-faint); margin-bottom: 10px;
-    }
-    .toc-item {
-      display: block; padding: 4px 0 4px 8px;
-      color: var(--text-muted) !important; text-decoration: none !important;
-      border-left: 2px solid transparent; line-height: 1.4;
-    }
-    .toc-item.toc-h3 { padding-left: 20px; font-size: 12px; }
-    .toc-item:hover, .toc-item.active {
-      color: var(--accent) !important; border-left-color: var(--accent);
-    }
-
-    /* Markdown Typography */
-    .article h1 { font-size: 2rem; line-height: 1.28; margin: 0 0 18px; letter-spacing: -0.02em; }
-    .article h2 {
-      font-size: 1.42rem; margin: 40px 0 14px; padding-bottom: 8px;
-      border-bottom: 1px solid var(--border); letter-spacing: -0.01em;
-    }
-    .article h3 { font-size: 1.15rem; margin: 28px 0 10px; }
-    .article p { margin: 0 0 16px; }
-    .article ul, .article ol { margin: 0 0 16px; padding-left: 24px; }
-    .article li { margin-bottom: 6px; }
-    .article hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
-    .article img { max-width: 100%; height: auto; border-radius: 6px; }
-    .article code {
-      font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
-      font-size: 0.88em; background: var(--bg-code);
-      padding: 2px 6px; border-radius: 5px; border: 1px solid var(--border);
-    }
-    .code-wrapper { position: relative; margin: 16px 0 22px; }
-    .article pre {
-      background: var(--bg-code); border: 1px solid var(--border);
-      border-radius: 9px; padding: 16px 18px; overflow-x: auto; margin: 0;
-      line-height: 1.55;
-    }
-    .article pre code { background: none; border: none; padding: 0; font-size: 13px; }
-    .copy-btn {
-      position: absolute; top: 8px; right: 8px;
-      font-size: 11.5px; padding: 4px 9px; border-radius: 5px;
-      border: 1px solid var(--border); background: var(--bg);
-      color: var(--text-muted); cursor: pointer; opacity: 0.82;
-    }
-    .copy-btn:hover { opacity: 1; border-color: var(--accent); color: var(--accent); }
-
-    /* Tables */
-    .table-wrap { overflow-x: auto; margin: 18px 0 24px; }
-    .article table {
-      width: 100%; border-collapse: collapse; font-size: 13.8px;
-    }
-    .article th, .article td {
-      border: 1px solid var(--border); padding: 9px 13px; text-align: left; vertical-align: top;
-    }
-    .article th { background: var(--bg-sidebar); font-weight: 600; }
-    .article tr:nth-child(even) td { background: rgba(148, 163, 184, 0.04); }
-
-    /* Blockquotes & GitHub Alerts */
-    .article blockquote {
-      margin: 16px 0; padding: 10px 16px;
-      border-left: 4px solid var(--border);
-      background: var(--bg-sidebar); color: var(--text-muted);
-      border-radius: 0 8px 8px 0;
-    }
-    .gh-alert {
-      margin: 20px 0; padding: 14px 18px; border-radius: 8px;
-      border-left: 4px solid; background: var(--bg-sidebar);
-    }
-    .gh-alert-title {
-      font-weight: 700; font-size: 13.5px; display: flex; align-items: center;
-      gap: 7px; margin-bottom: 6px;
-    }
-    .gh-alert p:last-child, .gh-alert ul:last-child, .gh-alert ol:last-child { margin-bottom: 0; }
-    .gh-alert-note { border-left-color: #3b82f6; }
-    .gh-alert-note .gh-alert-title { color: #3b82f6; }
-    .gh-alert-tip { border-left-color: #10b981; }
-    .gh-alert-tip .gh-alert-title { color: #10b981; }
-    .gh-alert-important { border-left-color: #8b5cf6; }
-    .gh-alert-important .gh-alert-title { color: #8b5cf6; }
-    .gh-alert-warning { border-left-color: #f59e0b; }
-    .gh-alert-warning .gh-alert-title { color: #f59e0b; }
-    .gh-alert-caution { border-left-color: #ef4444; }
-    .gh-alert-caution .gh-alert-title { color: #ef4444; }
-
-    /* Mermaid & KaTeX */
-    .mermaid-box {
-      margin: 22px 0; padding: 18px; border-radius: 10px;
-      border: 1px solid var(--border); background: var(--bg-sidebar);
-      text-align: center; overflow-x: auto;
-    }
-    .katex-display { overflow-x: auto; overflow-y: hidden; padding: 6px 0; }
-    details {
-      margin: 14px 0; padding: 10px 14px; border: 1px solid var(--border);
-      border-radius: 8px; background: var(--bg-sidebar);
-    }
-    summary { cursor: pointer; font-weight: 600; }
-
-    /* Chapter Footer Pagination */
-    .pager {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-      margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--border);
-    }
-    .pager-card {
-      display: block; padding: 14px 18px; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none !important;
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .pager-card:hover { border-color: var(--accent); background: var(--accent-soft); }
-    .pager-card.next { text-align: right; }
-    .pager-label { font-size: 11.5px; color: var(--text-faint); margin-bottom: 4px; }
-    .pager-title { font-size: 14px; font-weight: 600; color: var(--accent); }
-
-    @media (max-width: 1180px) {
-      .toc-aside { display: none; }
-      .main-wrap { margin-right: 0; }
-    }
-    @media (max-width: 860px) {
-      .menu-btn { display: inline-flex; }
-      .sidebar { transform: translateX(-100%); transition: transform 0.22s ease; }
-      .sidebar.open { transform: translateX(0); box-shadow: 8px 0 24px rgba(0,0,0,0.25); }
-      .main-wrap { margin-left: 0; }
-      .article { padding: 26px 18px 64px; }
-      .search-box { display: none; }
-      .pager { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
   <header class="topbar">
     <div style="display:flex;align-items:center;gap:10px;">
       <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
-      <a class="brand" href="#/">
+      <a class="brand" href="index.html">
         <span>🗼 BabelTele Whitepaper</span>
         <span class="brand-badge">BT-Spec v1.0</span>
       </a>
     </div>
     <div class="top-actions">
       <div class="search-box">
-        <input type="search" class="search-input" id="searchInput" placeholder="搜索全书章节 / Search..." autocomplete="off" />
+        <input type="search" class="search-input" id="searchInput" placeholder="搜索全书章节..." autocomplete="off" />
         <div class="search-dropdown" id="searchDropdown"></div>
       </div>
-      <button class="btn-pill" id="langToggle" title="Switch Language">🇬🇧 English</button>
-      <a class="btn-pill btn-primary" id="pdfBtn" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" target="_blank" rel="noopener">📥 PDF</a>
+      <a class="btn-pill" href="en/index.html" title="Switch Language">🇬🇧 English</a>
+      <a class="btn-pill" href="llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" target="_blank" rel="noopener">📥 中文 PDF</a>
       <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
       <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </header>
 
   <div class="layout">
-    <nav class="sidebar" id="sidebar"></nav>
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">总览与单卷典藏本</div>
+      <a class="nav-link active" href="index.html">🏠 白皮书门户导览</a>
+      <a class="nav-link" href="whitepaper.html">📜 单文件完整典藏白皮书</a>
+      <div class="nav-group-title">BT-Spec v1.0 深度规范分册</div>
+      <a class="nav-link" href="docs/01-manifesto-and-problem.html">01 · 人类可读性税与巴别塔隐喻</a>
+      <a class="nav-link" href="docs/02-theoretical-foundations.html">02 · 信息论基础与解耦定理</a>
+      <a class="nav-link" href="docs/03-core-axioms-and-grammar.html">03 · 三大公理与标准语法算子</a>
+      <a class="nav-link" href="docs/04-compression-tiers-and-cot.html">04 · 四级压缩档位与认知税动力学</a>
+      <a class="nav-link" href="docs/05-agentic-protocol-stack.html">05 · 智能体协议栈与默克尔记忆树</a>
+      <a class="nav-link" href="docs/06-cross-model-consensus-and-audit.html">06 · 跨模型共识与三层安全审计</a>
+      <a class="nav-link" href="docs/07-canonical-instruction-set.html">07 · 标准编译与解码指令集</a>
+      <a class="nav-link" href="docs/08-genealogy-and-ecosystem.html">08 · 学术谱系、勘误与开源生态</a>
+    </nav>
     <main class="main-wrap">
-      <article class="article" id="article">Loading whitepaper...</article>
+      <article class="article" id="article">
+<div align="center">
+<h1 id="sec-0">🗼 巴别语体系白皮书 · BabelTele Whitepaper</h1>
+<h3 id="sec-0"><em>A Model-Native High-Density Semantic Communication &amp; Memory System</em></h3>
+<p><strong><a href="index.html">🇨🇳 简体中文</a></strong> · <strong><a href="en/index.html">🇬🇧 English Edition</a></strong> · <strong><a href="https://minglink.github.io/BabelTele-Whitepaper/" target="_blank" rel="noopener">📖 在线电子书站点 (GitHub Pages)</a></strong> · <strong><a href="https://github.com/Minglink/BabelTele-Whitepaper/releases/latest" target="_blank" rel="noopener">📥 下载 PDF 排版发行版 (Releases)</a></strong></p>
+<p><a href="whitepaper.html"><img src="https://img.shields.io/badge/BT--Spec-v1.0-0A66C2?style=flat-square" alt="Spec Version" /></a> <a href="https://minglink.github.io/BabelTele-Whitepaper/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/GitHub_Pages-在线电子书阅读站-7C3AED?style=flat-square&amp;logo=gitbook" alt="Online E-Book" /></a> <a href="https://github.com/Minglink/BabelTele-Whitepaper/releases/latest" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Release-PDF_典藏白皮书_v1.0-EC4899?style=flat-square&amp;logo=adobeacrobatreader" alt="PDF Release" /></a> <a href="https://arxiv.org/abs/2606.19857" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/arXiv-2606.19857-B31B1B?style=flat-square" alt="Foundational Paper" /></a> <a href="https://github.com/Minglink" target="_blank" rel="noopener"> INL5 -181717?style=flat-square&amp;logo=github)</a> <a href="https://github.com/Minglink/BabelTele-Whitepaper/blob/main/LICENSE" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/License-CC_BY_4.0_%2F_MIT-2EA043?style=flat-square" alt="License" /></a></p>
+<p><strong>「人类用 MCP 与 A2A 修建了智能体世界的通信管道；而巴别语（BabelTele），定义了流淌在管道里的硅基原生语言。」</strong></p>
+<p><a href="whitepaper.html">📜 <strong>阅读中文单卷本 ( INL0 )</strong></a> · <a href="en/whitepaper.html">🌐 <strong>Read English Whitepaper ( INL1 )</strong></a> · <a href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" target="_blank" rel="noopener">📥 <strong>下载中文 PDF</strong></a> · <a href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" target="_blank" rel="noopener">📥 <strong>Download English PDF</strong></a></p>
+</div>
+<hr />
+<h2 id="sec-1">📖 什么是巴别语体系（The BabelTele System）？</h2>
+<p>长期以来，即便通信的<strong>发送方与接收方都是大语言模型</strong>（如多智能体协同、Agent 长期记忆存储、超长上下文 RAG 注入），我们依然强迫它们使用迁就人类阅读习惯的自然语言交谈——承担着高达 <strong>60%～75% 的“人类可读性税”（语法缓冲、单语种拼写低效与线性从句展开开销）</strong>。</p>
+<p><strong>巴别语标准体系（BT-Spec v1.0）</strong> 旨在彻底剥离机器间通信的人类语法冗余，构建一套无需修改模型权重、纯黑盒 API 兼容且支持异构跨模型零样本直读的高密度语义底座。</p>
+<h3 id="sec-2">一眼看懂巴别语坍缩（Intuitive Examples）</h3>
+<div class="table-wrap"><table><thead><tr><th>场景</th><th>传统人类自然语言（高冗余）</th><th>巴别语标准编码（模型零样本直读）</th><th style="text-align:center">压缩收益</th></tr></thead><tbody><tr><td><strong>科学机理</strong></td><td><em>"During photosynthesis, plants take in carbon dioxide and water. The water is oxidized, losing electrons, while the carbon dioxide is reduced, gaining electrons. This transforms them into oxygen and glucose."</em></td><td><code>🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻.</code></td><td style="text-align:center"><strong><code>45 → 11</code> tokens</strong><br><em>(缩减 75.6%)</em></td></tr><tr><td><strong>商业决策</strong></td><td><em>"Q3 revenue is projected to rise ~30% YoY; if it lands, the Berlin team ships the mobile app in October."</em></td><td><code>Q3rev📈~30%YoY; ?lands⇒Berlin👥🚀📱@Oct</code></td><td style="text-align:center"><strong><code>24 → 9</code> tokens</strong><br><em>(缩减 62.5%)</em></td></tr><tr><td><strong>安全网关</strong></td><td><em>"If the JWT header algorithm is set to 'none' or the expiration timestamp is missing, immediately reject the request with HTTP 401 except on public healthcheck endpoints."</em></td><td><code>?JWT.alg==&#x27;none&#x27; ∨ ¬JWT.exp =&gt; reject(401) !endpoint:/healthz</code></td><td style="text-align:center"><strong><code>33 → 13</code> tokens</strong><br><em>(缩减 60.6%)</em></td></tr></tbody></table></div>
+<hr />
+<h2 id="sec-3">📊 核心实证指标速览（Verified Empirical Benchmarks）</h2>
+<div class="table-wrap"><table><thead><tr><th>评测维度</th><th>核心实验表现</th><th>数据出处与设置</th></tr></thead><tbody><tr><td><strong>极致密度与保真解耦</strong></td><td>文本体积浓缩至原长 <strong><code>27.9%</code></strong> 时，依然维持 <strong><code>99.5%</code></strong> 下游语义保真度</td><td><code>arXiv:2606.19857</code> 任务无关长文档阅读理解测试</td></tr><tr><td><strong>异构多智能体通信</strong></td><td>削减 <strong><code>44.21%</code></strong> 通信 Token 开销，任务总分保持基线的 <strong><code>99.7%</code></strong></td><td>DeepResearch Bench（Gemini 3.1 Pro <span class="math-inline">$\leftrightarrow$</span> GPT-5.4 零样本互通）</td></tr><tr><td><strong>Agent 长期会话记忆</strong></td><td>节省约 <strong><code>51%</code></strong> 记忆查询 Token，准确率 <strong><code>96.48%</code></strong>（优于传统自然语言摘要）</td><td>LoCoMo 多会话长程对话记忆基准</td></tr><tr><td><strong>突破物理窗口天花板</strong></td><td>将 <strong><code>1.65M tokens</code></strong> 超大代码仓库分块浓缩喂入 <code>200K</code> 模型，准确率跃升 <strong><code>+10.34%</code></strong></td><td>LongBench v2 Code Repo QA Long（GLM-5.1：<code>62.07% → 72.41%</code>）</td></tr></tbody></table></div>
+<hr />
+<h2 id="sec-4">🏗️ 巴别语体系全景架构（System Architecture）</h2>
+<div class="mermaid-box"><pre class="mermaid">flowchart TB
+    subgraph Axioms[&quot;三大基本公理 (Core Axioms)&quot;]
+        A1[&quot;公理一: 全语种词元寻优 (Omnilingual Minimization)&quot;]
+        A2[&quot;公理二: 关系图谱坍缩 (Relational Graph Collapse)&quot;]
+        A3[&quot;公理三: 零私有码本自解释 (Zero-Codebook Universality)&quot;]
+    end
+
+    subgraph Protocol_Stack[&quot;智能体通信与记忆核心引擎 (Protocol &amp; Memory Engine)&quot;]
+        Tiers[&quot;四级标准压缩档位: BT-L0 / BT-L1 / BT-L2 (甜点态) / BT-L3 (ASCII骨架)&quot;]
+        Stack[&quot;五层协议栈融合: MCP (纵向工具) + A2A (横向路由) + BabelTele (L4 语义载荷)&quot;]
+        SMFT[&quot;语义默克尔记忆折叠树 (SMFT): Raw → T1 检查点 → T2/T3 滚动树 + 冷存储无损指针&quot;]
+    end
+
+    subgraph Governance[&quot;三层确定性保真与安全审计网关 (BT-Audit Gateway)&quot;]
+        G1[&quot;Tier-1: 字面数值/标识符零损机检 (&lt;2ms)&quot;]
+        G2[&quot;Tier-2: 异构模型交叉盲测 + 原生语义护栏&quot;]
+        G3[&quot;Tier-3: 人类旁路可读观测镜 (Sidecar Decoder)&quot;]
+    end
+
+    Axioms --&gt; Protocol_Stack --&gt; Governance</pre></div>
+<hr />
+<h2 id="sec-5">📚 白皮书分章节深度规范目录（Modular Specification）</h2>
+<p>若您希望快速通读全貌，推荐先阅读单文件完整典藏版 <strong><a href="whitepaper.html"> INL0 </a></strong>；若您需要查阅数学推导、算子词典、全量模型对比表或复制工程提示词，请进入 <code>docs/</code> 分册：</p>
+<div class="table-wrap"><table><thead><tr><th style="text-align:center">章节</th><th>文档链接</th><th>核心内容提要</th></tr></thead><tbody><tr><td style="text-align:center"><strong>单卷本</strong></td><td><strong><a href="whitepaper.html"> INL0 </a></strong></td><td><strong>《巴别语：一种模型原生的高密度语义通信与记忆体系》完整单页典藏版</strong>（致敬经典白皮书十节体例）</td></tr><tr><td style="text-align:center"><strong>第 01 章</strong></td><td><strong><a href="docs/01-manifesto-and-problem.html">人类可读性税与巴别塔隐喻</a></strong></td><td>碳基自然语言的四大冗余根源、MCP/A2A 通道之后的载荷革命、巴别塔与 1866 电报体的双重隐喻</td></tr><tr><td style="text-align:center"><strong>第 02 章</strong></td><td><strong><a href="docs/02-theoretical-foundations.html">信息论基础与解耦定理</a></strong></td><td>率失真语义投影方程、Dale-Chall 与 8 款基座模型 PPL 暴涨 20 倍实证、三元解耦定理与潜空间同构假说</td></tr><tr><td style="text-align:center"><strong>第 03 章</strong></td><td><strong><a href="docs/03-core-axioms-and-grammar.html">三大公理与标准语法算子规范</a></strong></td><td><strong>BT-Spec v1.0 核心规范</strong>：全语种选词公理、BPE 分词器字节回退防膨胀警告、六大标准算子簇与编码拆解</td></tr><tr><td style="text-align:center"><strong>第 04 章</strong></td><td><strong><a href="docs/04-compression-tiers-and-cot.html">四级压缩档位与推理认知税动力学</a></strong></td><td>116 组实验揭示的 CoT 思维链空间-时间权衡定律、降噪加速效应，以及 <code>BT-L0</code>～<code>BT-L3</code> 工程选型标准</td></tr><tr><td style="text-align:center"><strong>第 05 章</strong></td><td><strong><a href="docs/05-agentic-protocol-stack.html">智能体通信协议栈与语义默克尔记忆树</a></strong></td><td>MCP/A2A/BabelTele 五层协议栈信封格式、<strong>SMFT 语义默克尔记忆树</strong>回收上下文空间、百万 Token 仓库扩窗实战</td></tr><tr><td style="text-align:center"><strong>第 06 章</strong></td><td><strong><a href="docs/06-cross-model-consensus-and-audit.html">异构跨模型共识与三层安全审计网关</a></strong></td><td>19 款主流模型零样本迁移非对称规律、稠密 vs MoE 尺度效应、<strong>Tier 1–3 确定性防幻觉与人类旁路审计网关</strong></td></tr><tr><td style="text-align:center"><strong>第 07 章</strong></td><td><strong><a href="docs/07-canonical-instruction-set.html">巴别语标准编译与解码指令集</a></strong></td><td><strong>开箱即用</strong>：中英双语五大标准编译器与解码器系统提示词，附原论文 <code>C.1</code> 与 <code>BT-P1</code>～<code>BT-P13</code> 全家桶对照表</td></tr><tr><td style="text-align:center"><strong>第 08 章</strong></td><td><strong><a href="docs/08-genealogy-and-ecosystem.html">学术谱系、实证勘误与开源生态全景</a></strong></td><td>四大压缩与潜空间通信路线横评、网传爆款文 OCR 符号乌龙官方勘误、全球 6 大开源项目索引与参考文献</td></tr></tbody></table></div>
+<hr />
+<h2 id="sec-6">⚡ 30 秒快速实测（Quick Start）</h2>
+<p>无需安装任何依赖，复制以下 <strong><code>BT-Core</code> 标准编译提示词</strong> 发送给任意主流大模型（GPT-5.4 / Claude / Gemini / DeepSeek / Qwen），即可立即体验模型原生高密度编译：</p>
+<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-markdown">你的任务：将冗长的人类文本压缩为最小的 Token 序列。受众不是人类，而是另一个同等智能的大语言模型。
+
+核心指令：
+1. 全语种寻优（Omnilingual）：忽略单语言语法；自由穿梭于所有人类语言（中文、英文、德语复合词、日文汉字、拉丁词根等），挑选在当前语境下信息密度最高、占用 Token 最少的词汇。
+2. 符号化坍缩（Symbolic Collapse）：选用高频 Emoji、数学与逻辑符号（=&gt;、∈、!=、∧、¬）及紧凑标点来替换连词、介词、情感修饰与冗长从句。
+3. 零密码本通用性（Universality）：任何大语言模型在无需外部私有密码本的情况下，都应能零样本完全理解压缩输出的内容。
+4. 无损保真（Lossless）：完整保留所有核心信息、实体归属、精确数值与事实细节，严禁四舍五入或主观臆造。
+
+直接输出压缩结果，不要任何前缀解释。压缩以下内容：
+[在此粘贴您的长文本或系统提示词]</code></pre></div>
+<blockquote><p>更多针对 <strong>Agent 记忆检查清单（<code>BT-Memory</code>）</strong>、<strong>超长代码仓库纯 ASCII 骨架（<code>BT-Skeleton</code>）</strong> 及 <strong>无损还原解码器（<code>BT-Decoder</code>）</strong> 的专业协议模板，请直接前往 <strong><a href="docs/07-canonical-instruction-set.html">第七章：标准编译与解码指令集</a></strong>。</p></blockquote>
+<hr />
+<h2 id="sec-7">❓ 常见问题解答（FAQ — 核心概念速查）</h2>
+<details open>
+<summary><b>Q1：什么是巴别语（BabelTele / 巴别塔电报 / 巴别电报）？</b></summary>
+<p><strong>巴别语（BabelTele，又称巴别塔电报、巴别电报）</strong> 是一类面向大语言模型（LLM）而非人类阅读优化的<strong>模型原生高密度离散文本表示（Model-Native Textual Representation）</strong>。该概念最早由上海交通大学、悉尼大学、合肥工业大学、西安交通大学、南京大学联合团队在论文 <em>Large Language Models Do Not Always Need Readable Language</em>（<code>arXiv:2606.19857</code>）中实证提出；本白皮书在此基础上构建了标准化的 <strong>巴别语协议体系（<code>BT-Spec v1.0</code>）</strong>，涵盖三大公理、六大算子簇、四级压缩档位（<code>BT-L0</code>～<code>BT-L3</code>）、语义默克尔记忆折叠树（SMFT）与三层确定性安全审计网关。</p>
+</details>
+<details>
+<summary><b>Q2：巴别语（BabelTele）与 MCP 协议、A2A 协议是什么关系？会取代它们吗？</b></summary>
+<p>不会取代，而是<strong>上下层互补协同关系</strong>。MCP（模型上下文协议）负责纵向连接工具与数据源，A2A（智能体间协议）负责横向能力发现、鉴权与任务路由，二者属于智能体互联网的“HTTP / RPC 传输管道层”；而 <strong>巴别语（<code>content_encoding: &quot;babeltele/1.0&quot;</code>）位于第 4 层语义载荷层</strong>，负责将管道内传输的冗长自然语言压缩 40%～75%，在不改动 MCP/A2A 外层信封的前提下大幅降低多智能体上下文开销。</p>
+</details>
+<details>
+<summary><b>Q3：用汉字、数学符号和 Emoji 替换英文单词一定更省 Token 吗？</b></summary>
+<p><strong>不一定，必须遵循 <code>BT-Spec v1.0</code> 的分词器净收益不等式（<span class="math-inline">$\Delta L_{\text{BPE}} &lt; 0$</span>）。</strong> 在 <code>cl100k_base</code> / <code>o200k_base</code> 等 BPE 分词器中，孤立将 <code>water</code>（1 token）、<code>and</code>（1 token）替换为 <code>💧</code>（2 tokens）、<code>∧</code>（2 tokens）反而会触发多字节拆分膨胀。巴别语真正的 3～4 倍压缩收益来自<strong>整句从句语法骨架的结构坍缩</strong>（如将 12 tokens 从句折叠为 <code>CO2+e-</code>）以及单 Token ASCII 算子（<code>-&gt;</code>、<code>=&gt;</code>、<code>&amp;</code>、<code>?</code>、<code>!</code>、<code>@</code>）与目标词表高密词元的协同优选。</p>
+</details>
+<details>
+<summary><b>Q4：AI 智能体用人类看不懂的巴别语通信，如何保证不产生数值幻觉与安全失控？</b></summary>
+<p><code>BT-Spec v1.0</code> 强制配套<strong>三层确定性安全审计网关（BT-Audit Gateway）</strong>：<strong>Tier-1</strong> 采用纯标准库正则在 <code>&lt;2ms</code> 内逐位比对所有数字、单位、公式与标识符；<strong>Tier-2</strong> 部署可直接零样本读取巴别语的轻量语义护栏模型拦截越权指令注入；<strong>Tier-3</strong> 在人类运维面板挂载旁路只读解码器（<code>BT-Decoder</code>），实现“内部机器极速电报通信，外部人类随时透明审计”。</p>
+</details>
+<hr />
+<h2 id="sec-8">🤖 面向 AI 搜索引擎与智能体的机器索引入口（AI &amp; RAG Ingestion）</h2>
+<p>为方便搜索引擎爬虫、AI 研究助手与多智能体系统直接索引和消费本白皮书，仓库提供标准机器可读入口：</p>
+<ul><li><strong><a href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" target="_blank" rel="noopener"> INL0 </a></strong>：符合 <code>llmstxt.org</code> 标准的白皮书结构化导航索引摘要</li><li><strong><a href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" target="_blank" rel="noopener"> INL0 </a></strong>：单文件全量合并文本库（含中英双语核心规范、评测矩阵与全套提示词）</li><li><strong><a href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" target="_blank" rel="noopener"> INL0 </a></strong>：采用原生 <code>BT-L2</code> 巴别语自举编码的超紧凑白皮书摘要（供具备高阶解码能力的大模型零样本秒读）</li><li><strong><a href="https://minglink.github.io/BabelTele-Whitepaper/sitemap.xml" target="_blank" rel="noopener"> INL0 </a></strong> · <strong><a href="https://github.com/Minglink/BabelTele-Whitepaper/blob/main/CITATION.cff" target="_blank" rel="noopener"> INL1 </a></strong>：全站双语静态网页地图与学术引用元数据</li></ul>
+<hr />
+<h2 id="sec-9">📜 学术致敬与引用规范（Attribution &amp; Citation）</h2>
+<p>本白皮书致力于构建开放、严谨的巴别语工程与理论标准体系。若本仓库对您的多智能体架构或上下文研究有所启发，欢迎同时引用原始实证发现论文与本体系白皮书仓库：</p>
+<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-bibtex">@article{zhu2026babeltele,
+  title   = {Large Language Models Do Not Always Need Readable Language},
+  author  = {Zhu, Jiayi and Peng, Haoxuan and Wang, Junxi and Ke, Liang and Zhang, Chen and Zhang, Linfeng},
+  journal = {arXiv preprint arXiv:2606.19857},
+  year    = {2026}
+}
+
+@misc{minglin2026babeltelespec,
+  title        = {BabelTele Whitepaper: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0)},
+  author       = {MingLin},
+  year         = {2026},
+  howpublished = {\url{https://github.com/Minglink/BabelTele-Whitepaper}}
+}</code></pre></div>
+<hr />
+<h2 id="sec-10">🤝 参与共建与许可协议（Contributing &amp; License）</h2>
+<p>巴别语是一个持续演进的开放协议生态。欢迎通过 Issue 或 Pull Request 提交新的跨分词器密度基准、异构模型迁移矩阵、MCP/A2A 中间件实现或安全审计脚本。</p>
+<ul><li>白皮书正文与规范文档采用 <strong><a href="https://github.com/Minglink/BabelTele-Whitepaper/blob/main/LICENSE" target="_blank" rel="noopener">CC BY 4.0</a></strong> 国际知识共享协议授权；</li><li>编译器提示词模板与结构化 Schema 采用 <strong><a href="https://github.com/Minglink/BabelTele-Whitepaper/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></strong> 授权。</li></ul>
+<div align="center">
+<p><sub>Crafted &amp; Systematized by &lt;a href="https://github.com/Minglink"&gt;<b>MingLin (@Minglink)</b>&lt;/a&gt; · Empowering Silicon-Native Intelligence</sub></p>
+</div>
+<div class="pager"><div></div><div><a class="pager-card next" href="whitepaper.html"><div class="pager-label">下一章 →</div><div class="pager-title">📜 单文件完整典藏白皮书</div></a></div></div>
+      </article>
     </main>
-    <aside class="toc-aside" id="tocAside">
-      <div class="toc-heading" id="tocHeading">本页目录</div>
-      <div id="tocList"></div>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">本页目录</div>
+      <div id="tocList">
+        <a class="toc-item toc-h3" href="#sec-0">A Model-Native High-Density Semantic Communication &amp;amp; Memory System</a>
+        <a class="toc-item toc-h2" href="#sec-1">📖 什么是巴别语体系（The BabelTele System）？</a>
+        <a class="toc-item toc-h3" href="#sec-2">一眼看懂巴别语坍缩（Intuitive Examples）</a>
+        <a class="toc-item toc-h2" href="#sec-3">📊 核心实证指标速览（Verified Empirical Benchmarks）</a>
+        <a class="toc-item toc-h2" href="#sec-4">🏗️ 巴别语体系全景架构（System Architecture）</a>
+        <a class="toc-item toc-h2" href="#sec-5">📚 白皮书分章节深度规范目录（Modular Specification）</a>
+        <a class="toc-item toc-h2" href="#sec-6">⚡ 30 秒快速实测（Quick Start）</a>
+        <a class="toc-item toc-h2" href="#sec-7">❓ 常见问题解答（FAQ — 核心概念速查）</a>
+        <a class="toc-item toc-h2" href="#sec-8">🤖 面向 AI 搜索引擎与智能体的机器索引入口（AI &amp;amp; RAG Ingestion）</a>
+        <a class="toc-item toc-h2" href="#sec-9">📜 学术致敬与引用规范（Attribution &amp;amp; Citation）</a>
+        <a class="toc-item toc-h2" href="#sec-10">🤝 参与共建与许可协议（Contributing &amp;amp; License）</a>
+      </div>
     </aside>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script>window. = ""; window.__PAGE_LANG__ = "zh";</script>
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-  <script>
-    const BOOKS = {
-      zh: {
-        pdf: "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf",
-        pdfLabel: "📥 下载中文 PDF",
-        langSwitchLabel: "🇬🇧 English",
-        tocTitle: "本页目录",
-        prevLabel: "← 上一章",
-        nextLabel: "下一章 →",
-        groups: [
-          {
-            title: "总览与单卷典藏本",
-            items: [
-              { route: "README.md", title: "🏠 白皮书门户导览", pair: "README_EN.md" },
-              { route: "WHITEPAPER.md", title: "📜 单文件完整典藏白皮书", pair: "WHITEPAPER_EN.md" }
-            ]
-          },
-          {
-            title: "BT-Spec v1.0 深度规范分册",
-            items: [
-              { route: "docs/01-manifesto-and-problem.md", title: "01 · 人类可读性税与巴别塔隐喻", pair: "en/01-manifesto-and-problem.md" },
-              { route: "docs/02-theoretical-foundations.md", title: "02 · 信息论基础与解耦定理", pair: "en/02-theoretical-foundations.md" },
-              { route: "docs/03-core-axioms-and-grammar.md", title: "03 · 三大公理与标准语法算子", pair: "en/03-core-axioms-and-grammar.md" },
-              { route: "docs/04-compression-tiers-and-cot.md", title: "04 · 四级压缩档位与认知税动力学", pair: "en/04-compression-tiers-and-cot.md" },
-              { route: "docs/05-agentic-protocol-stack.md", title: "05 · 智能体协议栈与默克尔记忆树", pair: "en/05-agentic-protocol-stack.md" },
-              { route: "docs/06-cross-model-consensus-and-audit.md", title: "06 · 跨模型共识与三层安全审计", pair: "en/06-cross-model-consensus-and-audit.md" },
-              { route: "docs/07-canonical-instruction-set.md", title: "07 · 标准编译与解码指令集", pair: "en/07-canonical-instruction-set.md" },
-              { route: "docs/08-genealogy-and-ecosystem.md", title: "08 · 学术谱系、勘误与开源生态", pair: "en/08-genealogy-and-ecosystem.md" }
-            ]
-          }
-        ]
-      },
-      en: {
-        pdf: "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf",
-        pdfLabel: "📥 English PDF",
-        langSwitchLabel: "🇨🇳 简体中文",
-        tocTitle: "On This Page",
-        prevLabel: "← Previous",
-        nextLabel: "Next →",
-        groups: [
-          {
-            title: "Overview & Canonical Treatise",
-            items: [
-              { route: "README_EN.md", title: "🏠 Whitepaper Portal", pair: "README.md" },
-              { route: "WHITEPAPER_EN.md", title: "📜 Complete Single-File Whitepaper", pair: "WHITEPAPER.md" }
-            ]
-          },
-          {
-            title: "BT-Spec v1.0 Modular Specification",
-            items: [
-              { route: "en/01-manifesto-and-problem.md", title: "01 · Manifesto & Readability Tax", pair: "docs/01-manifesto-and-problem.md" },
-              { route: "en/02-theoretical-foundations.md", title: "02 · Information Theory & Decoupling", pair: "docs/02-theoretical-foundations.md" },
-              { route: "en/03-core-axioms-and-grammar.md", title: "03 · Core Axioms & Grammar Spec", pair: "docs/03-core-axioms-and-grammar.md" },
-              { route: "en/04-compression-tiers-and-cot.md", title: "04 · Compression Tiers & CoT Dynamics", pair: "docs/04-compression-tiers-and-cot.md" },
-              { route: "en/05-agentic-protocol-stack.md", title: "05 · Agentic Stack & Merkle Memory", pair: "docs/05-agentic-protocol-stack.md" },
-              { route: "en/06-cross-model-consensus-and-audit.md", title: "06 · Cross-Model & Audit Gateway", pair: "docs/06-cross-model-consensus-and-audit.md" },
-              { route: "en/07-canonical-instruction-set.md", title: "07 · Canonical Compiler Prompts", pair: "docs/07-canonical-instruction-set.md" },
-              { route: "en/08-genealogy-and-ecosystem.md", title: "08 · Genealogy, Errata & Ecosystem", pair: "docs/08-genealogy-and-ecosystem.md" }
-            ]
-          }
-        ]
-      }
-    };
-
-    const ALL_ITEMS = [...BOOKS.zh.items || [], ...BOOKS.zh.groups.flatMap(g => g.items), ...BOOKS.en.groups.flatMap(g => g.items)];
-    const docCache = new Map();
-    let currentRoute = "README.md";
-    let currentLang = "zh";
-
-    function normalizeRoute(raw) {
-      let r = (raw || "").replace(/^#\/?/, "").split("#")[0].trim();
-      if (!r || r === "/") return "README.md";
-      if (!r.endsWith(".md") && r !== "LICENSE") r += ".md";
-      return r.replace(/^\.\//, "");
-    }
-
-    function detectLang(route) {
-      return (route === "README_EN.md" || route === "WHITEPAPER_EN.md" || route.startsWith("en/")) ? "en" : "zh";
-    }
-
-    function resolveRelPath(baseFile, href) {
-      const baseDir = baseFile.includes("/") ? baseFile.substring(0, baseFile.lastIndexOf("/") + 1) : "";
-      const parts = (baseDir + href).split("/");
-      const out = [];
-      for (const p of parts) {
-        if (!p || p === ".") continue;
-        if (p === "..") out.pop();
-        else out.push(p);
-      }
-      return out.join("/");
-    }
-
-    function renderSidebar() {
-      const book = BOOKS[currentLang];
-      const sb = document.getElementById("sidebar");
-      sb.innerHTML = book.groups.map(g => `
-        <div class="nav-group-title">${g.title}</div>
-        ${g.items.map(it => `
-          <a class="nav-link ${it.route === currentRoute ? "active" : ""}" href="#/${it.route.replace(/\.md$/, "")}">
-            ${it.title}
-          </a>
-        `).join("")}
-      `).join("");
-      document.getElementById("langToggle").textContent = book.langSwitchLabel;
-      const pdfBtn = document.getElementById("pdfBtn");
-      pdfBtn.href = book.pdf;
-      pdfBtn.textContent = book.pdfLabel;
-      document.getElementById("tocHeading").textContent = book.tocTitle;
-    }
-
-    function preprocessMarkdown(md) {
-      const stash = [];
-      const put = (html) => {
-        const key = `@@STASH_${stash.length}@@`;
-        stash.push(html);
-        return key;
-      };
-
-      // 1. Protect fenced code blocks (handle mermaid separately)
-      md = md.replace(/```(\w*)\r?\n([\s\S]*?)```/g, (_, lang, code) => {
-        if (lang.toLowerCase() === "mermaid") {
-          const escaped = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-          return put(`<div class="mermaid-box"><pre class="mermaid">${escaped}</pre></div>`);
-        }
-        let highlighted = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        try {
-          if (lang && hljs.getLanguage(lang)) {
-            highlighted = hljs.highlight(code, { language: lang }).value;
-          } else {
-            highlighted = hljs.highlightAuto(code).value;
-          }
-        } catch (e) {}
-        return put(`<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="hljs">${highlighted}</code></pre></div>`);
-      });
-
-      // 2. Protect inline code spans (unescape table-escaped pipes \| -> |)
-      md = md.replace(/`([^`\n]+)`/g, (_, c) => {
-        const clean = c.replace(/\\\|/g, "|");
-        const esc = clean.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        return put(`<code>${esc}</code>`);
-      });
-
-      // 3. Render Display Math $$...$$
-      md = md.replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => {
-        try {
-          return put(katex.renderToString(tex.trim(), { displayMode: true, throwOnError: false }));
-        } catch (e) { return put(`<pre>${tex}</pre>`); }
-      });
-
-      // 4. Render Inline Math $...$
-      md = md.replace(/(?<!\$)\$(?!\s)([^\$\n]+?)(?<!\s)\$(?!\$)/g, (_, tex) => {
-        try {
-          return put(katex.renderToString(tex.trim(), { displayMode: false, throwOnError: false }));
-        } catch (e) { return `$${tex}$`; }
-      });
-
-      let html = marked.parse(md, { gfm: true, breaks: false });
-      stash.forEach((val, idx) => {
-        html = html.split(`@@STASH_${idx}@@`).join(val);
-      });
-      return html;
-    }
-
-    function upgradeGitHubAlertsAndLinks(container, baseRoute) {
-      // Transform GitHub-style Alerts > [!IMPORTANT] etc.
-      const icons = {
-        note: "ℹ️ Note",
-        tip: "💡 Tip",
-        important: "💠 Important",
-        warning: "⚠️ Warning",
-        caution: "🛡️ Caution"
-      };
-      container.querySelectorAll("blockquote").forEach(bq => {
-        const firstP = bq.querySelector("p");
-        if (!firstP) return;
-        const m = firstP.innerHTML.match(/^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(?:<br\s*\/?>|\n)?/i);
-        if (m) {
-          const kind = m[1].toLowerCase();
-          firstP.innerHTML = firstP.innerHTML.slice(m[0].length);
-          const div = document.createElement("div");
-          div.className = `gh-alert gh-alert-${kind}`;
-          div.innerHTML = `<div class="gh-alert-title">${icons[kind]}</div>` + bq.innerHTML;
-          bq.replaceWith(div);
-        }
-      });
-
-      // Wrap tables for horizontal scroll
-      container.querySelectorAll("table").forEach(tb => {
-        const wrap = document.createElement("div");
-        wrap.className = "table-wrap";
-        tb.parentNode.insertBefore(wrap, tb);
-        wrap.appendChild(tb);
-      });
-
-      // Rewrite relative .md links into SPA hash routes
-      container.querySelectorAll("a[href]").forEach(a => {
-        const href = a.getAttribute("href");
-        if (!href || href.startsWith("http://") || href.startsWith("https://") || href.startsWith("mailto:") || href.startsWith("#/")) {
-          if (href && (href.startsWith("http://") || href.startsWith("https://"))) {
-            a.target = "_blank";
-            a.rel = "noopener";
-          }
-          return;
-        }
-        if (href.startsWith("#")) return;
-        const [pathPart] = href.split("#");
-        if (pathPart.endsWith(".md") || pathPart === "LICENSE") {
-          const resolved = resolveRelPath(baseRoute, pathPart);
-          if (resolved === "LICENSE") {
-            a.href = "https://github.com/Minglink/BabelTele-Whitepaper/blob/main/LICENSE";
-            a.target = "_blank";
-          } else {
-            a.href = "#/" + resolved.replace(/\.md$/, "");
-          }
-        }
-      });
-    }
-
-    function buildRightToc(container) {
-      const tocList = document.getElementById("tocList");
-      const headings = Array.from(container.querySelectorAll("h2, h3"));
-      if (!headings.length) {
-        tocList.innerHTML = "";
-        return;
-      }
-      headings.forEach((h, i) => {
-        if (!h.id) h.id = "sec-" + i;
-      });
-      tocList.innerHTML = headings.map(h => `
-        <a class="toc-item toc-${h.tagName.toLowerCase()}" href="javascript:void(0)" onclick="document.getElementById('${h.id}').scrollIntoView({behavior:'smooth'})">
-          ${h.textContent}
-        </a>
-      `).join("");
-    }
-
-    function appendPager(container, route) {
-      const book = BOOKS[currentLang];
-      const flat = book.groups.flatMap(g => g.items);
-      const idx = flat.findIndex(x => x.route === route);
-      if (idx === -1) return;
-      const prev = idx > 0 ? flat[idx - 1] : null;
-      const next = idx < flat.length - 1 ? flat[idx + 1] : null;
-      const pager = document.createElement("div");
-      pager.className = "pager";
-      pager.innerHTML = `
-        <div>${prev ? `<a class="pager-card" href="#/${prev.route.replace(/\.md$/, "")}"><div class="pager-label">${book.prevLabel}</div><div class="pager-title">${prev.title}</div></a>` : ""}</div>
-        <div>${next ? `<a class="pager-card next" href="#/${next.route.replace(/\.md$/, "")}"><div class="pager-label">${book.nextLabel}</div><div class="pager-title">${next.title}</div></a>` : ""}</div>
-      `;
-      container.appendChild(pager);
-    }
-
-    window.copyCode = function(btn) {
-      const text = btn.parentElement.querySelector("code").innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const old = btn.textContent;
-        btn.textContent = "Copied ✓";
-        setTimeout(() => (btn.textContent = old), 1500);
-      });
-    };
-
-    async function loadRoute() {
-      currentRoute = normalizeRoute(location.hash);
-      currentLang = detectLang(currentRoute);
-      document.documentElement.lang = currentLang === "zh" ? "zh-CN" : "en";
-      renderSidebar();
-      document.getElementById("sidebar").classList.remove("open");
-
-      const article = document.getElementById("article");
-      try {
-        let md = docCache.get(currentRoute);
-        if (!md) {
-          const resp = await fetch(currentRoute);
-          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-          md = await resp.text();
-          docCache.set(currentRoute, md);
-        }
-        article.innerHTML = preprocessMarkdown(md);
-        upgradeGitHubAlertsAndLinks(article, currentRoute);
-        buildRightToc(article);
-        appendPager(article, currentRoute);
-        window.scrollTo({ top: 0, behavior: "instant" });
-
-        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-        mermaid.initialize({ startOnLoad: false, theme: isDark ? "dark" : "default", securityLevel: "loose" });
-        await mermaid.run({ nodes: article.querySelectorAll(".mermaid") });
-      } catch (err) {
-        article.innerHTML = `<h2>Page Not Found</h2><p>Could not load <code>${currentRoute}</code> (${err.message}). <a href="#/">Return to Home</a></p>`;
-      }
-    }
-
-    // Theme Switcher
-    const savedTheme = localStorage.getItem("bt-theme") || "light";
-    function applyTheme(t) {
-      document.documentElement.setAttribute("data-theme", t);
-      localStorage.setItem("bt-theme", t);
-      document.getElementById("themeToggle").textContent = t === "dark" ? "☀️" : "🌙";
-      document.getElementById("hljs-theme").href = t === "dark"
-        ? "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css"
-        : "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css";
-    }
-    applyTheme(savedTheme);
-    document.getElementById("themeToggle").addEventListener("click", () => {
-      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      applyTheme(next);
-      loadRoute();
-    });
-
-    // Language Switcher (maps exact counterpart chapter!)
-    document.getElementById("langToggle").addEventListener("click", () => {
-      const item = ALL_ITEMS.find(x => x.route === currentRoute);
-      const target = item ? item.pair : (currentLang === "zh" ? "README_EN.md" : "README.md");
-      location.hash = "#/" + target.replace(/\.md$/, "");
-    });
-
-    // Mobile Menu
-    document.getElementById("menuToggle").addEventListener("click", () => {
-      document.getElementById("sidebar").classList.toggle("open");
-    });
-
-    // Full-Text Search across current language chapters
-    let searchIndexed = false;
-    async function ensureSearchIndex() {
-      if (searchIndexed) return;
-      searchIndexed = true;
-      await Promise.all(ALL_ITEMS.map(async it => {
-        if (!docCache.has(it.route)) {
-          try {
-            const r = await fetch(it.route);
-            if (r.ok) docCache.set(it.route, await r.text());
-          } catch (e) {}
-        }
-      }));
-    }
-    const searchInput = document.getElementById("searchInput");
-    const searchDropdown = document.getElementById("searchDropdown");
-    searchInput.addEventListener("focus", ensureSearchIndex);
-    searchInput.addEventListener("input", async () => {
-      const q = searchInput.value.trim().toLowerCase();
-      if (!q) { searchDropdown.style.display = "none"; return; }
-      await ensureSearchIndex();
-      const pool = BOOKS[currentLang].groups.flatMap(g => g.items);
-      const hits = [];
-      for (const it of pool) {
-        const txt = (docCache.get(it.route) || "").replace(/[#*`>|]/g, " ");
-        const pos = txt.toLowerCase().indexOf(q);
-        if (pos !== -1 || it.title.toLowerCase().includes(q)) {
-          const snip = pos !== -1 ? txt.slice(Math.max(0, pos - 28), pos + 68) + "..." : "";
-          hits.push({ route: it.route, title: it.title, snip });
-        }
-      }
-      if (!hits.length) {
-        searchDropdown.innerHTML = `<div style="padding:10px;font-size:13px;color:var(--text-muted);">No matches / 未找到匹配内容</div>`;
-      } else {
-        searchDropdown.innerHTML = hits.slice(0, 8).map(h => `
-          <a class="search-item" href="#/${h.route.replace(/\.md$/, "")}" onclick="document.getElementById('searchDropdown').style.display='none'">
-            <div class="search-item-title">${h.title}</div>
-            <div class="search-item-snip">${h.snip.replace(/</g, "&lt;")}</div>
-          </a>
-        `).join("");
-      }
-      searchDropdown.style.display = "block";
-    });
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".search-box")) searchDropdown.style.display = "none";
-    });
-
-    window.addEventListener("hashchange", loadRoute);
-    loadRoute();
-  </script>
+  <script src="assets/reader.js"></script>
 </body>
 </html>

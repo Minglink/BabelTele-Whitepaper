@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第四章：四级压缩档位 (BT-L0~BT-L3) 与推理思维链 (CoT) 认知税动力学 — 巴别语白皮书</title>
+  <meta name="description" content="基于 4,714 题 116 组实验揭示模型原生压缩的空间-时间权衡定律、温和压缩 CoT 降噪加速效应、全生命周期成本摊销方程及 BT-L0 至 BT-L3 四级工程档位标准。" />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/docs/04-compression-tiers-and-cot.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/04-compression-tiers-and-cot.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/04-compression-tiers-and-cot.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="第四章：四级压缩档位 (BT-L0~BT-L3) 与推理思维链 (CoT) 认知税动力学 — 巴别语白皮书" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/04-compression-tiers-and-cot.html" />
+  <meta name="citation_language" content="zh-CN" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="第四章：四级压缩档位 (BT-L0~BT-L3) 与推理思维链 (CoT) 认知税动力学 — 巴别语白皮书" />
+  <meta property="og:description" content="基于 4,714 题 116 组实验揭示模型原生压缩的空间-时间权衡定律、温和压缩 CoT 降噪加速效应、全生命周期成本摊销方程及 BT-L0 至 BT-L3 四级工程档位标准。" />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/04-compression-tiers-and-cot.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="第四章：四级压缩档位 (BT-L0~BT-L3) 与推理思维链 (CoT) 认知税动力学 — 巴别语白皮书" />
+  <meta name="twitter:description" content="基于 4,714 题 116 组实验揭示模型原生压缩的空间-时间权衡定律、温和压缩 CoT 降噪加速效应、全生命周期成本摊销方程及 BT-L0 至 BT-L3 四级工程档位标准。" />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/docs/04-compression-tiers-and-cot.html#article",
+      "headline": "第四章：四级压缩档位 (BT-L0~BT-L3) 与推理思维链 (CoT) 认知税动力学 — 巴别语白皮书",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "基于 4,714 题 116 组实验揭示模型原生压缩的空间-时间权衡定律、温和压缩 CoT 降噪加速效应、全生命周期成本摊销方程及 BT-L0 至 BT-L3 四级工程档位标准。",
+      "inLanguage": "zh-CN",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/docs/04-compression-tiers-and-cot.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/docs/04-compression-tiers-and-cot.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="../index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="搜索全书章节..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../en/04-compression-tiers-and-cot.html" title="Switch Language">🇬🇧 English</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" target="_blank" rel="noopener">📥 中文 PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">总览与单卷典藏本</div>
+      <a class="nav-link" href="../index.html">🏠 白皮书门户导览</a>
+      <a class="nav-link" href="../whitepaper.html">📜 单文件完整典藏白皮书</a>
+      <div class="nav-group-title">BT-Spec v1.0 深度规范分册</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · 人类可读性税与巴别塔隐喻</a>
+      <a class="nav-link" href="02-theoretical-foundations.html">02 · 信息论基础与解耦定理</a>
+      <a class="nav-link" href="03-core-axioms-and-grammar.html">03 · 三大公理与标准语法算子</a>
+      <a class="nav-link active" href="04-compression-tiers-and-cot.html">04 · 四级压缩档位与认知税动力学</a>
+      <a class="nav-link" href="05-agentic-protocol-stack.html">05 · 智能体协议栈与默克尔记忆树</a>
+      <a class="nav-link" href="06-cross-model-consensus-and-audit.html">06 · 跨模型共识与三层安全审计</a>
+      <a class="nav-link" href="07-canonical-instruction-set.html">07 · 标准编译与解码指令集</a>
+      <a class="nav-link" href="08-genealogy-and-ecosystem.html">08 · 学术谱系、勘误与开源生态</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">第四章：四级压缩档位与推理认知税动力学</h1>
+<p><strong>Chapter 04 — Standardized Compression Tiers &amp; Chain-of-Thought Cognitive Dynamics</strong></p>
+<blockquote><p><a href="03-core-axioms-and-grammar.html">← 上一章：巴别语三大公理与标准语法算子规范</a> · <a href="../index.html">返回门户首页 (README)</a> · <a href="05-agentic-protocol-stack.html">下一章：智能体通信协议栈与语义默克尔记忆树 →</a></p></blockquote>
+<hr />
+<h2 id="sec-0">4.1 压缩会让大模型“思考更久”吗？（The Space-Time Trade-off Law）</h2>
+<p>对模型原生压缩最常见的一项工程质疑是：<strong>如果把输入文本压成了高密度符号电报，阅读端大模型在回答问题前，是否必须在内部推理思维链（Chain-of-Thought, CoT）中花费大量输出 Token 将其“脑补解压”回自然语言，从而导致得不偿失（省了便宜的输入 Token，却多花了昂贵的输出推理 Token）？</strong></p>
+<p>基于 <code>arXiv:2606.19857</code> 在 <strong>QuALITY（2,128 题）</strong> 与 <strong>MeetingBank（2,586 题）</strong> 上共计 <strong>116 组受控扫描实验</strong>的数据，巴别语体系确立了如下<strong>推理认知税三大动力学定律</strong>：</p>
+<div class="mermaid-box"><pre class="mermaid">flowchart TD
+    subgraph Regimes[&quot;上下文保留率 (Retention Ratio) 三大动力学区间&quot;]
+        R1[&quot;温和压缩区 (保留率 45%–65%): 滤除噪音，CoT 思维链长度甚至低于读原文 (&lt; 1.0x)，输入与输出双降&quot;]
+        R2[&quot;高密甜点区 (保留率 25%–40%): 语义保真率 ~96%–99.5%，CoT 乘数持平或优于摘要与 LLMLingua-2&quot;]
+        R3[&quot;极限过压区 (保留率 &lt; 10%): 证据过度稀疏，触发空间换时间效应，推理 CoT 显著膨胀以重建缺失线索&quot;]
+    end
+
+    R1 --&gt; R2 --&gt; R3</pre></div>
+<ol><li><strong>定律一：无专属表面解码税（Zero Intrinsic Surface Tax）</strong> 在同等上下文保留率下，巴别语诱发的阅读端 CoT Token 乘数与人类可读摘要（Summary）及抽取式压缩（LLMLingua-2）处于同一水平甚至更低。这证明大模型<strong>不需要</strong>在思维链中把巴别语逐句翻译成英语或中文，而是直接在注意力层消费符号语义图谱。</li><li><strong>定律二：温和压缩下的“降噪加速效应”（Denoising Acceleration）</strong> 当上下文保留率处于 <code>40%–60%</code> 区间时，阅读巴别语的推理 CoT 消耗常常<strong>低于未压缩原文基线（乘数 <code>&lt; 1.0x</code>）</strong>。原因在于自然语言长文中的寒暄、跑题与重复叙述会分散注意力权重，巴别语剥离冗余后直接暴露出实体与逻辑骨架，反而缩短了模型的证据检索路径。</li><li><strong>定律三：极限压缩的“空间-时间权衡边界”（Extreme Compression Boundary）</strong> 当保留率被强行压低至 <code>&lt; 10%</code>（即压缩率 <code>&gt; 90%</code>）时，无论采用何种压缩范式，CoT Token 都会急剧攀升。这并非符号形态所致，而是因为<strong>底层证据过度稀疏</strong>，迫使推理模型耗费大量推理步去猜测与缝合上下文缺口。</li></ol>
+<div class="gh-alert gh-alert-tip"><div class="gh-alert-title">💡 Tip</div><p><strong>全生命周期成本核算定律（Full-Lifecycle Cost Amortization Law）</strong> 评估巴别语的真实工程收益，绝不能只看“压缩后文本变短了多少”，而必须计入编译、推理、重试与校验的全链路账本（回应 Chris Clark、Maxime Labonne 等工程研究者的实测关切）：</p>
+<div class="math-display">$$\text{Cost}_{\text{total}} = \underbrace{C_{\text{comp\_in}}(x) + C_{\text{comp\_out}}(z)}_{\text{一次性编译成本}} + N \cdot \Big[ \underbrace{C_{\text{read\_in}}(z)}_{\text{压缩上下文读取}} + \underbrace{C_{\text{CoT\_out}}(R, z)}_{\text{阅读端推理思维链}} \Big] + C_{\text{audit}}$$</div>
+<ul><li><strong>负收益区（<span class="math-inline">$N = 1$</span> 的短对话）</strong>：单轮提问一次即丢弃的短提示词，编译开销大于省下的读取开销，<strong>不应启用巴别语</strong>；</li><li><strong>高盈亏平衡区（<span class="math-inline">$N \ge 3$</span> 或超窗口截断场景）</strong>：<strong>“一次编译，N 次复用”</strong>（RAG 知识分片静态预编译、Agent 跨百轮常驻记忆、多智能体广播总线、超过模型物理窗口上限的百万 Token 仓库浓缩）。当复用次数 <span class="math-inline">$N$</span> 跨越临界点后，总算力与延迟成本呈指数级摊薄。</li></ul></div>
+<hr />
+<h2 id="sec-1">4.2 准确率-保留率帕累托前沿（Accuracy-Retention Frontier）</h2>
+<p>在相同压缩预算下对比三大技术路线：</p>
+<ul><li><strong>抽取式硬压缩（如 LLMLingua-2）</strong>：通过小模型分类器直接删词。当压缩至原长 <code>30%</code> 以下时，句子成分断裂、否定词或关键限定词极易被误删，导致下游 QA 准确率剧烈滑坡（即便在 LLMLingua-2 的原生训练语料库 MeetingBank 上亦如此）。</li><li><strong>抽象式自然语言摘要（Standard Summarization）</strong>：为了维持“通顺优美的人类句子”，模型不得不把仅剩的 Token 预算浪费在冠词、动词时态与过渡词上，被迫丢弃大量细粒度数值与边缘条件。</li><li><strong>巴别语表示族（BabelTele Family）</strong>：将全部 Token 预算 100% 分配给核心实体、精确数值与逻辑关系符，在 <code>25%–35%</code> 保留率区间形成显著领先的帕累托前沿（代表性测点实现 <strong>27.9% 文本保留率下维持 99.5% 语义保真度</strong>）。</li></ul>
+<hr />
+<h2 id="sec-2">4.3 巴别语四级标准压缩档位（Standardized Compression Tiers: BT-L0 ~ BT-L3）</h2>
+<p>为了解决不同模型默认压缩激进度不一（例如实验显示 Gemini 3.1 Pro 默认压缩率往往超过 <code>95%</code>，而 GPT-5.4 约为 <code>75%</code>）带来的工程不可控问题，巴别语体系定义了<strong>四个标准化压缩等级（Compression Tiers）</strong>：</p>
+<div class="table-wrap"><table><thead><tr><th>压缩等级</th><th style="text-align:center">档位代号</th><th style="text-align:center">目标保留率（Token 缩减率）</th><th>语法特征与约束强度</th><th>典型工程适用场景</th></tr></thead><tbody><tr><td><strong>Level 0</strong></td><td style="text-align:center"><strong><code>BT-L0</code></strong><br><em>Telegraphic Prose</em></td><td style="text-align:center"><code>55% – 70%</code><br><em>(省 30%–45%)</em></td><td>单语种/双语种轻量电报体：仅剥离寒暄、冠词与废话，保留基本短句可读性（近似 1866 电报体）。</td><td>需要人类运维人员随时肉眼巡检日志的半自动工作流。</td></tr><tr><td><strong>Level 1</strong></td><td style="text-align:center"><strong><code>BT-L1</code></strong><br><em>Structured Hybrid</em></td><td style="text-align:center"><code>40% – 55%</code><br><em>(省 45%–60%)</em></td><td>结构化混合态：引入模块锚点 <code>#Sec</code>、扁平键值 <code>K=V</code> 与基础因果符 <code>=&gt;</code>，中英术语混排，<strong>触发 CoT 降噪加速（<code>&lt;1.0x</code>）</strong>。</td><td><strong>Agent 会话短期工作记忆</strong>（如约 700–2,000 tokens 的单 Session 折叠，LoCoMo 实测准确率保持 <code>96.48%</code>）。</td></tr><tr><td><strong>Level 2</strong></td><td style="text-align:center"><strong><code>BT-L2</code></strong><br><em>Canonical BabelTele</em></td><td style="text-align:center"><code>25% – 40%</code><br><em>(省 60%–75%)</em></td><td><strong>标准巴别语甜点态（推荐默认）</strong>：全面启用全语种寻优 + 六大逻辑符号簇 + 零括号开销 + 硬数据逐位锁死。</td><td><strong>多智能体 A2A 协同通信、企业级 RAG 知识分片预编译、跨异构模型状态传递</strong>。</td></tr><tr><td><strong>Level 3</strong></td><td style="text-align:center"><strong><code>BT-L3</code></strong><br><em>Extreme / ASCII Skeleton</em></td><td style="text-align:center"><code>5% – 25%</code><br><em>(省 75%–95%)</em></td><td>极限坍缩态（含纯 ASCII 骨架子模式 <code>BT-L3-ASCII</code>）：单字符锚点 + 极致高密度图谱折叠，仅限顶级强模型编译与消费。</td><td><strong>突破物理上下文窗口上限</strong>（如将 <code>1.65M tokens</code> 超大型代码仓库按 <code>200K</code> 分块浓缩塞入 <code>200K–256K</code> 窗口模型）。</td></tr></tbody></table></div>
+<hr />
+<blockquote><p><strong>下一章预告</strong>：确立了语法算子与四级档位之后，巴别语如何无缝嵌入现代智能体工程架构（MCP 与 A2A）？面对无限增长的智能体历史会话，如何像比特币回收磁盘空间一样构建“语义默克尔记忆树”？请阅读 <a href="05-agentic-protocol-stack.html">第五章：智能体通信协议栈与语义默克尔记忆树 →</a>。</p></blockquote>
+<div class="pager"><div><a class="pager-card" href="03-core-axioms-and-grammar.html"><div class="pager-label">← 上一章</div><div class="pager-title">03 · 三大公理与标准语法算子</div></a></div><div><a class="pager-card next" href="05-agentic-protocol-stack.html"><div class="pager-label">下一章 →</div><div class="pager-title">05 · 智能体协议栈与默克尔记忆树</div></a></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">本页目录</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">4.1 压缩会让大模型“思考更久”吗？（The Space-Time Trade-off Law）</a>
+        <a class="toc-item toc-h2" href="#sec-1">4.2 准确率-保留率帕累托前沿（Accuracy-Retention Frontier）</a>
+        <a class="toc-item toc-h2" href="#sec-2">4.3 巴别语四级标准压缩档位（Standardized Compression Tiers: BT-L0 ~ BT-L3）</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "zh";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

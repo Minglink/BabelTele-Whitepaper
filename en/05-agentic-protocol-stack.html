@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 05: Five-Layer MCP/A2A/BabelTele Protocol Stack &amp; Semantic Merkle Folding Tree (SMFT) — BabelTele Whitepaper</title>
+  <meta name="description" content="JSON-RPC babeltele/1.0 envelope specification, 44.21% token savings in heterogeneous multi-agent communication, SMFT T1-T3 memory pruning, and 1.65M-token codebase context extension." />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/en/05-agentic-protocol-stack.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/05-agentic-protocol-stack.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/05-agentic-protocol-stack.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="Chapter 05: Five-Layer MCP/A2A/BabelTele Protocol Stack &amp; Semantic Merkle Folding Tree (SMFT) — BabelTele Whitepaper" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/en/05-agentic-protocol-stack.html" />
+  <meta name="citation_language" content="en" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="Chapter 05: Five-Layer MCP/A2A/BabelTele Protocol Stack &amp; Semantic Merkle Folding Tree (SMFT) — BabelTele Whitepaper" />
+  <meta property="og:description" content="JSON-RPC babeltele/1.0 envelope specification, 44.21% token savings in heterogeneous multi-agent communication, SMFT T1-T3 memory pruning, and 1.65M-token codebase context extension." />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/en/05-agentic-protocol-stack.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Chapter 05: Five-Layer MCP/A2A/BabelTele Protocol Stack &amp; Semantic Merkle Folding Tree (SMFT) — BabelTele Whitepaper" />
+  <meta name="twitter:description" content="JSON-RPC babeltele/1.0 envelope specification, 44.21% token savings in heterogeneous multi-agent communication, SMFT T1-T3 memory pruning, and 1.65M-token codebase context extension." />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/en/05-agentic-protocol-stack.html#article",
+      "headline": "Chapter 05: Five-Layer MCP/A2A/BabelTele Protocol Stack & Semantic Merkle Folding Tree (SMFT) — BabelTele Whitepaper",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "JSON-RPC babeltele/1.0 envelope specification, 44.21% token savings in heterogeneous multi-agent communication, SMFT T1-T3 memory pruning, and 1.65M-token codebase context extension.",
+      "inLanguage": "en",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/en/05-agentic-protocol-stack.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/en/05-agentic-protocol-stack.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="Search chapters..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../docs/05-agentic-protocol-stack.html" title="Switch Language">🇨🇳 简体中文</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" target="_blank" rel="noopener">📥 English PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">Overview & Canonical Treatise</div>
+      <a class="nav-link" href="index.html">🏠 Whitepaper Portal</a>
+      <a class="nav-link" href="whitepaper.html">📜 Complete Single-File Whitepaper</a>
+      <div class="nav-group-title">BT-Spec v1.0 Modular Specification</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · Manifesto & Readability Tax</a>
+      <a class="nav-link" href="02-theoretical-foundations.html">02 · Information Theory & Decoupling</a>
+      <a class="nav-link" href="03-core-axioms-and-grammar.html">03 · Core Axioms & Grammar Spec</a>
+      <a class="nav-link" href="04-compression-tiers-and-cot.html">04 · Compression Tiers & CoT Dynamics</a>
+      <a class="nav-link active" href="05-agentic-protocol-stack.html">05 · Agentic Stack & Merkle Memory</a>
+      <a class="nav-link" href="06-cross-model-consensus-and-audit.html">06 · Cross-Model & Audit Gateway</a>
+      <a class="nav-link" href="07-canonical-instruction-set.html">07 · Canonical Compiler Prompts</a>
+      <a class="nav-link" href="08-genealogy-and-ecosystem.html">08 · Genealogy, Errata & Ecosystem</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">Chapter 05 — The Agentic Protocol Stack &amp; Semantic Merkle Memory Tree</h1>
+<blockquote><p><a href="04-compression-tiers-and-cot.html">← Chapter 04: Compression Tiers &amp; CoT Dynamics</a> · <a href="index.html">Back to Portal (README_EN)</a> · <a href="06-cross-model-consensus-and-audit.html">Next: Chapter 06 — Cross-Model Consensus &amp; Audit Gateway →</a></p></blockquote>
+<hr />
+<h2 id="sec-0">5.1 The Five-Layer Agentic Communication Stack</h2>
+<p>Popular commentary sometimes frames BabelTele as an adversarial replacement that will "wipe out" human-designed protocols like MCP and A2A. Architecturally, <strong>MCP and A2A govern connectivity and task routing, whereas BabelTele governs semantic payload density</strong>—mirroring how Protobuf or Brotli operates atop HTTP/2 and TCP/IP:</p>
+<div class="mermaid-box"><pre class="mermaid">flowchart TB
+    L5[&quot;L5 Human Presentation Layer: Decoded to natural language strictly at human UX / approval boundaries&quot;]
+    L4[&quot;L4 Semantic Payload Layer (BabelTele): BT-L1/L2/L3 omnilingual symbolic graph encoding&quot;]
+    L3[&quot;L3 Agent Orchestration Layer (A2A): Agent Cards, task delegation &amp; lifecycle state machines&quot;]
+    L2[&quot;L2 Tool &amp; Context Bus Layer (MCP): Databases, local filesystems &amp; external API bindings&quot;]
+    L1[&quot;L1 Transport &amp; Framing Layer: HTTP/2 · SSE · WebSocket · JSON-RPC 2.0&quot;]
+
+    L5 &lt;--&gt; L4 &lt;--&gt; L3 &lt;--&gt; L2 &lt;--&gt; L1</pre></div>
+<h3 id="sec-1">Standard JSON-RPC Envelope Metadata (<code>content_encoding</code>)</h3>
+<p>BabelTele integrates non-invasively into standard A2A and MCP JSON-RPC envelopes via metadata headers:</p>
+<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-json">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;tasks/send&quot;,
+  &quot;params&quot;: {
+    &quot;id&quot;: &quot;task_9f82a1&quot;,
+    &quot;message&quot;: {
+      &quot;role&quot;: &quot;agent&quot;,
+      &quot;metadata&quot;: {
+        &quot;content_encoding&quot;: &quot;babeltele/1.0&quot;,
+        &quot;bt_tier&quot;: &quot;BT-L2&quot;,
+        &quot;compressor_model&quot;: &quot;claude-sonnet-4.6&quot;,
+        &quot;source_sha256&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb924...&quot;
+      },
+      &quot;parts&quot;: [
+        {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;text&quot;: &quot;#RepoAudit @[Auth=src/auth/jwt.ts]: !vuln:alg==&#x27;none&#x27;@L142 &amp; !exp_check =&gt; fix:?header.alg∉[RS256,EdDSA]=&gt;reject(401).&quot;
+        }
+      ]
+    }
+  }
+}</code></pre></div>
+<h3 id="sec-2">Multi-Agent Empirical Gains (DeepResearch Bench)</h3>
+<ul><li><strong>Homogeneous Multi-Agent (Gemini 3.1 Pro <span class="math-inline">$\leftrightarrow$</span> Gemini 3.1 Pro)</strong>: <strong>38.96%</strong> communication token reduction at <strong>96.6%</strong> baseline score retention.</li><li><strong>Heterogeneous Multi-Agent (Gemini 3.1 Pro <span class="math-inline">$\leftrightarrow$</span> GPT-5.4)</strong>: <strong>44.21%</strong> communication token reduction at <strong>99.7%</strong> baseline score retention.</li></ul>
+<hr />
+<h2 id="sec-3">5.2 Reclaiming Context Space: Semantic Merkle Folding Tree (SMFT)</h2>
+<p>In §7 of the Bitcoin Whitepaper (<em>Reclaiming Disk Space</em>), Satoshi Nakamoto introduced Merkle Tree pruning so historical transactions could be hashed upward without exhausting node disk storage. Long-horizon LLM agents confront an identical bottleneck: <strong>unbounded dialogue and tool-output streams rapidly saturate context windows and degrade retrieval fidelity.</strong></p>
+<p>Synthesizing <code>arXiv:2606.19857</code> (LoCoMo memory evaluation) and open-source hierarchical folding (<code>compressed-context</code>), <code>BT-Spec v1.0</code> defines the <strong>Semantic Merkle Folding Tree (SMFT)</strong>:</p>
+<div class="mermaid-box"><pre class="mermaid">flowchart TD
+    subgraph Cold_Store[&quot;Persistent Cold Storage (Verbatim Transcripts + Hash Pointers)&quot;]
+        Raw1[&quot;Raw Turns #1–#20&quot;]
+        Raw2[&quot;Raw Turns #21–#40&quot;]
+        Raw3[&quot;Raw Turns #41–#60&quot;]
+        Raw4[&quot;Raw Turns #61–#80&quot;]
+    end
+
+    subgraph Active_Window[&quot;Active LLM Context Window&quot;]
+        T1_A[&quot;[T1 Block #1] {h1}&quot;]
+        T1_B[&quot;[T1 Block #2] {h1}&quot;]
+        T2_AB[&quot;[T2 Merged Digest #1+#2] {h2} (BT-L2)&quot;]
+        T1_C[&quot;[T1 Retained Block #3] {h1} (BT-L1)&quot;]
+        T1_D[&quot;[T1 Retained Block #4] {h1} (BT-L1)&quot;]
+        Active[&quot;Active Raw Dialogue (#81–Present)&quot;]
+    end
+
+    Raw1 --&gt; T1_A
+    Raw2 --&gt; T1_B
+    T1_A &amp; T1_B --&gt; T2_AB
+    Raw3 --&gt; T1_C
+    Raw4 --&gt; T1_D</pre></div>
+<ol><li><strong>Active Frontier</strong>: Ongoing turns stay in raw natural language for zero-latency responsiveness.</li><li><strong><code>T1</code> Checkpoint Folding</strong>: Overflowing turns are compiled via <code>BT-Memory</code> (<code>BT-P1</code>) into self-contained <code>[T1] {h1}</code> blocks while raw messages move to persistent cold storage.</li><li><strong><code>T2 / T3</code> Hierarchical Merging</strong>: When <code>T1</code> blocks approach token budget ceilings, oldest sibling blocks merge recursively into <code>[T2] {h2}</code> and top-level rolling <code>[T3]</code> digests—yielding <strong>high resolution for recent memory and compact topology for distant history</strong>.</li><li><strong>Lossless Dereferencing</strong>: Because exact entity identifiers, quantities, and block IDs remain intact, the agent can invoke <code>decompress(block_id)</code> whenever verbatim source inspection is required.</li></ol>
+<hr />
+<h2 id="sec-4">5.3 Breaking Physical Context Limits (<code>1.65M</code> Code Repo QA)</h2>
+<p>When input repositories exceed physical context windows—such as <strong>LongBench v2 Code Repo QA Long</strong> (averaging <strong>1.65M tokens</strong> vs. <code>200K–256K</code> model limits)—naive truncation discards over 85% of the codebase. Chunking the repository into <code>200K</code> segments, compiling each into <code>BT-L3</code>, and concatenating the dense outputs yields dramatic accuracy gains over truncation:</p>
+<div class="table-wrap"><table><thead><tr><th>Target Reader Model (Window Limit)</th><th style="text-align:center">Original Truncated Accuracy</th><th style="text-align:center">BabelTele Chunk-Compiled Accuracy</th><th style="text-align:center">Net Gain</th></tr></thead><tbody><tr><td><strong>Qwen3.6 Max</strong> (<code>256K</code>)</td><td style="text-align:center"><code>55.17%</code></td><td style="text-align:center"><strong><code>62.07%</code></strong></td><td style="text-align:center"><strong><code>+6.90%</code></strong></td></tr><tr><td><strong>GLM-5.1</strong> (<code>200K</code>)</td><td style="text-align:center"><code>62.07%</code></td><td style="text-align:center"><strong><code>72.41%</code></strong></td><td style="text-align:center"><strong><code>+10.34%</code></strong></td></tr><tr><td><strong>Kimi 2.5 / 2.6</strong> (<code>256K</code>)</td><td style="text-align:center"><code>44.82%</code></td><td style="text-align:center"><strong><code>48.28%</code></strong></td><td style="text-align:center"><strong><code>+3.46%</code></strong></td></tr></tbody></table></div>
+<hr />
+<blockquote><p><strong>Next Chapter</strong>: <a href="06-cross-model-consensus-and-audit.html">Chapter 06 — Cross-Model Consensus &amp; Three-Tier Safety Audit Gateway →</a></p></blockquote>
+<div class="pager"><div><a class="pager-card" href="04-compression-tiers-and-cot.html"><div class="pager-label">← Previous</div><div class="pager-title">04 · Compression Tiers & CoT Dynamics</div></a></div><div><a class="pager-card next" href="06-cross-model-consensus-and-audit.html"><div class="pager-label">Next →</div><div class="pager-title">06 · Cross-Model & Audit Gateway</div></a></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">On This Page</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">5.1 The Five-Layer Agentic Communication Stack</a>
+        <a class="toc-item toc-h3" href="#sec-1">Standard JSON-RPC Envelope Metadata (content_encoding)</a>
+        <a class="toc-item toc-h3" href="#sec-2">Multi-Agent Empirical Gains (DeepResearch Bench)</a>
+        <a class="toc-item toc-h2" href="#sec-3">5.2 Reclaiming Context Space: Semantic Merkle Folding Tree (SMFT)</a>
+        <a class="toc-item toc-h2" href="#sec-4">5.3 Breaking Physical Context Limits (1.65M Code Repo QA)</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "en";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

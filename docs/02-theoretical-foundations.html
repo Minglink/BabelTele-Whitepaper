@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第二章：信息论基础与三元解耦定理 — 巴别语白皮书 (BabelTele BT-Spec v1.0)</title>
+  <meta name="description" content="建立可读性放宽的率失真语义投影方程，基于 Dale-Chall 评分与 8 款基座模型 PPL 暴涨 13-20 倍实证数据，证明人类可读性、自然语言典型性与模型语义可恢复性三元解耦（27.9% 长度维持 99.5% 保真）。" />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/docs/02-theoretical-foundations.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/02-theoretical-foundations.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/02-theoretical-foundations.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="第二章：信息论基础与三元解耦定理 — 巴别语白皮书 (BabelTele BT-Spec v1.0)" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/02-theoretical-foundations.html" />
+  <meta name="citation_language" content="zh-CN" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="第二章：信息论基础与三元解耦定理 — 巴别语白皮书 (BabelTele BT-Spec v1.0)" />
+  <meta property="og:description" content="建立可读性放宽的率失真语义投影方程，基于 Dale-Chall 评分与 8 款基座模型 PPL 暴涨 13-20 倍实证数据，证明人类可读性、自然语言典型性与模型语义可恢复性三元解耦（27.9% 长度维持 99.5% 保真）。" />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/docs/02-theoretical-foundations.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="第二章：信息论基础与三元解耦定理 — 巴别语白皮书 (BabelTele BT-Spec v1.0)" />
+  <meta name="twitter:description" content="建立可读性放宽的率失真语义投影方程，基于 Dale-Chall 评分与 8 款基座模型 PPL 暴涨 13-20 倍实证数据，证明人类可读性、自然语言典型性与模型语义可恢复性三元解耦（27.9% 长度维持 99.5% 保真）。" />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/docs/02-theoretical-foundations.html#article",
+      "headline": "第二章：信息论基础与三元解耦定理 — 巴别语白皮书 (BabelTele BT-Spec v1.0)",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "建立可读性放宽的率失真语义投影方程，基于 Dale-Chall 评分与 8 款基座模型 PPL 暴涨 13-20 倍实证数据，证明人类可读性、自然语言典型性与模型语义可恢复性三元解耦（27.9% 长度维持 99.5% 保真）。",
+      "inLanguage": "zh-CN",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/docs/02-theoretical-foundations.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/docs/02-theoretical-foundations.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="../index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="搜索全书章节..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../en/02-theoretical-foundations.html" title="Switch Language">🇬🇧 English</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" target="_blank" rel="noopener">📥 中文 PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">总览与单卷典藏本</div>
+      <a class="nav-link" href="../index.html">🏠 白皮书门户导览</a>
+      <a class="nav-link" href="../whitepaper.html">📜 单文件完整典藏白皮书</a>
+      <div class="nav-group-title">BT-Spec v1.0 深度规范分册</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · 人类可读性税与巴别塔隐喻</a>
+      <a class="nav-link active" href="02-theoretical-foundations.html">02 · 信息论基础与解耦定理</a>
+      <a class="nav-link" href="03-core-axioms-and-grammar.html">03 · 三大公理与标准语法算子</a>
+      <a class="nav-link" href="04-compression-tiers-and-cot.html">04 · 四级压缩档位与认知税动力学</a>
+      <a class="nav-link" href="05-agentic-protocol-stack.html">05 · 智能体协议栈与默克尔记忆树</a>
+      <a class="nav-link" href="06-cross-model-consensus-and-audit.html">06 · 跨模型共识与三层安全审计</a>
+      <a class="nav-link" href="07-canonical-instruction-set.html">07 · 标准编译与解码指令集</a>
+      <a class="nav-link" href="08-genealogy-and-ecosystem.html">08 · 学术谱系、勘误与开源生态</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">第二章：信息论基础与解耦定理</h1>
+<p><strong>Chapter 02 — Information-Theoretical Foundations &amp; The Decoupling Principle</strong></p>
+<blockquote><p><a href="01-manifesto-and-problem.html">← 上一章：人类可读性税与巴别塔隐喻</a> · <a href="../index.html">返回门户首页 (README)</a> · <a href="03-core-axioms-and-grammar.html">下一章：巴别语三大公理与标准语法算子规范 →</a></p></blockquote>
+<hr />
+<h2 id="sec-0">2.1 可读性放宽的语义投影（Readability-Relaxed Semantic Projection）</h2>
+<p>在经典的上下文压缩框架中，给定源文档 <span class="math-inline">$x \in \mathcal{V}^*$</span>（长度为 <span class="math-inline">$L(x)$</span> 个 Token），压缩器 <span class="math-inline">$C$</span> 生成一个更短的离散文本序列 <span class="math-inline">$z = C(x)$</span>（满足 <span class="math-inline">$L(z) \ll L(x)$</span>），随后交由阅读器模型 <span class="math-inline">$R$</span> 执行下游任务 <span class="math-inline">$T$</span>（如问答、推理、规划或代码分析）。</p>
+<p>传统摘要与提示词压缩方法（如抽取式过滤 Selective Context、LLMLingua 或抽象式重写 RECOMP）隐式地施加了一个强先验约束——<strong>要求压缩产物 <span class="math-inline">$z$</span> 必须留在常规自然语言分布 <span class="math-inline">$P_{\text{NL}}$</span> 的高概率流形内</strong>，以便人类能够顺畅阅读：</p>
+<div class="math-display">$$\min_{z} \; L(z) \quad \text{s.t.} \quad \mathcal{D}_{\text{sem}}\big(R(x, q),\, R(z, q)\big) \le \epsilon \;\;\wedge\;\; H_{\text{human}}(z) \ge \tau_{\text{read}}$$</div>
+<p>其中：</p>
+<ul><li><span class="math-inline">$\mathcal{D}_{\text{sem}}$</span> 度量阅读模型 <span class="math-inline">$R$</span> 基于压缩文本 <span class="math-inline">$z$</span> 与原始文本 <span class="math-inline">$x$</span> 在任意未知下游查询 <span class="math-inline">$q$</span> 上的语义响应偏差；</li><li><span class="math-inline">$H_{\text{human}}(z) \ge \tau_{\text{read}}$</span> 代表人类可读性与单语种语法合法性约束。</li></ul>
+<p><strong>巴别语体系的核心理论突破，在于彻底移除冗余约束 <span class="math-inline">$H_{\text{human}}(z) \ge \tau_{\text{read}}$</span></strong>。当且仅当接收方 <span class="math-inline">$R$</span> 是经过大规模多语种、代码与数学符号指令微调的大语言模型时，优化目标简化为纯粹的<strong>率失真语义投影（Rate-Distortion Semantic Projection）</strong>：</p>
+<div class="math-display">$$z^* = \arg\min_{z \in \mathcal{V}^*} \Big[ L_{\text{tok}}(z) + \beta \cdot L_{\text{CoT}}(R, z) \Big] \quad \text{s.t.} \quad \mathcal{F}_{\text{sem}}(R; z, x) \ge 1 - \epsilon$$</div>
+<p>请注意上式中引入的关键二阶项 <span class="math-inline">$\beta \cdot L_{\text{CoT}}(R, z)$</span>：<strong>真正的系统最优并非单纯追求输入序列 <span class="math-inline">$L_{\text{tok}}(z)$</span> 趋近于零，而是使“输入上下文开销 + 阅读端推理思维链（CoT）解码开销”的总和最小化</strong>（详见第四章动力学分析）。</p>
+<hr />
+<h2 id="sec-1">2.2 三元解耦实证定理（The Tripartite Decoupling Principle）</h2>
+<p>长期以来，自然语言处理界存在一种直觉误区：认为一段文本如果偏离基座语言模型的自然语言概率分布（表现为极高的困惑度 Perplexity），或者人类肉眼无法读懂，那么大模型也必然将其视为无意义乱码（Gibberish）。</p>
+<p>综合 <code>arXiv:2606.19857</code> 在 QuALITY 长文档阅读理解基准与有偿人类受试者问卷上的对照实验，巴别语体系确立了如下<strong>三元解耦定理</strong>：</p>
+<div class="gh-alert gh-alert-important"><div class="gh-alert-title">💠 Important</div><p><strong>三元解耦原理（Decoupling of Readability, Typicality, and Recoverability）</strong> 在现代指令微调大语言模型的离散输入空间中，以下三个属性并非绑定共生，而是可以显著分离的独立维度：</p>
+<ol><li><strong>人类表面可读性（Human Surface Readability）</strong></li><li><strong>自然语言分布典型性（Natural-Language Distributional Typicality / Low PPL）</strong></li><li><strong>模型侧语义可恢复性（Model-Side Semantic Recoverability）</strong></li></ol></div>
+<h3 id="sec-2">实证证据一：表面可读性断崖式跌落</h3>
+<p>采用经典的 <strong>Dale-Chall 可读性指数</strong>（分数越高代表文本越晦涩难读，常规大学毕业生阅读水平约为 <code>9.0–9.9</code>）对原文、自然语言摘要与巴别语编码进行对比诊断：</p>
+<div class="table-wrap"><table><thead><tr><th>文本形态</th><th style="text-align:center">样本组数</th><th style="text-align:center">Dale-Chall 评分（↑ 越难读）</th><th style="text-align:center">生僻/非常规词元占比（Difficult Words Ratio）</th></tr></thead><tbody><tr><td><strong>原始自然语言长文（Original）</strong></td><td style="text-align:center">10</td><td style="text-align:center"><code>10.28</code></td><td style="text-align:center"><code>35.97%</code></td></tr><tr><td><strong>人类可读自然语言摘要（Summary）</strong></td><td style="text-align:center">10</td><td style="text-align:center"><code>13.51</code></td><td style="text-align:center"><code>56.34%</code></td></tr><tr><td><strong>巴别语编码（BabelTele）</strong></td><td style="text-align:center">10</td><td style="text-align:center"><strong><code>16.70</code></strong></td><td style="text-align:center"><strong><code>80.19%</code></strong></td></tr></tbody></table></div>
+<p>高达 <code>80.19%</code> 的非常规词元占比与 <code>16.70</code> 的极端评分表明，巴别语已经完全脱离了传统自然语言散文的范畴。</p>
+<h3 id="sec-3">实证证据二：基座语言模型困惑度（PPL）暴涨 13～20 倍</h3>
+<p>将三种文本输入多款主流开源与闭源基座模型计算序列困惑度（Perplexity, PPL）。自然语言摘要的 PPL 与原文几乎处于同一数量级（仅波动 <code>-6.2%</code> 至 <code>+17.5%</code>），而巴别语的 PPL 出现了<strong>跨数量级跃升</strong>：</p>
+<div class="table-wrap"><table><thead><tr><th>评估基座模型</th><th style="text-align:center">原文 PPL</th><th style="text-align:center">自然语言摘要 PPL（相对变化）</th><th style="text-align:center">巴别语 PPL（相对变化）</th></tr></thead><tbody><tr><td><strong>Llama-3-8B</strong></td><td style="text-align:center"><code>9.63</code></td><td style="text-align:center"><code>11.32</code> (+17.5%)</td><td style="text-align:center"><strong><code>176.60</code> (+1,733.9%)</strong></td></tr><tr><td><strong>Qwen2-7B</strong></td><td style="text-align:center"><code>10.93</code></td><td style="text-align:center"><code>12.44</code> (+13.8%)</td><td style="text-align:center"><strong><code>236.23</code> (+2,061.1%)</strong></td></tr><tr><td><strong>Qwen2.5-7B</strong></td><td style="text-align:center"><code>10.43</code></td><td style="text-align:center"><code>11.56</code> (+10.8%)</td><td style="text-align:center"><strong><code>209.30</code> (+1,906.7%)</strong></td></tr><tr><td><strong>Qwen3-8B</strong></td><td style="text-align:center"><code>14.94</code></td><td style="text-align:center"><code>15.22</code> (+1.9%)</td><td style="text-align:center"><strong><code>301.22</code> (+1,916.2%)</strong></td></tr><tr><td><strong>Qwen3-32B</strong></td><td style="text-align:center"><code>11.80</code></td><td style="text-align:center"><code>11.07</code> (-6.2%)</td><td style="text-align:center"><strong><code>220.76</code> (+1,770.8%)</strong></td></tr><tr><td><strong>Kimi K2.6</strong></td><td style="text-align:center"><code>6.93</code></td><td style="text-align:center"><code>7.76</code> (+11.9%)</td><td style="text-align:center"><strong><code>127.96</code> (+1,746.5%)</strong></td></tr><tr><td><strong>DeepSeek V4 Pro</strong></td><td style="text-align:center"><code>7.67</code></td><td style="text-align:center"><code>7.75</code> (+1.1%)</td><td style="text-align:center"><strong><code>108.95</code> (+1,320.5%)</strong></td></tr><tr><td><strong>GLM 5.1</strong></td><td style="text-align:center"><code>7.89</code></td><td style="text-align:center"><code>8.40</code> (+6.5%)</td><td style="text-align:center"><strong><code>148.23</code> (+1,778.7%)</strong></td></tr></tbody></table></div>
+<p>这一数据揭示了一个极其深刻的机理：<strong>低序列生成似然（High PPL）只代表模型在预训练语料中很少见到这种表面排版，绝不等同于模型无法从中提取语义。</strong></p>
+<h3 id="sec-4">实证证据三：人类受试者失灵 vs. 大模型无损解码</h3>
+<p>在针对高校学生的受控有偿问卷测试中，人类读者面对巴别语文本时问答准确率显著下滑、阅读耗时与主观认知负荷剧增；然而同一批巴别语文本输入给 <strong>Gemini 3.1 Pro</strong> 等前沿指令模型时，即使文本体积被浓缩至原长的 <strong>27.9%</strong>，模型依然保持了高达 <strong>99.5% 的下游语义保真度（Semantic Fidelity）</strong>。</p>
+<hr />
+<h2 id="sec-5">2.3 潜空间对齐假说：为什么大模型能无师自通读懂“天书”？</h2>
+<p>为什么未经任何专门微调（Zero-shot）的不同家族大模型（GPT、Claude、Gemini、DeepSeek、Qwen、GLM、Kimi），竟然能彼此读懂对方压缩出来的巴别语？我们将其归结为现代基础模型预训练造就的<strong>三大共享潜空间锚点</strong>：</p>
+<div class="mermaid-box"><pre class="mermaid">flowchart LR
+    subgraph Pretraining_Priors[&quot;现代大模型预训练的三大同构先验&quot;]
+        P1[&quot;多语种共享语义流形 (Multilingual Alignment)&quot;]
+        P2[&quot;代码与形式逻辑解析器 (AST &amp; Symbolic Attention)&quot;]
+        P3[&quot;压缩即智能统计结构 (Compression-Intelligence Duality)&quot;]
+    end
+
+    P1 --&gt; Z[&quot;巴别语高密度离散图谱&quot;]
+    P2 --&gt; Z
+    P3 --&gt; Z
+    Z --&gt; R[&quot;跨架构零样本高保真语义重建&quot;]</pre></div>
+<ol><li><strong>跨语种概念同构（Cross-Lingual Isomorphism）</strong>：多语言语料预训练迫使模型将英文 <code>administration</code>、中文 <code>行政</code>、日文汉字与拉丁词根映射到高维隐藏层中高度重合的语义子空间。切换语种不改变深层激活方向，仅省去了表面拼写 Token。</li><li><strong>形式语言注意力电路（Code &amp; Math Attention Circuits）</strong>：现代大模型吞吐了海量源代码（Python/C++/Rust AST 结构）、形式逻辑表达式与化学/物理方程。当自然语言从句被替换为 <code>A =&gt; B</code>、<code>*(Ent):K=V</code>、<code>?cond =&gt; act</code> 时，非但没有制造障碍，反而<strong>绕过了模糊的自然语言消歧层，直接激活了模型内部最精准的代码与逻辑图解析注意力头（Induction &amp; Structural Heads）</strong>。</li><li><strong>全局双向/自回归注意力跳过线性缓冲</strong>：人类阅读需要线性语法助记，而 Transformer 的注意力矩阵天然以 <span class="math-inline">$O(1)$</span> 路径距离直接关联任意两个实体与操作符节点——巴别语实质上是将人类线性的“散文流”还原成了更贴近注意力矩阵原生形态的<strong>显式稀疏语义图（Explicit Sparse Semantic Graph）</strong>。</li></ol>
+<hr />
+<blockquote><p><strong>下一章预告</strong>：既然大模型天生具备跨语种寻优与符号图解析能力，我们该如何将这种能力规范化为一套严密、可复现、避免分词器陷阱的语言体系？请阅读 <a href="03-core-axioms-and-grammar.html">第三章：巴别语三大公理与标准语法算子规范（BT-Spec v1.0）→</a>。</p></blockquote>
+<div class="pager"><div><a class="pager-card" href="01-manifesto-and-problem.html"><div class="pager-label">← 上一章</div><div class="pager-title">01 · 人类可读性税与巴别塔隐喻</div></a></div><div><a class="pager-card next" href="03-core-axioms-and-grammar.html"><div class="pager-label">下一章 →</div><div class="pager-title">03 · 三大公理与标准语法算子</div></a></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">本页目录</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">2.1 可读性放宽的语义投影（Readability-Relaxed Semantic Projection）</a>
+        <a class="toc-item toc-h2" href="#sec-1">2.2 三元解耦实证定理（The Tripartite Decoupling Principle）</a>
+        <a class="toc-item toc-h3" href="#sec-2">实证证据一：表面可读性断崖式跌落</a>
+        <a class="toc-item toc-h3" href="#sec-3">实证证据二：基座语言模型困惑度（PPL）暴涨 13～20 倍</a>
+        <a class="toc-item toc-h3" href="#sec-4">实证证据三：人类受试者失灵 vs. 大模型无损解码</a>
+        <a class="toc-item toc-h2" href="#sec-5">2.3 潜空间对齐假说：为什么大模型能无师自通读懂“天书”？</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "zh";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>

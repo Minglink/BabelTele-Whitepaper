@@ -1,0 +1,27 @@
+#BT-Spec_v1.0 @[BT=BabelTele(巴别语/巴别塔电报), NL=NaturalLanguage, Tok=Tokenizer, SMFT=SemanticMerkleFoldingTree]
+@Meta(author=MingLin/@Minglink, date=2026-11, license=CC-BY-4.0|MIT, repo=https://github.com/Minglink/BabelTele-Whitepaper, site=https://minglink.github.io/BabelTele-Whitepaper/, origin_paper=arXiv:2606.19857[Zhu_et_al,2026-06-18,SJTU+USyd+HFUT+XJTU+NJU])
+
+#1_Problem: LLM<->LLM via NL => ReadabilityTax(60%-75% tok waste <- syntactic_padding & graph_linearization & monolingual_suboptimality). MCP(vertical_tool_bus) & A2A(horizontal_agent_routing) = L2/L3_pipes != semantic_payload_lang. Latent_vectors(Gist/AutoCompressor/Interlat) => !BlackBoxAPI & !CrossFamilyPortability.
+
+#2_DecouplingTheorem: z* = argmin_{z}[L_tok(z) + beta*L_CoT(R,z)] s.t. F_sem(R;z,x) >= 1-eps.
+Empirical(arXiv:2606.19857): DaleChall(Orig=10.28 -> Summ=13.51 -> BT=16.70[diff_words=80.19%]); BasePPL_surge(Llama3-8B:9.63->176.60[+1733.9%], Qwen2-7B:10.93->236.23[+2061.1%], DeepSeekV4Pro:7.67->108.95[+1320.5%], KimiK2.6:6.93->127.96, GLM5.1:7.89->148.23) => BT ∉ P_NL & Human_QA↓, YET LLM_QA(fid=99.5% @ len=27.9%). Mechanism <- CrossLingual_Manifold_Alignment & Code_AST_Attention_Heads & O(1)_SelfAttention.
+
+#3_Axioms_&_BPE_Paradox:
+A1(Omnilingual_Minimization): enforce Delta_L_BPE < 0! tiktoken(cl100k/o200k) proof: water(1/1)<💧(2/2), because(1/1)<∵(2/2), and/&(1/1)<∧(2/2), photosynthesis(2/2)<=光合(3/2), Glucose(2/2)<葡萄糖(8/3), hospital(1/1)<=医院(3/1) => ?isolated_Unicode_swap => byte_fallback_inflation! Real_gain <- clause_collapse + 1-tok_ASCII_ops(->, =>, &, |, !, ?, :, @, #, =).
+A2(Relational_Graph_Collapse): 6_Op_Clusters = {Flow:[=>,<=>,->,<-], Logic:[&,|,!,?cond=>act,!exc:detail], Sets:[∈,∉,∀,∃,@,#Sec,@[X=Full]], Bind:[@Ent(K=V),[A,B,C],P:{c1,c2},$p:V(u)], Compare:[A<>B:res,⇎,↑,↓], Epistemic:[?,NULL,~,verbatim_BIBREF]}.
+A3(Zero_Codebook_Invariance): !external_private_codebook & 100%_verbatim(numbers,units,formulas,IDs,BIBREF).
+
+#4_Tiers_&_CoT_Dynamics(116_runs, QuALITY=2128q + MeetingBank=2586q):
+Regimes: Retention∈[40%,60%] => CoT_mult<1.0x(denoising_acceleration); Retention∈[25%,40%] => sweet_spot(CoT≈Summary/LLMLingua2, higher_QA_acc); Retention<10% => CoT↑↑(evidence_sparsity).
+Cost_total = C_comp(x->z) + N*[C_read(z)+C_CoT(R,z)] + C_audit => ?N=1_short => !use_BT; ?(N>=3 | ctx_overflow) => high_ROI.
+Tiers: BT-L0(55-70%)|BT-L1(40-55%,working_mem,LoCoMo=96.48%@1382tok)|BT-L2(25-40%,default_A2A/RAG)|BT-L3(5-25%,ASCII_skeleton,1.65M_CodeRepoQA: Qwen3.6Max:55.17%->62.07%, GLM5.1:62.07%->72.41%[+10.34%], Kimi2.5:44.82%->48.28%).
+
+#5_Stack_&_SMFT:
+Stack: L1(HTTP/SSE/JSON-RPC) <-> L2(MCP) <-> L3(A2A) <-> L4(BT: content_encoding="babeltele/1.0") <-> L5(Human_NL_on_demand). DeepResearch_MultiAgent: Homo(Gemini3.1Prox2: tok↓38.96%, score=96.6%), Hetero(Gemini3.1Pro<->GPT5.4: tok↓44.21%, score=99.7%).
+SMFT(cf.Bitcoin_§7): Raw_active -> [T1]{h1} -> [T2]{h2}/[T3]_rolled_digest + cold_storage_hash_pointer(decompress(block_id)).
+
+#6_CrossModel_&_Audit(19_models):
+Portability: GPT-5.4(~75%_comp) & ClaudeSonnet4.6(~80-85%_comp) => highest_universal_portability; Gemini3.1Pro(>95%_comp) => ultra_aggressive. Dense_active_capacity(Qwen3.5-27B=88.26%_ret) > Sparse_MoE(Qwen3.5-397B-A17B=85.07%_ret).
+BT-Audit_Gateway(cf.Bitcoin_§8): Tier1(<2ms_regex_anchor_bit_exact_check) -> Tier2(heterogeneous_blind_contract + zero-shot_LLM_semantic_guardrail) -> Tier3(Human_Sidecar_Decoder).
+
+#7_Errata: Viral_OCR("CO2+H2O::(ox/red)<>O2!") != Paper_Fig("🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻."); BT(discrete_text) != GibberLink(ggwave_audio_modem); Next_gen => End-to-End_RL_native_compressor.

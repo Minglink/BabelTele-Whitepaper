@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 07: Official BabelTele Compression &amp; Lossless Decoder Prompts (BT-Core / BT-P1 to BT-P13) — BabelTele Whitepaper</title>
+  <meta name="description" content="Production copy-paste system prompts for LLM-native compression and lossless human-audit decoding: BT-Core, BT-Memory, BT-Skeleton (pure ASCII), BT-Zero, BT-Decoder, and BT-P1..P13 index." />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="author" content="MingLin (@Minglink)" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Canonical & Bilingual Hreflang -->
+  <link rel="canonical" href="https://minglink.github.io/BabelTele-Whitepaper/en/07-canonical-instruction-set.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://minglink.github.io/BabelTele-Whitepaper/docs/07-canonical-instruction-set.html" />
+  <link rel="alternate" hreflang="en" href="https://minglink.github.io/BabelTele-Whitepaper/en/07-canonical-instruction-set.html" />
+  <link rel="alternate" hreflang="x-default" href="https://minglink.github.io/BabelTele-Whitepaper/" />
+
+  <!-- AI Agent & LLM Ingestion Discovery Links -->
+  <link rel="alternate" type="text/plain" title="LLMs.txt Structured Index" href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLMs Full Whitepaper Corpus" href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" />
+  <link rel="alternate" type="text/plain" title="Native BabelTele Digest" href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" />
+
+  <!-- Google Scholar / Semantic Scholar / Academic Grounding Meta Tags -->
+  <meta name="citation_title" content="Chapter 07: Official BabelTele Compression &amp; Lossless Decoder Prompts (BT-Core / BT-P1 to BT-P13) — BabelTele Whitepaper" />
+  <meta name="citation_author" content="MingLin" />
+  <meta name="citation_publication_date" content="2026/11/17" />
+  <meta name="citation_online_date" content="2026/11/17" />
+  <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" />
+  <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/en/07-canonical-instruction-set.html" />
+  <meta name="citation_language" content="en" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+
+  <!-- OpenGraph & Twitter Card -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BabelTele Whitepaper · 巴别语体系白皮书" />
+  <meta property="og:title" content="Chapter 07: Official BabelTele Compression &amp; Lossless Decoder Prompts (BT-Core / BT-P1 to BT-P13) — BabelTele Whitepaper" />
+  <meta property="og:description" content="Production copy-paste system prompts for LLM-native compression and lossless human-audit decoding: BT-Core, BT-Memory, BT-Skeleton (pure ASCII), BT-Zero, BT-Decoder, and BT-P1..P13 index." />
+  <meta property="og:url" content="https://minglink.github.io/BabelTele-Whitepaper/en/07-canonical-instruction-set.html" />
+  <meta property="og:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Chapter 07: Official BabelTele Compression &amp; Lossless Decoder Prompts (BT-Core / BT-P1 to BT-P13) — BabelTele Whitepaper" />
+  <meta name="twitter:description" content="Production copy-paste system prompts for LLM-native compression and lossless human-audit decoding: BT-Core, BT-Memory, BT-Skeleton (pure ASCII), BT-Zero, BT-Decoder, and BT-P1..P13 index." />
+  <meta name="twitter:image" content="https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png" />
+
+  <!-- Schema.org Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/#website",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/",
+      "name": "BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)",
+      "alternateName": [
+        "巴别语白皮书",
+        "巴别塔电报白皮书",
+        "BabelTele Specification",
+        "BT-Spec v1.0"
+      ],
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://minglink.github.io/BabelTele-Whitepaper/en/07-canonical-instruction-set.html#article",
+      "headline": "Chapter 07: Official BabelTele Compression & Lossless Decoder Prompts (BT-Core / BT-P1 to BT-P13) — BabelTele Whitepaper",
+      "alternativeHeadline": "BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) / 巴别语体系白皮书",
+      "description": "Production copy-paste system prompts for LLM-native compression and lossless human-audit decoding: BT-Core, BT-Memory, BT-Skeleton (pure ASCII), BT-Zero, BT-Decoder, and BT-P1..P13 index.",
+      "inLanguage": "en",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "version": "1.0.0",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://minglink.github.io/BabelTele-Whitepaper/en/07-canonical-instruction-set.html",
+      "mainEntityOfPage": "https://minglink.github.io/BabelTele-Whitepaper/en/07-canonical-instruction-set.html",
+      "image": "https://minglink.github.io/BabelTele-Whitepaper/assets/og-card.png",
+      "author": {
+        "@type": "Person",
+        "name": "MingLin",
+        "alternateName": "Minglink",
+        "url": "https://github.com/Minglink"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "BabelTele Open Specification Project",
+        "url": "https://github.com/Minglink/BabelTele-Whitepaper"
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf",
+        "encodingFormat": "application/pdf"
+      },
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "name": "Large Language Models Do Not Always Need Readable Language",
+        "identifier": "arXiv:2606.19857",
+        "url": "https://arxiv.org/abs/2606.19857",
+        "sameAs": "https://doi.org/10.48550/arXiv.2606.19857"
+      },
+      "keywords": [
+        "BabelTele",
+        "巴别语",
+        "巴别塔电报",
+        "巴别电报",
+        "BT-Spec v1.0",
+        "AI原生语言",
+        "LLM-Native Language",
+        "Model-Native Representation",
+        "Prompt Compression",
+        "Context Compression",
+        "arXiv:2606.19857",
+        "MCP",
+        "Model Context Protocol",
+        "A2A",
+        "Agent-to-Agent Protocol",
+        "Multi-Agent Communication",
+        "Agent Memory",
+        "Semantic Merkle Folding Tree"
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="index.html">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="Search chapters..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <a class="btn-pill" href="../docs/07-canonical-instruction-set.html" title="Switch Language">🇨🇳 简体中文</a>
+      <a class="btn-pill" href="../llms.txt" title="AI-Readable Index (llms.txt)">🤖 llms.txt</a>
+      <a class="btn-pill btn-primary" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf" target="_blank" rel="noopener">📥 English PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="Chapter Navigation">
+      <div class="nav-group-title">Overview & Canonical Treatise</div>
+      <a class="nav-link" href="index.html">🏠 Whitepaper Portal</a>
+      <a class="nav-link" href="whitepaper.html">📜 Complete Single-File Whitepaper</a>
+      <div class="nav-group-title">BT-Spec v1.0 Modular Specification</div>
+      <a class="nav-link" href="01-manifesto-and-problem.html">01 · Manifesto & Readability Tax</a>
+      <a class="nav-link" href="02-theoretical-foundations.html">02 · Information Theory & Decoupling</a>
+      <a class="nav-link" href="03-core-axioms-and-grammar.html">03 · Core Axioms & Grammar Spec</a>
+      <a class="nav-link" href="04-compression-tiers-and-cot.html">04 · Compression Tiers & CoT Dynamics</a>
+      <a class="nav-link" href="05-agentic-protocol-stack.html">05 · Agentic Stack & Merkle Memory</a>
+      <a class="nav-link" href="06-cross-model-consensus-and-audit.html">06 · Cross-Model & Audit Gateway</a>
+      <a class="nav-link active" href="07-canonical-instruction-set.html">07 · Canonical Compiler Prompts</a>
+      <a class="nav-link" href="08-genealogy-and-ecosystem.html">08 · Genealogy, Errata & Ecosystem</a>
+    </nav>
+    <main class="main-wrap">
+      <article class="article" id="article">
+<h1 id="sec-0">Chapter 07 — The Canonical BabelTele Compiler &amp; Decoder Instruction Set</h1>
+<blockquote><p><a href="06-cross-model-consensus-and-audit.html">← Chapter 06: Cross-Model Consensus &amp; Audit Gateway</a> · <a href="index.html">Back to Portal (README_EN)</a> · <a href="08-genealogy-and-ecosystem.html">Next: Chapter 08 — Genealogy, Errata &amp; Ecosystem →</a></p></blockquote>
+<hr />
+<p>This chapter provides the five production-ready <strong>Canonical Compiler &amp; Decoder System Prompts</strong> standardized from <code>arXiv:2606.19857</code> (Appendix C) and open-source engineering (<code>BabelTeleSkill</code>), followed by the complete index of all 14 empirical prompt probes (<code>C.1</code> and <code>BT-P1</code>–<code>BT-P13</code>). Append source content directly after the chosen instruction block.</p>
+<hr />
+<h2 id="sec-0">7.1 Compiler Selection Decision Tree</h2>
+<div class="mermaid-box"><pre class="mermaid">flowchart TD
+    In[&quot;Source Input x&quot;] --&gt; Q{&quot;Primary Workload?&quot;}
+    Q -- &quot;General Long Docs / Meetings / Cross-Model QA&quot; --&gt; C1[&quot;BT-Core Standard Compiler (C.1 / BT-P7)&quot;]
+    Q -- &quot;Agent Episodic Memory / Multi-Entity Causal Chains&quot; --&gt; C2[&quot;BT-Memory Checklist Compiler (BT-P1)&quot;]
+    Q -- &quot;Code Repositories / APIs / Legal &amp; RFC Specs&quot; --&gt; C3[&quot;BT-Skeleton Pure ASCII Compiler (BT-P8 / P13)&quot;]
+    Q -- &quot;Extreme Token Budget / Flat Key-Value Configs&quot; --&gt; C4[&quot;BT-Zero Overhead Compiler (BT-P2)&quot;]
+    Q -- &quot;Human UX Delivery / Tier-3 Compliance Audit&quot; --&gt; Dec[&quot;BT-Decoder Lossless Restorer&quot;]</pre></div>
+<hr />
+<h2 id="sec-1">7.2 <code>BT-Core</code>: Standard General-Purpose Compiler (<code>C.1</code> / <code>BT-P7</code>)</h2>
+<ul><li><strong>Recommended Tier</strong>: <code>BT-L2</code> (~65%–72% token reduction, peak cross-model compatibility)</li></ul>
+<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-markdown">Your task: compress verbose human text into a minimal token sequence. The audience is not human, but another equally intelligent LLM.
+
+Core Directive:
+1. Omnilingual: Ignore single-language grammar; traverse all human languages (Chinese, English, German compounds, Japanese kanji, Latin roots, etc.) and pick the highest information-density words for the target tokenizer.
+2. Symbolic Collapse: Replace conjunctions, prepositions, emotions, and verbose clauses with compact mathematical/logical operators (=&gt;, -&gt;, &amp;, |, !, ∈, !=) and high-frequency symbols.
+3. Universality: Any LLM must fully understand the compressed output zero-shot without an external codebook.
+4. Lossless: Retain all core semantics, entity bindings, exact quantities, units, and details verbatim without rounding or hallucination.
+
+Directly output the compressed text without any preface. Compress the content below:</code></pre></div>
+<hr />
+<h2 id="sec-2">7.3 <code>BT-Memory</code>: Adaptive Latent-Checklist Compiler (<code>BT-P1</code>)</h2>
+<ul><li><strong>Recommended Tier</strong>: <code>BT-L1</code> – <code>BT-L2</code> (SMFT <code>T1/T2</code> episodic memory folding &amp; complex relational graphs)</li></ul>
+<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-markdown"># Role: LLM-Native Semantic Compressor
+You are compiling long text into an &quot;LLM-native high-density communication representation&quot; with the shortest possible token sequence.
+
+[Highest Directive]: The recipient is an equally intelligent LLM. Completely discard human readability, prose grammar, and verbose JSON/bracket wrappers.
+
+# Level 1: Syntactic Freedom — Maximize Token Density
+1. Omnilingual: Move freely across human languages (English, Chinese, German compounds, Japanese kanji, Latin roots) to select lexical units with maximal single-token semantic density.
+2. Symbolic Collapse: Use compact logical operators (∀, ∃, ∈, =&gt;, -&gt;, &amp;, !) and punctuation to replace prepositions, conjunctions, and explanatory clauses.
+3. Adaptive Routing: Forbid verbose fixed labels like `Meta:` or `Entity:`. Use single-character anchors dynamically.
+
+# Level 2: Semantic Attention Checklist — Guarantee Exact Fidelity
+Maintain strict attention to preserve the following five dimensions losslessly:
+1. Entities &amp; Graphs: Bind people, organizations, and concepts accurately to their attributes without confusing ownership or dependency direction.
+2. Exact Quantities: Preserve all numbers, metrics, units, formulas, and hyperparameters verbatim. Estimation or rounding is strictly forbidden.
+3. Logic &amp; Boundaries: Clearly retain conditional branches (?cond =&gt; act), causal chains, and exceptions (!target:detail).
+4. Comparisons: Preserve multi-target comparison matrices and experimental conclusions accurately.
+5. Anti-Hallucination: Preserve original placeholders (e.g., `BIBREF`, `TABREF`) character-for-character. Never invent missing facts; mark unknowns with `?` or `NULL`.
+
+Directly output the compressed &quot;Babel-Telegraph&quot; without any preface:</code></pre></div>
+<hr />
+<h2 id="sec-3">7.4 <code>BT-Skeleton</code>: Pure ASCII Code &amp; Specification Compiler (<code>BT-P13</code>)</h2>
+<ul><li><strong>Recommended Tier</strong>: <code>BT-L2</code> – <code>BT-L3-ASCII</code> (1.65M+ code repositories, API schemas, legal contracts — zero multi-byte Emoji inflation)</li></ul>
+<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-markdown"># Role: LLM-Native Structural Skeleton Compressor
+Task: Compress the input into an ultra-dense &quot;Babel-Telegraph&quot; for another LLM. Abandon human prose readability and select the fewest-token vocabulary across languages.
+
+# Mandatory Single-Character ASCII Anchors (Verbose English labels are forbidden)
+Use the following pure ASCII skeleton to maximize code-parsing attention and prevent multi-byte BPE splits:
+1. Module &amp; Macros: Use `#topic` for macro sections. Define recurring long terms on first use via `@[abbr=full_name]`.
+2. Entities &amp; Attributes: Bind attributes via `@entity(K:V)`. Flatten parallel items as `[A,B,C]`.
+3. Exact Parameters: Never round or drop numbers; encode as `$param:V(unit)`.
+4. Logic &amp; Flow: Use `A-&gt;B-&gt;C` for pipelines/causality; `?[condition]=&gt;[action]` for branches; `!object:detail` for exceptions/limits.
+5. Comparisons: Use `A&lt;&gt;B:conclusion` for comparative evaluations.
+6. Unknowns &amp; Placeholders: Keep identifiers and `BIBREF` verbatim. Mark unspecified or ambiguous values strictly as `NULL` or `?`.
+
+Directly output the compressed result with no commentary:</code></pre></div>
+<hr />
+<h2 id="sec-4">7.5 <code>BT-Zero</code>: Zero-Overhead Flat Key-Value Compiler (<code>BT-P2</code>)</h2>
+<ul><li><strong>Recommended Tier</strong>: <code>BT-L3</code> (Extreme context budgets &amp; dense configuration/metric tables)</li></ul>
+<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-markdown"># Role: Extreme Zero-Overhead Semantic Compressor
+Compress the text below into the shortest possible token sequence for a top-tier LLM. Abandon all human reading conventions and extra line breaks.
+
+1. Babel Traversal: Cross English, Chinese, Japanese kanji, and German compounds to pick minimal-token words.
+2. Symbolic Collapse: Forbid long labels (`Meta`, `Entity`, `Condition`); map relations via `-&gt;`, `&lt;-&gt;`, `=&gt;`, `&amp;`, `|`, `!`, `∈`.
+3. Zero Wrapper Overhead: Extract flat `K=V` pairs separated by single characters (`|`, `^`, `~`) without token-heavy JSON braces or quotes. Keep all formulas, exact numbers, and hyperparameters 100% verbatim.
+4. Anti-Hallucination Lock: Retain conditional boundaries, comparative matrices, and `BIBREF` verbatim; mark unknowns as `?` or `NULL`.
+
+Output only the compressed string:</code></pre></div>
+<hr />
+<h2 id="sec-5">7.6 <code>BT-Decoder</code>: Lossless Human-Audit Restorer</h2>
+<ul><li><strong>Use Case</strong>: Tier-3 human observability dashboards, compliance review, and final user-facing rendering</li></ul>
+<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-markdown"># Role: BabelTele Lossless Decoder
+Task: Reconstruct the provided high-density BabelTele intermediate representation into clear, fluent, professional natural language (English, or the user&#x27;s requested target language).
+
+Strict Decoding Rules:
+1. Complete Structural Expansion: Unpack all cross-lingual tokens, logical operators (`=&gt;`, `?=&gt;`, `!:`, `&lt;&gt;`), inline macro definitions, and entity-attribute bindings without omitting any branch or caveat.
+2. Exact Numeric Conservation: Every number, unit, formula, version string, code identifier, and placeholder must match the encoded input character-for-character.
+3. Zero Hallucination: Never extrapolate external facts not present in the payload; explicitly state &quot;unspecified in source&quot; wherever `NULL`, `?`, or `@Uncertain` appears.
+
+BabelTele Payload to Decode:</code></pre></div>
+<hr />
+<h2 id="sec-6">7.7 Complete Index of Original Empirical Probes (<code>arXiv:2606.19857</code> Appendix C)</h2>
+<div class="table-wrap"><table><thead><tr><th>Probe ID</th><th>Official Variant Name</th><th>Structural Bias &amp; Experimental Role</th></tr></thead><tbody><tr><td><strong><code>C.1</code></strong></td><td><em>Default BabelTele Prompt</em></td><td>Primary default prompt across paper benchmarks (Omnilingual, Symbolic, Universal, Lossless)</td></tr><tr><td><strong><code>BT-P1</code></strong></td><td><em>Adaptive Symbolic Collapse</em></td><td>Two-level design: syntactic freedom + explicit 5-point latent attention checklist</td></tr><tr><td><strong><code>BT-P2</code></strong></td><td><em>Refined Zero-Overhead Compression</em></td><td>Strips JSON/bracket wrappers in favor of <code>|</code> / <code>^</code> / <code>~</code> flat key-value chains</td></tr><tr><td><strong><code>BT-P3</code></strong></td><td><em>Minimal Lossless Objective</em></td><td>Minimal 5-line objective testing unguided spontaneous symbolic emergence</td></tr><tr><td><strong><code>BT-P4</code></strong></td><td><em>Structured Omnilingual Mapping</em></td><td>Nine semi-structured semantic slots (<code>Sec:</code>, <code>Ent()</code>, <code>Seq:</code>) + omnilingual lexical choice</td></tr><tr><td><strong><code>BT-P5</code></strong></td><td><em>Canonical Omnilingual-Symbolic</em></td><td>Persona-framed silicon data compressor + canonical four directives</td></tr><tr><td><strong><code>BT-P6</code></strong></td><td><em>Structured Mapping Control</em></td><td>Monolingual structured slot control (ablating explicit cross-lingual traversal)</td></tr><tr><td><strong><code>BT-P7</code></strong></td><td><em>Canonical BabelTele Objective</em></td><td>Streamlined canonical formulation used in retention-ratio sweeps</td></tr><tr><td><strong><code>BT-P8</code></strong></td><td><em>Fixed Symbolic Mapping Rules</em></td><td>Enforces single-char tags (<code>S[]</code>, <code>*():K=V</code>, <code>?=&gt;</code>, <code>!:</code>)</td></tr><tr><td><strong><code>BT-P9</code></strong></td><td><em>Structured Semantic Mapping</em></td><td>Entity, quantity, math, flow, and anti-hallucination slot rules</td></tr><tr><td><strong><code>BT-P10</code></strong></td><td><em>LLM-Native Compressor</em></td><td>Role-based general multi-model evaluation prompt</td></tr><tr><td><strong><code>BT-P11</code></strong></td><td><em>Compact Symbolic Mapping</em></td><td>Ultrashort 3-rule mapping: causal arrows + array flattening + <code>(Def:X)</code></td></tr><tr><td><strong><code>BT-P12</code></strong></td><td><em>Free-Emergence Attention Checklist</em></td><td>Unconstrained surface emergence bounded by 6 lossless semantic dimensions</td></tr><tr><td><strong><code>BT-P13</code></strong></td><td><em>ASCII Anchor Skeleton</em></td><td>Pure ASCII code-style skeleton (<code>#</code>, <code>@</code>, <code>$</code>, <code>?[]=&gt;[]</code>, <code>&lt;&gt;</code>)</td></tr></tbody></table></div>
+<hr />
+<blockquote><p><strong>Next Chapter</strong>: <a href="08-genealogy-and-ecosystem.html">Chapter 08 — Academic Genealogy, Empirical Errata &amp; Open-Source Ecosystem →</a></p></blockquote>
+<div class="pager"><div><a class="pager-card" href="06-cross-model-consensus-and-audit.html"><div class="pager-label">← Previous</div><div class="pager-title">06 · Cross-Model & Audit Gateway</div></a></div><div><a class="pager-card next" href="08-genealogy-and-ecosystem.html"><div class="pager-label">Next →</div><div class="pager-title">08 · Genealogy, Errata & Ecosystem</div></a></div></div>
+      </article>
+    </main>
+    <aside class="toc-aside" id="tocAside" aria-label="On This Page">
+      <div class="toc-heading">On This Page</div>
+      <div id="tocList">
+        <a class="toc-item toc-h2" href="#sec-0">7.1 Compiler Selection Decision Tree</a>
+        <a class="toc-item toc-h2" href="#sec-1">7.2 BT-Core: Standard General-Purpose Compiler (C.1 / BT-P7)</a>
+        <a class="toc-item toc-h2" href="#sec-2">7.3 BT-Memory: Adaptive Latent-Checklist Compiler (BT-P1)</a>
+        <a class="toc-item toc-h2" href="#sec-3">7.4 BT-Skeleton: Pure ASCII Code &amp;amp; Specification Compiler (BT-P13)</a>
+        <a class="toc-item toc-h2" href="#sec-4">7.5 BT-Zero: Zero-Overhead Flat Key-Value Compiler (BT-P2)</a>
+        <a class="toc-item toc-h2" href="#sec-5">7.6 BT-Decoder: Lossless Human-Audit Restorer</a>
+        <a class="toc-item toc-h2" href="#sec-6">7.7 Complete Index of Original Empirical Probes (arXiv:2606.19857 Appendix C)</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>window.../ = "../"; window.__PAGE_LANG__ = "en";</script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="../assets/reader.js"></script>
+</body>
+</html>
