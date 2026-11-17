@@ -3,14 +3,18 @@
 # 🗼 巴别语体系白皮书 · BabelTele Whitepaper
 ### *A Model-Native High-Density Semantic Communication & Memory System*
 
+**[🇨🇳 简体中文](./README.md)** · **[🇬🇧 English Edition](./README_EN.md)** · **[📖 在线电子书站点 (GitHub Pages)](https://minglink.github.io/BabelTele-Whitepaper/)** · **[📥 下载 PDF 排版发行版 (Releases)](https://github.com/Minglink/BabelTele-Whitepaper/releases/latest)**
+
 [![Spec Version](https://img.shields.io/badge/BT--Spec-v1.0-0A66C2?style=flat-square)](./WHITEPAPER.md)
+[![Online E-Book](https://img.shields.io/badge/GitHub_Pages-在线电子书阅读站-7C3AED?style=flat-square&logo=gitbook)](https://minglink.github.io/BabelTele-Whitepaper/)
+[![PDF Release](https://img.shields.io/badge/Release-PDF_典藏白皮书_v1.0-EC4899?style=flat-square&logo=adobeacrobatreader)](https://github.com/Minglink/BabelTele-Whitepaper/releases/latest)
 [![Foundational Paper](https://img.shields.io/badge/arXiv-2606.19857-B31B1B?style=flat-square)](https://arxiv.org/abs/2606.19857)
 [![Author](https://img.shields.io/badge/Systematized_by-MingLin_(@Minglink)-181717?style=flat-square&logo=github)](https://github.com/Minglink)
 [![License](https://img.shields.io/badge/License-CC_BY_4.0_%2F_MIT-2EA043?style=flat-square)](./LICENSE)
 
 **「人类用 MCP 与 A2A 修建了智能体世界的通信管道；而巴别语（BabelTele），定义了流淌在管道里的硅基原生语言。」**
 
-[📜 **阅读单文件典藏版白皮书 (`WHITEPAPER.md`)**](./WHITEPAPER.md) · [⚡ **直接获取标准编译/解码指令集 (`docs/07`)**](./docs/07-canonical-instruction-set.md) · [🔍 **勘误与开源生态 (`docs/08`)**](./docs/08-genealogy-and-ecosystem.md)
+[📜 **阅读中文单卷本 (`WHITEPAPER.md`)**](./WHITEPAPER.md) · [🌐 **Read English Whitepaper (`WHITEPAPER_EN.md`)**](./WHITEPAPER_EN.md) · [📥 **下载中文 PDF**](https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf) · [📥 **Download English PDF**](https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf)
 
 </div>
 

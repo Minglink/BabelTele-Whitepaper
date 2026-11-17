@@ -7,6 +7,8 @@
 *2026 年 11 月 · 协议版本 BT-Spec v1.0*  
 https://github.com/Minglink/BabelTele-Whitepaper
 
+[🇬🇧 English Edition (WHITEPAPER_EN)](./WHITEPAPER_EN.md) · [📖 在线电子书阅读站](https://minglink.github.io/BabelTele-Whitepaper/#/WHITEPAPER) · [📥 下载 PDF 排版版](https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf)
+
 </div>
 
 ---

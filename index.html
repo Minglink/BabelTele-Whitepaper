@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BabelTele Whitepaper · 巴别语体系白皮书 (BT-Spec v1.0)</title>
+  <meta name="description" content="BabelTele: A Model-Native High-Density Semantic Communication and Memory System (BT-Spec v1.0) — Systematized by MingLin (@Minglink)" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-theme" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-sidebar: #f8fafc;
+      --bg-elevated: #f1f5f9;
+      --bg-code: #f6f8fa;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-faint: #64748b;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.1);
+      --header-h: 60px;
+      --sidebar-w: 292px;
+      --toc-w: 236px;
+      --shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    }
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --bg-sidebar: #0f172a;
+      --bg-elevated: #1e293b;
+      --bg-code: #131c2e;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-faint: #64748b;
+      --border: #1e293b;
+      --accent: #60a5fa;
+      --accent-soft: rgba(96, 165, 250, 0.14);
+      --shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Top Navbar */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 16px; color: var(--text);
+      text-decoration: none !important;
+    }
+    .brand-badge {
+      font-size: 11px; font-weight: 600;
+      padding: 2px 7px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+    }
+    .menu-btn {
+      display: none; background: transparent; border: 1px solid var(--border);
+      color: var(--text); border-radius: 6px; padding: 5px 9px; cursor: pointer; font-size: 16px;
+    }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .search-box {
+      position: relative; display: flex; align-items: center;
+    }
+    .search-input {
+      width: 210px; padding: 6px 12px; border-radius: 7px;
+      border: 1px solid var(--border); background: var(--bg-sidebar);
+      color: var(--text); font-size: 13px; outline: none;
+      transition: border-color 0.15s, width 0.2s;
+    }
+    .search-input:focus { border-color: var(--accent); width: 260px; }
+    .search-dropdown {
+      position: absolute; top: 38px; right: 0; width: 340px; max-height: 380px;
+      overflow-y: auto; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      display: none; z-index: 200; padding: 6px;
+    }
+    .search-item {
+      display: block; padding: 8px 10px; border-radius: 6px;
+      color: var(--text) !important; text-decoration: none !important;
+      font-size: 13px; border-bottom: 1px solid var(--border);
+    }
+    .search-item:last-child { border-bottom: none; }
+    .search-item:hover { background: var(--accent-soft); }
+    .search-item-title { font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+    .search-item-snip { font-size: 12px; color: var(--text-muted); }
+
+    .btn-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 11px; border-radius: 7px; font-size: 13px; font-weight: 500;
+      border: 1px solid var(--border); background: var(--bg-sidebar);
+      color: var(--text) !important; cursor: pointer; text-decoration: none !important;
+      transition: all 0.15s;
+    }
+    .btn-pill:hover { border-color: var(--accent); color: var(--accent) !important; }
+    .btn-primary {
+      background: var(--accent); color: #fff !important; border-color: var(--accent);
+    }
+    .btn-primary:hover { opacity: 0.92; color: #fff !important; }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      padding-top: var(--header-h);
+      min-height: 100vh;
+    }
+    .sidebar {
+      position: fixed; top: var(--header-h); bottom: 0; left: 0;
+      width: var(--sidebar-w);
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      overflow-y: auto; padding: 20px 14px 40px;
+      z-index: 90;
+    }
+    .nav-group-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--text-faint);
+      margin: 18px 10px 6px;
+    }
+    .nav-group-title:first-child { margin-top: 4px; }
+    .nav-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 7px;
+      font-size: 13.5px; color: var(--text-muted) !important;
+      text-decoration: none !important; margin-bottom: 2px;
+      transition: background 0.12s, color 0.12s;
+    }
+    .nav-link:hover { background: var(--bg-elevated); color: var(--text) !important; }
+    .nav-link.active {
+      background: var(--accent-soft); color: var(--accent) !important;
+      font-weight: 600;
+    }
+
+    .main-wrap {
+      flex: 1;
+      margin-left: var(--sidebar-w);
+      margin-right: var(--toc-w);
+      display: flex; justify-content: center;
+    }
+    .article {
+      width: 100%; max-width: 860px;
+      padding: 38px 44px 80px;
+      min-width: 0;
+    }
+
+    /* Right Outline TOC */
+    .toc-aside {
+      position: fixed; top: var(--header-h); right: 0; bottom: 0;
+      width: var(--toc-w);
+      padding: 28px 16px 40px 12px;
+      overflow-y: auto;
+      border-left: 1px solid var(--border);
+      font-size: 12.5px;
+    }
+    .toc-heading {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--text-faint); margin-bottom: 10px;
+    }
+    .toc-item {
+      display: block; padding: 4px 0 4px 8px;
+      color: var(--text-muted) !important; text-decoration: none !important;
+      border-left: 2px solid transparent; line-height: 1.4;
+    }
+    .toc-item.toc-h3 { padding-left: 20px; font-size: 12px; }
+    .toc-item:hover, .toc-item.active {
+      color: var(--accent) !important; border-left-color: var(--accent);
+    }
+
+    /* Markdown Typography */
+    .article h1 { font-size: 2rem; line-height: 1.28; margin: 0 0 18px; letter-spacing: -0.02em; }
+    .article h2 {
+      font-size: 1.42rem; margin: 40px 0 14px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border); letter-spacing: -0.01em;
+    }
+    .article h3 { font-size: 1.15rem; margin: 28px 0 10px; }
+    .article p { margin: 0 0 16px; }
+    .article ul, .article ol { margin: 0 0 16px; padding-left: 24px; }
+    .article li { margin-bottom: 6px; }
+    .article hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    .article img { max-width: 100%; height: auto; border-radius: 6px; }
+    .article code {
+      font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+      font-size: 0.88em; background: var(--bg-code);
+      padding: 2px 6px; border-radius: 5px; border: 1px solid var(--border);
+    }
+    .code-wrapper { position: relative; margin: 16px 0 22px; }
+    .article pre {
+      background: var(--bg-code); border: 1px solid var(--border);
+      border-radius: 9px; padding: 16px 18px; overflow-x: auto; margin: 0;
+      line-height: 1.55;
+    }
+    .article pre code { background: none; border: none; padding: 0; font-size: 13px; }
+    .copy-btn {
+      position: absolute; top: 8px; right: 8px;
+      font-size: 11.5px; padding: 4px 9px; border-radius: 5px;
+      border: 1px solid var(--border); background: var(--bg);
+      color: var(--text-muted); cursor: pointer; opacity: 0.82;
+    }
+    .copy-btn:hover { opacity: 1; border-color: var(--accent); color: var(--accent); }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin: 18px 0 24px; }
+    .article table {
+      width: 100%; border-collapse: collapse; font-size: 13.8px;
+    }
+    .article th, .article td {
+      border: 1px solid var(--border); padding: 9px 13px; text-align: left; vertical-align: top;
+    }
+    .article th { background: var(--bg-sidebar); font-weight: 600; }
+    .article tr:nth-child(even) td { background: rgba(148, 163, 184, 0.04); }
+
+    /* Blockquotes & GitHub Alerts */
+    .article blockquote {
+      margin: 16px 0; padding: 10px 16px;
+      border-left: 4px solid var(--border);
+      background: var(--bg-sidebar); color: var(--text-muted);
+      border-radius: 0 8px 8px 0;
+    }
+    .gh-alert {
+      margin: 20px 0; padding: 14px 18px; border-radius: 8px;
+      border-left: 4px solid; background: var(--bg-sidebar);
+    }
+    .gh-alert-title {
+      font-weight: 700; font-size: 13.5px; display: flex; align-items: center;
+      gap: 7px; margin-bottom: 6px;
+    }
+    .gh-alert p:last-child, .gh-alert ul:last-child, .gh-alert ol:last-child { margin-bottom: 0; }
+    .gh-alert-note { border-left-color: #3b82f6; }
+    .gh-alert-note .gh-alert-title { color: #3b82f6; }
+    .gh-alert-tip { border-left-color: #10b981; }
+    .gh-alert-tip .gh-alert-title { color: #10b981; }
+    .gh-alert-important { border-left-color: #8b5cf6; }
+    .gh-alert-important .gh-alert-title { color: #8b5cf6; }
+    .gh-alert-warning { border-left-color: #f59e0b; }
+    .gh-alert-warning .gh-alert-title { color: #f59e0b; }
+    .gh-alert-caution { border-left-color: #ef4444; }
+    .gh-alert-caution .gh-alert-title { color: #ef4444; }
+
+    /* Mermaid & KaTeX */
+    .mermaid-box {
+      margin: 22px 0; padding: 18px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg-sidebar);
+      text-align: center; overflow-x: auto;
+    }
+    .katex-display { overflow-x: auto; overflow-y: hidden; padding: 6px 0; }
+    details {
+      margin: 14px 0; padding: 10px 14px; border: 1px solid var(--border);
+      border-radius: 8px; background: var(--bg-sidebar);
+    }
+    summary { cursor: pointer; font-weight: 600; }
+
+    /* Chapter Footer Pagination */
+    .pager {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--border);
+    }
+    .pager-card {
+      display: block; padding: 14px 18px; border: 1px solid var(--border);
+      border-radius: 10px; text-decoration: none !important;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .pager-card:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .pager-card.next { text-align: right; }
+    .pager-label { font-size: 11.5px; color: var(--text-faint); margin-bottom: 4px; }
+    .pager-title { font-size: 14px; font-weight: 600; color: var(--accent); }
+
+    @media (max-width: 1180px) {
+      .toc-aside { display: none; }
+      .main-wrap { margin-right: 0; }
+    }
+    @media (max-width: 860px) {
+      .menu-btn { display: inline-flex; }
+      .sidebar { transform: translateX(-100%); transition: transform 0.22s ease; }
+      .sidebar.open { transform: translateX(0); box-shadow: 8px 0 24px rgba(0,0,0,0.25); }
+      .main-wrap { margin-left: 0; }
+      .article { padding: 26px 18px 64px; }
+      .search-box { display: none; }
+      .pager { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
+      <a class="brand" href="#/">
+        <span>🗼 BabelTele Whitepaper</span>
+        <span class="brand-badge">BT-Spec v1.0</span>
+      </a>
+    </div>
+    <div class="top-actions">
+      <div class="search-box">
+        <input type="search" class="search-input" id="searchInput" placeholder="搜索全书章节 / Search..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <button class="btn-pill" id="langToggle" title="Switch Language">🇬🇧 English</button>
+      <a class="btn-pill btn-primary" id="pdfBtn" href="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" target="_blank" rel="noopener">📥 PDF</a>
+      <button class="btn-pill" id="themeToggle" title="Toggle Dark/Light Theme">🌙</button>
+      <a class="btn-pill" href="https://github.com/Minglink/BabelTele-Whitepaper" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-wrap">
+      <article class="article" id="article">Loading whitepaper...</article>
+    </main>
+    <aside class="toc-aside" id="tocAside">
+      <div class="toc-heading" id="tocHeading">本页目录</div>
+      <div id="tocList"></div>
+    </aside>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script>
+    const BOOKS = {
+      zh: {
+        pdf: "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf",
+        pdfLabel: "📥 下载中文 PDF",
+        langSwitchLabel: "🇬🇧 English",
+        tocTitle: "本页目录",
+        prevLabel: "← 上一章",
+        nextLabel: "下一章 →",
+        groups: [
+          {
+            title: "总览与单卷典藏本",
+            items: [
+              { route: "README.md", title: "🏠 白皮书门户导览", pair: "README_EN.md" },
+              { route: "WHITEPAPER.md", title: "📜 单文件完整典藏白皮书", pair: "WHITEPAPER_EN.md" }
+            ]
+          },
+          {
+            title: "BT-Spec v1.0 深度规范分册",
+            items: [
+              { route: "docs/01-manifesto-and-problem.md", title: "01 · 人类可读性税与巴别塔隐喻", pair: "en/01-manifesto-and-problem.md" },
+              { route: "docs/02-theoretical-foundations.md", title: "02 · 信息论基础与解耦定理", pair: "en/02-theoretical-foundations.md" },
+              { route: "docs/03-core-axioms-and-grammar.md", title: "03 · 三大公理与标准语法算子", pair: "en/03-core-axioms-and-grammar.md" },
+              { route: "docs/04-compression-tiers-and-cot.md", title: "04 · 四级压缩档位与认知税动力学", pair: "en/04-compression-tiers-and-cot.md" },
+              { route: "docs/05-agentic-protocol-stack.md", title: "05 · 智能体协议栈与默克尔记忆树", pair: "en/05-agentic-protocol-stack.md" },
+              { route: "docs/06-cross-model-consensus-and-audit.md", title: "06 · 跨模型共识与三层安全审计", pair: "en/06-cross-model-consensus-and-audit.md" },
+              { route: "docs/07-canonical-instruction-set.md", title: "07 · 标准编译与解码指令集", pair: "en/07-canonical-instruction-set.md" },
+              { route: "docs/08-genealogy-and-ecosystem.md", title: "08 · 学术谱系、勘误与开源生态", pair: "en/08-genealogy-and-ecosystem.md" }
+            ]
+          }
+        ]
+      },
+      en: {
+        pdf: "https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf",
+        pdfLabel: "📥 English PDF",
+        langSwitchLabel: "🇨🇳 简体中文",
+        tocTitle: "On This Page",
+        prevLabel: "← Previous",
+        nextLabel: "Next →",
+        groups: [
+          {
+            title: "Overview & Canonical Treatise",
+            items: [
+              { route: "README_EN.md", title: "🏠 Whitepaper Portal", pair: "README.md" },
+              { route: "WHITEPAPER_EN.md", title: "📜 Complete Single-File Whitepaper", pair: "WHITEPAPER.md" }
+            ]
+          },
+          {
+            title: "BT-Spec v1.0 Modular Specification",
+            items: [
+              { route: "en/01-manifesto-and-problem.md", title: "01 · Manifesto & Readability Tax", pair: "docs/01-manifesto-and-problem.md" },
+              { route: "en/02-theoretical-foundations.md", title: "02 · Information Theory & Decoupling", pair: "docs/02-theoretical-foundations.md" },
+              { route: "en/03-core-axioms-and-grammar.md", title: "03 · Core Axioms & Grammar Spec", pair: "docs/03-core-axioms-and-grammar.md" },
+              { route: "en/04-compression-tiers-and-cot.md", title: "04 · Compression Tiers & CoT Dynamics", pair: "docs/04-compression-tiers-and-cot.md" },
+              { route: "en/05-agentic-protocol-stack.md", title: "05 · Agentic Stack & Merkle Memory", pair: "docs/05-agentic-protocol-stack.md" },
+              { route: "en/06-cross-model-consensus-and-audit.md", title: "06 · Cross-Model & Audit Gateway", pair: "docs/06-cross-model-consensus-and-audit.md" },
+              { route: "en/07-canonical-instruction-set.md", title: "07 · Canonical Compiler Prompts", pair: "docs/07-canonical-instruction-set.md" },
+              { route: "en/08-genealogy-and-ecosystem.md", title: "08 · Genealogy, Errata & Ecosystem", pair: "docs/08-genealogy-and-ecosystem.md" }
+            ]
+          }
+        ]
+      }
+    };
+
+    const ALL_ITEMS = [...BOOKS.zh.items || [], ...BOOKS.zh.groups.flatMap(g => g.items), ...BOOKS.en.groups.flatMap(g => g.items)];
+    const docCache = new Map();
+    let currentRoute = "README.md";
+    let currentLang = "zh";
+
+    function normalizeRoute(raw) {
+      let r = (raw || "").replace(/^#\/?/, "").split("#")[0].trim();
+      if (!r || r === "/") return "README.md";
+      if (!r.endsWith(".md") && r !== "LICENSE") r += ".md";
+      return r.replace(/^\.\//, "");
+    }
+
+    function detectLang(route) {
+      return (route === "README_EN.md" || route === "WHITEPAPER_EN.md" || route.startsWith("en/")) ? "en" : "zh";
+    }
+
+    function resolveRelPath(baseFile, href) {
+      const baseDir = baseFile.includes("/") ? baseFile.substring(0, baseFile.lastIndexOf("/") + 1) : "";
+      const parts = (baseDir + href).split("/");
+      const out = [];
+      for (const p of parts) {
+        if (!p || p === ".") continue;
+        if (p === "..") out.pop();
+        else out.push(p);
+      }
+      return out.join("/");
+    }
+
+    function renderSidebar() {
+      const book = BOOKS[currentLang];
+      const sb = document.getElementById("sidebar");
+      sb.innerHTML = book.groups.map(g => `
+        <div class="nav-group-title">${g.title}</div>
+        ${g.items.map(it => `
+          <a class="nav-link ${it.route === currentRoute ? "active" : ""}" href="#/${it.route.replace(/\.md$/, "")}">
+            ${it.title}
+          </a>
+        `).join("")}
+      `).join("");
+      document.getElementById("langToggle").textContent = book.langSwitchLabel;
+      const pdfBtn = document.getElementById("pdfBtn");
+      pdfBtn.href = book.pdf;
+      pdfBtn.textContent = book.pdfLabel;
+      document.getElementById("tocHeading").textContent = book.tocTitle;
+    }
+
+    function preprocessMarkdown(md) {
+      const stash = [];
+      const put = (html) => {
+        const key = `@@STASH_${stash.length}@@`;
+        stash.push(html);
+        return key;
+      };
+
+      // 1. Protect fenced code blocks (handle mermaid separately)
+      md = md.replace(/```(\w*)\r?\n([\s\S]*?)```/g, (_, lang, code) => {
+        if (lang.toLowerCase() === "mermaid") {
+          const escaped = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          return put(`<div class="mermaid-box"><pre class="mermaid">${escaped}</pre></div>`);
+        }
+        let highlighted = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        try {
+          if (lang && hljs.getLanguage(lang)) {
+            highlighted = hljs.highlight(code, { language: lang }).value;
+          } else {
+            highlighted = hljs.highlightAuto(code).value;
+          }
+        } catch (e) {}
+        return put(`<div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="hljs">${highlighted}</code></pre></div>`);
+      });
+
+      // 2. Protect inline code spans (unescape table-escaped pipes \| -> |)
+      md = md.replace(/`([^`\n]+)`/g, (_, c) => {
+        const clean = c.replace(/\\\|/g, "|");
+        const esc = clean.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return put(`<code>${esc}</code>`);
+      });
+
+      // 3. Render Display Math $$...$$
+      md = md.replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => {
+        try {
+          return put(katex.renderToString(tex.trim(), { displayMode: true, throwOnError: false }));
+        } catch (e) { return put(`<pre>${tex}</pre>`); }
+      });
+
+      // 4. Render Inline Math $...$
+      md = md.replace(/(?<!\$)\$(?!\s)([^\$\n]+?)(?<!\s)\$(?!\$)/g, (_, tex) => {
+        try {
+          return put(katex.renderToString(tex.trim(), { displayMode: false, throwOnError: false }));
+        } catch (e) { return `$${tex}$`; }
+      });
+
+      let html = marked.parse(md, { gfm: true, breaks: false });
+      stash.forEach((val, idx) => {
+        html = html.split(`@@STASH_${idx}@@`).join(val);
+      });
+      return html;
+    }
+
+    function upgradeGitHubAlertsAndLinks(container, baseRoute) {
+      // Transform GitHub-style Alerts > [!IMPORTANT] etc.
+      const icons = {
+        note: "ℹ️ Note",
+        tip: "💡 Tip",
+        important: "💠 Important",
+        warning: "⚠️ Warning",
+        caution: "🛡️ Caution"
+      };
+      container.querySelectorAll("blockquote").forEach(bq => {
+        const firstP = bq.querySelector("p");
+        if (!firstP) return;
+        const m = firstP.innerHTML.match(/^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(?:<br\s*\/?>|\n)?/i);
+        if (m) {
+          const kind = m[1].toLowerCase();
+          firstP.innerHTML = firstP.innerHTML.slice(m[0].length);
+          const div = document.createElement("div");
+          div.className = `gh-alert gh-alert-${kind}`;
+          div.innerHTML = `<div class="gh-alert-title">${icons[kind]}</div>` + bq.innerHTML;
+          bq.replaceWith(div);
+        }
+      });
+
+      // Wrap tables for horizontal scroll
+      container.querySelectorAll("table").forEach(tb => {
+        const wrap = document.createElement("div");
+        wrap.className = "table-wrap";
+        tb.parentNode.insertBefore(wrap, tb);
+        wrap.appendChild(tb);
+      });
+
+      // Rewrite relative .md links into SPA hash routes
+      container.querySelectorAll("a[href]").forEach(a => {
+        const href = a.getAttribute("href");
+        if (!href || href.startsWith("http://") || href.startsWith("https://") || href.startsWith("mailto:") || href.startsWith("#/")) {
+          if (href && (href.startsWith("http://") || href.startsWith("https://"))) {
+            a.target = "_blank";
+            a.rel = "noopener";
+          }
+          return;
+        }
+        if (href.startsWith("#")) return;
+        const [pathPart] = href.split("#");
+        if (pathPart.endsWith(".md") || pathPart === "LICENSE") {
+          const resolved = resolveRelPath(baseRoute, pathPart);
+          if (resolved === "LICENSE") {
+            a.href = "https://github.com/Minglink/BabelTele-Whitepaper/blob/main/LICENSE";
+            a.target = "_blank";
+          } else {
+            a.href = "#/" + resolved.replace(/\.md$/, "");
+          }
+        }
+      });
+    }
+
+    function buildRightToc(container) {
+      const tocList = document.getElementById("tocList");
+      const headings = Array.from(container.querySelectorAll("h2, h3"));
+      if (!headings.length) {
+        tocList.innerHTML = "";
+        return;
+      }
+      headings.forEach((h, i) => {
+        if (!h.id) h.id = "sec-" + i;
+      });
+      tocList.innerHTML = headings.map(h => `
+        <a class="toc-item toc-${h.tagName.toLowerCase()}" href="javascript:void(0)" onclick="document.getElementById('${h.id}').scrollIntoView({behavior:'smooth'})">
+          ${h.textContent}
+        </a>
+      `).join("");
+    }
+
+    function appendPager(container, route) {
+      const book = BOOKS[currentLang];
+      const flat = book.groups.flatMap(g => g.items);
+      const idx = flat.findIndex(x => x.route === route);
+      if (idx === -1) return;
+      const prev = idx > 0 ? flat[idx - 1] : null;
+      const next = idx < flat.length - 1 ? flat[idx + 1] : null;
+      const pager = document.createElement("div");
+      pager.className = "pager";
+      pager.innerHTML = `
+        <div>${prev ? `<a class="pager-card" href="#/${prev.route.replace(/\.md$/, "")}"><div class="pager-label">${book.prevLabel}</div><div class="pager-title">${prev.title}</div></a>` : ""}</div>
+        <div>${next ? `<a class="pager-card next" href="#/${next.route.replace(/\.md$/, "")}"><div class="pager-label">${book.nextLabel}</div><div class="pager-title">${next.title}</div></a>` : ""}</div>
+      `;
+      container.appendChild(pager);
+    }
+
+    window.copyCode = function(btn) {
+      const text = btn.parentElement.querySelector("code").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.textContent;
+        btn.textContent = "Copied ✓";
+        setTimeout(() => (btn.textContent = old), 1500);
+      });
+    };
+
+    async function loadRoute() {
+      currentRoute = normalizeRoute(location.hash);
+      currentLang = detectLang(currentRoute);
+      document.documentElement.lang = currentLang === "zh" ? "zh-CN" : "en";
+      renderSidebar();
+      document.getElementById("sidebar").classList.remove("open");
+
+      const article = document.getElementById("article");
+      try {
+        let md = docCache.get(currentRoute);
+        if (!md) {
+          const resp = await fetch(currentRoute);
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          md = await resp.text();
+          docCache.set(currentRoute, md);
+        }
+        article.innerHTML = preprocessMarkdown(md);
+        upgradeGitHubAlertsAndLinks(article, currentRoute);
+        buildRightToc(article);
+        appendPager(article, currentRoute);
+        window.scrollTo({ top: 0, behavior: "instant" });
+
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        mermaid.initialize({ startOnLoad: false, theme: isDark ? "dark" : "default", securityLevel: "loose" });
+        await mermaid.run({ nodes: article.querySelectorAll(".mermaid") });
+      } catch (err) {
+        article.innerHTML = `<h2>Page Not Found</h2><p>Could not load <code>${currentRoute}</code> (${err.message}). <a href="#/">Return to Home</a></p>`;
+      }
+    }
+
+    // Theme Switcher
+    const savedTheme = localStorage.getItem("bt-theme") || "light";
+    function applyTheme(t) {
+      document.documentElement.setAttribute("data-theme", t);
+      localStorage.setItem("bt-theme", t);
+      document.getElementById("themeToggle").textContent = t === "dark" ? "☀️" : "🌙";
+      document.getElementById("hljs-theme").href = t === "dark"
+        ? "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css"
+        : "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css";
+    }
+    applyTheme(savedTheme);
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      applyTheme(next);
+      loadRoute();
+    });
+
+    // Language Switcher (maps exact counterpart chapter!)
+    document.getElementById("langToggle").addEventListener("click", () => {
+      const item = ALL_ITEMS.find(x => x.route === currentRoute);
+      const target = item ? item.pair : (currentLang === "zh" ? "README_EN.md" : "README.md");
+      location.hash = "#/" + target.replace(/\.md$/, "");
+    });
+
+    // Mobile Menu
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("open");
+    });
+
+    // Full-Text Search across current language chapters
+    let searchIndexed = false;
+    async function ensureSearchIndex() {
+      if (searchIndexed) return;
+      searchIndexed = true;
+      await Promise.all(ALL_ITEMS.map(async it => {
+        if (!docCache.has(it.route)) {
+          try {
+            const r = await fetch(it.route);
+            if (r.ok) docCache.set(it.route, await r.text());
+          } catch (e) {}
+        }
+      }));
+    }
+    const searchInput = document.getElementById("searchInput");
+    const searchDropdown = document.getElementById("searchDropdown");
+    searchInput.addEventListener("focus", ensureSearchIndex);
+    searchInput.addEventListener("input", async () => {
+      const q = searchInput.value.trim().toLowerCase();
+      if (!q) { searchDropdown.style.display = "none"; return; }
+      await ensureSearchIndex();
+      const pool = BOOKS[currentLang].groups.flatMap(g => g.items);
+      const hits = [];
+      for (const it of pool) {
+        const txt = (docCache.get(it.route) || "").replace(/[#*`>|]/g, " ");
+        const pos = txt.toLowerCase().indexOf(q);
+        if (pos !== -1 || it.title.toLowerCase().includes(q)) {
+          const snip = pos !== -1 ? txt.slice(Math.max(0, pos - 28), pos + 68) + "..." : "";
+          hits.push({ route: it.route, title: it.title, snip });
+        }
+      }
+      if (!hits.length) {
+        searchDropdown.innerHTML = `<div style="padding:10px;font-size:13px;color:var(--text-muted);">No matches / 未找到匹配内容</div>`;
+      } else {
+        searchDropdown.innerHTML = hits.slice(0, 8).map(h => `
+          <a class="search-item" href="#/${h.route.replace(/\.md$/, "")}" onclick="document.getElementById('searchDropdown').style.display='none'">
+            <div class="search-item-title">${h.title}</div>
+            <div class="search-item-snip">${h.snip.replace(/</g, "&lt;")}</div>
+          </a>
+        `).join("");
+      }
+      searchDropdown.style.display = "block";
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".search-box")) searchDropdown.style.display = "none";
+    });
+
+    window.addEventListener("hashchange", loadRoute);
+    loadRoute();
+  </script>
+</body>
+</html>
