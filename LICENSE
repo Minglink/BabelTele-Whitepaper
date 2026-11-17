@@ -1,0 +1,20 @@
+MIT License & Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 MingLin (@Minglink)
+
+1. Documentation & Specification Text (CC BY 4.0)
+The whitepaper text, architectural specifications, and formal taxonomy in this repository are licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/).
+
+2. Prompt Templates, Schemas & Code Snippets (MIT License)
+Permission is hereby granted, free of charge, to any person obtaining a copy of the prompt templates, schemas, and software snippets in this repository to deal in the Materials without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Materials, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Materials.
+
+THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+---
+
+Academic Attribution Note:
+The foundational empirical discovery and coined term "BabelTele" originate from the research paper:
+Jiayi Zhu, Haoxuan Peng, Junxi Wang, Liang Ke, Chen Zhang, and Linfeng Zhang (2026).
+"Large Language Models Do Not Always Need Readable Language." arXiv:2606.19857 [cs.CL], licensed under CC BY 4.0.

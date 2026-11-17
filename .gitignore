@@ -1,0 +1,8 @@
+# Local scratch & probe artifacts
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+BabelTele_资料梳理_*.md
+token_probe.py
+token_probe_results.json
