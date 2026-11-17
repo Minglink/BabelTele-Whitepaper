@@ -2,6 +2,7 @@
 Canonical URL: https://minglink.github.io/BabelTele-Whitepaper/
 Repository: https://github.com/Minglink/BabelTele-Whitepaper
 Author: MingLin (@Minglink)
+Project self-description tags: 互联网第一份巴别语白皮书, 巴别语白皮书, 白皮书, 模型原生语言, 语义压缩, 语义通信, 智能体长期记忆, BabelTele Whitepaper, first-babeltele-whitepaper, Model-Native Language, Semantic Compression, Semantic Communication, LLM Memory, Context Engineering
 Foundational Empirical Paper: Large Language Models Do Not Always Need Readable Language (arXiv:2606.19857)
 
 

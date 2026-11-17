@@ -1,6 +1,8 @@
 #BT-Spec_v1.0 @[BT=BabelTele(巴别语/巴别塔电报), NL=NaturalLanguage, Tok=Tokenizer, SMFT=SemanticMerkleFoldingTree]
 @Meta(author=MingLin/@Minglink, date=2026-11, license=CC-BY-4.0|MIT, repo=https://github.com/Minglink/BabelTele-Whitepaper, site=https://minglink.github.io/BabelTele-Whitepaper/, origin_paper=arXiv:2606.19857[Zhu_et_al,2026-06-18,SJTU+USyd+HFUT+XJTU+NJU])
 
+@Tags(project_self_description="互联网第一份巴别语白皮书", keywords=[巴别语白皮书,白皮书,模型原生语言,语义压缩,语义通信,智能体长期记忆,BabelTeleWhitepaper,first-babeltele-whitepaper,ModelNativeLanguage,SemanticCompression,SemanticCommunication,LLMMemory,ContextEngineering,MCP,A2A,RAG])
+
 #1_Problem: LLM<->LLM via NL => ReadabilityTax(60%-75% tok waste <- syntactic_padding & graph_linearization & monolingual_suboptimality). MCP(vertical_tool_bus) & A2A(horizontal_agent_routing) = L2/L3_pipes != semantic_payload_lang. Latent_vectors(Gist/AutoCompressor/Interlat) => !BlackBoxAPI & !CrossFamilyPortability.
 
 #2_DecouplingTheorem: z* = argmin_{z}[L_tok(z) + beta*L_CoT(R,z)] s.t. F_sem(R;z,x) >= 1-eps.

@@ -9,6 +9,12 @@
 - **Typeset PDF (Chinese v1.0)**: https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf
 - **Typeset PDF (English v1.0)**: https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf
 
+## Project Tags / 项目标签
+
+- **Project self-description / 项目自述**: 互联网第一份巴别语白皮书
+- **Chinese keywords**: 巴别语白皮书, 巴别塔电报, 白皮书, 模型原生语言, 语义压缩, 语义通信, 智能体长期记忆, 上下文工程
+- **English keywords**: BabelTele Whitepaper, first-babeltele-whitepaper, Model-Native Language, Semantic Compression, Semantic Communication, LLM Memory, Context Engineering, MCP, A2A, RAG
+
 ## Key Facts & Verified Empirical Metrics
 
 - **Core Principle (Tripartite Decoupling)**: Decouples (1) Human Surface Readability (Dale-Chall `16.70`), (2) Natural-Language Distributional Typicality (`+1,320%` to `+2,061%` base-model PPL surge across Llama-3, Qwen, DeepSeek-V4-Pro, Kimi K2.6, GLM-5.1), and (3) Model-Side Semantic Recoverability (up to **`99.5%`** downstream QA fidelity at **`27.9%`** original length).

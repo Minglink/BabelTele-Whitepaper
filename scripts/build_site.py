@@ -15,6 +15,12 @@ import subprocess
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SITE_BASE = "https://minglink.github.io/BabelTele-Whitepaper"
 TODAY = "2026-11-17"
+PROJECT_TAGS = [
+    "互联网第一份巴别语白皮书", "巴别语白皮书", "白皮书", "模型原生语言",
+    "语义压缩", "语义通信", "智能体长期记忆", "BabelTele Whitepaper",
+    "first-babeltele-whitepaper", "Model-Native Language", "Semantic Compression",
+    "Semantic Communication", "LLM Memory", "Context Engineering",
+]
 
 PAGES = [
     # Chinese Edition
@@ -590,7 +596,7 @@ def build_json_ld(page, canonical_url, pdf_url):
                 "Prompt Compression", "Context Compression", "arXiv:2606.19857",
                 "MCP", "Model Context Protocol", "A2A", "Agent-to-Agent Protocol",
                 "Multi-Agent Communication", "Agent Memory", "Semantic Merkle Folding Tree"
-            ],
+            ] + PROJECT_TAGS,
         },
     ]
     if page.get("is_portal"):
@@ -617,7 +623,7 @@ PAGE_SHELL = r"""<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>__SEO_TITLE__</title>
   <meta name="description" content="__SEO_DESC__" />
-  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink" />
+  <meta name="keywords" content="BabelTele, 巴别语, 巴别塔电报, 巴别电报, BT-Spec v1.0, AI原生语言, 模型原生语言, AI涌现语言, LLM-Native Language, Model-Native Representation, Prompt Compression, Context Compression, arXiv:2606.19857, Large Language Models Do Not Always Need Readable Language, 大语言模型并不总是需要可读语言, MCP, Model Context Protocol, A2A, Agent-to-Agent, Multi-Agent Systems, Agent Memory, Semantic Merkle Folding Tree, MingLin, Minglink, __PROJECT_TAGS__" />
   <meta name="author" content="MingLin (@Minglink)" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
@@ -640,7 +646,7 @@ PAGE_SHELL = r"""<!DOCTYPE html>
   <meta name="citation_pdf_url" content="__PDF_URL__" />
   <meta name="citation_fulltext_html_url" content="__CANONICAL_URL__" />
   <meta name="citation_language" content="__HTML_LANG__" />
-  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857; __PROJECT_TAGS__" />
 
   <!-- OpenGraph & Twitter Card -->
   <meta property="og:type" content="article" />
@@ -1150,6 +1156,7 @@ def main():
 
         final_html = (
             PAGE_SHELL
+            .replace("__PROJECT_TAGS__", html_lib.escape(", ".join(PROJECT_TAGS), True))
             .replace("__HTML_LANG__", "zh-CN" if is_zh else "en")
             .replace("__LANG_SHORT__", p["lang"])
             .replace("__SEO_TITLE__", html_lib.escape(p["seo_title"], True))
@@ -1237,6 +1244,7 @@ def main():
         f"Canonical URL: {SITE_BASE}/\n"
         "Repository: https://github.com/Minglink/BabelTele-Whitepaper\n"
         "Author: MingLin (@Minglink)\n"
+        f"Project self-description tags: {', '.join(PROJECT_TAGS)}\n"
         "Foundational Empirical Paper: Large Language Models Do Not Always Need Readable Language (arXiv:2606.19857)\n"
     ]
     for md_rel in [
