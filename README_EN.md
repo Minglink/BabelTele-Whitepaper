@@ -22,7 +22,7 @@
 
 Even when **both the sender and the receiver of a message are Large Language Models**—across multi-agent coordination, persistent episodic memory, and long-context RAG—today's AI stacks still force models to communicate in verbose human prose, paying a **60%–75% Anthropocentric Readability Tax** in syntactic padding, monolingual spelling inefficiency, and clause linearization.
 
-Authored and systematized by **MingLin (`@Minglink`)**, this repository synthesizes the foundational empirical discovery of *Large Language Models Do Not Always Need Readable Language* (`arXiv:2606.19857`) alongside modern context-compression research and open-source engineering into a cohesive, Bitcoin-style architectural standard: **The BabelTele System (`BT-Spec v1.0`)**.
+**The BabelTele System (`BT-Spec v1.0`)** eliminates human syntactic redundancy in machine-to-machine communication, establishing a weight-agnostic, black-box-compatible, zero-shot cross-model semantic protocol.
 
 ### Intuitive Collapse Examples
 
