@@ -8,3 +8,12 @@ token_probe.py
 token_probe_results.json
 releases/
 
+# Subprojects build & dependencies
+**/node_modules/
+**/dist/
+babeltele-swarm/workspaces/
+*.env
+.env.*
+!*.env.example
+
+

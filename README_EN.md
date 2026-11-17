@@ -47,6 +47,17 @@ Even when **both the sender and the receiver of a message are Large Language Mod
 
 ---
 
+## 🛠️ Official Full-Stack Reference Implementations
+
+This repository includes two complete, production-tested **Node.js + TypeScript** reference implementations supporting OpenAI-compatible APIs (DeepSeek, Qwen, OpenAI, Gemini), local **Ollama** auto-discovery, and zero-key offline execution:
+
+| Package Directory | Role | Core Capabilities | Quick Launch (Web UI + CLI) |
+| :--- | :--- | :--- | :--- |
+| **[`babeltele-studio/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-studio)** | **3-Stage Hybrid Neutralizing Compiler & Web Studio** | • `<2ms` conversational/emotional dehydrator (`neutral-formal` flagship profile)<br>• Real `js-tiktoken` (`o200k_base` & `cl100k_base`) BPE accounting + $\Delta L_{\text{BPE}} \ge 0$ auto-fallback circuit breaker<br>• `<2ms` Tier-1 Hard-Anchor Auditor locking exact numbers, paths, identifiers & negations<br>• 1-click **Compile & Relay** A/B tester and **BT-Decoder** | `cd babeltele-studio`<br>`npm install && npm start`<br>Open `http://127.0.0.1:3721` |
+| **[`babeltele-swarm/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-swarm)** | **Dual-Plane Multi-Agent Project Accelerator** | • **Strict Dual-Plane Isolation**: Plane 1 (`PM-Spec -> Architect -> Coder -> Verifier`) communicates 100% in `BT-Skeleton`; Plane 2 writes **100% pure native `.java` / `.ts` / `.py` code** audited by `ArtifactSanitizer` + real host compilers (`javac`, `tsc`, `py_compile`)<br>• **§SMFT `BT-Header` Memory Pool**: Compresses cross-file signatures by ~80%<br>• Live SSE 3-Pane War Room with **Sidecar Lens** & **BT vs. Verbose NL Benchmark** | `cd babeltele-swarm`<br>`npm install && npm start`<br>Open `http://127.0.0.1:3722` |
+
+---
+
 ## 📚 Complete Whitepaper & Modular Specification
 
 * 📥 **Typeset PDF Releases**:

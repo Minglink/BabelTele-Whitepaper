@@ -76,6 +76,17 @@ flowchart TB
 
 ---
 
+## 🛠️ 官方全栈参考实现（Official Reference Implementations）
+
+本仓库内置两套完整的 **Node.js + TypeScript 全栈官方工程实现**（均支持 OpenAI / DeepSeek / Qwen 兼容接口、本机 Ollama 自动探测与零依赖离线运行）：
+
+| 子项目目录 | 核心定位 | 关键能力与技术亮点 | 快速启动（Web 界面 + CLI） |
+| :--- | :--- | :--- | :--- |
+| **[`babeltele-studio/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-studio)**<br>*(方向 A：编译器工作台)* | **巴别语三级混合中性编译器与实测工作台** | • **Stage-1 离线脱水器**：`<2ms` 剥离中文口水寒暄与情绪噪音，提纯冷峻工程契约<br>• **Stage-2 双模驱动**：无缝切换本机 Ollama 小模型与云端极速 API<br>• **Stage-3 双重护城河**：`js-tiktoken`（`o200k` / `cl100k`）真实算账 + $\Delta L_{\text{BPE}} \ge 0$ 自动回退熔断 + Tier-1 数字/标识符/否定词零损硬锁<br>• 支持 **一键转述直发 AI（Compile & Relay）** 与 **盲测还原** | `cd babeltele-studio`<br>`npm install && npm start`<br>访问 `http://127.0.0.1:3721` |
+| **[`babeltele-swarm/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-swarm)**<br>*(方向 C：极速推进引擎)* | **巴别语双平面多智能体极速项目推进器** | • **双平面硬件级隔离**：Plane 1（PM / Architect / Coder / Verifier 控制总线）100% 走 `BT-Skeleton` 极速交接；Plane 2（落盘 `.java` / `.ts` / `.py` 源码）经 `ArtifactSanitizer` 词法守卫 + 本机真编译器（`javac` / `tsc` / `py_compile`）验收确保 **0 巴别语符号污染**<br>• **§SMFT 头文件记忆池**：自动将已生成代码浓缩为 `BT-Header` 签名摘要（省 ~80% 跨文件上下文，防导错包/写错方法名）<br>• 内置 SSE 流式三栏战情室、中文旁路透视镜与 **BT vs NL 同台竞速跑分** | `cd babeltele-swarm`<br>`npm install && npm start`<br>访问 `http://127.0.0.1:3722` |
+
+---
+
 ## 📚 白皮书分章节深度规范目录（Modular Specification）
 
 若您希望快速通读全貌，推荐先阅读单文件完整典藏版 **[`WHITEPAPER.md`](./WHITEPAPER.md)**；若您需要查阅数学推导、算子词典、全量模型对比表或复制工程提示词，请进入 `docs/` 分册：

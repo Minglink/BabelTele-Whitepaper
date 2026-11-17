@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BabelTele Swarm · 巴别语双平面极速项目推进战情室</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header & Dual-Plane Architecture Guarantee -->
+    <header class="topbar">
+      <div class="brand-group">
+        <div class="brand-logo">⚡</div>
+        <div>
+          <div class="brand-title-row">
+            <h1>BabelTele Swarm</h1>
+            <span class="version-pill">v1.0.0 · Dual-Plane Isolation</span>
+          </div>
+          <p class="brand-subtitle">
+            巴别语双平面极速项目推进引擎 —— <strong>平面 1（控制与记忆池）100% 硅基巴别语极速流转</strong> · <strong>平面 2（落盘源码）100% 纯净可编译 Java / TS / Python</strong>
+          </p>
+        </div>
+      </div>
+      <div class="toolchain-strip" id="toolchainStrip">
+        <span class="tc-chip">检测本地编译工具链中...</span>
+      </div>
+    </header>
+
+    <!-- Command & Configuration Deck -->
+    <section class="control-deck">
+      <div class="preset-row">
+        <span class="preset-label">🎯 一键加载实战蓝图：</span>
+        <button type="button" class="preset-btn active" data-preset-lang="java">
+          ☕ Java 21 高并发电商防超卖库存与订单服务
+        </button>
+        <button type="button" class="preset-btn" data-preset-lang="typescript">
+          🔷 TypeScript JWT 鉴权限流异步任务队列
+        </button>
+        <button type="button" class="preset-btn" data-preset-lang="python">
+          🐍 Python 3.12 异步滑动窗实时金融风控引擎
+        </button>
+        <button type="button" class="lens-lab-btn" id="openDecoderModalBtn" title="粘贴任意巴别语片段实时中文透视">
+          🔍 Sidecar 巴别语解码器实验室
+        </button>
+      </div>
+
+      <div class="prompt-controls-grid">
+        <div class="prompt-box-wrap">
+          <label for="projectPromptInput">项目需求简报 (Project Brief)</label>
+          <textarea id="projectPromptInput" rows="2" placeholder="输入项目需求描述，例如：开发一套高并发电商订单与防超卖库存核心服务..."></textarea>
+        </div>
+
+        <div class="selectors-wrap">
+          <div class="field-group">
+            <label for="languageSelect">目标产物语言</label>
+            <select id="languageSelect">
+              <option value="java">☕ Java (JDK 标准源码)</option>
+              <option value="typescript">🔷 TypeScript (Node 微服务)</option>
+              <option value="python">🐍 Python (Async 模块)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="busModeSelect">智能体通信总线模式</label>
+            <select id="busModeSelect">
+              <option value="ab-race">🏁 双模式同台竞速对比 (BT vs NL)</option>
+              <option value="babeltele">⚡ 巴别语极速总线 (BT-Skeleton)</option>
+              <option value="verbose-nl">📝 传统自然语言总线 (Verbose NL)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="engineSelect">驱动引擎</label>
+            <select id="engineSelect">
+              <option value="demo-sim">🎬 内置实战演练沙盒 (免 Key 真编译)</option>
+              <option value="ollama">🦙 本机 Ollama (自动探测)</option>
+              <option value="openai-compat">🚀 DeepSeek / Qwen / OpenAI API</option>
+            </select>
+          </div>
+
+          <div class="launch-col">
+            <button type="button" id="launchRunBtn" class="launch-btn">
+              ⚡ 运行极速推进实战演练 / AB 竞速对比
+            </button>
+            <label class="fault-toggle" title="开启后 Coder 首轮故意注入一处巴别语算子泄漏，实时演示 ArtifactSanitizer 拦截与 Fixer 自动热修复闭环！">
+              <input type="checkbox" id="faultDrillCheckbox" />
+              <span>🧪 注入污染故障演练自愈闭环</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conditional Real LLM / Ollama Config Drawer -->
+      <div class="llm-config-drawer hidden" id="llmConfigDrawer">
+        <div class="llm-config-grid">
+          <div class="field-group" id="apiKeyGroup">
+            <label for="apiKeyInput">API Key</label>
+            <input type="password" id="apiKeyInput" placeholder="sk-..." autocomplete="off" />
+          </div>
+          <div class="field-group">
+            <label for="baseUrlInput">API Base URL</label>
+            <input type="text" id="baseUrlInput" value="https://api.deepseek.com/v1" />
+          </div>
+          <div class="field-group">
+            <label for="modelInput">模型名称 (Model)</label>
+            <input type="text" id="modelInput" value="deepseek-chat" />
+          </div>
+          <div class="field-group ollama-status-col">
+            <span id="ollamaStatusText" class="ollama-hint">支持任意 OpenAI 兼容接口</span>
+            <button type="button" id="detectOllamaBtn" class="mini-btn">🔄 探测本机 Ollama</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-Agent Pipeline Live Status Bar -->
+      <div class="pipeline-strip">
+        <div class="agent-node" id="node-PM-Spec">
+          <span class="node-dot"></span>
+          <div>
+            <div class="node-name">1. PM-Spec</div>
+            <div class="node-sub" id="sub-PM-Spec">待命 · &lt;120 tok #PRD</div>
+          </div>
+        </div>
+        <div class="pipeline-arrow">⟶</div>
+        <div class="agent-node" id="node-Architect">
+          <span class="node-dot"></span>
+          <div>
+            <div class="node-name">2. Architect</div>
+            <div class="node-sub" id="sub-Architect">待命 · #ARCH 接口契约锁</div>
+          </div>
+        </div>
+        <div class="pipeline-arrow">⟶</div>
+        <div class="agent-node" id="node-Coder">
+          <span class="node-dot"></span>
+          <div>
+            <div class="node-name">3. Coder + §SMFT</div>
+            <div class="node-sub" id="sub-Coder">待命 · BT-Header 跨文件记忆</div>
+          </div>
+        </div>
+        <div class="pipeline-arrow">⟶</div>
+        <div class="agent-node" id="node-Verifier">
+          <span class="node-dot"></span>
+          <div>
+            <div class="node-name">4. Verifier &amp; Fixer</div>
+            <div class="node-sub" id="sub-Verifier">待命 · 零污染审计 + 真编译验收</div>
+          </div>
+        </div>
+        <div class="race-banner" id="raceBanner">准备就绪：点击右侧按钮启动双平面多智能体构建流</div>
+      </div>
+    </section>
+
+    <!-- 3-Pane Live War Room -->
+    <main class="war-room-grid">
+      <!-- PANE 1: Control Plane Live Feed -->
+      <section class="pane pane-control">
+        <div class="pane-header">
+          <div>
+            <span class="plane-badge plane-1">PLANE 1 · 控制流</span>
+            <h2>硅基巴别语控制流总线</h2>
+          </div>
+          <div class="pane-actions">
+            <button type="button" id="toggleAllLensBtn" class="mini-btn">👁️ 全部中文透视</button>
+            <span class="count-pill" id="msgCountPill">0 条指令</span>
+          </div>
+        </div>
+        <div class="pane-body feed-list" id="controlFeedList">
+          <div class="empty-state">
+            <div class="empty-icon">📡</div>
+            <p>控制平面实时流待命中</p>
+            <span>智能体间全部使用高密度 <code>BT-Skeleton</code> 协议极速交接，任意消息可一键切换 <strong>👁️ 中文透视 (Sidecar Lens)</strong>。</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANE 2: Pure Native Artifact Explorer & BT-Header Memory Pool -->
+      <section class="pane pane-artifact">
+        <div class="pane-header">
+          <div>
+            <span class="plane-badge plane-2">PLANE 2 · 产物层</span>
+            <h2>100% 纯净源码产物 &amp; BT-Header 记忆池</h2>
+          </div>
+          <div class="view-tabs">
+            <button type="button" class="tab-btn active" data-view-tab="code">📄 纯净原生源码</button>
+            <button type="button" class="tab-btn" data-view-tab="header">🧠 BT-Header 摘要</button>
+            <button type="button" class="tab-btn" data-view-tab="smft">🗂️ §SMFT 记忆池</button>
+          </div>
+        </div>
+
+        <div class="artifact-workspace-bar" id="workspacePathBar">
+          <span>📁 磁盘工作区：尚未生成（运行后落盘至 <code>workspaces/&lt;runId&gt;/</code>）</span>
+        </div>
+
+        <div class="artifact-split">
+          <aside class="file-tree" id="artifactFileTree">
+            <div class="tree-empty">暂无生成文件</div>
+          </aside>
+
+          <div class="code-stage">
+            <div class="code-toolbar" id="codeToolbar">
+              <span id="activeFileTitle">选择左侧源码文件查看</span>
+              <div class="toolbar-badges" id="activeFileBadges"></div>
+            </div>
+            <pre class="code-viewer" id="artifactCodeViewer"><code>// 点击顶部「⚡ 运行极速推进实战演练」后，落盘的 100% 纯净 Java / TypeScript / Python 原生代码将实时呈现在此。
+// 您可随时在右上角切换「📄 纯净原生源码」与「🧠 BT-Header 符号头文件摘要 (~12% 内存占用)」对比双平面隔离机制！</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANE 3: Verification & Speed Telemetry -->
+      <section class="pane pane-telemetry">
+        <div class="pane-header">
+          <div>
+            <span class="plane-badge plane-verify">AUDIT &amp; TELEMETRY</span>
+            <h2>编译验收与提速战报面板</h2>
+          </div>
+          <span class="isolation-shield" id="isolationShieldBadge">🛡️ 0 BabelTele Leakage ✓</span>
+        </div>
+
+        <div class="pane-body telemetry-scroll">
+          <!-- Dual-Plane Purity Proof Card -->
+          <div class="purity-card" id="purityProofCard">
+            <div class="purity-header">
+              <span class="purity-icon" id="purityIcon">🛡️</span>
+              <div>
+                <div class="purity-title" id="purityTitle">双平面零污染硬件级隔离守卫</div>
+                <div class="purity-desc" id="purityDesc">
+                  巴别语仅存在于控制平面与跨文件头文件摘要；落盘代码经 ArtifactSanitizer 词法扫描与真机编译器双重验真。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 KPI Metrics -->
+          <div class="kpi-grid">
+            <div class="kpi-box">
+              <div class="kpi-label">控制+记忆总开销立省</div>
+              <div class="kpi-val accent-green" id="kpiTotalSaved">--%</div>
+              <div class="kpi-sub" id="kpiTotalTokensSub">o200k_base 实测</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-label">跨文件记忆压缩比</div>
+              <div class="kpi-val accent-cyan" id="kpiMemSaved">--%</div>
+              <div class="kpi-sub" id="kpiMemSub">§SMFT vs 原文硬塞</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-label">端到端推进提速比</div>
+              <div class="kpi-val accent-amber" id="kpiSpeedup">--x</div>
+              <div class="kpi-sub" id="kpiDurationSub">总线吞吐加速</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-label">原生代码纯净保真度</div>
+              <div class="kpi-val accent-emerald" id="kpiPurity">100%</div>
+              <div class="kpi-sub" id="kpiFilesSub">0 巴别语符号残留</div>
+            </div>
+          </div>
+
+          <!-- Live Head-to-Head Race Progress -->
+          <div class="telemetry-card">
+            <div class="card-title">🏁 巴别语极速总线 vs 传统自然语言总线 (Token 对比)</div>
+            <div class="race-bars">
+              <div class="race-row">
+                <div class="race-row-head">
+                  <span>⚡ BabelTele 极速总线 (Control + §SMFT)</span>
+                  <strong id="raceBtVal">0 tok</strong>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill fill-bt" id="raceBtBar" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="race-row">
+                <div class="race-row-head">
+                  <span>📝 Verbose NL 传统总线 (Chatter + 全量源码上下文)</span>
+                  <strong id="raceNlVal">0 tok</strong>
+                </div>
+                <div class="bar-track">
+                  <div class="bar-fill fill-nl" id="raceNlBar" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stage-breakdown" id="stageBreakdownList">
+              <div class="stage-placeholder">运行后展示 PM-Spec / Architect / Coder / SMFT / Verifier 分阶段实测对比</div>
+            </div>
+          </div>
+
+          <!-- Real Compiler & Runtime Verification Logs -->
+          <div class="telemetry-card">
+            <div class="card-title-row">
+              <span class="card-title">🔧 真机编译器与自测执行日志</span>
+              <span class="verify-status-tag" id="verifyStatusTag">WAITING</span>
+            </div>
+            <pre class="compiler-log" id="compilerLogBox">等待构建任务触发本地 javac / tsc / py_compile 与并发/单元自测套件...</pre>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Interactive Sidecar Lens Decoder Modal -->
+  <div class="modal-backdrop hidden" id="decoderModal">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3>🔍 Sidecar Lens · 巴别语实时中文透视实验室</h3>
+        <button type="button" id="closeDecoderModalBtn" class="mini-btn">✕ 关闭</button>
+      </div>
+      <p class="modal-tip">输入或粘贴任意控制平面 <code>BT-Skeleton</code> 报文（如 <code>#PRD[...]</code>、<code>#DRAFT[...]</code>、<code>#DIAG[...]</code>），立即执行零延迟中文工程语义解码：</p>
+      <textarea id="customDecodeInput" rows="4">#DIAG[!Fail @src/com/babeltele/shop/OrderService.java:14 ⊢ BT_SYMBOL_OPERATOR(⇒) ⇒ strip_bt_sigils &amp; rewrite_native_java]</textarea>
+      <div class="modal-actions">
+        <button type="button" id="runCustomDecodeBtn" class="launch-btn compact">⚡ 立即透视解码</button>
+      </div>
+      <pre class="decode-result-box" id="customDecodeOutput"></pre>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

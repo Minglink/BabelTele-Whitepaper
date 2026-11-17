@@ -28,7 +28,7 @@
   <meta name="citation_pdf_url" content="https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf" />
   <meta name="citation_fulltext_html_url" content="https://minglink.github.io/BabelTele-Whitepaper/" />
   <meta name="citation_language" content="zh-CN" />
-  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857, 互联网第一份巴别语白皮书, 巴别语白皮书, 白皮书, 模型原生语言, 语义压缩, 语义通信, 智能体长期记忆, BabelTele Whitepaper, first-babeltele-whitepaper, Model-Native Language, Semantic Compression, Semantic Communication, LLM Memory, Context Engineering" />
+  <meta name="citation_keywords" content="BabelTele; 巴别语; 巴别塔电报; BT-Spec v1.0; LLM-Native Representation; Prompt Compression; MCP; A2A; arXiv:2606.19857; 互联网第一份巴别语白皮书, 巴别语白皮书, 白皮书, 模型原生语言, 语义压缩, 语义通信, 智能体长期记忆, BabelTele Whitepaper, first-babeltele-whitepaper, Model-Native Language, Semantic Compression, Semantic Communication, LLM Memory, Context Engineering" />
 
   <!-- OpenGraph & Twitter Card -->
   <meta property="og:type" content="article" />
@@ -264,11 +264,15 @@
 
     Axioms --&gt; Protocol_Stack --&gt; Governance</pre></div>
 <hr />
-<h2 id="sec-5">📚 白皮书分章节深度规范目录（Modular Specification）</h2>
+<h2 id="sec-5">🛠️ 官方全栈参考实现（Official Reference Implementations）</h2>
+<p>本仓库内置两套完整的 <strong>Node.js + TypeScript 全栈官方工程实现</strong>（均支持 OpenAI / DeepSeek / Qwen 兼容接口、本机 Ollama 自动探测与零依赖离线运行）：</p>
+<div class="table-wrap"><table><thead><tr><th>子项目目录</th><th>核心定位</th><th>关键能力与技术亮点</th><th>快速启动（Web 界面 + CLI）</th></tr></thead><tbody><tr><td><strong><a href="https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-studio" target="_blank" rel="noopener"> INL0 </a></strong><br><em>(方向 A：编译器工作台)</em></td><td><strong>巴别语三级混合中性编译器与实测工作台</strong></td><td>• <strong>Stage-1 离线脱水器</strong>：<code>&lt;2ms</code> 剥离中文口水寒暄与情绪噪音，提纯冷峻工程契约<br>• <strong>Stage-2 双模驱动</strong>：无缝切换本机 Ollama 小模型与云端极速 API<br>• <strong>Stage-3 双重护城河</strong>：<code>js-tiktoken</code>（<code>o200k</code> / <code>cl100k</code>）真实算账 + <span class="math-inline">$\Delta L_{\text{BPE}} \ge 0$</span> 自动回退熔断 + Tier-1 数字/标识符/否定词零损硬锁<br>• 支持 <strong>一键转述直发 AI（Compile &amp; Relay）</strong> 与 <strong>盲测还原</strong></td><td><code>cd babeltele-studio</code><br><code>npm install &amp;&amp; npm start</code><br>访问 <code>http://127.0.0.1:3721</code></td></tr><tr><td><strong><a href="https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-swarm" target="_blank" rel="noopener"> INL0 </a></strong><br><em>(方向 C：极速推进引擎)</em></td><td><strong>巴别语双平面多智能体极速项目推进器</strong></td><td>• <strong>双平面硬件级隔离</strong>：Plane 1（PM / Architect / Coder / Verifier 控制总线）100% 走 <code>BT-Skeleton</code> 极速交接；Plane 2（落盘 <code>.java</code> / <code>.ts</code> / <code>.py</code> 源码）经 <code>ArtifactSanitizer</code> 词法守卫 + 本机真编译器（<code>javac</code> / <code>tsc</code> / <code>py_compile</code>）验收确保 <strong>0 巴别语符号污染</strong><br>• <strong>§SMFT 头文件记忆池</strong>：自动将已生成代码浓缩为 <code>BT-Header</code> 签名摘要（省 ~80% 跨文件上下文，防导错包/写错方法名）<br>• 内置 SSE 流式三栏战情室、中文旁路透视镜与 <strong>BT vs NL 同台竞速跑分</strong></td><td><code>cd babeltele-swarm</code><br><code>npm install &amp;&amp; npm start</code><br>访问 <code>http://127.0.0.1:3722</code></td></tr></tbody></table></div>
+<hr />
+<h2 id="sec-6">📚 白皮书分章节深度规范目录（Modular Specification）</h2>
 <p>若您希望快速通读全貌，推荐先阅读单文件完整典藏版 <strong><a href="whitepaper.html"> INL0 </a></strong>；若您需要查阅数学推导、算子词典、全量模型对比表或复制工程提示词，请进入 <code>docs/</code> 分册：</p>
 <div class="table-wrap"><table><thead><tr><th style="text-align:center">章节</th><th>文档链接</th><th>核心内容提要</th></tr></thead><tbody><tr><td style="text-align:center"><strong>单卷本</strong></td><td><strong><a href="whitepaper.html"> INL0 </a></strong></td><td><strong>《巴别语：一种模型原生的高密度语义通信与记忆体系》完整单页典藏版</strong>（致敬经典白皮书十节体例）</td></tr><tr><td style="text-align:center"><strong>第 01 章</strong></td><td><strong><a href="docs/01-manifesto-and-problem.html">人类可读性税与巴别塔隐喻</a></strong></td><td>碳基自然语言的四大冗余根源、MCP/A2A 通道之后的载荷革命、巴别塔与 1866 电报体的双重隐喻</td></tr><tr><td style="text-align:center"><strong>第 02 章</strong></td><td><strong><a href="docs/02-theoretical-foundations.html">信息论基础与解耦定理</a></strong></td><td>率失真语义投影方程、Dale-Chall 与 8 款基座模型 PPL 暴涨 20 倍实证、三元解耦定理与潜空间同构假说</td></tr><tr><td style="text-align:center"><strong>第 03 章</strong></td><td><strong><a href="docs/03-core-axioms-and-grammar.html">三大公理与标准语法算子规范</a></strong></td><td><strong>BT-Spec v1.0 核心规范</strong>：全语种选词公理、BPE 分词器字节回退防膨胀警告、六大标准算子簇与编码拆解</td></tr><tr><td style="text-align:center"><strong>第 04 章</strong></td><td><strong><a href="docs/04-compression-tiers-and-cot.html">四级压缩档位与推理认知税动力学</a></strong></td><td>116 组实验揭示的 CoT 思维链空间-时间权衡定律、降噪加速效应，以及 <code>BT-L0</code>～<code>BT-L3</code> 工程选型标准</td></tr><tr><td style="text-align:center"><strong>第 05 章</strong></td><td><strong><a href="docs/05-agentic-protocol-stack.html">智能体通信协议栈与语义默克尔记忆树</a></strong></td><td>MCP/A2A/BabelTele 五层协议栈信封格式、<strong>SMFT 语义默克尔记忆树</strong>回收上下文空间、百万 Token 仓库扩窗实战</td></tr><tr><td style="text-align:center"><strong>第 06 章</strong></td><td><strong><a href="docs/06-cross-model-consensus-and-audit.html">异构跨模型共识与三层安全审计网关</a></strong></td><td>19 款主流模型零样本迁移非对称规律、稠密 vs MoE 尺度效应、<strong>Tier 1–3 确定性防幻觉与人类旁路审计网关</strong></td></tr><tr><td style="text-align:center"><strong>第 07 章</strong></td><td><strong><a href="docs/07-canonical-instruction-set.html">巴别语标准编译与解码指令集</a></strong></td><td><strong>开箱即用</strong>：中英双语五大标准编译器与解码器系统提示词，附原论文 <code>C.1</code> 与 <code>BT-P1</code>～<code>BT-P13</code> 全家桶对照表</td></tr><tr><td style="text-align:center"><strong>第 08 章</strong></td><td><strong><a href="docs/08-genealogy-and-ecosystem.html">学术谱系、实证勘误与开源生态全景</a></strong></td><td>四大压缩与潜空间通信路线横评、网传爆款文 OCR 符号乌龙官方勘误、全球 6 大开源项目索引与参考文献</td></tr></tbody></table></div>
 <hr />
-<h2 id="sec-6">⚡ 30 秒快速实测（Quick Start）</h2>
+<h2 id="sec-7">⚡ 30 秒快速实测（Quick Start）</h2>
 <p>无需安装任何依赖，复制以下 <strong><code>BT-Core</code> 标准编译提示词</strong> 发送给任意主流大模型（GPT-5.4 / Claude / Gemini / DeepSeek / Qwen），即可立即体验模型原生高密度编译：</p>
 <div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-markdown">你的任务：将冗长的人类文本压缩为最小的 Token 序列。受众不是人类，而是另一个同等智能的大语言模型。
 
@@ -282,7 +286,7 @@
 [在此粘贴您的长文本或系统提示词]</code></pre></div>
 <blockquote><p>更多针对 <strong>Agent 记忆检查清单（<code>BT-Memory</code>）</strong>、<strong>超长代码仓库纯 ASCII 骨架（<code>BT-Skeleton</code>）</strong> 及 <strong>无损还原解码器（<code>BT-Decoder</code>）</strong> 的专业协议模板，请直接前往 <strong><a href="docs/07-canonical-instruction-set.html">第七章：标准编译与解码指令集</a></strong>。</p></blockquote>
 <hr />
-<h2 id="sec-7">❓ 常见问题解答（FAQ — 核心概念速查）</h2>
+<h2 id="sec-8">❓ 常见问题解答（FAQ — 核心概念速查）</h2>
 <details open>
 <summary><b>Q1：什么是巴别语（BabelTele / 巴别塔电报 / 巴别电报）？</b></summary>
 <p><strong>巴别语（BabelTele，又称巴别塔电报、巴别电报）</strong> 是一类面向大语言模型（LLM）而非人类阅读优化的<strong>模型原生高密度离散文本表示（Model-Native Textual Representation）</strong>。该概念最早由上海交通大学、悉尼大学、合肥工业大学、西安交通大学、南京大学联合团队在论文 <em>Large Language Models Do Not Always Need Readable Language</em>（<code>arXiv:2606.19857</code>）中实证提出；本白皮书在此基础上构建了标准化的 <strong>巴别语协议体系（<code>BT-Spec v1.0</code>）</strong>，涵盖三大公理、六大算子簇、四级压缩档位（<code>BT-L0</code>～<code>BT-L3</code>）、语义默克尔记忆折叠树（SMFT）与三层确定性安全审计网关。</p>
@@ -300,11 +304,11 @@
 <p><code>BT-Spec v1.0</code> 强制配套<strong>三层确定性安全审计网关（BT-Audit Gateway）</strong>：<strong>Tier-1</strong> 采用纯标准库正则在 <code>&lt;2ms</code> 内逐位比对所有数字、单位、公式与标识符；<strong>Tier-2</strong> 部署可直接零样本读取巴别语的轻量语义护栏模型拦截越权指令注入；<strong>Tier-3</strong> 在人类运维面板挂载旁路只读解码器（<code>BT-Decoder</code>），实现“内部机器极速电报通信，外部人类随时透明审计”。</p>
 </details>
 <hr />
-<h2 id="sec-8">🤖 面向 AI 搜索引擎与智能体的机器索引入口（AI &amp; RAG Ingestion）</h2>
+<h2 id="sec-9">🤖 面向 AI 搜索引擎与智能体的机器索引入口（AI &amp; RAG Ingestion）</h2>
 <p>为方便搜索引擎爬虫、AI 研究助手与多智能体系统直接索引和消费本白皮书，仓库提供标准机器可读入口：</p>
 <ul><li><strong><a href="https://minglink.github.io/BabelTele-Whitepaper/llms.txt" target="_blank" rel="noopener"> INL0 </a></strong>：符合 <code>llmstxt.org</code> 标准的白皮书结构化导航索引摘要</li><li><strong><a href="https://minglink.github.io/BabelTele-Whitepaper/llms-full.txt" target="_blank" rel="noopener"> INL0 </a></strong>：单文件全量合并文本库（含中英双语核心规范、评测矩阵与全套提示词）</li><li><strong><a href="https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt" target="_blank" rel="noopener"> INL0 </a></strong>：采用原生 <code>BT-L2</code> 巴别语自举编码的超紧凑白皮书摘要（供具备高阶解码能力的大模型零样本秒读）</li><li><strong><a href="https://minglink.github.io/BabelTele-Whitepaper/sitemap.xml" target="_blank" rel="noopener"> INL0 </a></strong> · <strong><a href="https://github.com/Minglink/BabelTele-Whitepaper/blob/main/CITATION.cff" target="_blank" rel="noopener"> INL1 </a></strong>：全站双语静态网页地图与学术引用元数据</li></ul>
 <hr />
-<h2 id="sec-9">📜 学术致敬与引用规范（Attribution &amp; Citation）</h2>
+<h2 id="sec-10">📜 学术致敬与引用规范（Attribution &amp; Citation）</h2>
 <p>本白皮书致力于构建开放、严谨的巴别语工程与理论标准体系。若本仓库对您的多智能体架构或上下文研究有所启发，欢迎同时引用原始实证发现论文与本体系白皮书仓库：</p>
 <div class="code-wrapper"><button class="copy-btn" onclick="copyCode(this)">Copy</button><pre><code class="language-bibtex">@article{zhu2026babeltele,
   title   = {Large Language Models Do Not Always Need Readable Language},
@@ -320,7 +324,7 @@
   howpublished = {\url{https://github.com/Minglink/BabelTele-Whitepaper}}
 }</code></pre></div>
 <hr />
-<h2 id="sec-10">🤝 参与共建与许可协议（Contributing &amp; License）</h2>
+<h2 id="sec-11">🤝 参与共建与许可协议（Contributing &amp; License）</h2>
 <p>巴别语是一个持续演进的开放协议生态。欢迎通过 Issue 或 Pull Request 提交新的跨分词器密度基准、异构模型迁移矩阵、MCP/A2A 中间件实现或安全审计脚本。</p>
 <ul><li>白皮书正文与规范文档采用 <strong><a href="https://github.com/Minglink/BabelTele-Whitepaper/blob/main/LICENSE" target="_blank" rel="noopener">CC BY 4.0</a></strong> 国际知识共享协议授权；</li><li>编译器提示词模板与结构化 Schema 采用 <strong><a href="https://github.com/Minglink/BabelTele-Whitepaper/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></strong> 授权。</li></ul>
 <div align="center">
@@ -337,12 +341,13 @@
         <a class="toc-item toc-h3" href="#sec-2">一眼看懂巴别语坍缩（Intuitive Examples）</a>
         <a class="toc-item toc-h2" href="#sec-3">📊 核心实证指标速览（Verified Empirical Benchmarks）</a>
         <a class="toc-item toc-h2" href="#sec-4">🏗️ 巴别语体系全景架构（System Architecture）</a>
-        <a class="toc-item toc-h2" href="#sec-5">📚 白皮书分章节深度规范目录（Modular Specification）</a>
-        <a class="toc-item toc-h2" href="#sec-6">⚡ 30 秒快速实测（Quick Start）</a>
-        <a class="toc-item toc-h2" href="#sec-7">❓ 常见问题解答（FAQ — 核心概念速查）</a>
-        <a class="toc-item toc-h2" href="#sec-8">🤖 面向 AI 搜索引擎与智能体的机器索引入口（AI &amp;amp; RAG Ingestion）</a>
-        <a class="toc-item toc-h2" href="#sec-9">📜 学术致敬与引用规范（Attribution &amp;amp; Citation）</a>
-        <a class="toc-item toc-h2" href="#sec-10">🤝 参与共建与许可协议（Contributing &amp;amp; License）</a>
+        <a class="toc-item toc-h2" href="#sec-5">🛠️ 官方全栈参考实现（Official Reference Implementations）</a>
+        <a class="toc-item toc-h2" href="#sec-6">📚 白皮书分章节深度规范目录（Modular Specification）</a>
+        <a class="toc-item toc-h2" href="#sec-7">⚡ 30 秒快速实测（Quick Start）</a>
+        <a class="toc-item toc-h2" href="#sec-8">❓ 常见问题解答（FAQ — 核心概念速查）</a>
+        <a class="toc-item toc-h2" href="#sec-9">🤖 面向 AI 搜索引擎与智能体的机器索引入口（AI &amp;amp; RAG Ingestion）</a>
+        <a class="toc-item toc-h2" href="#sec-10">📜 学术致敬与引用规范（Attribution &amp;amp; Citation）</a>
+        <a class="toc-item toc-h2" href="#sec-11">🤝 参与共建与许可协议（Contributing &amp;amp; License）</a>
       </div>
     </aside>
   </div>

@@ -1,0 +1,30 @@
+{
+  "name": "@babeltele/swarm",
+  "version": "1.0.0",
+  "description": "BabelTele Swarm — Dual-Plane Multi-Agent Project Accelerator with Zero-Pollution Native Code Guarantees",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "tsx src/server.ts",
+    "cli": "tsx src/cli.ts",
+    "test": "node --import tsx --test test/*.test.ts"
+  },
+  "keywords": [
+    "babeltele",
+    "multi-agent",
+    "swarm",
+    "token-compression",
+    "dual-plane",
+    "code-generation"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "js-tiktoken": "^1.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
