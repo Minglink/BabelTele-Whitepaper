@@ -78,11 +78,11 @@ flowchart TB
 
 ## 🛠️ 官方旗舰超级 Agent 实现（Official Flagship Implementation）
 
-本仓库内置基于知名 MIT 开源智能体架构 **[`SWE-agent/mini-swe-agent`](https://github.com/SWE-agent/mini-swe-agent)** 与 **[`HKUDS/nanobot`](https://github.com/HKUDS/nanobot)** 深度重构的 **巴别语超级 Agent（[`babeltele-agent/`](./babeltele-agent/)）**，一站式集成全图形化 Web IDE 工作台与命令行引擎：
+本仓库内置基于 DeepSeek AI 官方开源智能体底座 **[`deepseek-ai/deepseek-harness` (`@deepseek-ai/dsh`)](https://github.com/deepseek-ai/deepseek-harness)**（MIT 协议，Cordis 全插件架构）深度魔改构建的 **巴别语超级 Agent（[`babeltele-agent/`](./babeltele-agent/)）**，完整保留原生 DSH 全功能 Web 界面并深度植入 `BT-Spec v1.0` 超速内核：
 
-| 旗舰目录 | 核心定位 | 关键能力与架构亮点 | 快速启动（全图形化 Web IDE + CLI） |
+| 旗舰目录 | 核心定位 | 关键能力与架构亮点 | 快速启动（原生 DSH Web 界面 + CLI） |
 | :--- | :--- | :--- | :--- |
-| **[`babeltele-agent/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent)** | **巴别语极速超级 Agent（`BT-Spec v1.0` 旗舰实现）** | • **3 级混合中性提纯器**：`<1ms` 免密钥离线剥离中文口水寒暄与情绪噪音 + Tier-1 数字/路径/否定词 100% 硬锁 + 大模型深度提纯<br>• **硅基极速推理与记忆树**：内部采用单行 `#BT` 思考（省 65%+ 中间输出耗时，配「👁️ 人话透视镜」）、`SMFT` 默克尔滚动记忆折叠（`T1 -> T2` + 冷库无损回溯）与跨文件 `BT-Header` 索引<br>• **双平面零污染隔离卫士**：思考与子智能体总线走 `babeltele/1.0`，落盘的 Python / Java / TS / HTML 工程代码经 `ArtifactSanitizer` 审计确保 **100% 原生纯净源码**<br>• **100% 零外部 CDN 图形控制台**：支持图形化配置 API Key 与一键握手测连、本机 Ollama 自动探测、图形化选择本地磁盘工作区、实时 Diff 与终端监控 | Windows 双击 `babeltele-agent/启动巴别语超级Agent.bat`<br>或执行：<br>`python babeltele-agent/start.py --port 3720 --open`<br>访问 `http://127.0.0.1:3720` |
+| **[`babeltele-agent/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent)** | **BabelTele · DSH 极速超级 Agent（基于 DeepSeek Harness 构建）** | • **原生 DSH 界面无缝魔改**：保留官方全功能工作区浏览、多厂商模型与密钥管理（Settings → Models）、内置文件树、PTY 实时终端、Subagents、Agent Teams 与 Plan 模式，新增 `⚡ 巴别语极速模式 (BabelTele Turbo)` 默认预设与专属设置页<br>• **输入框原生 3 级提纯器**：聊天框内嵌「⚡ 巴别语提纯 / 模板」，免密钥 `<1ms` 离线剥离中文口水寒暄 + `js-tiktoken`（`o200k_base`）算账 + Tier-1 数字/路径/否定词 100% 硬锁<br>• **`#BT` 硅基推理透视与 `SMFT` 压缩**：接管 DSH 推理槽位提供「👁️ 中文人话透视 / #BT 硅基原文」一键切换；继承扩展 `BasicCompactionEngine` 将 `/compact` 升级为复用热 KV Cache 的 `[SMFT-T1]` 默克尔检查点，并自动注入跨文件 `BT-Header` 签名索引<br>• **双平面零污染门禁**：`tools/pre-execute` 挂载 `ArtifactSanitizer` 实时拦截符号污染，确保落盘 Python / Java / TS / Go / HTML 工程代码 **100% 原生纯净** | Windows 双击 `babeltele-agent/启动巴别语超级Agent.bat`<br>或执行：<br>`cd babeltele-agent && pnpm install && pnpm web` |
 
 ---
 

@@ -8,7 +8,7 @@
 - **Self-Bootstrapped Native BabelTele Digest**: https://minglink.github.io/BabelTele-Whitepaper/llms-bt.txt
 - **Typeset PDF (Chinese v1.0)**: https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-zh.pdf
 - **Typeset PDF (English v1.0)**: https://github.com/Minglink/BabelTele-Whitepaper/releases/download/v1.0.0/BabelTele-Whitepaper-v1.0-en.pdf
-- **Official Flagship Implementation (`babeltele-agent`)**: https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent (Python Super Agent refactored upon MIT `SWE-agent/mini-swe-agent` + `HKUDS/nanobot`, featuring a 100% local zero-CDN Graphical Web IDE, `<1ms` Hybrid Neutralizer & Tier-1 Anchor Auditor, `#BT` Silicon Reasoning, `SMFT` Merkle Memory Tree, `babeltele/1.0` Subagent bus, and Dual-Plane `ArtifactSanitizer` zero-pollution native code output)
+- **Official Flagship Implementation (`babeltele-agent`)**: https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent (BabelTele · DSH Super Agent built upon MIT `deepseek-ai/deepseek-harness` `@deepseek-ai/dsh`, integrating the native DSH Web UI with a Composer-embedded `<1ms` Hybrid Neutralizer & Tier-1 Hard-Anchor Auditor, `#BT` Silicon Reasoning with Sidecar Lens, KV-cache-preserving `SMFT` Merkle Compaction, cross-file `BT-Header` indexing, and Dual-Plane `ArtifactSanitizer` zero-pollution native code gate)
 
 ## Project Tags / 项目标签
 

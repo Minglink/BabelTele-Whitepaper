@@ -1,6 +1,8 @@
 MIT License
 
-Copyright (c) 2026 MingLin (@Minglink)
+Copyright (c) 2026 MingLin (@Minglink) & BabelTele Contributors
+Built upon DeepSeek Harness (`@deepseek-ai/dsh`, Copyright (c) 2026 DeepSeek-AI, MIT License)
+and Cordis (`@deepseek-ai/cordis`, MIT License).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,12 +21,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-Upstream Open-Source Attributions (MIT License):
-This project refactors and builds upon architectural patterns from:
-1. SWE-agent/mini-swe-agent (Copyright (c) Princeton NLP / SWE-agent Team, MIT License)
-   https://github.com/SWE-agent/mini-swe-agent
-2. HKUDS/nanobot (Copyright (c) HKUDS Lab, MIT License)
-   https://github.com/HKUDS/nanobot

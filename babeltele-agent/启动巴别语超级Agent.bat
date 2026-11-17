@@ -1,11 +1,14 @@
 @echo off
 chcp 65001 >nul
-title BabelTele Super Agent - 巴别语极速超级 Agent 图形控制台
+title BabelTele DSH Super Agent - 基于 DeepSeek Harness 深度魔改版
 cd /d "%~dp0"
-echo ====================================================================
-echo   ⚡ 正在启动 BabelTele Super Agent (巴别语极速超级 Agent 图形工作台)
-echo   🌐 浏览器将自动打开: http://127.0.0.1:3720
-echo   💡 提示: 关闭此黑色窗口即可停止后台服务
-echo ====================================================================
-python start.py --port 3720 --open
+echo ========================================================================
+echo   ⚡ 正在启动 BabelTele · DSH Super Agent (基于 DeepSeek Harness 构建)
+echo   🌐 启动完成后将自动在默认浏览器打开带安全鉴权的官方 Web 界面
+echo ========================================================================
+if not exist "node_modules" (
+  echo 首次运行，正在通过 pnpm 安装依赖...
+  call pnpm install
+)
+node scripts/launch.mjs web
 pause

@@ -1,0 +1,23 @@
+{
+  "name": "babeltele-dsh-agent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BabelTele Super Agent — Deeply modded upon DeepSeek Harness (DSH) with BT-Spec v1.0 Silicon Reasoning, Neutralizer, SMFT Compaction & Dual-Plane Code Guard",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "node scripts/launch.mjs web",
+    "web": "node scripts/launch.mjs web",
+    "headless": "node scripts/launch.mjs headless",
+    "dump-config": "node scripts/launch.mjs --dump-config",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@babeltele/dsh-plugin": "workspace:*",
+    "@deepseek-ai/dsh": "0.2.2-rc.4",
+    "js-tiktoken": "^1.0.21"
+  }
+}

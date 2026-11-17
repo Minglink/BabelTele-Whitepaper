@@ -11,6 +11,7 @@ releases/
 # Subprojects build, runtime sandboxes & private user API configs
 **/node_modules/
 **/dist/
+babeltele-agent/.dsh-home/
 babeltele-agent/.bt_agent_config.json
 babeltele-agent/workspaces/
 *.env

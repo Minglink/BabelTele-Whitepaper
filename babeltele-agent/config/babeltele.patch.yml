@@ -1,0 +1,154 @@
+# BabelTele Super Agent Overlay Patch over DeepSeek Harness (`dsh`)
+# Loaded via `--patch ./config/babeltele.patch.yml`
+
+# 1. Disable official DeepSeek whale brand to mount BabelTele · DSH brand cleanly (per DSH Brand Guidelines)
+- id: ui-brand-official
+  disabled: true
+
+# 2. Pin the responsive in-browser graphical directory picker so "Choose workspace" always opens inside the Web UI
+- id: directory-picker
+  disabled: true
+
+# 3. Default Web port 3720 (overridable via `--port <n>`)
+- id: webserver
+  inject: [webStartup]
+  config:
+    host: !!js ctx.webStartup.host ?? '127.0.0.1'
+    port: !!js ctx.webStartup.port ?? 3720
+    tls: !!js ctx.webStartup.tls
+    compression: gzip
+    compressionLevel: 1
+    compressionThresholdBytes: 1024
+
+# 4. Set `babeltele` as the default Agent Preset for every new Session (while keeping `standard`, `ptc`, `minimal` selectable for A/B comparison)
+- id: agent-preset-registry
+  config:
+    default: babeltele
+
+# 5. Insert In-Browser Directory Picker, BabelTele Host+Client UI Mod, and the `babeltele` Flagship Agent Preset
+- insert:
+    - id: directory-picker-browse
+      name: '@deepseek-ai/dsh-host-directory-picker-browse'
+    - id: ui-directory-picker-browse
+      name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
+
+    - id: babeltele-mod
+      name: '{{BT_PLUGIN_URL}}/src/host/index.mjs'
+
+    - id: preset-babeltele
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: babeltele
+        name: ⚡ 巴别语极速模式 (BabelTele Turbo)
+        description: 启用 BT-Spec v1.0 硅基极速思考、输入脱水提纯、SMFT 默克尔记忆折叠与双平面零污染源码卫士
+        order: 0
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: You are the BabelTele Super Agent powered by the {{model}} model on DeepSeek Harness (DSH).
+          - id: babeltele-agent-kernel
+            name: '{{BT_PLUGIN_URL}}/src/host/agent-kernel.mjs'
+          - id: agent-instructions
+            name: '@deepseek-ai/dsh-agent-instructions'
+            config:
+              maxBytes: 65536
+          - id: time-context
+            name: '@deepseek-ai/dsh-time-context'
+          - id: tool-bash
+            name: '@deepseek-ai/dsh-tool-bash'
+            disabled: !!js process.platform === 'win32'
+          - id: tool-pwsh
+            name: '@deepseek-ai/dsh-tool-pwsh'
+            disabled: !!js process.platform !== 'win32'
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+            config:
+              applyPatch: false
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              sampleOverCapGlobResults: false
+          - id: tool-jobs
+            name: '@deepseek-ai/dsh-tool-jobs'
+          - id: tool-schedule
+            name: '@deepseek-ai/dsh-tool-schedule'
+          - id: skill-filesystem
+            name: '@deepseek-ai/dsh-skill-filesystem'
+          - id: tool-skill
+            name: '@deepseek-ai/dsh-tool-skill'
+          - id: command-goal
+            name: '@deepseek-ai/dsh-command-goal'
+          - id: tool-goal
+            name: '@deepseek-ai/dsh-tool-goal'
+          - id: planning
+            name: cordis:group
+            group: true
+            isolate:
+              planMode: true
+            config:
+              - id: plan-mode
+                name: '@deepseek-ai/dsh-plan-mode'
+                config:
+                  section: |
+                    You are in plan mode. Stay in plan mode until the user approves your plan through exit_plan_mode or switches the session mode.
+                    Explore first using non-mutating reads and searches. Do not edit or write files during plan mode.
+                    When ready, call exit_plan_mode with the complete plan markdown starting with a # title.
+          - id: compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+              toolResultPruner: true
+            config:
+              - id: compaction-smft
+                name: '{{BT_PLUGIN_URL}}/src/host/smft-compaction.mjs'
+              - id: command-compact
+                name: '@deepseek-ai/dsh-command-compact'
+              - id: tool-result-pruner
+                name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+                config:
+                  thresholdChars: 8192
+                  headChars: 4096
+                  tailChars: 1024
+          - id: delegation
+            name: cordis:group
+            group: true
+            isolate:
+              workflowEngine: true
+            config:
+              - id: tool-subagent-control
+                name: '@deepseek-ai/dsh-tool-subagent-control'
+                config:
+                  interrupt: false
+              - id: tool-subagent
+                name: '@deepseek-ai/dsh-tool-subagent'
+                config:
+                  provider: spawn
+                  toolName: subagent
+                  modelSelection: true
+                  modelDiscovery: true
+              - id: tool-subagent-fork
+                name: '@deepseek-ai/dsh-tool-subagent'
+                config:
+                  provider: fork
+                  toolName: subagent_fork
+              - id: workflow-ptc
+                name: '@deepseek-ai/dsh-workflow-ptc'
+                config:
+                  provider: spawn
+              - id: tool-workflow
+                name: '@deepseek-ai/dsh-tool-workflow'
+          - id: tool-ask-user
+            name: '@deepseek-ai/dsh-tool-ask-user'
+          - id: tool-todo
+            name: '@deepseek-ai/dsh-tool-todo'
+            config:
+              allowParallelInProgress: true
+          - id: tool-web
+            name: '@deepseek-ai/dsh-tool-web'
+            config:
+              fetch: true
+              searchTimeoutMs: 60000
+          - id: present
+            name: '@deepseek-ai/dsh-tool-present'

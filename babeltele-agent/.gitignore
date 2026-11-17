@@ -1,8 +1,8 @@
-.bt_agent_config.json
+node_modules/
+.dsh-home/
 workspaces/
-__pycache__/
-*.py[cod]
-.pytest_cache/
 dist/
-build/
-*.egg-info/
+*.log
+.env
+.env.*
+!.env.example

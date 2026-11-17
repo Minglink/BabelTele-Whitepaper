@@ -1,0 +1,36 @@
+{
+  "name": "@babeltele/dsh-plugin",
+  "version": "1.0.0",
+  "description": "BabelTele (BT-Spec v1.0) Kernel & Web UI Mod Plugin for DeepSeek Harness (DSH)",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/host/index.mjs",
+  "exports": {
+    ".": "./src/host/index.mjs",
+    "./agent": "./src/host/agent-kernel.mjs",
+    "./smft-compaction": "./src/host/smft-compaction.mjs",
+    "./protocol": "./src/protocol/babeltele-core.mjs",
+    "./client": "./src/client/client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "dependencies": {
+    "@deepseek-ai/cordis": "~4.1.0",
+    "@deepseek-ai/dsh-compaction-basic": "0.2.2-rc.4",
+    "@deepseek-ai/dsh-llm": "0.2.2-rc.4",
+    "js-tiktoken": "^1.0.21"
+  }
+}
