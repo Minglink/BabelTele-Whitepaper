@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BabelTele Super Agent · 巴别语极速超级 Agent 工作台</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <!-- Top Header Bar -->
+  <header class="topbar">
+    <div class="brand-group">
+      <div class="brand-logo" aria-hidden="true">⚡</div>
+      <div>
+        <div class="brand-title">
+          BabelTele Super Agent
+          <span class="version-pill">BT-Spec v1.0</span>
+        </div>
+        <div class="brand-sub">开源 SWE-agent + nanobot 重构内核 · 双平面零污染极速推进器</div>
+      </div>
+    </div>
+
+    <div class="topbar-center">
+      <button id="btnOpenWorkspaceModal" class="ws-selector" title="点击图形化选择或新建本地项目文件夹">
+        <span class="ws-icon">📂</span>
+        <span class="ws-label-prefix">工作区:</span>
+        <span id="currentWorkspaceLabel" class="ws-path">加载中...</span>
+        <span class="ws-change-tag">切换/新建</span>
+      </button>
+
+      <div class="mode-switch" role="group" aria-label="思考内核模式切换">
+        <button id="btnModeBT" class="mode-btn active" data-mode="bt" title="内部推理、记忆折叠、子智能体通信全走巴别语极速协议，落盘代码保持100%纯正源码">
+          ⚡ 巴别语极速内核
+        </button>
+        <button id="btnModeVerbose" class="mode-btn" data-mode="verbose" title="切换为传统冗长自然语言思考基线，用于直观对比速度与 Token 消耗">
+          🐢 常规自然语言基线
+        </button>
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <button id="btnApiStatus" class="status-pill unconfigured" title="点击配置或切换大模型 API">
+        <span id="statusDot" class="status-dot"></span>
+        <span id="statusText">检测配置中...</span>
+      </button>
+      <button id="btnOpenSettings" class="icon-action-btn primary-outline">
+        ⚙️ 模型与密钥
+      </button>
+      <button id="btnToggleTheme" class="icon-action-btn" title="切换深色 / 浅色外观">
+        🌗
+      </button>
+    </div>
+  </header>
+
+  <!-- Main 3-Column IDE Layout -->
+  <main class="ide-grid">
+    <!-- Left Sidebar: Workspace Explorer + Starter Templates -->
+    <aside class="sidebar-left">
+      <section class="panel-section files-section">
+        <div class="section-header">
+          <span>📁 项目文件树</span>
+          <button id="btnRefreshFiles" class="mini-btn" title="刷新工作区文件列表">🔄 刷新</button>
+        </div>
+        <div id="workspaceFullHint" class="ws-full-hint"></div>
+        <div id="fileTreeList" class="file-tree-list">
+          <div class="empty-hint">工作区暂无文件，派遣 Agent 后将实时生成</div>
+        </div>
+      </section>
+
+      <section class="panel-section templates-section">
+        <div class="section-header">
+          <span>🚀 一键实测任务模板</span>
+        </div>
+        <div class="template-list">
+          <button class="template-card" data-tpl="rate_limiter">
+            <div class="tpl-title">🧪 模板1：口水话脱水 + Python 模块与单测闭环</div>
+            <div class="tpl-desc">含大量情绪抱怨的真实需求：自动提纯巴别语 ➔ 编写令牌桶限流器与单元测试 ➔ 自动跑通测试</div>
+          </button>
+          <button class="template-card" data-tpl="java_pure">
+            <div class="tpl-title">🛡️ 模板2：双平面零污染验证 (Java / HTML)</div>
+            <div class="tpl-desc">思考层用 `#BT` 极速推进，验证产出的 `OrderValidator.java` 与可视化面板源码 100% 纯正无污染</div>
+          </button>
+          <button class="template-card" data-tpl="subagent_audit">
+            <div class="tpl-title">🐝 模板3：子智能体 `babeltele/1.0` 协同巡检</div>
+            <div class="tpl-desc">主 Agent 扫描当前工作区并委派 Subagent 走巴别语通信总线完成代码质量与边界审计</div>
+          </button>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Center Column: Live Execution Stream + Neutralizer & Prompt Composer -->
+    <section class="center-stage">
+      <div class="stream-toolbar">
+        <div class="run-state-group">
+          <span id="runStateBadge" class="run-badge idle">● 空闲待命</span>
+          <span id="quickSavedStat" class="quick-stat">累计省流: <strong>0</strong> tok</span>
+          <span id="quickPurityStat" class="quick-stat purity-ok">🛡️ 双平面源码纯净度: <strong>100%</strong></span>
+        </div>
+        <div class="stream-actions">
+          <button id="btnStopAgent" class="danger-btn hidden">⏹️ 停止执行</button>
+          <button id="btnResetSession" class="mini-btn" title="清空当前对话流与短期记忆（不会删除磁盘已生成的项目文件）">🧹 清空会话</button>
+        </div>
+      </div>
+
+      <!-- Execution Stream Container -->
+      <div id="executionStream" class="execution-stream">
+        <div id="welcomeCard" class="welcome-card">
+          <div class="welcome-header">
+            <span class="welcome-badge">官方旗舰架构</span>
+            <h2>欢迎使用巴别语超级 Agent (BabelTele Super Agent)</h2>
+          </div>
+          <p class="welcome-lead">
+            基于知名开源架构 <strong>SWE-agent/mini-swe-agent</strong> 与 <strong>HKUDS/nanobot</strong> 深度重构：人类只管输入中文自然语言，内部自动启用 <code>#BT</code> 硅基思考、<code>SMFT</code> 默克尔记忆折叠与双平面隔离，<strong>推理提速省流 60%+，而落盘的 Python / Java / TS / 前端工程代码 100% 原生纯净！</strong>
+          </p>
+          <div class="onboarding-steps">
+            <div class="ob-step">
+              <div class="ob-num">1</div>
+              <div>
+                <strong>配置模型（或直接离线测提纯）</strong>
+                <p>下方「⚡ 巴别语中性提纯」无需任何密钥即可 <code>&lt;2ms</code> 离线实测；点击右上角「⚙️ 模型与密钥」填入 DeepSeek / 通义千问 / OpenAI 或探测本机 Ollama 即可驱动全自动写代码跑测试。</p>
+              </div>
+            </div>
+            <div class="ob-step">
+              <div class="ob-num">2</div>
+              <div>
+                <strong>指定任意本地项目目录</strong>
+                <p>点击顶部「📂 工作区」可图形化浏览电脑磁盘、选定现有工程或一键新建空白项目沙箱。</p>
+              </div>
+            </div>
+            <div class="ob-step">
+              <div class="ob-num">3</div>
+              <div>
+                <strong>全程可视化透视与源码 Diff 审计</strong>
+                <p>每一步硅基思考均带「👁️ 人话透视」开关，右侧面板实时呈现文件 Diff、终端输出与 Token 真实账单。</p>
+              </div>
+            </div>
+          </div>
+          <div class="welcome-cta-row">
+            <button id="btnWelcomeConfig" class="primary-btn">⚙️ 第一步：配置 API Key / 探测本机模型</button>
+            <button id="btnWelcomeTryOffline" class="secondary-btn">⚡ 免密钥立即体验「口水话转巴别语提纯」</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neutralizer Live Audit Drawer (appears on demand) -->
+      <div id="neutralizerPreview" class="neutralizer-preview hidden">
+        <div class="np-header">
+          <div class="np-title">
+            <span>⚡ 巴别语中性提纯结果</span>
+            <span id="npEngineBadge" class="tag-pill">offline-rule</span>
+            <span id="npTokenBadge" class="tag-pill success">-0% BPE Tokens</span>
+            <span id="npAnchorBadge" class="tag-pill info">锚点硬锁 100%</span>
+          </div>
+          <button id="btnCloseNeutralPreview" class="mini-btn">✕ 关闭</button>
+        </div>
+        <div id="npOutputCode" class="np-code"></div>
+        <div id="npAnchorDetail" class="np-anchors"></div>
+        <div class="np-actions">
+          <button id="btnApplyNeutral" class="primary-btn sm">✅ 填入输入框并准备执行</button>
+          <button id="btnDeepLlmNeutral" class="secondary-btn sm" title="使用已配置的大模型进行深度形式化语义提纯">🧠 用大模型深度提纯</button>
+          <button id="btnRestoreOriginal" class="mini-btn">↩️ 还原刚才的原话</button>
+        </div>
+      </div>
+
+      <!-- Prompt Composer -->
+      <div class="composer-box">
+        <textarea
+          id="promptInput"
+          rows="3"
+          placeholder="直接输入任何中文需求（哪怕带口水话或复杂约束），按 Ctrl + Enter 派遣超级 Agent 自动建文件、写代码、跑命令测试..."
+        ></textarea>
+        <div class="composer-footer">
+          <div class="composer-options">
+            <label class="checkbox-label" title="开启后，发送给 Agent 前自动剥离寒暄与情绪宣泄词并锁定精确数字/路径锚点">
+              <input type="checkbox" id="chkAutoNeutralize" checked />
+              <span>发送前自动脱水提纯</span>
+            </label>
+            <label class="checkbox-label" title="自动在每张 #BT 硅基思考卡片下方展示中文人话直译">
+              <input type="checkbox" id="chkAutoSidecar" checked />
+              <span>默认展开「👁️ 人话透视」</span>
+            </label>
+          </div>
+          <div class="composer-buttons">
+            <button id="btnNeutralizeOnly" class="secondary-btn" title="无需 API Key 亦可毫秒级离线把中文需求转为中性巴别语并核算真实 Token">
+              ⚡ 巴别语中性提纯
+            </button>
+            <button id="btnRunAgent" class="primary-btn">
+              🚀 派遣超级 Agent 执行
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: DevTools Inspector (Diffs, Terminal, SMFT Memory, File Viewer) -->
+    <aside class="sidebar-right">
+      <div class="inspector-tabs" role="tablist">
+        <button class="insp-tab active" data-tab="diffs">📝 Diff 变更 <span id="badgeDiffCount" class="tab-count">0</span></button>
+        <button class="insp-tab" data-tab="terminal">💻 终端 <span id="badgeTermCount" class="tab-count">0</span></button>
+        <button class="insp-tab" data-tab="memory">🌳 记忆与账单</button>
+        <button class="insp-tab" data-tab="viewer">📄 源码预览</button>
+      </div>
+
+      <!-- Tab 1: File Diffs & Dual-Plane Purity -->
+      <div id="tab-diffs" class="insp-pane active">
+        <div class="pane-banner">
+          <span>🛡️ <strong>双平面隔离卫士 (ArtifactSanitizer)</strong>：实时审计落盘源码，严防内部巴别语符号混入工程代码。</span>
+        </div>
+        <div id="diffListContainer" class="pane-scroll">
+          <div class="empty-hint">Agent 创建或修改文件后，此处将实时展示 Unified Diff 与纯净度校验结果。</div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Live Terminal Output -->
+      <div id="tab-terminal" class="insp-pane">
+        <div id="terminalListContainer" class="pane-scroll">
+          <div class="empty-hint">Agent 执行构建、运行或单元测试命令后，此处将展示真实退出码与终端输出。</div>
+        </div>
+      </div>
+
+      <!-- Tab 3: SMFT Memory & Token Telemetry -->
+      <div id="tab-memory" class="insp-pane">
+        <div class="pane-scroll">
+          <div class="telemetry-grid">
+            <div class="metric-box">
+              <div class="metric-label">累计输入 Prompt</div>
+              <div id="metPromptTok" class="metric-val">0</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">累计输出 Completion</div>
+              <div id="metCompTok" class="metric-val">0</div>
+            </div>
+            <div class="metric-box highlight">
+              <div class="metric-label">⚡ 巴别语累计省流</div>
+              <div id="metSavedTok" class="metric-val">0 tok</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">BT-Header 索引压缩</div>
+              <div id="metHeaderSavings" class="metric-val">0%</div>
+            </div>
+          </div>
+
+          <div class="subpanel">
+            <div class="subpanel-header">
+              <span>🌳 SMFT 语义默克尔折叠树 (T1 ➔ T2)</span>
+              <button id="btnCompactNow" class="mini-btn">📦 立即折叠旧轮次</button>
+            </div>
+            <div id="smftNodesList" class="smft-list">
+              <div class="empty-hint">当多轮工具调用增长或手动点击「立即折叠」时，旧历史将自动折叠为高密度 `[T1]`/`[T2]` 巴别语摘要节点，支持一键冷库无损回溯。</div>
+            </div>
+          </div>
+
+          <div class="subpanel">
+            <div class="subpanel-header">
+              <span>🗂️ 跨文件 BT-Header 拓扑索引</span>
+            </div>
+            <div id="btHeaderDigestBox" class="code-mini-box">(工作区文件读取或写入后自动生成签名索引)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Workspace File Source Viewer -->
+      <div id="tab-viewer" class="insp-pane">
+        <div id="fileViewerContainer" class="pane-scroll">
+          <div class="empty-hint">点击左侧「📁 项目文件树」中的任意文件，即可在此查看完整原生源码与自动提取的 `BT-Header` 签名。</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Modal 1: Model & API Key Configuration -->
+  <div id="modalSettings" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⚙️ 大模型与 API Key 设置</h3>
+        <button class="modal-close" data-close="modalSettings">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>1. 选择模型服务商预设</label>
+          <select id="selProvider" class="form-control"></select>
+        </div>
+
+        <div id="ollamaProbeBar" class="ollama-bar">
+          <span>💡 如果您本机装有 Ollama，可免密钥直接驱动：</span>
+          <button id="btnProbeOllama" type="button" class="mini-btn">🔍 一键探测本机 Ollama</button>
+        </div>
+
+        <div class="form-group">
+          <label>2. 接口地址 (OpenAI 兼容 Base URL)</label>
+          <input id="inpBaseUrl" type="text" class="form-control" placeholder="https://api.deepseek.com/v1" />
+        </div>
+
+        <div class="form-group">
+          <label>
+            3. API Key 密钥
+            <span id="savedKeyHint" class="label-hint">（仅保存在您本机 `.bt_agent_config.json`，绝不上传 Git）</span>
+          </label>
+          <input id="inpApiKey" type="password" class="form-control" placeholder="输入 sk-... 密钥（本机 Ollama 可留空）" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label>4. 模型名称 (Model ID)</label>
+          <input id="inpModel" type="text" class="form-control" placeholder="deepseek-chat" />
+          <div id="modelChipsRow" class="chips-row"></div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label>单次最大自主步数</label>
+            <input id="inpMaxSteps" type="number" min="3" max="80" value="25" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>终端命令超时 (秒)</label>
+            <input id="inpCmdTimeout" type="number" min="5" max="120" value="45" class="form-control" />
+          </div>
+        </div>
+
+        <div id="testConnResult" class="test-conn-result hidden"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="btnTestConnection" type="button" class="secondary-btn">🔌 测试连接</button>
+        <button id="btnSaveSettings" type="button" class="primary-btn">💾 保存并启用配置</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Graphical Local Workspace Folder Browser -->
+  <div id="modalWorkspace" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-card wide">
+      <div class="modal-header">
+        <h3>📂 选择或新建 Agent 本地工作区目录</h3>
+        <button class="modal-close" data-close="modalWorkspace">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="wsShortcutsBar" class="chips-row"></div>
+
+        <div class="ws-nav-bar">
+          <button id="btnBrowseUp" type="button" class="secondary-btn sm">⬆️ 上一级</button>
+          <input id="inpBrowsePath" type="text" class="form-control" placeholder="输入或点击下方目录路径..." />
+          <button id="btnBrowseGo" type="button" class="mini-btn">跳转</button>
+        </div>
+
+        <div id="dirBrowserList" class="dir-browser-list"></div>
+
+        <div class="form-group" style="margin-top: 12px;">
+          <label>➕ 可选：在上方当前目录内新建子项目文件夹（留空则直接使用当前选中目录）</label>
+          <input id="inpCreateSubdir" type="text" class="form-control" placeholder="例如：my-fast-app（留空则直接选定当前路径）" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="secondary-btn modal-close" data-close="modalWorkspace">取消</button>
+        <button id="btnConfirmWorkspace" type="button" class="primary-btn">✅ 选定此目录作为工作区</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: SMFT Cold Storage Lossless Dereference Viewer -->
+  <div id="modalDeref" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-card wide">
+      <div class="modal-header">
+        <h3>🔍 SMFT 冷存储原始消息无损回溯</h3>
+        <button class="modal-close" data-close="modalDeref">✕</button>
+      </div>
+      <div id="derefModalBody" class="modal-body deref-body"></div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

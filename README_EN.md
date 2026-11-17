@@ -47,14 +47,13 @@ Even when **both the sender and the receiver of a message are Large Language Mod
 
 ---
 
-## 🛠️ Official Full-Stack Reference Implementations
+## 🛠️ Official Flagship Super Agent Implementation
 
-This repository includes two complete, production-tested **Node.js + TypeScript** reference implementations supporting OpenAI-compatible APIs (DeepSeek, Qwen, OpenAI, Gemini), local **Ollama** auto-discovery, and zero-key offline execution:
+This repository includes **`babeltele-agent/`**, our flagship autonomous coding & project acceleration Super Agent refactored upon proven MIT open-source architectures (**[`SWE-agent/mini-swe-agent`](https://github.com/SWE-agent/mini-swe-agent)** + **[`HKUDS/nanobot`](https://github.com/HKUDS/nanobot)**) and powered by `BT-Spec v1.0`:
 
-| Package Directory | Role | Core Capabilities | Quick Launch (Web UI + CLI) |
+| Directory | Role | Core Architectural Capabilities | Quick Launch (Graphical Web IDE + CLI) |
 | :--- | :--- | :--- | :--- |
-| **[`babeltele-studio/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-studio)** | **3-Stage Hybrid Neutralizing Compiler & Web Studio** | • `<2ms` conversational/emotional dehydrator (`neutral-formal` flagship profile)<br>• Real `js-tiktoken` (`o200k_base` & `cl100k_base`) BPE accounting + $\Delta L_{\text{BPE}} \ge 0$ auto-fallback circuit breaker<br>• `<2ms` Tier-1 Hard-Anchor Auditor locking exact numbers, paths, identifiers & negations<br>• 1-click **Compile & Relay** A/B tester and **BT-Decoder** | `cd babeltele-studio`<br>`npm install && npm start`<br>Open `http://127.0.0.1:3721` |
-| **[`babeltele-swarm/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-swarm)** | **Dual-Plane Multi-Agent Project Accelerator** | • **Strict Dual-Plane Isolation**: Plane 1 (`PM-Spec -> Architect -> Coder -> Verifier`) communicates 100% in `BT-Skeleton`; Plane 2 writes **100% pure native `.java` / `.ts` / `.py` code** audited by `ArtifactSanitizer` + real host compilers (`javac`, `tsc`, `py_compile`)<br>• **§SMFT `BT-Header` Memory Pool**: Compresses cross-file signatures by ~80%<br>• Live SSE 3-Pane War Room with **Sidecar Lens** & **BT vs. Verbose NL Benchmark** | `cd babeltele-swarm`<br>`npm install && npm start`<br>Open `http://127.0.0.1:3722` |
+| **[`babeltele-agent/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent)** | **BabelTele Super Agent (`BT-Spec v1.0` Flagship)** | • **3-Stage Hybrid Neutralizer**: `<1ms` zero-key offline emotional/filler dehydrator + Tier-1 Hard-Anchor Auditor (100% exact number/path/negation lock) + deep LLM formalizer<br>• **Silicon `#BT` Reasoning & SMFT Memory**: Single-line `#BT` thoughts (saving 65%+ intermediate generation tokens, paired with instant Sidecar Lens), `SMFT` (`T1 -> T2`) Merkle folding with lossless cold-storage rollback, and cross-file `BT-Header` symbol indexing<br>• **Dual-Plane Zero-Pollution Guard**: Reasoning and subagents run over `babeltele/1.0`, while `ArtifactSanitizer` guarantees **100% pure native Python / Java / TS / HTML source code** on disk<br>• **100% Zero-CDN Graphical Web Console**: Built-in API connection tester, 1-click local Ollama discovery, graphical local folder picker, live Unified Diffs, and real-time terminal logs | `python babeltele-agent/start.py --port 3720 --open`<br>Open `http://127.0.0.1:3720` |
 
 ---
 

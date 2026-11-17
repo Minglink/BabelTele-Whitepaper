@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "babeltele-agent"
+version = "1.0.0"
+description = "BabelTele Super Agent — Graphical Autonomous Coding & General Agent powered by BT-Spec v1.0, refactored upon mini-swe-agent & nanobot architectures."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+  {name = "MingLin (@Minglink)"}
+]
+dependencies = [
+  "flask>=3.0.0",
+  "requests>=2.31.0",
+  "pyyaml>=6.0",
+  "jinja2>=3.1.0",
+]
+
+[project.optional-dependencies]
+tiktoken = ["tiktoken>=0.7.0"]
+
+[project.scripts]
+bt-agent = "babeltele_agent.web.server:main"
