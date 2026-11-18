@@ -34,6 +34,8 @@ import type { EpochHeader, RequestContext, Session, SessionId, SessionSeq, TurnE
 import { canonicalHeader, headerEquals, ToolCallRecovery } from '@deepseek-ai/dsh-session'
 import {
   babelTeleRuntimeConfig,
+  compressToolOutputToBabelTele,
+  isTrivialConversationalInput,
   neutralizeToBabelTele,
   renderContextSections,
   renderPrompt,
@@ -744,10 +746,29 @@ export class ReactLoopAgent implements Agent {
         deepFreeze(message)
         this.frozenMessages.add(message)
       }
-      if (!babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.autoDehydrateModelInput) {
+      if (!babelTeleRuntimeConfig.enabled) {
         return message
       }
-      if (message.role !== 'user' || message.source.kind !== 'user') {
+      if (message.role === 'tool' && babelTeleRuntimeConfig.compressToolResults) {
+        const cachedTool = this.dehydratedMessages.get(message)
+        if (cachedTool !== undefined) return cachedTool
+        let toolChanged = false
+        const compressedBlocks = message.content.map((block) => {
+          if (block.type !== 'text') return block
+          const compressed = compressToolOutputToBabelTele(block.text)
+          if (compressed.length < block.text.length) {
+            toolChanged = true
+            return { type: 'text' as const, text: compressed }
+          }
+          return block
+        })
+        const projectedTool: Message = toolChanged
+          ? deepFreeze({ ...message, content: compressedBlocks })
+          : message
+        this.dehydratedMessages.set(message, projectedTool)
+        return projectedTool
+      }
+      if (!babelTeleRuntimeConfig.autoDehydrateModelInput || message.role !== 'user' || message.source.kind !== 'user') {
         return message
       }
       const cached = this.dehydratedMessages.get(message)
@@ -755,6 +776,10 @@ export class ReactLoopAgent implements Agent {
       let changed = false
       const projectedContent = message.content.map((block) => {
         if (block.type !== 'text') return block
+        if (isTrivialConversationalInput(block.text)) {
+          changed = true
+          return { type: 'text' as const, text: `#Chat[fast: think<=15w, 0_tools] ${block.text.trim()}` }
+        }
         const result = neutralizeToBabelTele(block.text)
         if (!result.shortCircuit && result.audit.passed && (result.strippedFillerCount > 0 || result.savedTokens >= 3)) {
           changed = true

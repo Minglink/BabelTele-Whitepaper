@@ -1,33 +1,45 @@
 # 巴别语 Agent (`babeltele-agent`)
 
-> **全栈底层源码重构版（Bottom-Up Core & Minimalist Line UI）**  
-> 将 **巴别语标准体系（`BT-Spec v1.0` V2）** 直接内置固化进底层核心引擎、Agent Loop、语义默克尔压缩、子智能体总线、文件系统落盘守卫与极简线条风格前端组件树（基于 MIT 开源基础设施 [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness) 深度重构，**非外挂包装**）。
+> **全栈底层源码重构版 · V3 零盲探与双向压缩引擎（Bottom-Up Core & Minimalist Line UI）**  
+> 将 **巴别语标准体系（`BT-Spec v1.0` · V3）** 直接内置固化进底层核心引擎、Agent Loop、双向工具输出折叠、语义默克尔压缩、子智能体总线、文件系统落盘守卫与极简细线条前端组件树（基于 MIT 开源基础设施 [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness) 深度重构，**非外挂包装**）。
 
 ---
 
 ## 一、 `deepseek-flash` 真机在线实测提升（Verified Live API Metrics）
 
-| 核心维度 | 原生基线 (`deepseek-flash`) | 巴别语 Agent V2 (`deepseek-flash`) | 实测增益 |
+### 1. 全链路多步 Agent 工程交付实测（从空白目录编写双模块 + 执行自动化单测全通过）
+
+测试任务：同一段冗长口语化中文工程需求（创建线程安全 `TokenBucket` + `PriorityTaskQueue` 模块 `token_limiter.py`、编写边界/并发/异常单测 `test_token_limiter.py`，并调用命令行执行 `python -m unittest -v` 全量通过），在 `deepseek-official/deepseek-flash` 真机并发盲测：
+
+| 评测维度 | 原生基线 Agent (`BABELTELE_DISABLED=1`) | 巴别语 Agent V3 (`BABELTELE_DISABLED=0`) | 实测增益 |
 | :--- | :---: | :---: | :---: |
-| **端到端代码生成耗时** | `35.71 s` | **`9.99 s`** | **提速 `3.58x`（耗时下降 `72.0%`）** |
-| **内部推理词元 (`reasoning_tokens`)** | `5,193` | **`1,189`** | **推理开销下降 `77.1%`** |
-| **单轮总计费词元 (`total_tokens`)** | `6,072` | **`1,711`** | **总词元下降 `71.8%`** |
-| **人类口语输入脱水率** | `157 tok` | **`71 tok`** | **输入缩减 `55%`（锚点 `100%` 锁定）** |
-| **`/compact` 上下文压缩体积** | `2,889 chars` | **`727 chars` (`[SMFT-T1]`)** | **检查点占用缩减 `74.8%`** |
-| **多步工具循环 KV Cache 命中率** | — | **`99.5%`** (`39,680 / 39,876`) | **幂等脱水零缓存击穿** |
+| **多步全链路总耗时 (`wallMs`)** | `101.55 s` | **`64.08 s`** | **提速 `1.58x`（节省 `37.47 s` / `-36.9%`）** |
+| **模型生成与推理词元 (`outputTokens`)** | `15,723` | **`10,174`** | **自回归生成开销下降 `35.3%`** |
+| **累计上下文窗口读取 (`input + cacheRead`)** | `155,776 tok` | **`98,606 tok`** | **多步上下文吞吐缩减 `36.7%`** |
+| **单元测试覆盖与源码纯度** | `22 / 22` 通过 (`614` 行) | **`29 / 29` 通过 (`674` 行 · `100%` 纯净)** | **单测覆盖提升 `+31.8%` · 零协议污染** |
+
+### 2. 分项子系统微观基准（`deepseek-flash` 真机实测）
+
+| 子系统维度 | 原生基线 | 巴别语 Agent V3 | 实测增益 |
+| :--- | :---: | :---: | :---: |
+| **单轮算法实现端到端耗时（CoT 微图谱纪律）** | `35.71 s` (`6,072 tok`) | **`9.99 s` (`1,711 tok`)** | **提速 `3.58x`（词元下降 `71.8%`）** |
+| **日常问候快路径（`#Chat[fast]` 零工具免探索）** | `381 output tok` (`10.20 s`) | **`176 output tok` (`8.99 s`)** | **冗余思考与输出下降 `53.8%`** |
+| **全语种工程指令脱水（`BT-L2` / `BT-L3`）** | `258 tok` | **`129 tok` (`L2`) / `125 tok` (`L3`)** | **缩减 `50.0% ~ 51.6%`（`10/10` 锚点硬锁）** |
+| **`[BT-ToolOut]` 工具输出双向折叠（16 项单测日志）** | `1,718 chars` | **`277 chars` (`[BT-TestPass]`)** | **通过日志噪音缩减 `83.9%`（报错 `100%` 保留）** |
+| **`/compact` 上下文压缩检查点（`[SMFT-T1]`）** | `2,889 chars` | **`727 chars`** | **检查点占用缩减 `74.8%`** |
 
 ---
 
-## 二、 核心底层重写清单（Where BabelTele Lives in Source）
+## 二、 核心底层重写清单（Where BabelTele V3 Lives in Source）
 
 | 层级 | 重写源码路径 | 内置机制 |
 | :--- | :--- | :--- |
-| **双平面极速内核 V2 & 全词法脱水器** | `packages/core/system-prompt/src/babeltele.ts`<br>`packages/core/system-prompt/src/index.ts` | 内置 `BABELTELE_DUAL_PLANE_KERNEL`（严控 `<think>` 微图谱推理、杜绝思考流二次默写代码冗余）、全词法脱水器（`+typed`、`+threadsafe`、`!ban:`）与 **Tier-1 硬锚点锁** |
-| **Agent 主循环自动脱水（保热缓存）** | `packages/core/agent-loop/src/agent.ts` | 在 `ReactLoopAgent.buildRequest()` 底层内置 `WeakMap` 幂等消息投影，自动脱水口语输入并 100% 保持历史引用恒定 |
-| **实时 `mtime` 指纹顶层 AST 骨架** | `packages/session/working-directory/src/index.ts` | 自动提取顶层类/函数符号生成 `[BT-Headers v2.0]` 骨架，文件写入/编辑瞬间自动失效刷新 |
+| **V3 全语种语义坍缩与双平面极速内核** | `packages/core/system-prompt/src/babeltele.ts`<br>`packages/core/system-prompt/src/index.ts` | 内置 **85+ 工程原语全语种坍缩表**（`@cwd`、`impl`、`+typed`、`+threadsafe`、`+stdlib_only`、`utest`、`edge_cases`、`=>pass` 等）、**`BT-L2 / BT-L3` 双档编译器**、**Tier-1 硬锚点锁**，以及强制并行批处理工具调用与 `<=8` 行 `#BT` 微图谱推理的 V3 内核 |
+| **Agent 主循环双向脱水与问候快路径** | `packages/core/agent-loop/src/agent.ts` | 在 `ReactLoopAgent.buildRequest()` 内置 `WeakMap` 幂等双向投影：(1) `#Chat[fast]` 问候零工具快路径；(2) 用户输入自动脱水；(3) `[BT-ToolOut]` 自动折叠连续通过测试日志并 100% 保留异常堆栈，全程零破坏服务端 KV Cache |
+| **零盲探 `[BT-Headers v3.0]` 工作区骨架** | `packages/session/working-directory/src/index.ts` | 基于 `mtime` 指纹提取顶层类/函数 AST 符号；**对空白目录显式注入 `@cwd=(empty_directory, 0 files)`**，彻底消除 Agent 第 1 步盲调 `glob`/`ls` 探路的整轮空耗 |
 | **`[SMFT-T1]` 压缩 & `#SubTask` 总线** | `packages/compaction/compaction-basic/src/summarizer.ts`<br>`packages/subagent/tool-subagent/src/index.ts` | `/compact` 原生输出 `[SMFT-T1]` 默克尔检查点；父子智能体默认以 `#SubTask` / `#SubReport` 并发协同 |
 | **Plane-B 零污染门禁 & Windows 终端优化** | `packages/fs/tool-fs/src/write.ts` & `edit.ts`<br>`packages/shell/pwsh-local/src/index.ts` | 自动剥离多余 Markdown 围栏并硬拦截 `#BT` 符号污染；消除 PowerShell 原生 `stderr` 误报退出码 |
-| **DeepSeek 极简细线条原生界面** | `packages/client/ui-primitives/src/FishLogo.tsx`<br>`packages/client/ui-conversation/src/client/skeleton/InputBar.tsx`<br>`packages/client/ui-chat/src/client/chat/ReasoningContent.tsx` | 纯粹极简 `1.5px` 细线塔标与「巴别语 Agent」字标，无冗余装饰色块；输入框原生融入细线版「提纯 / 自动提纯」抽屉，思考流原生支持「中文透视」 |
+| **DeepSeek 极简细线条原生界面** | `packages/client/ui-primitives/src/FishLogo.tsx`<br>`packages/client/ui-conversation/src/client/skeleton/InputBar.tsx`<br>`packages/client/ui-chat/src/client/chat/ReasoningContent.tsx` | 纯粹极简 `1.5px` 细线塔标与「巴别语 Agent」字标，无冗余装饰色块；输入框原生融入细线版 **`BT-L2 · 均衡 / BT-L3 · 骨架`** 一键切换抽屉与自动提纯，思考流原生支持「中文透视」 |
 
 ---
 

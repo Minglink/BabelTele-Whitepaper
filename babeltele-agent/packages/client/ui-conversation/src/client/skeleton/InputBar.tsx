@@ -18,6 +18,7 @@ import type { ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
 import clsx from 'clsx'
 import {
   BABELTELE_STARTER_TEMPLATES,
+  type BabelTeleCompileMode,
   focusWithoutRing,
   IconPlusOutlineMedium,
   IconTriangleRightFillRegular,
@@ -288,6 +289,24 @@ export const InputBar = memo(function InputBar({
   // Built-in BabelTele (BT-Spec v1.0) Composer Neutralizer & Auto-Dehydrate state.
   const [btPanelOpen, setBtPanelOpen] = useState(false)
   const [savedRawDraft, setSavedRawDraft] = useState<string | null>(null)
+  const [btMode, setBtMode] = useState<BabelTeleCompileMode>(() => {
+    try {
+      return window.localStorage.getItem('babeltele.composer.mode') === 'bt-l3' ? 'bt-l3' : 'bt-l2'
+    } catch {
+      return 'bt-l2'
+    }
+  })
+  const toggleBtMode = useCallback(() => {
+    setBtMode((prev) => {
+      const next: BabelTeleCompileMode = prev === 'bt-l2' ? 'bt-l3' : 'bt-l2'
+      try {
+        window.localStorage.setItem('babeltele.composer.mode', next)
+      } catch {
+        // Ignore storage quota / privacy mode restrictions.
+      }
+      return next
+    })
+  }, [])
   const [autoDehydrate, setAutoDehydrate] = useState<boolean>(() => {
     try {
       return window.localStorage.getItem('babeltele.composer.autoDehydrate') !== '0'
@@ -306,17 +325,17 @@ export const InputBar = memo(function InputBar({
       return next
     })
   }, [])
-  const btPreview = useMemo(() => neutralizeToBabelTele(draft), [draft])
+  const btPreview = useMemo(() => neutralizeToBabelTele(draft, btMode), [draft, btMode])
   const maybeAutoDehydrateBeforeSubmit = useCallback((): void => {
     if (!autoDehydrate || inputActions === undefined || input === undefined) return
     if (input.phase !== 'plain' || input.occurrences.length > 0) return
     const trimmedDraft = draft.trim()
     if (trimmedDraft.length < 18 || trimmedDraft.startsWith('/') || looksLikeBabelTele(trimmedDraft)) return
-    const result = neutralizeToBabelTele(draft)
+    const result = neutralizeToBabelTele(draft, btMode)
     if (!result.shortCircuit && result.audit.passed && (result.strippedFillerCount > 0 || result.savedTokens >= 3)) {
       inputActions.setDraft(result.babeltele)
     }
-  }, [autoDehydrate, draft, input, inputActions])
+  }, [autoDehydrate, btMode, draft, input, inputActions])
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const onPickFiles = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -519,7 +538,15 @@ export const InputBar = memo(function InputBar({
           <div className={css.btPanel} data-composer-overlay>
             <div className={css.btPanelHeader}>
               <div className={css.btBadges}>
-                <span className={css.btBadge}>BT-L2</span>
+                <button
+                  type="button"
+                  className={css.btModeToggle}
+                  title="切换 BT-L2 均衡模式 / BT-L3 极限骨架模式"
+                  onMouseDown={keepFocus}
+                  onClick={toggleBtMode}
+                >
+                  {btMode === 'bt-l3' ? 'BT-L3 · 骨架' : 'BT-L2 · 均衡'}
+                </button>
                 {draft.trim() !== '' && (
                   <>
                     <span className={css.btBadge}>
