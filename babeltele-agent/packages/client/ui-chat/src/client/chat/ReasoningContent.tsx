@@ -45,7 +45,7 @@ export function DefaultReasoningBody({ text, running, renderFactorySlot }: Reaso
             fontFamily: 'var(--ds-font-family-code)',
           }}
         >
-          {hasBtSyntax ? 'BT-L2' : 'CoT'}
+          {hasBtSyntax ? 'BT-CoT · 纯巴别语思维链' : 'CoT'}
         </span>
         <button
           type="button"

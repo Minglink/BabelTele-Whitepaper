@@ -26,6 +26,7 @@ export {
   compileSubagentDirective,
   compressToolOutputToBabelTele,
   decodeBabelTeleToZh,
+  detectUserLanguage,
   distillSubagentReport,
   estimateBabelTokens,
   extractHardAnchors,
@@ -42,6 +43,7 @@ export {
   type CodePurityAudit,
   type CodeSyntaxDiag,
   type HardAnchorAudit,
+  type UserSurfaceLanguage,
 } from './babeltele.ts'
 
 declare module '@deepseek-ai/cordis' {

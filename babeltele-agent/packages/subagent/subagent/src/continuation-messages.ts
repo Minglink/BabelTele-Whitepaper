@@ -89,7 +89,7 @@ export function withResultDeliveryGuidance(
     {
       type: 'text',
       text: babelTeleRuntimeConfig.enabled
-        ? '#BT-Bus Subagent Rules: (1) Implement ONLY the requested scope/#Contract cleanly & concisely (1-line docstrings, zero unrequested classes/bloat, <=180 lines unless required). (2) Reply in <=8 lines `#SubReport`: `@file(L=n)`, `#API[exact Class(__init__) & method signatures]`, `#Check[smoke/AST status]`, `!risks`. Omit greetings/essays so parent never needs to re-read your file.'
+        ? '#BT-Bus Subagent Rules: (1) Start EVERY `thinking` block with `#BT ` (100% symbolic #BT CoT, zero prose sentences). (2) Implement ONLY the requested scope/#Contract cleanly (1-line docstrings, <=180 lines unless required). (3) Reply in <=8 lines `#SubReport`: `@file(L=n)`, `#API[exact Class(__init__) & method signatures]`, `#Check[AST/test status]`, `!risks`.'
         : 'Your final answer is delivered automatically if your '
           + 'parent is still online. Include the result and relevant evidence in that answer; the parent does not '
           + 'receive your full transcript, tool output, or reasoning. If your last action is a message to your '

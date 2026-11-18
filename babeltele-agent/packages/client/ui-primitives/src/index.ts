@@ -58,15 +58,18 @@ export {
   BABELTELE_STARTER_TEMPLATES,
   auditHardAnchors,
   decodeBabelTeleToZh,
+  detectUserLanguage,
   estimateBabelTokens,
   extractHardAnchors,
   isTrivialConversationalInput,
   looksLikeBabelTele,
   neutralizeToBabelTele,
+  stripLeakedBtFromHumanText,
   type BabelTeleCompileMode,
   type BabelTeleNeutralizeResult,
   type BabelTeleStarterTemplate,
   type HardAnchorAudit,
+  type UserSurfaceLanguage,
 } from './babeltele.ts'
 export {
   PermissionIconAutoReviewMedium, PermissionIconAutoReviewRegular,

@@ -309,16 +309,16 @@ export const InputBar = memo(function InputBar({
   }, [])
   const [autoDehydrate, setAutoDehydrate] = useState<boolean>(() => {
     try {
-      return window.localStorage.getItem('babeltele.composer.autoDehydrate') !== '0'
+      return window.localStorage.getItem('babeltele.composer.explicitBubble') === '1'
     } catch {
-      return true
+      return false
     }
   })
   const toggleAutoDehydrate = useCallback(() => {
     setAutoDehydrate((prev) => {
       const next = !prev
       try {
-        window.localStorage.setItem('babeltele.composer.autoDehydrate', next ? '1' : '0')
+        window.localStorage.setItem('babeltele.composer.explicitBubble', next ? '1' : '0')
       } catch {
         // Ignore storage quota / privacy mode restrictions.
       }
@@ -327,12 +327,14 @@ export const InputBar = memo(function InputBar({
   }, [])
   const btPreview = useMemo(() => neutralizeToBabelTele(draft, btMode), [draft, btMode])
   const maybeAutoDehydrateBeforeSubmit = useCallback((): void => {
+    // Note: Backend `agent-loop` ALWAYS auto-translates Chinese/English -> `#Task[@out=...]` transparently on the wire.
+    // Only overwrite the visible user bubble when the user explicitly opts into `explicitBubble` mode.
     if (!autoDehydrate || inputActions === undefined || input === undefined) return
     if (input.phase !== 'plain' || input.occurrences.length > 0) return
     const trimmedDraft = draft.trim()
     if (trimmedDraft.length < 18 || trimmedDraft.startsWith('/') || looksLikeBabelTele(trimmedDraft)) return
     const result = neutralizeToBabelTele(draft, btMode)
-    if (!result.shortCircuit && result.audit.passed && (result.strippedFillerCount > 0 || result.savedTokens >= 3)) {
+    if (!result.shortCircuit && result.audit.passed) {
       inputActions.setDraft(result.babeltele)
     }
   }, [autoDehydrate, btMode, draft, input, inputActions])
@@ -550,11 +552,14 @@ export const InputBar = memo(function InputBar({
                 {draft.trim() !== '' && (
                   <>
                     <span className={css.btBadge}>
-                      {btPreview.originalTokens} → {btPreview.babelTokens} tok
+                      {btPreview.userLanguage === 'en-US' ? 'EN→BT' : 'ZH→BT'} {btPreview.originalTokens} → {btPreview.babelTokens} tok
                       {btPreview.savedTokens > 0 ? ` (-${Math.round(btPreview.savedRatio * 100)}%)` : ''}
                     </span>
                     <span className={css.btBadgeOk}>
-                      锚点锁定 {btPreview.audit.matchedAnchors.length}/{btPreview.audit.totalAnchors}
+                      锚点 {btPreview.audit.matchedAnchors.length}/{btPreview.audit.totalAnchors}
+                    </span>
+                    <span className={css.btBadgeOk}>
+                      交付锁定: {btPreview.userLanguage === 'en-US' ? 'English' : '中文'}
                     </span>
                   </>
                 )}
@@ -731,22 +736,22 @@ export const InputBar = memo(function InputBar({
                   </Tooltip>
                   <Tooltip
                     label={autoDehydrate
-                      ? '发送前自动提纯已开启（保留全部路径、数字与否定约束）'
-                      : '点击开启发送前自动提纯'}
+                      ? '显式转译气泡已开启（底层已默认开启中英自动巴别语转译与纯 #BT 思维链）'
+                      : '底层已默认自动转译中英输入为巴别语并锁定原语种交付（点击可开启气泡显式展示 #Task）'}
                     side="top"
                     delayMs={500}
                     portal
                   >
                     <button
                       type="button"
-                      className={clsx(css.btChip, autoDehydrate && css.btChipActive)}
+                      className={clsx(css.btChip, css.btChipActive)}
                       disabled={locked}
                       aria-pressed={autoDehydrate}
                       onMouseDown={keepFocus}
                       onClick={toggleAutoDehydrate}
                     >
-                      <span className={clsx(css.btDot, autoDehydrate && css.btDotOn)} aria-hidden="true" />
-                      <span>自动提纯</span>
+                      <span className={clsx(css.btDot, css.btDotOn)} aria-hidden="true" />
+                      <span>{autoDehydrate ? '显式巴别语' : '自动巴别语'}</span>
                     </button>
                   </Tooltip>
                 </div>

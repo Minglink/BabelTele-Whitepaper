@@ -35,7 +35,9 @@ import { canonicalHeader, headerEquals, ToolCallRecovery } from '@deepseek-ai/ds
 import {
   babelTeleRuntimeConfig,
   compressToolOutputToBabelTele,
+  detectUserLanguage,
   isTrivialConversationalInput,
+  looksLikeBabelTele,
   neutralizeToBabelTele,
   renderContextSections,
   renderPrompt,
@@ -776,14 +778,21 @@ export class ReactLoopAgent implements Agent {
       let changed = false
       const projectedContent = message.content.map((block) => {
         if (block.type !== 'text') return block
-        if (isTrivialConversationalInput(block.text)) {
+        const trimmed = block.text.trim()
+        if (trimmed.length === 0 || trimmed.startsWith('/')) return block
+        if (isTrivialConversationalInput(trimmed)) {
+          const lang = detectUserLanguage(trimmed)
           changed = true
-          return { type: 'text' as const, text: `#Chat[fast: think<=15w, 0_tools] ${block.text.trim()}` }
+          return { type: 'text' as const, text: `#Chat[fast|think=#BT<=12t|0_tools|@out=${lang}] ${trimmed}` }
         }
         const result = neutralizeToBabelTele(block.text)
-        if (!result.shortCircuit && result.audit.passed && (result.strippedFillerCount > 0 || result.savedTokens >= 3)) {
+        if (!result.shortCircuit && result.audit.passed) {
           changed = true
           return { type: 'text' as const, text: result.babeltele }
+        }
+        if (!looksLikeBabelTele(trimmed)) {
+          changed = true
+          return { type: 'text' as const, text: `#Task[@out=${result.userLanguage}] ${trimmed}` }
         }
         return block
       })
