@@ -12,6 +12,10 @@ releases/
 **/node_modules/
 **/dist/
 babeltele-agent/.dsh-home/
+babeltele-agent/.dsh-build/
+babeltele-agent/**/lib/
+babeltele-agent/apps/desktop/out/
+babeltele-agent/**/*.tsbuildinfo
 babeltele-agent/.bt_agent_config.json
 babeltele-agent/workspaces/
 *.env

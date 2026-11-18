@@ -78,11 +78,11 @@ flowchart TB
 
 ## 🛠️ 官方旗舰超级 Agent 实现（Official Flagship Implementation）
 
-本仓库内置基于 DeepSeek AI 官方开源智能体底座 **[`deepseek-ai/deepseek-harness` (`@deepseek-ai/dsh`)](https://github.com/deepseek-ai/deepseek-harness)**（MIT 协议，Cordis 全插件架构）深度魔改构建的 **巴别语超级 Agent（[`babeltele-agent/`](./babeltele-agent/)）**，完整保留原生 DSH 全功能 Web 界面并深度植入 `BT-Spec v1.0` 超速内核：
+本仓库内置基于开源智能体基础设施 **[`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness)**（MIT 协议）进行**全栈底层源码重构**的 **巴别语超级 Agent（[`babeltele-agent/`](./babeltele-agent/)）**，将 `BT-Spec v1.0` 双平面硅基协议直接固化编译进底层核心引擎与前端组件树（非外挂包装）：
 
-| 旗舰目录 | 核心定位 | 关键能力与架构亮点 | 快速启动（原生 DSH Web 界面 + CLI） |
+| 旗舰目录 | 核心定位 | 底层重构核心亮点 | 快速启动（内置 Web 界面 + CLI） |
 | :--- | :--- | :--- | :--- |
-| **[`babeltele-agent/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent)** | **BabelTele · DSH 极速超级 Agent（基于 DeepSeek Harness 构建）** | • **原生 DSH 界面无缝魔改**：保留官方全功能工作区浏览、多厂商模型与密钥管理（Settings → Models）、内置文件树、PTY 实时终端、Subagents、Agent Teams 与 Plan 模式，新增 `⚡ 巴别语极速模式 (BabelTele Turbo)` 默认预设与专属设置页<br>• **输入框原生 3 级提纯器**：聊天框内嵌「⚡ 巴别语提纯 / 模板」，免密钥 `<1ms` 离线剥离中文口水寒暄 + `js-tiktoken`（`o200k_base`）算账 + Tier-1 数字/路径/否定词 100% 硬锁<br>• **`#BT` 硅基推理透视与 `SMFT` 压缩**：接管 DSH 推理槽位提供「👁️ 中文人话透视 / #BT 硅基原文」一键切换；继承扩展 `BasicCompactionEngine` 将 `/compact` 升级为复用热 KV Cache 的 `[SMFT-T1]` 默克尔检查点，并自动注入跨文件 `BT-Header` 签名索引<br>• **双平面零污染门禁**：`tools/pre-execute` 挂载 `ArtifactSanitizer` 实时拦截符号污染，确保落盘 Python / Java / TS / Go / HTML 工程代码 **100% 原生纯净** | Windows 双击 `babeltele-agent/启动巴别语超级Agent.bat`<br>或执行：<br>`cd babeltele-agent && pnpm install && pnpm web` |
+| **[`babeltele-agent/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent)** | **BabelTele · 巴别语超级 Agent（全栈底层源码重构版）** | • **核心运行时内置双平面内核**（`packages/core/system-prompt` & `agent-loop`）：底层内置 `BABELTELE_DUAL_PLANE_KERNEL` 与跨轮次 KV-Cache 一致性请求脱水器，支持人类口水话/情绪宣泄词秒级剥离，并通过 Tier-1 硬锚点锁 100% 锁定路径、数值、API 标识符与否定边界（`!禁止:`）<br>• **原生 `[SMFT-T1]` 压缩与 `#BT` 子智能体总线**（`compaction-basic` & `tool-subagent`）：底层重写 `/compact` 压缩器输出复用热前缀缓存的 `[SMFT-T1]` 语义默克尔检查点；父子智能体原生采用 `#SubTask` / `#SubReport` 硅基协议极速并发协同，并在 `working-directory` 自动注入 `[BT-Headers v1.0]` 工作区骨架索引<br>• **Plane-B 源码零污染硬门禁**（`packages/fs/tool-fs`）：直接重写 `write.ts` 与 `edit.ts`，自动剥离多余外层 Markdown 围栏并硬拦截任何 `#BT` 内部符号泄露，确保落盘 `.py` / `.java` / `.ts` / `.go` / `.rs` 等工程代码 **100% 原生纯净**<br>• **原生 UI 深度重塑**（`ui-primitives` / `ui-conversation` / `ui-chat`）：全套自定义巴别语硅基塔徽标、内置 Composer 中性提纯与自动脱水开关、思考流一键「👁️ 中文人话透视」 | Windows 双击 `babeltele-agent/启动巴别语超级Agent.bat`<br>或执行：<br>`cd babeltele-agent && pnpm web` |
 
 ---
 

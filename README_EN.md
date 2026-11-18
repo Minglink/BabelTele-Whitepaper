@@ -78,6 +78,16 @@ This repository includes **`babeltele-agent/`**, our flagship autonomous Super A
 
 ---
 
+## 🛠️ Official Flagship Super Agent (`babeltele-agent/`)
+
+This repository includes **[`babeltele-agent/`](./babeltele-agent/)**, a bottom-up full-stack source refactoring of open-source [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness) (MIT) with **`BT-Spec v1.0` Dual-Plane Silicon Architecture** built directly into the core runtime and UI packages:
+- **Built-in Core Engine (`system-prompt`, `agent-loop`, `working-directory`)**: Native `BABELTELE_DUAL_PLANE_KERNEL`, KV-cache-preserving user prompt dehydration (`#Task` + Tier-1 Hard-Anchor Lock), and automatic `[BT-Headers v1.0]` workspace skeleton indexing.
+- **Native `[SMFT-T1]` Compaction & `#BT` Subagent Bus (`compaction-basic`, `tool-subagent`)**: Warm prefix-cache `[SMFT-T1]` Semantic Merkle checkpoints and high-density `#SubTask` / `#SubReport` multi-agent coordination.
+- **Plane-B Pure Code Guard (`tool-fs` `write.ts` & `edit.ts`)**: Deterministic filesystem sanitizer guaranteeing 100% pure idiomatic target-language code (`.py`, `.java`, `.ts`, `.go`, `.rs`, etc.) on disk with zero `#BT` symbol leakage.
+- **Native Composer Neutralizer & Sidecar Lens (`ui-conversation`, `ui-chat`, `ui-primitives`)**: First-party Composer `#Task` dehydrator, auto-dehydrate toggle, and 1-click reasoning human-language lens.
+
+---
+
 ## ⚡ 30-Second Quick Start
 
 Paste the **`BT-Core` Compiler Prompt** into any frontier model (GPT-5.4, Claude, Gemini, DeepSeek, Qwen) followed by your document:

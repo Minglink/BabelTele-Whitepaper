@@ -52,3 +52,4 @@
 - [第 06 章：异构跨模型共识与三层安全审计网关](https://minglink.github.io/BabelTele-Whitepaper/docs/06-cross-model-consensus-and-audit.html)
 - [第 07 章：巴别语标准编译与解码指令集](https://minglink.github.io/BabelTele-Whitepaper/docs/07-canonical-instruction-set.html)
 - [第 08 章：学术谱系、实证勘误与开源生态全景](https://minglink.github.io/BabelTele-Whitepaper/docs/08-genealogy-and-ecosystem.html)
+- [BabelTele Super Agent (底层内置 BT-Spec v1.0 双平面全栈重构源码)](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent)
