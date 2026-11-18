@@ -558,7 +558,7 @@ export const InputBar = memo(function InputBar({
                     </span>
                   </>
                 )}
-                <span className={css.btBadgeOk}>纯净代码守卫</span>
+                <span className={css.btBadgeOk}>AST 预检 · 纯净守卫</span>
               </div>
               <button
                 type="button"

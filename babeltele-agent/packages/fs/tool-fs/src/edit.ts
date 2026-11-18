@@ -9,7 +9,7 @@ import type { Context } from '@deepseek-ai/cordis'
 import { ToolArgsError, defineTool } from '@deepseek-ai/dsh-tools'
 import type { DiffCallView, DiffResultView, ToolResult } from '@deepseek-ai/dsh-tools'
 import type {} from '@deepseek-ai/dsh-fs'
-import { auditCodeArtifactPurity } from '@deepseek-ai/dsh-system-prompt'
+import { auditCodeArtifactPurity, verifyCodeArtifactSyntax } from '@deepseek-ai/dsh-system-prompt'
 import { computeHunkDiffs, diffsFromMeta } from './diff.ts'
 import { remediateFsError } from './error.ts'
 import { mutationResult } from './mutation-result.ts'
@@ -69,10 +69,11 @@ export function parseEditArgs(args: { file_path: string; old_string: string; new
  * @param replaceAll - selects the all-occurrences wording over the single-replacement one.
  * @returns the confirmation sentence the model sees as the tool result.
  */
-export function formatEditOutput(displayPath: string, replaceAll: boolean): string {
+export function formatEditOutput(displayPath: string, replaceAll: boolean, diagTag = ''): string {
+  const suffix = diagTag.length > 0 ? ` ${diagTag}` : ''
   return replaceAll
-    ? `The file ${displayPath} has been updated. All occurrences were successfully replaced.`
-    : `The file ${displayPath} has been updated successfully.`
+    ? `The file ${displayPath} has been updated. All occurrences were successfully replaced.${suffix}`
+    : `The file ${displayPath} has been updated successfully.${suffix}`
 }
 
 /**
@@ -113,10 +114,13 @@ export function applyEditTool(ctx: Context, sandbox: FsSandboxController): void 
           after: { type: 'string', required: true },
         },
       },
-      render: (args, value) => [{
-        type: 'text',
-        text: formatEditOutput(value.path, args.replace_all ?? false),
-      }],
+      render: (args, value) => {
+        const diag = verifyCodeArtifactSyntax(value.path, value.after)
+        return [{
+          type: 'text',
+          text: formatEditOutput(value.path, args.replace_all ?? false, diag.tag),
+        }]
+      },
       presentationMeta: (_args, value) => ({
         path: value.path,
         diffs: computeHunkDiffs(value.path, value.before, value.after)

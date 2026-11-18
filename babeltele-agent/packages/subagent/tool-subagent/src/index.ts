@@ -14,6 +14,7 @@ import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
 import type { AgentOptions } from '@deepseek-ai/dsh-agent'
 import type { ReasoningEffortId } from '@deepseek-ai/dsh-llm/types'
 import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import { babelTeleRuntimeConfig, compileSubagentDirective } from '@deepseek-ai/dsh-system-prompt'
 import {
   assertSubagentMaxDepth,
   delegationDepthOf,
@@ -314,9 +315,15 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
         }
         exec.signal.throwIfAborted()
         const maxDepth = ctx.subagents.resolveMaxDepth(config.maxDepth)
+        const childDepth = delegationDepthOf(parent) + 1
+        const compiledPrompt = compileSubagentDirective(args.prompt, {
+          childDepth,
+          ...(maxDepth === undefined ? {} : { maxDepth }),
+          inheritsConversation: subagentProvider.inheritsParentContext,
+        })
         const request = {
           ...args.cwd === undefined ? {} : { cwd: args.cwd },
-          prompt: [{ type: 'text', text: args.prompt }] as ContentBlock[],
+          prompt: [{ type: 'text', text: compiledPrompt }] as ContentBlock[],
           parent,
           ...agentPreset === undefined ? {} : { agentPreset },
           ...requestedChildAgentOptions !== undefined ? { agentOptions: requestedChildAgentOptions } : {},
@@ -385,9 +392,22 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
       const maxDepth = ctx.subagents.resolveMaxDepth(config.maxDepth)
       if (maxDepth === undefined) return ''
       const depth = delegationDepthOf(context.agent)
-      if (depth < maxDepth) return ''
-      return `Delegation depth for \`${toolName}\`: current ${depth}, maximum ${maxDepth}, remaining levels 0.`
-        + ` Do not call \`${toolName}\` at this depth; carry out the work directly.`
+      if (depth >= maxDepth) {
+        return babelTeleRuntimeConfig.enabled
+          ? `#SubagentDepth[L${depth}/${maxDepth}|LEAF]: rem_levels=0 => !ban:${toolName}; execute directly & return #SubReport.`
+          : `Delegation depth for \`${toolName}\`: current ${depth}, maximum ${maxDepth}, remaining levels 0.`
+            + ` Do not call \`${toolName}\` at this depth; carry out the work directly.`
+      }
+      if (depth > 0 && babelTeleRuntimeConfig.enabled) {
+        const visible = [...delegationTools]
+          .filter(tool => ctx.tools.get(tool.name, context.scope) === tool)
+          .map(tool => tool.name)
+          .sort()
+        if (visible[0] === toolName) {
+          return `#SubagentDepth[L${depth}/${maxDepth}|rem=${maxDepth - depth}]: Execute assigned @scope directly; spawn L${depth + 1} subagents ONLY if sub-task splits into >=2 independent workstreams.`
+        }
+      }
+      return ''
     },
   })
 }

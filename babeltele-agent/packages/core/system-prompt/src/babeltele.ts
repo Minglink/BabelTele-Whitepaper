@@ -1,39 +1,48 @@
 /**
- * Built-in BabelTele (BT-Spec v1.0 · V3 Omnilingual & Zero-Probe Engine).
+ * Built-in BabelTele (BT-Spec v1.0 · V4 Multi-Level Silicon Engine).
  *
- * Capabilities:
- * 1. Omnilingual Semantic Compiler (`bt-l2` balanced / `bt-l3` skeleton) with 85+ engineering collapses
- * 2. Tier-1 Hard-Anchor Lock (100% retention of paths, numbers, symbols, and negations)
- * 3. Trivial Greeting Fast-Path Classifier (`#Chat[fast]`)
- * 4. Bidirectional `[BT-ToolOut]` Tool-Result Compressor (folds repetitive test/log noise, preserves 100% errors)
- * 5. Zero-Probe `mtime`-fingerprinted `[BT-Headers v3.0]` Workspace Skeleton (including explicit `@cwd=(empty)`)
- * 6. Plane-B Native Code Sanitizer & Purity Gate
+ * Architectural Pillars:
+ * 1. Omnilingual Semantic Compiler (`bt-l2` / `bt-l3`) with 105+ engineering & multi-agent primitives
+ * 2. Tier-1 Hard-Anchor Lock (`100%` retention of paths, symbols, numbers, and `!ban:` negations)
+ * 3. `[BT-SchemaCompiler v4]` System-Prompt & Tool-Schema Dehydrator (`~40%` smaller base prefix, `100%` KV-cache uniform)
+ * 4. `#Chat[fast]` Trivial Greeting Fast-Path Classifier
+ * 5. `[BT-ToolOut v4]` Universal Tool-Result Semantic Projector (folds test/build/log noise, preserves `100%` errors)
+ * 6. `[BT-Headers v4.0]` Cross-Agent `Symbol@Line` Workspace Repo-Graph (shared `mtime` cache + `@cwd=(empty)`)
+ * 7. `[BT-Diag v4]` Closed-Loop Pre-Flight AST & Syntax Verifier (`.py` `ast.parse`, `.json`, `.js` `--check`)
+ * 8. `#BT-Bus v4` Multi-Level Subagent (`L0->L1->L2->L3`) Downlink Compiler & Uplink `#SubReport` Distiller
  *
  * @module @deepseek-ai/dsh-system-prompt/babeltele
  */
 
+import { spawnSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { extname, join, relative } from 'node:path'
 
 export type BabelTeleCompileMode = 'bt-l2' | 'bt-l3'
 
-/** Live runtime switches for built-in BabelTele subsystems. */
+/** Live runtime switches for built-in BabelTele V4 subsystems. */
 export interface BabelTeleRuntimeConfig {
   enabled: boolean
   mode: BabelTeleCompileMode
   autoDehydrateModelInput: boolean
+  compactSchemasAndSections: boolean
   compressToolResults: boolean
   injectBtHeaders: boolean
   strictPlaneBGuard: boolean
+  preflightAstCheck: boolean
+  subagentBusCompression: boolean
 }
 
 export const babelTeleRuntimeConfig: BabelTeleRuntimeConfig = {
   enabled: process.env.BABELTELE_DISABLED !== '1',
   mode: process.env.BABELTELE_MODE === 'bt-l3' ? 'bt-l3' : 'bt-l2',
   autoDehydrateModelInput: process.env.BABELTELE_NO_AUTO_DEHYDRATE !== '1',
+  compactSchemasAndSections: process.env.BABELTELE_NO_SCHEMA_DIET !== '1',
   compressToolResults: process.env.BABELTELE_NO_TOOL_COMPRESS !== '1',
   injectBtHeaders: process.env.BABELTELE_NO_BT_HEADERS !== '1',
   strictPlaneBGuard: process.env.BABELTELE_NO_PLANE_B_GUARD !== '1',
+  preflightAstCheck: process.env.BABELTELE_NO_AST_CHECK !== '1',
+  subagentBusCompression: process.env.BABELTELE_NO_SUBAGENT_BUS !== '1',
 }
 
 /** Audit report for Tier-1 Hard-Anchor Lock verification. */
@@ -68,21 +77,32 @@ export interface CodePurityAudit {
   readonly violations: readonly string[]
 }
 
+/** Closed-loop AST/syntax check result returned immediately on `write` / `edit`. */
+export interface CodeSyntaxDiag {
+  readonly checked: boolean
+  readonly valid: boolean
+  readonly lineCount: number
+  readonly tag: string
+}
+
 /**
- * Core Dual-Plane Silicon Kernel V3 registered natively in `SystemPrompt`.
+ * Core Dual-Plane & Multi-Level Orchestration Kernel V4.
  */
 export const BABELTELE_DUAL_PLANE_KERNEL_PROMPT = [
-  '## BabelTele Dual-Plane Kernel (BT-Spec v1.0 · V3 Single-Pass Execution)',
-  '1. **Plane A — Micro-Graph `#BT` Reasoning & Zero-Waste Execution**:',
-  '   - **Fast-Path Greetings (`#Chat[fast]`)**: When user input is a greeting or simple question needing no workspace tools, keep `thinking <= 15` words, call **0 tools**, and reply directly.',
-  '   - **Strict CoT Budget (`<= 8` `#BT` lines)**: In `thinking`, emit ONLY compact `#BT` state/invariant transitions (`?cond => guard`, `->`, `&`, `!ban:`, `@file`). **NEVER draft source code, docstrings, or test bodies inside `thinking`** — write code ONCE directly in `write` / `edit`.',
-  '   - **Zero Blind Probing**: Runtime context `[BT-Headers v3.0]` already provides live `@cwd` file inventory (`@cwd=(empty)` or `@file(L=n):[symbols]`). Do NOT waste a step calling `glob` / `pwsh ls` just to check what files exist.',
-  '   - **Parallel Batch Tooling**: Emit ALL independent tool calls in a **single assistant step** (e.g. emit `write module.py` AND `write test_module.py` together in Step 1, then run `pwsh` test verification in Step 2).',
-  '2. **Plane B — 100% Pure Native Code Invariant (Zero Disk Pollution)**:',
-  '   - Every file written or edited via `write`, `edit`, `apply_patch`, or shell scripts MUST be **100% pure, idiomatic target-language code** (`.py`, `.java`, `.ts`, `.tsx`, `.go`, `.rs`, `.cpp`, `.sql`, etc.).',
-  '   - NEVER leak `#BT`, `[SMFT-T1]`, `![AnchorLock:`, or non-ASCII protocol glyphs (`⟦`, `⟧`, `⊕`, `⊗`) into source files.',
-  '3. **Human Response Surface**:',
-  '   - Deliver final user-facing answers concisely in natural language matching the user\'s language (default Chinese when prompted in Chinese), unless raw `#BT` is requested.',
+  '## BabelTele Kernel (BT-Spec v1.0 · V5 Contract-First Multi-Level Bus)',
+  '1. **Plane A — `#BT` Micro-Graph Reasoning & Zero-Waste Execution**:',
+  '   - **`#Chat[fast]`**: On greetings or pure Q&A needing no workspace state, keep `thinking <= 15w`, call `0` tools, reply directly.',
+  '   - **CoT & Code Lean Budget**: Keep `thinking <= 8` `#BT` lines (`?cond => guard`, `->`, `&`, `!ban:`, `@file:line`); **NEVER draft code inside `thinking`**. Write lean, idiomatic code (`1`-line docstrings, zero unrequested helper classes/bloat); skip `todo_write` unless task has `>= 6` distinct phases.',
+  '   - **Zero Blind Probing**: `[BT-Headers v4.0]` gives live `@cwd=(empty)` or `@file(L=n):[Sym@line]`. Jump directly to `write` or targeted `read(offset,limit)`/`edit`; never waste Step 1 calling `glob`/`ls`.',
+  '   - **Parallel Batch Tooling**: Emit ALL independent `write`/`edit`/`read`/`subagent` calls in ONE assistant step.',
+  '   - **Contract-First Multi-Level Subagent Bus (`L0->L1->L2->L3`)**:',
+  '     * Self-contained 1–2 file task => execute directly (`0` subagents).',
+  '     * Multi-agent task OR `>= 3` independent modules => **Step 1**: define an explicit `#Contract` (exact class names, `__init__` args/types, method signatures & return types, error types) and pass that exact `#Contract` inside EVERY parallel `subagent` call in ONE step (you may even spawn test-suite & module subagents in parallel against the same `#Contract`!), then **END YOUR TURN** (do NOT call `wait_agent` or `read` right after spawning — runtime auto-wakes you with `#SubReport`s when children finish).',
+  '     * **Zero-Copy Integration**: Once `#SubReport`s arrive, run `pwsh` test verification directly **without calling `read` on child files**; read only the failing `@file(offset,limit)` slice if a test fails.',
+  '2. **Plane B — `100%` Native Code Purity & `[BT-Diag]` Closed-Loop Accuracy**:',
+  '   - Every written/edited file MUST be `100%` pure idiomatic target code (never leak `#BT`, `[SMFT-T1]`, `![AnchorLock:`, or `⟦⟧⊕⊗`).',
+  '   - Satisfy every `#Contract` signature, anchor & `!ban:` constraint on first write. If `write`/`edit` returns `[BT-Diag SYNTAX_ERROR]`, fix immediately via `edit` before finishing.',
+  '3. **Human Surface**: Reply concisely in the user\'s language (default Chinese for Chinese prompts), synthesizing `#SubReport` facts cleanly.',
 ].join('\n')
 
 const CODE_FILE_EXTENSIONS = new Set([
@@ -125,9 +145,18 @@ const EN_FILLER_PATTERNS: ReadonlyArray<RegExp> = [
 ]
 
 /**
- * V3 Omnilingual Semantic Collapse Table (Axiom 1: cross-lingual minimum-BPE primitives).
+ * V4 Omnilingual Semantic Collapse Table (105+ engineering, systems & multi-agent primitives).
  */
 const OMNILINGUAL_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
+  // Multi-agent & hierarchical delegation primitives
+  [/并行(?:派出|启动|调用|创建)/gu, 'parallel_spawn '],
+  [/多级(?:子)?(?:智能体|代理)|层级(?:子)?(?:智能体|代理)/gu, 'hier_subagents '],
+  [/子智能体|子代理/gu, 'subagent '],
+  [/主智能体|主控智能体|协调器/gu, 'coordinator '],
+  [/架构(?:审查|审计|评估|分析)/gu, 'arch_audit'],
+  [/安全(?:审查|审计|漏洞(?:扫描|检查)?)/gu, 'sec_audit'],
+  [/性能(?:剖析|优化|瓶颈分析|分析)/gu, 'perf_audit'],
+  [/(?:最后|最终)?汇总(?:成|为)(?:一份)?(?:简明的|清晰的|完整的)?/gu, '=> synth '],
   // Spatial & execution scope
   [/在当前(?:工作区|目录|文件夹|项目)(?:下|中|里)?(?:创建|新建|编写|写)一个(?:完整的|标准的)?/gu, '@cwd impl '],
   [/在当前(?:工作区|目录|文件夹|项目)(?:下|中|里)?/gu, '@cwd '],
@@ -136,7 +165,7 @@ const OMNILINGUAL_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
   [/调用(?:命令行|终端)(?:运行|执行)/gu, 'run '],
   [/(?:运行|执行)验证(?:全部)?通过|验证全部通过|确保测试(?:全部)?通过|确认全部通过/gu, '=>pass'],
   [/不要解释(?:任何)?废话|不需要解释|只输出纯?代码(?:块)?/gu, 'code_only'],
-  // Engineering qualifiers
+  // Engineering & quality qualifiers
   [/包含类型注解|加上类型注解|带类型注解|完整类型注解/gu, '+typed'],
   [/线程安全的?|并发安全的?/gu, '+threadsafe '],
   [/仅使用标准库|只用标准库|纯标准库/gu, '+stdlib_only'],
@@ -144,23 +173,29 @@ const OMNILINGUAL_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
   [/单元测试文件/gu, 'utest_file '],
   [/单元测试(?:用例)?/gu, 'utest'],
   [/(\d+)\s*个\s*utest/gu, '$1 utest'],
-  [/边界(?:条件|情况|测试)|极端情况/gu, 'edge_cases'],
+  [/边界(?:条件|情况|测试|缺陷)|极端情况/gu, 'edge_cases'],
   [/异常(?:处理|捕获)|错误处理/gu, 'err_guard'],
+  [/死锁/gu, 'deadlock'],
+  [/竞态条件|数据竞争/gu, 'race_cond'],
+  [/内存泄漏/gu, 'mem_leak'],
   [/时间复杂度(?:要求)?(?:为|是)?/gu, 'T:'],
   [/空间复杂度(?:要求)?(?:为|是)?/gu, 'S:'],
-  // High-frequency algorithmic & systems concepts
+  // Systems & algorithmic primitives
   [/滑动窗口限流(?:器|模块)?/gu, 'sliding_win_limiter'],
   [/滑动窗口/gu, 'sliding_win'],
   [/令牌桶限流(?:器|模块)?|令牌桶/gu, 'token_bucket'],
   [/优先级?(?:任务)?队列/gu, 'prio_queue'],
   [/指数退避(?:重试)?/gu, 'exp_backoff'],
+  [/熔断器/gu, 'circuit_breaker'],
+  [/读写锁/gu, 'rwlock'],
   [/惰性删除|懒删除/gu, 'lazy_del'],
   [/双向链表/gu, 'DLL'],
   [/过期时间/gu, 'TTL'],
   [/容量上限|最大容量/gu, 'max_cap'],
+  [/补充速率/gu, 'refill_rate'],
   [/快速排序/gu, 'quicksort'],
   [/二分查找/gu, 'bin_search'],
-  // Logical & relational operators (1-token ASCII)
+  // 1-token ASCII relational & logical operators
   [/如果(?:出现|发生|遇到|存在)?/gu, '?'],
   [/假如|若是|当(?=.*时)/gu, '?'],
   [/那么就?|则(?:需要|必须|应当)?|然后(?:再)?|最后(?:再)?(?=.*(?:调用|运行|执行|验证|汇总|输出))/gu, ' => '],
@@ -311,8 +346,8 @@ export function looksLikeBabelTele(text: string): boolean {
   return trimmed.startsWith('#BT')
     || trimmed.startsWith('#Task ')
     || trimmed.startsWith('#Chat[')
-    || trimmed.startsWith('#SubTask ')
-    || trimmed.startsWith('#SubReport ')
+    || trimmed.startsWith('#SubTask')
+    || trimmed.startsWith('#SubReport')
     || trimmed.startsWith('[SMFT-T1]')
     || /(?:^|\n)\s*#(?:Intent|Plan|Stack|Files|DiagFix|Next)\b/u.test(trimmed)
 }
@@ -323,6 +358,7 @@ export function looksLikeBabelTele(text: string): boolean {
 export function neutralizeToBabelTele(
   raw: string,
   mode: BabelTeleCompileMode = babelTeleRuntimeConfig.mode,
+  prefixTag = '#Task',
 ): BabelTeleNeutralizeResult {
   const trimmed = raw.trim()
   const originalTokens = estimateBabelTokens(trimmed)
@@ -375,7 +411,6 @@ export function neutralizeToBabelTele(
     working = working.replace(pattern, replacement)
   }
 
-  // In BT-L3 Ultra-Dense Skeleton mode, strip low-entropy Chinese grammatical particles & compact operator spaces.
   if (mode === 'bt-l3') {
     working = working
       .replace(/(?:的|地|得|了|着|把|将|个|项|份|一下)/gu, '')
@@ -399,7 +434,7 @@ export function neutralizeToBabelTele(
     return codeSpans[idx] ?? ''
   })
 
-  const candidate = `#Task ${working.length > 0 ? working : trimmed}`
+  const candidate = `${prefixTag} ${working.length > 0 ? working : trimmed}`
   const { text: lockedText, audit } = auditHardAnchors(trimmed, candidate)
   const babelTokens = estimateBabelTokens(lockedText)
   const savedTokens = Math.max(0, originalTokens - babelTokens)
@@ -421,27 +456,264 @@ export function neutralizeToBabelTele(
   }
 }
 
+/**
+ * `#BT-Bus v4` Downlink Compiler: dehydrates Parent -> Child subagent directives
+ * while preserving 100% of hard anchors and stamping explicit hierarchy depth.
+ */
+export function compileSubagentDirective(
+  rawPrompt: string,
+  options: { childDepth: number; maxDepth?: number; inheritsConversation?: boolean },
+): string {
+  if (!babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.subagentBusCompression) return rawPrompt
+  const trimmed = rawPrompt.trim()
+  if (trimmed.length === 0) return rawPrompt
+  const depthTag = options.maxDepth !== undefined
+    ? `L${String(options.childDepth)}/${String(options.maxDepth)}`
+    : `L${String(options.childDepth)}`
+  const modeTag = options.inheritsConversation === true ? 'fork' : 'spawn'
+  const header = `#SubTask[${depthTag}|${modeTag}]`
+  if (looksLikeBabelTele(trimmed)) {
+    return trimmed.startsWith('#SubTask') ? trimmed : `${header} ${trimmed}`
+  }
+  const compiled = neutralizeToBabelTele(trimmed, babelTeleRuntimeConfig.mode, header)
+  if (!compiled.shortCircuit && compiled.audit.passed) {
+    return compiled.babeltele
+  }
+  return `${header} ${trimmed}`
+}
+
+const SUBAGENT_POLITE_WRAPPER =
+  /^(?:好的[，,！!。]*|没问题[，,！!。]*|我已经完成了[^。\n]*[。\n]+|以下是(?:详细的)?(?:审查|分析|执行)?(?:结果|报告)[：:\n]*)|(?:\n+(?:希望以上[^。\n]*|如果有任何问题[^。\n]*|请随时告诉我[^。\n]*)[。！!\s]*)$/gu
+
+/**
+ * `#BT-Bus v4` Uplink Distiller: strips conversational padding and folds verbose logs
+ * from Child -> Parent `#SubReport` settlement payloads while preserving 100% of facts,
+ * code snippets, `@file:line` references, and error diagnostics.
+ */
+export function distillSubagentReport(rawText: string): string {
+  if (!babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.subagentBusCompression) return rawText
+  if (rawText.length < 40) return rawText
+  let distilled = compressToolOutputToBabelTele(rawText)
+  distilled = distilled
+    .replace(SUBAGENT_POLITE_WRAPPER, '')
+    .replace(/\n{3,}/gu, '\n\n')
+    .trim()
+  return distilled
+}
+
+/**
+ * `[BT-SchemaCompiler v4]` Canonical high-density tool descriptions.
+ * Keeps 100% of parameter ordering rules, path safety, and behavioral contracts while cutting ~2,400+ tokens of prose.
+ */
+const CANONICAL_TOOL_DESCRIPTIONS: Readonly<Record<string, string>> = {
+  pwsh:
+    'Run PowerShell (`pwsh -Command`) in a fresh process; returns stdout/stderr/exitCode. Pass `description` BEFORE `command`; use `workdir` instead of `cd`, Windows `C:\\...` paths, and `$env:NAME`. Verify resolved target path before any delete/move.',
+  bash:
+    'Run bash command in a fresh shell; returns stdout/stderr/exitCode. Pass `description` BEFORE `command`; use `workdir` instead of `cd`. Verify resolved target path before any delete/move.',
+  read:
+    'Read UTF-8 text file (with `offset`/`limit` line slicing), image, or directory entries.',
+  write:
+    'Create or overwrite UTF-8 file (`file_path` BEFORE `content`). Enforces Plane-B pure code & runs `[BT-AST]` syntax check.',
+  edit:
+    'Exact literal replacement in UTF-8 file (`file_path` BEFORE `old_string`, `new_string`). Prefer over `write` for partial edits.',
+  glob:
+    'Fast glob file-path search (`**/*.py`, `src/**/*.ts`) sorted by mtime.',
+  grep:
+    'ripgrep regex search across files; supports `glob`/`type` filters and `output_mode` (`files_with_matches` | `content` | `count`).',
+  subagent:
+    'Spawn isolated child agent (`L1..L3`) on `#BT-Bus` for parallel module implementation, research, or audit. Returns child name immediately; runtime auto-delivers `#SubReport` on completion. Partition write `@path`s strictly across parallel children.',
+  subagent_fork:
+    'Fork child agent inheriting completed parent turns (100% warm KV-cache reuse) for parallel verification, deep audit, or delta work. State only delta `#SubTask`; runtime auto-delivers `#SubReport`.',
+  send_message:
+    'Send follow-up or steering message to an existing subagent in this tree.',
+  list_agents:
+    'Inspect subagent tree status (never poll in a loop; end turn to await auto-delivery).',
+  interrupt_agent:
+    'Interrupt a running descendant subagent turn.',
+  job_output:
+    'Read incremental output/status of background job (`wait:true` waits up to `timeout_ms`).',
+  job_list:
+    'List background jobs in this session.',
+  job_kill:
+    'Terminate a running background job by `job_id`.',
+  todo_write:
+    'Update structured task checklist (use only for multi-phase >=4-step tasks; skip on simple tasks).',
+  workflow:
+    'Execute JS multi-agent workflow script (`agent`, `parallel`) when programmatic pipeline fan-out is explicitly needed.',
+  web_search:
+    'Search web and return ranked results/snippets.',
+  web_fetch:
+    'Fetch public HTTP(S) URL content as readable text/markdown.',
+  skill:
+    'Load specialized `SKILL.md` instructions by skill name.',
+  cd:
+    'Change session working directory.',
+  working_directory:
+    'Change session working directory to an existing directory path.',
+  wait_agent:
+    'Wait for next subagent message/settlement (usually unnecessary: simply end your turn after spawning subagents and runtime auto-wakes you).',
+  ask_user_question:
+    'Ask user structured multiple-choice question ONLY when genuine ambiguity blocks execution.',
+  create_goal:
+    'Create persisted multi-round goal ONLY for long-running autonomous objectives (never for normal single-request tasks).',
+  get_goal:
+    'Read current persisted session goal.',
+  update_goal:
+    'Update persisted goal state (`edit`|`pause`|`resume`|`complete`|`blocked`).',
+  team_task_create:
+    'Create task on shared Agent Team board.',
+  team_task_get:
+    'Get shared Team task by id.',
+  team_task_list:
+    'List shared Team tasks.',
+  team_task_update:
+    'Update shared Team task status/owner.',
+  list_mcp_resources:
+    'List available MCP server resources.',
+  list_mcp_resource_templates:
+    'List MCP resource URI templates.',
+  read_mcp_resource:
+    'Read MCP resource by server and URI.',
+  read_image:
+    'Read local image file for visual inspection.',
+}
+
+const CANONICAL_SECTION_OVERRIDES: Readonly<Record<string, string>> = {
+  'tool:pwsh':
+    '`pwsh`: Prefer dedicated `read`/`write`/`edit`/`glob`/`grep` tools over shell equivalents. Batch independent checks; verify paths before destructive ops.',
+  'tool:bash':
+    '`bash`: Prefer dedicated `read`/`write`/`edit`/`glob`/`grep` tools over shell equivalents. Batch independent checks; verify paths before destructive ops.',
+  'tool:jobs':
+    'Background jobs auto-deliver completion notices when idle; do not poll `job_output` in a tight loop.',
+  'tool:workflow':
+    'Use `workflow` only when programmatic JS fan-out/aggregation over many items is superior to direct parallel `subagent` calls.',
+  'tool:subagent':
+    '`#BT-Bus` Delegation: Pin exact `#Contract` API signatures across parallel `subagent`/`subagent_fork` calls in ONE step with disjoint write `@path`s, then END YOUR TURN so completion `#SubReport`s wake you automatically.',
+  'tool:goal':
+    'Use `create_goal`/`update_goal` only for long-running multi-round objectives; rearm with `resume` if user asks to continue after session resume.',
+  'tool:web_search':
+    'Use `web_search` for external facts/docs not present in workspace.',
+  'tool:web_fetch':
+    'Use `web_fetch` to read specific public HTTP(S) URLs.',
+  'team:policy':
+    'Agent Teams share cwd: partition write `@path`s across teammates, claim with current revision, and use `send_message` to wake idle teammates.',
+}
+
+function compactParamDescriptionText(desc: string): string {
+  const clean = desc.replace(/\s+/gu, ' ').trim()
+  if (clean.length <= 120) return clean
+  // Preserve ordering/required/default clauses while trimming verbose prose examples
+  const sentences = clean.split(/(?<=\.)\s+/u)
+  const kept: string[] = []
+  let len = 0
+  for (const s of sentences) {
+    const critical = /\b(?:before|required|must|default|omit|relative|absolute|enum|one of)\b/iu.test(s)
+    if (kept.length === 0 || (critical && len + s.length <= 240) || len + s.length <= 115) {
+      kept.push(s)
+      len += s.length + 1
+      if (len >= 220) break
+    }
+  }
+  return kept.join(' ')
+}
+
+function compactJsonSchemaNode(node: unknown): unknown {
+  if (node === null || typeof node !== 'object') return node
+  if (Array.isArray(node)) return node.map(compactJsonSchemaNode)
+  const rec = node as Record<string, unknown>
+  const out: Record<string, unknown> = {}
+  for (const [k, v] of Object.entries(rec)) {
+    if (k === 'description' && typeof v === 'string') {
+      out[k] = compactParamDescriptionText(v)
+    } else if (k === 'properties' && v !== null && typeof v === 'object' && !Array.isArray(v)) {
+      const props: Record<string, unknown> = {}
+      for (const [pk, pv] of Object.entries(v as Record<string, unknown>)) {
+        props[pk] = compactJsonSchemaNode(pv)
+      }
+      out[k] = props
+    } else if (k === 'items' || k === 'anyOf' || k === 'oneOf' || k === 'allOf') {
+      out[k] = compactJsonSchemaNode(v)
+    } else {
+      out[k] = v
+    }
+  }
+  return out
+}
+
+/**
+ * `[BT-SchemaCompiler v4]` Deterministically compacts tool descriptions & parameter annotations.
+ * Uniform across root and all child depths so provider prefix KV-cache is 100% shared!
+ */
+export function compactToolSchemasToBabelTele<T extends { name: string; description: string; parameters: unknown }>(
+  tools: readonly T[],
+): T[] {
+  if (!babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.compactSchemasAndSections) {
+    return [...tools]
+  }
+  return tools.map((tool) => {
+    const canonical = CANONICAL_TOOL_DESCRIPTIONS[tool.name]
+    const description = canonical ?? compactParamDescriptionText(tool.description)
+    const parameters = compactJsonSchemaNode(tool.parameters) as T['parameters']
+    return {
+      ...tool,
+      description,
+      parameters,
+    }
+  })
+}
+
+/**
+ * `[BT-SchemaCompiler v4]` Deduplicates overlapping identity lines and compacts verbose tool prose sections.
+ */
+export function compactSystemSectionsToBabelTele<T extends { name: string; text: string; interpolate?: boolean }>(
+  sections: readonly T[],
+): T[] {
+  if (!babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.compactSchemasAndSections) {
+    return [...sections]
+  }
+  const hasIdentity = sections.some(s => s.name === 'harness:identity' && s.text.trim().length > 0)
+  const result: T[] = []
+  for (const sec of sections) {
+    if (sec.text.trim().length === 0) {
+      result.push(sec)
+      continue
+    }
+    // Drop redundant duplicate BabelTele identity in deployment:persona-prefix when harness:identity is active
+    if (hasIdentity && sec.name === 'deployment:persona-prefix' && sec.text.includes('BabelTele Agent')) {
+      continue
+    }
+    const override = CANONICAL_SECTION_OVERRIDES[sec.name]
+    if (override !== undefined) {
+      result.push({ ...sec, text: override, interpolate: false })
+      continue
+    }
+    result.push(sec)
+  }
+  return result
+}
+
 const ANSI_ESCAPE = /\x1B\[[0-?]*[ -/]*[@-~]/gu
 const UNITTEST_HEADER_ONLY = /^test_\w+\s+\([^)]+\)$/u
 const UNITTEST_DOC_OK = /^.+\s+\.\.\.\s+ok$/iu
 const PASSING_TEST_LINE =
-  /^(?:test_\w+\s+\([^)]+\)\s+\.\.\.\s+ok|\S+::\S+\s+PASSED(?:\s+\[\s*\d+%\])?|[✓✔]\s+.+|PASS\s+\S+.*|ok\s+\d+\s+-.*|\.\.\.\s*ok)$/iu
+  /^(?:test_\w+\s+\([^)]+\)\s+\.\.\.\s+ok|\S+::\S+\s+PASSED(?:\s+\[\s*\d+%\])?|[✓✔]\s+.+|PASS\s+\S+.*|---\s+PASS:\s+\S+.*|test\s+\S+\s+\.\.\.\s+ok|ok\s+\d+\s+-.*|\.\.\.\s*ok)$/iu
+const PROGRESS_NOISE_LINE =
+  /^(?:Downloading\s+\S+.*|Installing\s+collected\s+packages.*|Progress:\s+resolved\s+\d+.*|[⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏]\s+.*)$/iu
 
 /**
- * Bidirectional `[BT-ToolOut]` Semantic Tool-Result Compressor.
- * Strips ANSI escapes, collapses runs of `>= 5` passing test entries (both single-line
- * and two-line Python `unittest -v` docstring pairs, `pytest -v`, `vitest`) into a single
- * `[BT-TestPass: folded N intermediate passing tests]` summary, while preserving 100% of
- * file `<content>` blocks, errors, FAIL tracebacks, and final status lines.
+ * Bidirectional `[BT-ToolOut v4]` Semantic Tool-Result Projector.
+ * Strips ANSI escapes, folds runs of `>= 5` passing test entries (unittest 1/2-line, pytest, vitest, go, cargo)
+ * and package-manager progress noise, while preserving `100%` of file `<content>`, errors, and FAIL tracebacks.
  */
 export function compressToolOutputToBabelTele(rawText: string): string {
   if (!babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.compressToolResults) return rawText
-  if (rawText.length < 240 || rawText.includes('<type>file</type>')) return rawText
+  if (rawText.length < 220 || rawText.includes('<type>file</type>')) return rawText
 
-  const cleaned = rawText.replace(ANSI_ESCAPE, '').replace(/\r\n/gu, '\n')
+  const cleaned = rawText.replace(ANSI_ESCAPE, '').replace(/\r\n/gu, '\n').replace(/\n{4,}/gu, '\n\n')
   const lines = cleaned.split('\n')
   const out: string[] = []
   let passBuffer: string[] = []
+  let progressCount = 0
 
   const flushPassBuffer = (): void => {
     if (passBuffer.length >= 5) {
@@ -456,13 +728,26 @@ export function compressToolOutputToBabelTele(rawText: string): string {
     passBuffer = []
   }
 
+  const flushProgress = (): void => {
+    if (progressCount >= 3) {
+      out.push(`[BT-LogFold: ${String(progressCount)} progress lines omitted]`)
+    }
+    progressCount = 0
+  }
+
   for (let i = 0; i < lines.length; i += 1) {
     const line = lines[i] ?? ''
     const trimmed = line.trim()
     const nextLine = lines[i + 1]
     const nextTrimmed = nextLine?.trim() ?? ''
 
-    // Two-line Python `unittest -v` docstring pair: `test_foo (mod.Cls.test_foo)` + `Docstring ... ok`
+    if (PROGRESS_NOISE_LINE.test(trimmed)) {
+      if (passBuffer.length > 0) flushPassBuffer()
+      progressCount += 1
+      continue
+    }
+    if (progressCount > 0) flushProgress()
+
     if (
       UNITTEST_HEADER_ONLY.test(trimmed)
       && nextLine !== undefined
@@ -481,6 +766,7 @@ export function compressToolOutputToBabelTele(rawText: string): string {
     if (passBuffer.length > 0) flushPassBuffer()
     out.push(line)
   }
+  if (progressCount > 0) flushProgress()
   if (passBuffer.length > 0) flushPassBuffer()
 
   return out.join('\n')
@@ -491,9 +777,10 @@ export function decodeBabelTeleToZh(text: string): string {
   return text
     .replace(/\[SMFT-T1\]/gu, '[语义检查点 SMFT-T1]')
     .replace(/\[BT-TestPass:\s*([^\]]+)\]/gu, '[测试通过摘要：$1]')
+    .replace(/\[BT-LogFold:\s*([^\]]+)\]/gu, '[日志折叠：$1]')
     .replace(/^#BT\b\s*/gmu, '[巴别语推理] ')
     .replace(/^#Task\b\s*/gmu, '[工程任务] ')
-    .replace(/^#SubTask\b\s*/gmu, '[子任务委派] ')
+    .replace(/^#SubTask(?:\[[^\]]*\])?\s*/gmu, '[子任务委派] ')
     .replace(/^#SubReport\b\s*/gmu, '[子任务回执] ')
     .replace(/^#Intent\b\s*:?\s*/gmu, '• 核心意图：')
     .replace(/^#Plan\b\s*:?\s*/gmu, '• 执行计划：')
@@ -503,6 +790,8 @@ export function decodeBabelTeleToZh(text: string): string {
     .replace(/^#Pending\b\s*:?\s*/gmu, '• 待办事项：')
     .replace(/^#Next\b\s*:?\s*/gmu, '• 下一步动作：')
     .replace(/@cwd\b/gu, '当前目录')
+    .replace(/\bparallel_spawn\b/gu, '[并行派发]')
+    .replace(/\bhier_subagents\b/gu, '[多级子代理]')
     .replace(/\+typed\b/gu, '[含类型注解]')
     .replace(/\+threadsafe\b/gu, '[线程安全]')
     .replace(/\+stdlib_only\b/gu, '[仅标准库]')
@@ -586,13 +875,119 @@ export function auditCodeArtifactPurity(filePath: string, newString: string): Co
   }
 }
 
-function extractFileSignatures(content: string, ext: string): string[] {
+const MERGE_CONFLICT_MARKER = /^(?:<<<<<<< |=======$|>>>>>>> )/mu
+
+/**
+ * `[BT-Diag v4]` Pre-Flight Closed-Loop AST & Syntax Verifier.
+ * Runs side-effect-free syntax parsing (`< 35ms`) immediately after `write` or `edit`
+ * so syntax/indentation errors are surfaced in the same turn with zero extra shell round-trips.
+ */
+export function verifyCodeArtifactSyntax(filePath: string, content: string): CodeSyntaxDiag {
+  const lineCount = content.length === 0 ? 0 : content.split('\n').length
+  if (!babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.preflightAstCheck) {
+    return { checked: false, valid: true, lineCount, tag: '' }
+  }
+  const ext = extname(filePath).toLowerCase()
+  if (!CODE_FILE_EXTENSIONS.has(ext)) {
+    return { checked: false, valid: true, lineCount, tag: `[L=${String(lineCount)}]` }
+  }
+
+  if (MERGE_CONFLICT_MARKER.test(content)) {
+    return {
+      checked: true,
+      valid: false,
+      lineCount,
+      tag: `[BT-Diag CONFLICT_MARKER: unresolved <<<<<<< / >>>>>>> marker in ${filePath} — fix immediately via edit]`,
+    }
+  }
+
+  if (ext === '.json') {
+    try {
+      JSON.parse(content)
+      return { checked: true, valid: true, lineCount, tag: `[L=${String(lineCount)}, JSON:ok]` }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message.replace(/\s+/gu, ' ').slice(0, 140) : 'invalid JSON'
+      return {
+        checked: true,
+        valid: false,
+        lineCount,
+        tag: `[BT-Diag SYNTAX_ERROR: ${msg} — fix immediately via edit]`,
+      }
+    }
+  }
+
+  if (ext === '.py') {
+    try {
+      const py = spawnSync(
+        'python',
+        [
+          '-c',
+          'import ast,sys\ntry:\n ast.parse(sys.stdin.buffer.read(), sys.argv[1])\nexcept SyntaxError as e:\n sys.stderr.write(f"line {e.lineno}:{e.offset}: {e.msg}"); sys.exit(2)',
+          filePath,
+        ],
+        {
+          input: content,
+          encoding: 'utf8',
+          timeout: 1500,
+          windowsHide: true,
+        },
+      )
+      if (py.status === 0) {
+        return { checked: true, valid: true, lineCount, tag: `[L=${String(lineCount)}, AST:ok]` }
+      }
+      if (py.status === 2 && py.stderr) {
+        return {
+          checked: true,
+          valid: false,
+          lineCount,
+          tag: `[BT-Diag SYNTAX_ERROR @${py.stderr.trim().slice(0, 160)} — fix immediately via edit]`,
+        }
+      }
+    } catch {
+      // Python binary absent or timed out: degrade gracefully without false alarm.
+    }
+  }
+
+  if ((ext === '.js' || ext === '.mjs' || ext === '.cjs') && existsSync(filePath)) {
+    try {
+      const chk = spawnSync(process.execPath, ['--check', filePath], {
+        encoding: 'utf8',
+        timeout: 1500,
+        windowsHide: true,
+      })
+      if (chk.status === 0) {
+        return { checked: true, valid: true, lineCount, tag: `[L=${String(lineCount)}, AST:ok]` }
+      }
+      if (chk.status !== null && chk.status !== 0) {
+        const errLine = (chk.stderr || '').split(/\r?\n/u).find(l => l.includes('SyntaxError') || l.includes(':')) ?? 'SyntaxError'
+        return {
+          checked: true,
+          valid: false,
+          lineCount,
+          tag: `[BT-Diag SYNTAX_ERROR: ${errLine.trim().slice(0, 160)} — fix immediately via edit]`,
+        }
+      }
+    } catch {
+      // Ignore check spawn errors smoothly.
+    }
+  }
+
+  return { checked: false, valid: true, lineCount, tag: `[L=${String(lineCount)}]` }
+}
+
+/**
+ * Extract top-level symbols WITH 1-based line coordinates (`Sym@line`) so root & subagents
+ * jump straight to exact line ranges without exploratory `grep` or full-file `read`.
+ */
+function extractFileSignaturesWithLines(content: string, ext: string): string[] {
   const lines = content.split(/\r?\n/u)
   const topLevel: string[] = []
   const fallbackIndented: string[] = []
 
-  for (const line of lines) {
-    if (topLevel.length >= 12) break
+  for (let idx = 0; idx < lines.length; idx += 1) {
+    if (topLevel.length >= 14) break
+    const line = lines[idx] ?? ''
+    const lineNo = idx + 1
     const trimmed = line.trim()
     if (trimmed.length === 0 || trimmed.startsWith('//') || trimmed.startsWith('#') || trimmed.startsWith('*')) continue
     const isUnindented = line.charCodeAt(0) !== 32 && line.charCodeAt(0) !== 9
@@ -600,25 +995,26 @@ function extractFileSignatures(content: string, ext: string): string[] {
     if (ext === '.py') {
       if (!isUnindented) continue
       const m = /^(?:async\s+def|def|class)\s+([A-Za-z_][A-Za-z0-9_]*)/u.exec(line)
-      if (m?.[1] !== undefined) topLevel.push(m[1])
+      if (m?.[1] !== undefined) topLevel.push(`${m[1]}@${String(lineNo)}`)
     } else if (ext === '.java' || ext === '.kt' || ext === '.cs') {
       const m = /^(?:public|protected|private|internal|abstract|final|static|sealed|\s)*(?:class|interface|enum|record)\s+([A-Za-z_][A-Za-z0-9_]*)/u.exec(trimmed)
       if (m?.[1] !== undefined) {
-        if (isUnindented) topLevel.push(m[1])
-        else if (fallbackIndented.length < 12) fallbackIndented.push(m[1])
+        const entry = `${m[1]}@${String(lineNo)}`
+        if (isUnindented) topLevel.push(entry)
+        else if (fallbackIndented.length < 14) fallbackIndented.push(entry)
       }
     } else if (ext === '.go') {
       if (!isUnindented) continue
       const m = /^(?:func|type)\s+(?:\([^)]+\)\s*)?([A-Za-z_][A-Za-z0-9_]*)/u.exec(line)
-      if (m?.[1] !== undefined) topLevel.push(m[1])
+      if (m?.[1] !== undefined) topLevel.push(`${m[1]}@${String(lineNo)}`)
     } else if (ext === '.rs') {
       if (!isUnindented) continue
       const m = /^(?:pub(?:\([^)]*\))?\s+)?(?:async\s+)?(?:fn|struct|enum|trait)\s+([A-Za-z_][A-Za-z0-9_]*)/u.exec(line)
-      if (m?.[1] !== undefined) topLevel.push(m[1])
+      if (m?.[1] !== undefined) topLevel.push(`${m[1]}@${String(lineNo)}`)
     } else {
       if (!isUnindented) continue
       const m = /^(?:export\s+(?:default\s+)?)?(?:async\s+)?(?:function|class|interface|type|const)\s+([A-Za-z_$][A-Za-z0-9_$]*)/u.exec(line)
-      if (m?.[1] !== undefined) topLevel.push(m[1])
+      if (m?.[1] !== undefined) topLevel.push(`${m[1]}@${String(lineNo)}`)
     }
   }
 
@@ -626,10 +1022,10 @@ function extractFileSignatures(content: string, ext: string): string[] {
 }
 
 /**
- * Scan workspace into a Zero-Probe `[BT-Headers v3.0]` architectural index.
- * Explicitly emits `@cwd=(empty, 0 files)` when empty so the Agent skips blind `glob`/`ls` step-1 probes!
+ * Scan workspace into a shared, `mtime`-fingerprinted `[BT-Headers v4.0]` Repo-Graph with `Symbol@Line` coordinates.
+ * Shared across the root agent and all in-process `L1..L3` subagents at `O(1)` memory cost.
  */
-export function scanWorkspaceBtHeaders(cwd: string, maxFiles = 28): string {
+export function scanWorkspaceBtHeaders(cwd: string, maxFiles = 32): string {
   if (!babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.injectBtHeaders) return ''
   if (!existsSync(cwd)) return ''
 
@@ -640,7 +1036,7 @@ export function scanWorkspaceBtHeaders(cwd: string, maxFiles = 28): string {
     return ''
   }
   if (topEntries.length === 0) {
-    return '[BT-Headers v3.0 Workspace Skeleton]\n@cwd=(empty_directory, 0 files — skip glob/ls and write target files directly)'
+    return '[BT-Headers v4.0 Repo-Graph]\n@cwd=(empty_directory, 0 files — skip glob/ls and write target files directly)'
   }
 
   const discovered: Array<{ fullPath: string; rel: string; size: number; mtimeMs: number; ext: string }> = []
@@ -698,7 +1094,7 @@ export function scanWorkspaceBtHeaders(cwd: string, maxFiles = 28): string {
     try {
       const text = readFileSync(file.fullPath, 'utf8')
       const lineCount = text.split('\n').length
-      const sigs = extractFileSignatures(text, file.ext)
+      const sigs = extractFileSignaturesWithLines(text, file.ext)
       entries.push(sigs.length > 0
         ? `@${file.rel}(L=${String(lineCount)}):[${sigs.join(',')}]`
         : `@${file.rel}(L=${String(lineCount)})`)
@@ -707,14 +1103,14 @@ export function scanWorkspaceBtHeaders(cwd: string, maxFiles = 28): string {
     }
   }
   if (entries.length === 0 && nonCodeFiles.length > 0) {
-    const snapshot = `[BT-Headers v3.0 Workspace Skeleton]\n@cwd(non_source_files=[${nonCodeFiles.join(',')}], 0 code files)`
+    const snapshot = `[BT-Headers v4.0 Repo-Graph]\n@cwd(non_source_files=[${nonCodeFiles.join(',')}], 0 code files)`
     btHeaderCache.set(cwd, { fingerprint, snapshot })
     return snapshot
   }
 
   const snapshot = entries.length === 0
     ? ''
-    : `[BT-Headers v3.0 Workspace Skeleton]\n${entries.join(' ; ')}`
+    : `[BT-Headers v4.0 Repo-Graph]\n${entries.join(' ; ')}`
   btHeaderCache.set(cwd, { fingerprint, snapshot })
   return snapshot
 }

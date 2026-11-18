@@ -10,7 +10,7 @@ import type { Context } from '@deepseek-ai/cordis'
 import type { Agent, AgentOptions, CreateAgentOptions } from '@deepseek-ai/dsh-agent'
 import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
 import type { Session } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-system-prompt'
+import { babelTeleRuntimeConfig } from '@deepseek-ai/dsh-system-prompt'
 import type { ToolRestriction } from '@deepseek-ai/dsh-tools'
 // Type-only: make `ctx.get('sandboxPolicy')`, `ctx.get('approval')`, and
 // `ctx.get('permissionPresets')` resolve to their services when composed — delegation consumes them
@@ -209,7 +209,9 @@ function applyChildOverrides(childCtx: Context, composition: ChildComposition): 
   childCtx.systemPrompt.context({
     name: 'subagent:delegation',
     order: childCtx.systemPrompt.getContextOrder('SUBAGENT_DELEGATION'),
-    text: SUBAGENT_DELEGATION_CONTEXT,
+    text: () => babelTeleRuntimeConfig.enabled
+      ? '#SubagentScope: Permission boundary fixed at launch (approval=never); do not retry denied ops — report blocked requirements in #SubReport.'
+      : SUBAGENT_DELEGATION_CONTEXT,
   })
   if (composition.persona !== undefined) {
     childCtx.systemPrompt.section({

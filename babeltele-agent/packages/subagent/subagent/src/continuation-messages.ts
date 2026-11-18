@@ -8,6 +8,7 @@ import type { Agent } from '@deepseek-ai/dsh-agent'
 import { boundContextSummary, createUserMessage } from '@deepseek-ai/dsh-llm'
 import type { ContentBlock } from '@deepseek-ai/dsh-llm'
 import type { SessionId } from '@deepseek-ai/dsh-session'
+import { babelTeleRuntimeConfig, distillSubagentReport } from '@deepseek-ai/dsh-system-prompt'
 import type { SubagentResult } from './types.ts'
 
 /** Durable attribution for one model-authored message between Agents. */
@@ -87,10 +88,12 @@ export function withResultDeliveryGuidance(
     ...prompt,
     {
       type: 'text',
-      text: 'Your final answer is delivered automatically if your '
-        + 'parent is still online. Include the result and relevant evidence in that answer; the parent does not '
-        + 'receive your full transcript, tool output, or reasoning. If your last action is a message to your '
-        + 'parent, the completion notice omits your final answer; include the result and relevant evidence in that message.',
+      text: babelTeleRuntimeConfig.enabled
+        ? '#BT-Bus Subagent Rules: (1) Implement ONLY the requested scope/#Contract cleanly & concisely (1-line docstrings, zero unrequested classes/bloat, <=180 lines unless required). (2) Reply in <=8 lines `#SubReport`: `@file(L=n)`, `#API[exact Class(__init__) & method signatures]`, `#Check[smoke/AST status]`, `!risks`. Omit greetings/essays so parent never needs to re-read your file.'
+        : 'Your final answer is delivered automatically if your '
+          + 'parent is still online. Include the result and relevant evidence in that answer; the parent does not '
+          + 'receive your full transcript, tool output, or reasoning. If your last action is a message to your '
+          + 'parent, the completion notice omits your final answer; include the result and relevant evidence in that message.',
     },
   ]
 }
@@ -149,9 +152,11 @@ export function createSettlementMessage(
   // Parent providers receive this notice as a user message and may reject
   // nontext assistant blocks. Keep this conversion local so SDK/UI consumers
   // retain the complete child output.
-  const closingText = terminal.output.flatMap(block =>
-    block.type === 'text' && block.text.length > 0 ? [block] : [],
-  )
+  const closingText = terminal.output.flatMap((block) => {
+    if (block.type !== 'text' || block.text.length === 0) return []
+    const text = distillSubagentReport(block.text)
+    return text.length > 0 ? [{ type: 'text' as const, text }] : []
+  })
   return createUserMessage({
     content: [
       { type: 'text' as const, text: summary },

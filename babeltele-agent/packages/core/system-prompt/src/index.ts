@@ -9,15 +9,24 @@ import z from '@deepseek-ai/schemastery'
 import { AnonymousEntries, NamedEntries, ScopedLayers, scopeTarget } from '@deepseek-ai/dsh-scope'
 import type { ScopeKey, ScopeLayer, Scoped } from '@deepseek-ai/dsh-scope'
 import type { ContextSnapshotSection, ToolSchema } from '@deepseek-ai/dsh-llm'
-import { BABELTELE_DUAL_PLANE_KERNEL_PROMPT, babelTeleRuntimeConfig } from './babeltele.ts'
+import {
+  BABELTELE_DUAL_PLANE_KERNEL_PROMPT,
+  babelTeleRuntimeConfig,
+  compactSystemSectionsToBabelTele,
+  compactToolSchemasToBabelTele,
+} from './babeltele.ts'
 
 export {
   BABELTELE_DUAL_PLANE_KERNEL_PROMPT,
   auditCodeArtifactPurity,
   auditHardAnchors,
   babelTeleRuntimeConfig,
+  compactSystemSectionsToBabelTele,
+  compactToolSchemasToBabelTele,
+  compileSubagentDirective,
   compressToolOutputToBabelTele,
   decodeBabelTeleToZh,
+  distillSubagentReport,
   estimateBabelTokens,
   extractHardAnchors,
   invalidateBtHeaderCache,
@@ -26,10 +35,12 @@ export {
   neutralizeToBabelTele,
   sanitizeCodeArtifact,
   scanWorkspaceBtHeaders,
+  verifyCodeArtifactSyntax,
   type BabelTeleCompileMode,
   type BabelTeleNeutralizeResult,
   type BabelTeleRuntimeConfig,
   type CodePurityAudit,
+  type CodeSyntaxDiag,
   type HardAnchorAudit,
 } from './babeltele.ts'
 
@@ -703,7 +714,7 @@ export class SystemPrompt extends Service {
         if (section.complete === true) completeSection = { ...assembled }
         return assembled
       })
-    const tools = orderTools(collected, this.toolOrder, knownNames)
+    const tools = compactToolSchemasToBabelTele(orderTools(collected, this.toolOrder, knownNames))
     const assembly: PromptPresentation = {
       sections,
       contexts: [...contextByName.values()]
@@ -716,12 +727,18 @@ export class SystemPrompt extends Service {
       scopeTarget(this, scope), 'system-prompt/assemble', assembly, context,
       () => Promise.resolve(assembly),
     )
-    if (completeSection === undefined && !runtimeContextSuppressed) return { ...transformed, tools }
+    if (completeSection === undefined && !runtimeContextSuppressed) {
+      return {
+        ...transformed,
+        sections: compactSystemSectionsToBabelTele(transformed.sections),
+        tools,
+      }
+    }
     const requiredContexts = new Set([...contextByName.values()].filter(entry => entry.required === true).map(entry => entry.name))
     return {
       ...transformed,
       tools,
-      sections: completeSection === undefined ? transformed.sections : [completeSection],
+      sections: completeSection === undefined ? compactSystemSectionsToBabelTele(transformed.sections) : [completeSection],
       contexts: runtimeContextSuppressed ? transformed.contexts.filter(entry => requiredContexts.has(entry.name)) : transformed.contexts,
     }
   }

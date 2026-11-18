@@ -50,10 +50,10 @@ export const BABELTELE_STARTER_TEMPLATES: ReadonlyArray<BabelTeleStarterTemplate
   },
   {
     id: 'multi-subagent',
-    badge: 'Subagent · 并行协同',
-    title: '双子智能体架构审查与性能剖析',
+    badge: 'L0→L1→L2 · 多级代理',
+    title: '多级子智能体并行开发与交叉验证',
     prompt:
-      '你好，麻烦你并行派出两个子智能体审查当前项目架构：一个检查核心模块潜在边界缺陷，另一个分析性能优化点，最后汇总成简明的中文工程报告给我，非常感谢！',
+      '你好呀老哥！麻烦你启动多级子智能体并行协同：在当前工作区下并行派出两个子智能体分别独立编写线程安全缓存模块 `cache_core.py` 与限流网关模块 `rate_guard.py`（均仅使用标准库，包含类型注解），并派出验证子智能体编写综合单元测试 `test_suite.py` 执行命令行 `python -m unittest -v` 验证全部通过，最后汇总成简明的工程报告，非常感谢！',
   },
 ]
 
@@ -76,6 +76,14 @@ const EN_FILLER_PATTERNS: ReadonlyArray<RegExp> = [
 ]
 
 const OMNILINGUAL_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
+  [/并行(?:派出|启动|调用|创建)/gu, 'parallel_spawn '],
+  [/多级(?:子)?(?:智能体|代理)|层级(?:子)?(?:智能体|代理)/gu, 'hier_subagents '],
+  [/子智能体|子代理/gu, 'subagent '],
+  [/主智能体|主控智能体|协调器/gu, 'coordinator '],
+  [/架构(?:审查|审计|评估|分析)/gu, 'arch_audit'],
+  [/安全(?:审查|审计|漏洞(?:扫描|检查)?)/gu, 'sec_audit'],
+  [/性能(?:剖析|优化|瓶颈分析|分析)/gu, 'perf_audit'],
+  [/(?:最后|最终)?汇总(?:成|为)(?:一份)?(?:简明的|清晰的|完整的)?/gu, '=> synth '],
   [/在当前(?:工作区|目录|文件夹|项目)(?:下|中|里)?(?:创建|新建|编写|写)一个(?:完整的|标准的)?/gu, '@cwd impl '],
   [/在当前(?:工作区|目录|文件夹|项目)(?:下|中|里)?/gu, '@cwd '],
   [/(?:创建|新建|编写|实现)一个(?:完整的|标准的)?/gu, 'impl '],

@@ -10,7 +10,7 @@ import { ToolArgsError, defineTool } from '@deepseek-ai/dsh-tools'
 import type { DiffCallView, DiffResultView, ToolResult } from '@deepseek-ai/dsh-tools'
 import type { FsWriteOutcome } from '@deepseek-ai/dsh-fs'
 import type {} from '@deepseek-ai/dsh-fs'
-import { sanitizeCodeArtifact } from '@deepseek-ai/dsh-system-prompt'
+import { sanitizeCodeArtifact, verifyCodeArtifactSyntax } from '@deepseek-ai/dsh-system-prompt'
 import { computeHunkDiffs, diffsFromMeta, pathFromMeta } from './diff.ts'
 import { remediateFsError } from './error.ts'
 import { mutationResult } from './mutation-result.ts'
@@ -40,12 +40,13 @@ export function parseWriteArgs(args: { file_path: string; content: string }): { 
  * @param outcome - the write outcome; its `operation` selects the Created/Updated wording.
  * @returns the model-facing confirmation envelope (no file content is echoed back).
  */
-export function formatWriteOutput(displayPath: string, outcome: Pick<FsWriteOutcome, 'operation'>): string {
+export function formatWriteOutput(displayPath: string, outcome: Pick<FsWriteOutcome, 'operation'>, diagTag = ''): string {
   const verb = outcome.operation === 'create' ? 'Created' : 'Updated'
+  const suffix = diagTag.length > 0 ? ` ${diagTag}` : ''
   return `<path>${displayPath}</path>
 <type>file</type>
 <content>
-${verb} file
+${verb} file${suffix}
 </content>`
 }
 
@@ -106,7 +107,10 @@ export function applyWriteTool(ctx: Context, sandbox: FsSandboxController): void
           after: { type: 'string', required: true },
         },
       },
-      render: (_args, value) => [{ type: 'text', text: formatWriteOutput(value.path, value) }],
+      render: (_args, value) => {
+        const diag = verifyCodeArtifactSyntax(value.path, value.after)
+        return [{ type: 'text', text: formatWriteOutput(value.path, value, diag.tag) }]
+      },
       presentationMeta: (_args, value) => ({
         operation: value.operation,
         path: value.path,
