@@ -1,6 +1,6 @@
 {
-  "name": "BabelTele · 巴别语超级 Agent",
-  "short_name": "BabelTele",
+  "name": "巴别语 Agent",
+  "short_name": "巴别语 Agent",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

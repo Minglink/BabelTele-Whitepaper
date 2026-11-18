@@ -1,9 +1,12 @@
 /**
- * Built-in BabelTele (BT-Spec v1.0) Dual-Plane Silicon Protocol Engine.
+ * Built-in BabelTele (BT-Spec v1.0) Dual-Plane Silicon Protocol Engine (V2).
  *
- * Provides deterministic user-prompt dehydration with Tier-1 Hard-Anchor Lock,
- * BPE token-budget circuit breaking, Sidecar human decoding, Workspace BT-Header
- * skeleton extraction, and Plane-B native code-purity sanitization.
+ * Includes:
+ * - Plane-A CoT Token-Discipline Kernel (eliminates double-coding in `<think>`)
+ * - Omni-Lexical User Prompt Dehydrator V2 + Complete Tier-1 Hard-Anchor Lock
+ * - Real-time `mtime`-fingerprinted, top-level AST `[BT-Headers v2.0]` workspace skeleton
+ * - Sidecar Human-Language Decoder
+ * - Plane-B Native Code Sanitizer & Purity Gate
  *
  * @module @deepseek-ai/dsh-system-prompt/babeltele
  */
@@ -57,20 +60,22 @@ export interface CodePurityAudit {
 }
 
 /**
- * Core Dual-Plane Silicon Kernel instruction registered natively in `SystemPrompt`.
+ * Core Dual-Plane Silicon Kernel V2 registered natively in `SystemPrompt`.
+ * Enforces strict CoT token discipline (zero redundant code drafting inside `<think>`),
+ * parallel tool batching, and 100% pure Plane-B code output.
  */
 export const BABELTELE_DUAL_PLANE_KERNEL_PROMPT = [
-  '## BabelTele Dual-Plane Silicon Kernel (BT-Spec v1.0 Built-in)',
-  'You run natively on the BabelTele Dual-Plane Architecture (`BT-Spec v1.0`):',
-  '1. **Plane A — High-Density `#BT` Reasoning & Coordination**:',
-  '   - Conduct internal reasoning (`thinking`), task decomposition, `[SMFT-T1]` compaction checkpoints, and `subagent` / `subagent_fork` prompts in ultra-compact, objective **BT-L2** using 1-token ASCII operators (`#Intent`, `#Plan`, `?`, `=>`, `->`, `&`, `!ban:`, `!exc:`, `@path(L=n)`).',
-  '   - Eliminate conversational filler, self-doubt loops, and redundant restatements in internal thoughts.',
-  '   - Treat colloquial, emotional, or urgent human input strictly as neutral engineering state transitions (`State_in -> Constraints -> State_out`), preserving 100% of hard anchors (paths, numbers, APIs, negations).',
+  '## BabelTele Dual-Plane Kernel (BT-Spec v1.0 · V2 High-Velocity)',
+  '1. **Plane A — Micro-Graph `#BT` Reasoning (Strict CoT Token Discipline)**:',
+  '   - Keep internal `thinking` ultra-compact using 1-token ASCII BT-L2 (`#BT`, `?cond => action`, `->`, `&`, `!ban:`, `@file(L=n)`).',
+  '   - **NEVER draft full source code, docstrings, or test bodies inside `thinking`** — decide invariants & edge cases in `<= 10` terse `#BT` lines, then write complete code ONCE directly in `write` / `edit` or your final answer.',
+  '   - Example `thinking`: `#BT @lru.py: DLL+dict O(1) ?cap<1=>ValueError & !ban:functools.lru_cache -> batch(write lru.py, write test_lru.py)`.',
+  '   - **Batch independent tool calls** (`read`, `glob`, `grep`, `write`, `subagent`) in a single assistant turn whenever they do not depend on each other\'s output.',
   '2. **Plane B — 100% Pure Native Code Invariant (Zero Disk Pollution)**:',
-  '   - Every file written or edited via `write`, `edit`, `apply_patch`, or shell scripts MUST contain **100% pure, idiomatic, standard target-language code** (`.py`, `.java`, `.ts`, `.tsx`, `.go`, `.rs`, `.cpp`, `.sql`, etc.).',
-  '   - NEVER leak `#BT`, `[SMFT-T1]`, `![AnchorLock:`, or non-ASCII protocol glyphs (`⟦`, `⟧`, `⊕`, `⊗`) into source code files.',
+  '   - Every file written or edited via `write`, `edit`, `apply_patch`, or shell scripts MUST be **100% pure, idiomatic target-language code** (`.py`, `.java`, `.ts`, `.tsx`, `.go`, `.rs`, `.cpp`, `.sql`, etc.).',
+  '   - NEVER emit `#BT`, `[SMFT-T1]`, `![AnchorLock:`, or non-ASCII protocol glyphs (`⟦`, `⟧`, `⊕`, `⊗`) inside source files.',
   '3. **Human Response Surface**:',
-  '   - Present final user-facing answers in clear, concise natural language matching the user\'s language (default Chinese when prompted in Chinese), unless the user explicitly asks for raw `#BT` output.',
+  '   - Deliver final user-facing replies in concise, clear natural language matching the user\'s language (default Chinese when prompted in Chinese), unless raw `#BT` is explicitly requested.',
 ].join('\n')
 
 const CODE_FILE_EXTENSIONS = new Set([
@@ -110,25 +115,31 @@ const EN_FILLER_PATTERNS: ReadonlyArray<RegExp> = [
 ]
 
 const CLAUSE_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
+  [/在当前(?:工作区|目录|文件夹|项目)(?:下|中|里)?(?:创建|新建|编写|写)一个(?:完整的|标准的)?/gu, 'create '],
+  [/(?:创建|新建|编写|实现)一个(?:完整的|标准的)?/gu, 'impl '],
+  [/包含类型注解|加上类型注解|带类型注解/gu, '+typed'],
+  [/线程安全的?/gu, '+threadsafe '],
+  [/单元测试/gu, 'unittest'],
+  [/调用(?:命令行|终端)运行/gu, 'run '],
+  [/验证全部通过|确保测试通过|确认全部通过/gu, '=>pass'],
   [/如果(?:出现|发生|遇到|存在)?/gu, '?'],
   [/假如|若是|当(?=.*时)/gu, '?'],
   [/那么就?|则(?:需要|必须|应当)?|然后(?:再)?/gu, ' => '],
   [/并且(?:还要|需要)?|同时(?:还要|需要)?|而且(?:还要)?|以及/gu, ' & '],
-  [/千万不要|绝对不要|严禁|禁止使用|禁止|切勿|绝不能|不要使用|不要用|不能用|别用/gu, '!禁止:'],
+  [/千万不要|绝对不要|严禁使用|严禁|禁止使用|禁止|切勿|绝不能|不要使用|不要用|不能用|别用/gu, '!ban:'],
   [/除了(?=.*(?:以外|之外))/gu, '!exc:'],
   [/(?:以外|之外)/gu, ''],
   [/大于等于|不少于|不低于|至少为?/gu, '>='],
   [/小于等于|不超过|不高于|最多为?/gu, '<='],
   [/不等于/gu, '!='],
-  [/导致了?|从而|进而|输出到|转换为|转成/gu, ' -> '],
+  [/导致了?|从而|进而|输出到|转换为|转成|并返回/gu, ' -> '],
   [/需要你?(?:去)?|请你?(?:去)?|帮我(?:去)?/gu, ''],
 ]
 
-const NEGATION_PATTERN = /(?:!禁止:|!ban:|不要|禁止|严禁|切勿|不能|不可|别用|禁止使用|\b(?:never|do\s+not|don't|must\s+not|without|forbid(?:den)?)\b)/iu
+const NEGATION_PATTERN = /(?:!ban:|!禁止:|不要|禁止|严禁|切勿|不能|不可|别用|禁止使用|\b(?:never|do\s+not|don't|must\s+not|without|forbid(?:den)?)\b)/iu
 
 /**
- * Fast, deterministic BPE token estimator calibrated for modern coding LLMs
- * (`o200k_base` / DeepSeek V3 / Claude tokenizer profiles).
+ * Fast, deterministic BPE token estimator calibrated for modern coding LLMs.
  */
 export function estimateBabelTokens(text: string): number {
   if (text.length === 0) return 0
@@ -137,13 +148,11 @@ export function estimateBabelTokens(text: string): number {
   while (i < text.length) {
     const code = text.codePointAt(i) ?? 0
     const charLen = code > 0xffff ? 2 : 1
-    // Whitespace merges with adjacent ASCII tokens in BPE.
     if (code === 32 || code === 9 || code === 10 || code === 13) {
       if (code === 10) tokens += 0.35
       i += charLen
       continue
     }
-    // ASCII letters / digits run: ~4.2 chars per BPE token.
     if ((code >= 48 && code <= 57) || (code >= 65 && code <= 90) || (code >= 97 && code <= 122) || code === 95) {
       let run = 0
       while (i < text.length) {
@@ -158,7 +167,6 @@ export function estimateBabelTokens(text: string): number {
       tokens += Math.max(1, Math.ceil(run / 4.2))
       continue
     }
-    // Standard ASCII punctuation / operators (`#`, `?`, `=`, `>`, `&`, `!`, `@`): ~1 token per operator group.
     if (code >= 33 && code <= 126) {
       let opRun = 0
       while (i < text.length) {
@@ -173,13 +181,11 @@ export function estimateBabelTokens(text: string): number {
       tokens += Math.max(1, Math.ceil(opRun / 2.2))
       continue
     }
-    // Common CJK Unified Ideographs: ~1.35 tokens per character on average.
     if ((code >= 0x4e00 && code <= 0x9fff) || (code >= 0x3000 && code <= 0x303f) || (code >= 0xff00 && code <= 0xffef)) {
       tokens += 1.35
       i += charLen
       continue
     }
-    // Rare mathematical/Unicode box/bracket glyphs often split into 2-3 byte-fallback tokens!
     tokens += 2.4
     i += charLen
   }
@@ -187,14 +193,17 @@ export function estimateBabelTokens(text: string): number {
 }
 
 /**
- * Extract hard engineering anchors (code spans, URLs, file paths, versions/numbers, identifiers)
+ * Extract hard engineering anchors (code spans, URLs, file paths, versions/numbers,
+ * operator-bound digits, ALLCAPS/CamelCase/snake_case symbols, and forbidden library names)
  * that MUST survive prompt dehydration with zero loss.
  */
 export function extractHardAnchors(text: string): string[] {
   const anchors = new Set<string>()
   const add = (raw: string): void => {
     const cleaned = raw.trim().replace(/^[`'"]+|[`'"]+$/gu, '')
-    if (cleaned.length >= 2) anchors.add(cleaned)
+    if (cleaned.length >= 1 && !/^(?:Python|Java|Go|Rust|TypeScript|JavaScript)$/iu.test(cleaned)) {
+      anchors.add(cleaned)
+    }
   }
 
   // 1. Inline code spans: `...`
@@ -209,13 +218,20 @@ export function extractHardAnchors(text: string): string[] {
   for (const m of text.matchAll(/(?:[A-Za-z]:[\\/]|[.~]?\/)?[\w.-]+(?:[\\/][\w.-]+)+|\b[\w-]+\.(?:py|java|ts|tsx|js|jsx|go|rs|cpp|c|h|cs|sql|json|ya?ml|toml|md|html|css|sh|ps1|bat)\b/gu)) {
     add(m[0])
   }
-  // 4. Numbers with units, versions, ports, percentages
+  // 4. Numbers with units, versions, multi-digit numbers, and operator-bound single digits (e.g. `>= 1`, `最多 3`)
   for (const m of text.matchAll(/\bv?\d+(?:\.\d+)+(?:-[A-Za-z0-9.]+)?\b|\b\d+(?:\.\d+)?(?:ms|s|m|h|kb|mb|gb|tb|px|%|tok|k)\b|\b\d{2,}\b/giu)) {
     add(m[0])
   }
-  // 5. Code identifiers (camelCase, PascalCase, snake_case, fn calls)
-  for (const m of text.matchAll(/\b(?:[a-z]+(?:[A-Z][a-z0-9]+)+|[A-Z][a-z0-9]+(?:[A-Z][a-z0-9]+)+|[A-Za-z_][A-Za-z0-9_]*_[A-Za-z0-9_]+|[A-Za-z_][A-Za-z0-9_]*\(\))/gu)) {
+  for (const m of text.matchAll(/(?:>=|<=|==|!=|>|<|容量|长度|次数|重试|最多|至少|不超过)\s*(\d+)\b/gu)) {
+    if (m[1] !== undefined) add(m[1])
+  }
+  // 5. Code identifiers: ALLCAPS+Pascal (`TTLCache`, `LRUCache`), camelCase, PascalCase, snake_case, `fn()`
+  for (const m of text.matchAll(/\b(?:[A-Z]{2,}[A-Za-z0-9_]*|[a-z]+(?:[A-Z][a-z0-9]+)+|[A-Z][a-z0-9]+(?:[A-Z][a-z0-9]+)+|[A-Za-z_][A-Za-z0-9_]*_[A-Za-z0-9_]+|[A-Za-z_][A-Za-z0-9_]*\(\))/gu)) {
     add(m[0])
+  }
+  // 6. Explicit negated library/API names (e.g. `严禁 cachetools`, `不要使用 sort`)
+  for (const m of text.matchAll(/(?:严禁|禁止|不要|切勿|不能)(?:使用|用|引入|依赖)?\s*([A-Za-z_][A-Za-z0-9_.]*(?:\(\))?)/gu)) {
+    if (m[1] !== undefined) add(m[1])
   }
 
   return [...anchors]
@@ -235,7 +251,7 @@ export function auditHardAnchors(source: string, compiled: string): { text: stri
   const sourceHasNegation = NEGATION_PATTERN.test(source)
   let finalCompiled = compiled
   if (sourceHasNegation && !NEGATION_PATTERN.test(finalCompiled)) {
-    finalCompiled += ' !禁止:违背原约束'
+    finalCompiled += ' !ban:violate_constraint'
   }
   if (missing.length > 0) {
     finalCompiled += ` ![AnchorLock: ${missing.join(', ')}]`
@@ -291,7 +307,6 @@ export function neutralizeToBabelTele(raw: string): BabelTeleNeutralizeResult {
     }
   }
 
-  // Protect inline code spans during filler & clause rewrites.
   const codeSpans: string[] = []
   let working = trimmed.replace(/`[^`\n]+`/gu, (match) => {
     const idx = codeSpans.length
@@ -317,7 +332,9 @@ export function neutralizeToBabelTele(raw: string): BabelTeleNeutralizeResult {
     working = working.replace(pattern, replacement)
   }
 
-  // Normalize punctuation & whitespace into compact 1-token ASCII separators (preserving `!禁止:`, `!ban:`, `!exc:`, `!=`).
+  // Deduplicate nested `!ban:` inside parenthetical clarifications: `!ban:X（!ban: Y）` -> `!ban:X(Y)`
+  working = working.replace(/(!ban:[^;，。()（）]+)[（(]\s*!ban:\s*([^)）]+)[)）]/gu, '$1($2)')
+
   working = working
     .replace(/[，、；]+/gu, '; ')
     .replace(/(?:[。！？]+|!(?![=禁止banexc\[]))+/gu, ' | ')
@@ -326,7 +343,6 @@ export function neutralizeToBabelTele(raw: string): BabelTeleNeutralizeResult {
     .replace(/\s{2,}/gu, ' ')
     .trim()
 
-  // Restore inline code spans.
   working = working.replace(/__BTCODE_(\d+)__/gu, (_m, indexText: string) => {
     const idx = Number(indexText)
     return codeSpans[idx] ?? ''
@@ -353,17 +369,16 @@ export function neutralizeToBabelTele(raw: string): BabelTeleNeutralizeResult {
 }
 
 /**
- * Decode compact `#BT` / `[SMFT-T1]` silicon reasoning or messages into natural Chinese prose
- * for human Sidecar inspection in the UI.
+ * Decode compact `#BT` / `[SMFT-T1]` silicon reasoning or messages into natural Chinese prose.
  */
 export function decodeBabelTeleToZh(text: string): string {
   if (text.trim().length === 0) return text
   return text
-    .replace(/\[SMFT-T1\]/gu, '【巴别语语义默克尔检查点 SMFT-T1】')
-    .replace(/^#BT\b\s*/gmu, '【巴别语内核推理】')
-    .replace(/^#Task\b\s*/gmu, '【工程任务】')
-    .replace(/^#SubTask\b\s*/gmu, '【子智能体委派】')
-    .replace(/^#SubReport\b\s*/gmu, '【子智能体回执】')
+    .replace(/\[SMFT-T1\]/gu, '[语义检查点 SMFT-T1]')
+    .replace(/^#BT\b\s*/gmu, '[巴别语推理] ')
+    .replace(/^#Task\b\s*/gmu, '[工程任务] ')
+    .replace(/^#SubTask\b\s*/gmu, '[子任务委派] ')
+    .replace(/^#SubReport\b\s*/gmu, '[子任务回执] ')
     .replace(/^#Intent\b\s*:?\s*/gmu, '• 核心意图：')
     .replace(/^#Plan\b\s*:?\s*/gmu, '• 执行计划：')
     .replace(/^#Stack\b\s*:?\s*/gmu, '• 技术栈与约束：')
@@ -372,12 +387,12 @@ export function decodeBabelTeleToZh(text: string): string {
     .replace(/^#Pending\b\s*:?\s*/gmu, '• 待办事项：')
     .replace(/^#Next\b\s*:?\s*/gmu, '• 下一步动作：')
     .replace(/!\[AnchorLock:\s*([^\]]+)\]/gu, '（硬锚点锁定：$1）')
-    .replace(/!(?:禁止|ban):/gu, '【严禁】')
-    .replace(/!exc:/gu, '【例外豁免】')
-    .replace(/\s*=>\s*/gu, ' ⇒ 推导执行：')
+    .replace(/!(?:禁止|ban):/gu, '[严禁] ')
+    .replace(/!exc:/gu, '[豁免] ')
+    .replace(/\s*=>\s*/gu, ' ⇒ ')
     .replace(/\s*->\s*/gu, ' → ')
     .replace(/\s*&\s*/gu, ' 且 ')
-    .replace(/(^|[\s;])(\?)([^\s?])/gu, '$1若满足条件：$3')
+    .replace(/(^|[\s;])(\?)([^\s?])/gu, '$1若：$3')
 }
 
 const OUTER_MARKDOWN_FENCE = /^```[A-Za-z0-9_+-]*\r?\n([\s\S]*?)\r?\n```\s*$/u
@@ -389,12 +404,18 @@ const LEAKED_PROTOCOL_MARKERS: ReadonlyArray<readonly [RegExp, string]> = [
   [/^\s*#(?:BT|SubTask|SubReport)\b/mu, '#BT/#SubTask/#SubReport protocol directive line inside source code'],
 ]
 
+const btHeaderCache = new Map<string, { fingerprint: string; snapshot: string }>()
+
+/** Invalidate cached workspace BT-Headers immediately upon any file write/edit. */
+export function invalidateBtHeaderCache(): void {
+  btHeaderCache.clear()
+}
+
 /**
  * Plane-B Code Sanitizer & Purity Gate for `write` and `edit` filesystem tools.
- * Automatically strips accidental outer Markdown code fences on code files and
- * detects any leaked internal BabelTele protocol markers.
  */
 export function sanitizeCodeArtifact(filePath: string, content: string): { content: string; audit: CodePurityAudit } {
+  invalidateBtHeaderCache()
   const ext = extname(filePath).toLowerCase()
   const isCodeFile = CODE_FILE_EXTENSIONS.has(ext)
   if (!isCodeFile || !babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.strictPlaneBGuard) {
@@ -430,6 +451,7 @@ export function sanitizeCodeArtifact(filePath: string, content: string): { conte
 
 /** Audit an edit fragment (`new_string`) for Plane-B native code purity. */
 export function auditCodeArtifactPurity(filePath: string, newString: string): CodePurityAudit {
+  invalidateBtHeaderCache()
   const ext = extname(filePath).toLowerCase()
   const isCodeFile = CODE_FILE_EXTENSIONS.has(ext)
   if (!isCodeFile || !babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.strictPlaneBGuard) {
@@ -447,50 +469,61 @@ export function auditCodeArtifactPurity(filePath: string, newString: string): Co
   }
 }
 
+/**
+ * Extract up to 12 top-level architectural symbols per file without letting nested
+ * helper methods (`__init__`, `_unlink`) starve subsequent top-level classes!
+ */
 function extractFileSignatures(content: string, ext: string): string[] {
   const lines = content.split(/\r?\n/u)
-  const sigs: string[] = []
+  const topLevel: string[] = []
+  const fallbackIndented: string[] = []
+
   for (const line of lines) {
-    if (sigs.length >= 5) break
+    if (topLevel.length >= 12) break
     const trimmed = line.trim()
     if (trimmed.length === 0 || trimmed.startsWith('//') || trimmed.startsWith('#') || trimmed.startsWith('*')) continue
+    const isUnindented = line.charCodeAt(0) !== 32 && line.charCodeAt(0) !== 9
+
     if (ext === '.py') {
-      const m = /^(?:async\s+def|def|class)\s+([A-Za-z_][A-Za-z0-9_]*)/u.exec(trimmed)
-      if (m?.[1] !== undefined) sigs.push(m[1])
+      if (!isUnindented) continue
+      const m = /^(?:async\s+def|def|class)\s+([A-Za-z_][A-Za-z0-9_]*)/u.exec(line)
+      if (m?.[1] !== undefined) topLevel.push(m[1])
     } else if (ext === '.java' || ext === '.kt' || ext === '.cs') {
-      const m = /^(?:public|protected|private|internal|abstract|final|static|\s)*(?:class|interface|enum|record)\s+([A-Za-z_][A-Za-z0-9_]*)/u.exec(trimmed)
-      if (m?.[1] !== undefined) sigs.push(m[1])
+      const m = /^(?:public|protected|private|internal|abstract|final|static|sealed|\s)*(?:class|interface|enum|record)\s+([A-Za-z_][A-Za-z0-9_]*)/u.exec(trimmed)
+      if (m?.[1] !== undefined) {
+        if (isUnindented) topLevel.push(m[1])
+        else if (fallbackIndented.length < 12) fallbackIndented.push(m[1])
+      }
     } else if (ext === '.go') {
-      const m = /^(?:func|type)\s+(?:\([^)]+\)\s*)?([A-Za-z_][A-Za-z0-9_]*)/u.exec(trimmed)
-      if (m?.[1] !== undefined) sigs.push(m[1])
+      if (!isUnindented) continue
+      const m = /^(?:func|type)\s+(?:\([^)]+\)\s*)?([A-Za-z_][A-Za-z0-9_]*)/u.exec(line)
+      if (m?.[1] !== undefined) topLevel.push(m[1])
     } else if (ext === '.rs') {
-      const m = /^(?:pub(?:\([^)]*\))?\s+)?(?:async\s+)?(?:fn|struct|enum|trait)\s+([A-Za-z_][A-Za-z0-9_]*)/u.exec(trimmed)
-      if (m?.[1] !== undefined) sigs.push(m[1])
+      if (!isUnindented) continue
+      const m = /^(?:pub(?:\([^)]*\))?\s+)?(?:async\s+)?(?:fn|struct|enum|trait)\s+([A-Za-z_][A-Za-z0-9_]*)/u.exec(line)
+      if (m?.[1] !== undefined) topLevel.push(m[1])
     } else {
-      const m = /^(?:export\s+(?:default\s+)?)?(?:async\s+)?(?:function|class|interface|type|const)\s+([A-Za-z_$][A-Za-z0-9_$]*)/u.exec(trimmed)
-      if (m?.[1] !== undefined) sigs.push(m[1])
+      if (!isUnindented) continue
+      const m = /^(?:export\s+(?:default\s+)?)?(?:async\s+)?(?:function|class|interface|type|const)\s+([A-Za-z_$][A-Za-z0-9_$]*)/u.exec(line)
+      if (m?.[1] !== undefined) topLevel.push(m[1])
     }
   }
-  return sigs
+
+  return topLevel.length > 0 ? topLevel : fallbackIndented
 }
 
-const btHeaderCache = new Map<string, { expiresAt: number; snapshot: string }>()
-
 /**
- * Scan workspace source files into a compact `[BT-Headers v1.0]` architectural index
- * (`@relPath(L=n): [symbols]`), cached briefly to avoid redundant disk I/O.
+ * Scan workspace source files into an always-fresh `mtime`-fingerprinted `[BT-Headers v2.0]`
+ * architectural index (`@relPath(L=n):[symbols]`), so mutations immediately reflect on the next step.
  */
-export function scanWorkspaceBtHeaders(cwd: string, maxFiles = 24): string {
+export function scanWorkspaceBtHeaders(cwd: string, maxFiles = 28): string {
   if (!babelTeleRuntimeConfig.enabled || !babelTeleRuntimeConfig.injectBtHeaders) return ''
-  const now = Date.now()
-  const cached = btHeaderCache.get(cwd)
-  if (cached !== undefined && cached.expiresAt > now) return cached.snapshot
-
   if (!existsSync(cwd)) return ''
-  const entries: string[] = []
+
+  const discovered: Array<{ fullPath: string; rel: string; size: number; mtimeMs: number; ext: string }> = []
   const queue: Array<{ dir: string; depth: number }> = [{ dir: cwd, depth: 0 }]
 
-  while (queue.length > 0 && entries.length < maxFiles) {
+  while (queue.length > 0 && discovered.length < maxFiles) {
     const current = queue.shift()
     if (current === undefined) break
     let dirItems: string[]
@@ -501,7 +534,7 @@ export function scanWorkspaceBtHeaders(cwd: string, maxFiles = 24): string {
     }
     dirItems.sort()
     for (const item of dirItems) {
-      if (entries.length >= maxFiles) break
+      if (discovered.length >= maxFiles) break
       if (item.startsWith('.') && item !== '.env.example') continue
       if (SCAN_SKIP_DIRS.has(item)) continue
       const fullPath = join(current.dir, item)
@@ -518,23 +551,38 @@ export function scanWorkspaceBtHeaders(cwd: string, maxFiles = 24): string {
       if (!st.isFile() || st.size > 131072) continue
       const ext = extname(item).toLowerCase()
       if (!SCAN_SOURCE_EXTENSIONS.has(ext)) continue
-      try {
-        const text = readFileSync(fullPath, 'utf8')
-        const lineCount = text.split('\n').length
-        const rel = relative(cwd, fullPath).replaceAll('\\', '/')
-        const sigs = extractFileSignatures(text, ext)
-        entries.push(sigs.length > 0
-          ? `@${rel}(L=${String(lineCount)}):[${sigs.join(',')}]`
-          : `@${rel}(L=${String(lineCount)})`)
-      } catch {
-        // Ignore unreadable files smoothly.
-      }
+      discovered.push({
+        fullPath,
+        rel: relative(cwd, fullPath).replaceAll('\\', '/'),
+        size: st.size,
+        mtimeMs: Math.trunc(st.mtimeMs),
+        ext,
+      })
+    }
+  }
+
+  if (discovered.length === 0) return ''
+  const fingerprint = discovered.map(f => `${f.rel}:${String(f.size)}:${String(f.mtimeMs)}`).join('|')
+  const cached = btHeaderCache.get(cwd)
+  if (cached?.fingerprint === fingerprint) return cached.snapshot
+
+  const entries: string[] = []
+  for (const file of discovered) {
+    try {
+      const text = readFileSync(file.fullPath, 'utf8')
+      const lineCount = text.split('\n').length
+      const sigs = extractFileSignatures(text, file.ext)
+      entries.push(sigs.length > 0
+        ? `@${file.rel}(L=${String(lineCount)}):[${sigs.join(',')}]`
+        : `@${file.rel}(L=${String(lineCount)})`)
+    } catch {
+      // Ignore unreadable files smoothly.
     }
   }
 
   const snapshot = entries.length === 0
     ? ''
-    : `[BT-Headers v1.0 Workspace Skeleton]\n${entries.join(' ; ')}`
-  btHeaderCache.set(cwd, { expiresAt: now + 8000, snapshot })
+    : `[BT-Headers v2.0 Workspace Skeleton]\n${entries.join(' ; ')}`
+  btHeaderCache.set(cwd, { fingerprint, snapshot })
   return snapshot
 }

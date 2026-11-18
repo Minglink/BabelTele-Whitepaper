@@ -2,8 +2,8 @@
 export const onboardingZh = {
   onboardingArtworkLocale: 'zh',
   onboardingWelcome: '欢迎使用',
-  onboardingBrand: 'BabelTele · 巴别语超级 Agent',
-  onboardingIntroduction: 'BabelTele 巴别语超级 Agent 以本地文件夹作为工作区，底层原生内置 BT-Spec v1.0 双平面硅基协议：内部以高密度 #BT 极速推理与调度子智能体，外部调用工具产出 100% 纯正无污染的工程代码与文档。',
+  onboardingBrand: '巴别语 Agent',
+  onboardingIntroduction: '巴别语 Agent 以本地文件夹作为工作区，底层内置 BT-Spec v1.0 双平面协议：内部以高密度 #BT 极速推理与调度子智能体，外部产出 100% 纯正无污染的工程代码与文档。',
   onboardingStart: '开始设置',
   onboardingCredit: '准备可用额度',
   onboardingCreditDescription: 'DeepSeek Harness 执行任务时，会根据模型与工具使用的 token 量扣除额度。请提前添加额度，避免任务在执行过程中被迫中断。你的余额只会在 Agent 实际执行任务时消耗。',
@@ -45,8 +45,8 @@ export const onboardingZh = {
 export const onboardingEn: Record<keyof typeof onboardingZh, string> = {
   onboardingArtworkLocale: 'en',
   onboardingWelcome: 'Welcome to',
-  onboardingBrand: 'BabelTele Super Agent',
-  onboardingIntroduction: 'BabelTele Super Agent operates in your local workspace with built-in BT-Spec v1.0 Dual-Plane Silicon Architecture: compact #BT reasoning & subagent coordination inside, 100% pure idiomatic code on disk.',
+  onboardingBrand: 'BabelTele Agent',
+  onboardingIntroduction: 'BabelTele Agent works in your local folder with built-in BT-Spec v1.0 Dual-Plane Architecture: compact #BT reasoning inside, 100% pure idiomatic code on disk.',
   onboardingStart: 'Get started',
   onboardingCredit: 'Add credits',
   onboardingCreditDescription: 'DeepSeek Harness charges credits based on the tokens used by models and tools. Add credits in advance to keep your tasks running without interruption. Your balance is only used while the agent is working on a task.',

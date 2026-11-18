@@ -1,4 +1,4 @@
-/** Official reasoning content and its BabelTele Sidecar Human-Language Lens adapter. */
+/** Official reasoning content and its minimalist fine-line BabelTele Sidecar Lens. */
 import { memo, useMemo, useState } from 'react'
 import {
   decodeBabelTeleToZh,
@@ -10,18 +10,11 @@ import { markdownLabels } from '../markdown-labels.ts'
 
 type ReasoningBodyProps = PropsRuntime<'conversation.chat.reasoning.body'> & PropsRenderFactories
 
-/**
- * Render compact reasoning with caller-supplied labels or Chat's defaults.
- */
 export const ReasoningContent = memo(function ReasoningContent({ text, running, labels, t }: FactoryComponentPropsOf<'conversation.chat.reasoning.content'>) {
   const resolvedLabels = useMemo(() => labels ?? markdownLabels(t), [labels, t])
   return <MarkdownText text={text} streaming={running} labels={resolvedLabels} variant="compact" />
 })
 
-/**
- * Render the default Reasoning Body with a native BabelTele Sidecar Human-Language Lens
- * (`⚡ #BT 硅基原文` <-> `👁️ 中文人话透视`) so humans can audit compact `#BT` thoughts effortlessly.
- */
 export function DefaultReasoningBody({ text, running, renderFactorySlot }: ReasoningBodyProps) {
   const [humanLens, setHumanLens] = useState(false)
   const hasBtSyntax = useMemo(
@@ -34,52 +27,56 @@ export function DefaultReasoningBody({ text, running, renderFactorySlot }: Reaso
   )
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '8px',
-          flexWrap: 'wrap',
           paddingBottom: '2px',
         }}
       >
         <span
           style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '4px',
-            padding: '1px 7px',
-            borderRadius: '999px',
-            fontSize: '11px',
-            fontWeight: 600,
-            background: 'color-mix(in srgb, var(--dsw-alias-button-info-fill, #3964fe) 11%, transparent)',
-            color: 'var(--dsw-alias-button-info-fill, #3964fe)',
+            fontSize: '11.5px',
+            lineHeight: '16px',
+            color: 'var(--dsw-alias-label-caption)',
+            fontFamily: 'var(--ds-font-family-code)',
           }}
         >
-          {hasBtSyntax ? '⚡ Plane-A 巴别语高密度硅基推理' : '⚡ 双平面思考流 · 巴别语透视就绪'}
+          {hasBtSyntax ? 'BT-L2' : 'CoT'}
         </span>
         <button
           type="button"
           onClick={() => { setHumanLens(v => !v) }}
           style={{
-            height: '22px',
-            padding: '0 8px',
-            borderRadius: '999px',
-            border: '1px solid var(--dsw-alias-border-l2)',
-            background: humanLens
-              ? 'color-mix(in srgb, var(--dsw-alias-button-info-fill, #3964fe) 14%, transparent)'
-              : 'transparent',
-            color: humanLens
-              ? 'var(--dsw-alias-button-info-fill, #3964fe)'
-              : 'var(--dsw-alias-label-secondary)',
-            fontSize: '11px',
-            fontWeight: 500,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '4px',
+            height: '20px',
+            padding: '0 7px',
+            borderRadius: '4px',
+            border: '0.5px solid var(--dsw-alias-border-l2)',
+            background: 'transparent',
+            color: humanLens ? 'var(--dsw-alias-label-primary)' : 'var(--dsw-alias-label-tertiary)',
+            fontSize: '11.5px',
+            lineHeight: '16px',
+            fontWeight: 400,
             cursor: 'pointer',
           }}
         >
-          {humanLens ? '⚡ 切回 #BT 硅基原文' : '👁️ 中文人话透视'}
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M1.75 8S4.1 3.75 8 3.75 14.25 8 14.25 8 11.9 12.25 8 12.25 1.75 8 1.75 8Z"
+              stroke="currentColor"
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <circle cx="8" cy="8" r="1.75" stroke="currentColor" strokeWidth="1.25" />
+          </svg>
+          <span>{humanLens ? '还原 #BT' : '中文透视'}</span>
         </button>
       </div>
       {renderFactorySlot('conversation.chat.reasoning.content', { text: displayText, running })}

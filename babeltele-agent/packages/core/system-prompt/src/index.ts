@@ -19,6 +19,7 @@ export {
   decodeBabelTeleToZh,
   estimateBabelTokens,
   extractHardAnchors,
+  invalidateBtHeaderCache,
   looksLikeBabelTele,
   neutralizeToBabelTele,
   sanitizeCodeArtifact,
@@ -478,7 +479,7 @@ export class SystemPrompt extends Service {
       this.section({
         name: 'harness:identity',
         order: this.getSectionOrder('HARNESS_IDENTITY'),
-        text: 'You are BabelTele Super Agent, a dual-plane silicon engineering intelligence powered by the BabelTele Harness (BT-Spec v1.0, built on open-source DSH).',
+        text: 'You are BabelTele Agent (巴别语 Agent), a dual-plane silicon engineering agent powered by BT-Spec v1.0.',
       })
       this.section({
         name: 'babeltele:dual-plane',

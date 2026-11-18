@@ -1,9 +1,7 @@
 /**
- * Client-side BabelTele (BT-Spec v1.0) Browser Protocol & Sidecar Engine.
+ * Client-side BabelTele (BT-Spec v1.0 · V2) Browser Protocol & Sidecar Engine.
  *
- * Pure browser-safe TypeScript (zero Node.js dependencies) shared across
- * `ui-conversation` (Composer Neutralizer & Auto-Dehydrate) and `ui-chat`
- * (Reasoning Sidecar Human-Language Lens).
+ * Pure browser-safe TypeScript shared across `ui-conversation` and `ui-chat`.
  */
 
 export interface HardAnchorAudit {
@@ -36,24 +34,24 @@ export interface BabelTeleStarterTemplate {
 export const BABELTELE_STARTER_TEMPLATES: ReadonlyArray<BabelTeleStarterTemplate> = [
   {
     id: 'py-quicksort',
-    badge: '口水话脱水 + 纯净 Python',
-    title: '快排脚本验证（严禁内置 sort）',
+    badge: 'Python · 口水话脱水',
+    title: '手写快排与单测（严禁内置 sort）',
     prompt:
-      '你好呀老哥，我真是快崩溃了搞了一整天！麻烦帮我在当前工作区写一个 Python 快速排序脚本 `quicksort_demo.py`，包含类型注解和单元测试，如果输入数组为空或者包含重复数字也要正常处理，千万不要使用内置的 `sort()` 或 `sorted()`，写完运行验证一下，万分感谢！',
+      '你好呀老哥，我真是快崩溃了搞了一整天！麻烦帮我在当前工作区创建一个完整的 Python 快速排序模块 `quicksort_demo.py`，包含类型注解和单元测试，如果输入数组为空或者包含重复数字也要正常处理，千万不要使用内置的 `sort()` 或 `sorted()`，调用命令行运行验证全部通过，万分感谢！',
   },
   {
     id: 'java-service',
-    badge: '双平面零污染 + 纯净 Java',
-    title: 'Java 订单风控引擎生成',
+    badge: 'Java · 纯净代码守卫',
+    title: '订单风控校验类（零第三方依赖）',
     prompt:
-      '嗨大佬，拜托帮我写一个标准纯正的 Java 类 `OrderRiskValidator.java`，如果订单金额大于等于 `50000` 并且用户等级不等于 `VIP` 那么触发人工审核，严禁使用第三方依赖，除了测试 main 方法以外保持纯 JDK 实现，谢谢啦！',
+      '嗨大佬，拜托帮我编写一个标准的 Java 类 `OrderRiskValidator.java`，如果订单金额大于等于 `50000` 并且用户等级不等于 `VIP` 那么触发人工审核，严禁使用第三方依赖，除了测试 main 方法以外保持纯 JDK 实现，谢谢啦！',
   },
   {
     id: 'multi-subagent',
-    badge: '#BT 极速子智能体并发',
-    title: '并行子智能体代码审查与性能剖析',
+    badge: 'Subagent · 并行协同',
+    title: '双子智能体架构审查与性能剖析',
     prompt:
-      '你好，麻烦你并行派出两个子智能体审查当前项目架构：一个检查核心模块潜在边界 Bug，另一个分析性能优化点，最后汇总成清晰的中文工程报告给我，非常感谢！',
+      '你好，麻烦你并行派出两个子智能体审查当前项目架构：一个检查核心模块潜在边界缺陷，另一个分析性能优化点，最后汇总成简明的中文工程报告给我，非常感谢！',
   },
 ]
 
@@ -73,21 +71,28 @@ const EN_FILLER_PATTERNS: ReadonlyArray<RegExp> = [
 ]
 
 const CLAUSE_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
+  [/在当前(?:工作区|目录|文件夹|项目)(?:下|中|里)?(?:创建|新建|编写|写)一个(?:完整的|标准的)?/gu, 'create '],
+  [/(?:创建|新建|编写|实现)一个(?:完整的|标准的)?/gu, 'impl '],
+  [/包含类型注解|加上类型注解|带类型注解/gu, '+typed'],
+  [/线程安全的?/gu, '+threadsafe '],
+  [/单元测试/gu, 'unittest'],
+  [/调用(?:命令行|终端)运行/gu, 'run '],
+  [/验证全部通过|确保测试通过|确认全部通过/gu, '=>pass'],
   [/如果(?:出现|发生|遇到|存在)?/gu, '?'],
   [/假如|若是|当(?=.*时)/gu, '?'],
   [/那么就?|则(?:需要|必须|应当)?|然后(?:再)?/gu, ' => '],
   [/并且(?:还要|需要)?|同时(?:还要|需要)?|而且(?:还要)?|以及/gu, ' & '],
-  [/千万不要|绝对不要|严禁|禁止使用|禁止|切勿|绝不能|不要使用|不要用|不能用|别用/gu, '!禁止:'],
+  [/千万不要|绝对不要|严禁使用|严禁|禁止使用|禁止|切勿|绝不能|不要使用|不要用|不能用|别用/gu, '!ban:'],
   [/除了(?=.*(?:以外|之外))/gu, '!exc:'],
   [/(?:以外|之外)/gu, ''],
   [/大于等于|不少于|不低于|至少为?/gu, '>='],
   [/小于等于|不超过|不高于|最多为?/gu, '<='],
   [/不等于/gu, '!='],
-  [/导致了?|从而|进而|输出到|转换为|转成/gu, ' -> '],
+  [/导致了?|从而|进而|输出到|转换为|转成|并返回/gu, ' -> '],
   [/需要你?(?:去)?|请你?(?:去)?|帮我(?:去)?/gu, ''],
 ]
 
-const NEGATION_PATTERN = /(?:!禁止:|!ban:|不要|禁止|严禁|切勿|不能|不可|别用|禁止使用|\b(?:never|do\s+not|don't|must\s+not|without|forbid(?:den)?)\b)/iu
+const NEGATION_PATTERN = /(?:!ban:|!禁止:|不要|禁止|严禁|切勿|不能|不可|别用|禁止使用|\b(?:never|do\s+not|don't|must\s+not|without|forbid(?:den)?)\b)/iu
 
 export function estimateBabelTokens(text: string): number {
   if (text.length === 0) return 0
@@ -144,7 +149,9 @@ export function extractHardAnchors(text: string): string[] {
   const anchors = new Set<string>()
   const add = (raw: string): void => {
     const cleaned = raw.trim().replace(/^[`'"]+|[`'"]+$/gu, '')
-    if (cleaned.length >= 2) anchors.add(cleaned)
+    if (cleaned.length >= 1 && !/^(?:Python|Java|Go|Rust|TypeScript|JavaScript)$/iu.test(cleaned)) {
+      anchors.add(cleaned)
+    }
   }
   for (const m of text.matchAll(/`([^`\n]{1,120})`/gu)) {
     if (m[1] !== undefined) add(m[1])
@@ -158,8 +165,14 @@ export function extractHardAnchors(text: string): string[] {
   for (const m of text.matchAll(/\bv?\d+(?:\.\d+)+(?:-[A-Za-z0-9.]+)?\b|\b\d+(?:\.\d+)?(?:ms|s|m|h|kb|mb|gb|tb|px|%|tok|k)\b|\b\d{2,}\b/giu)) {
     add(m[0])
   }
-  for (const m of text.matchAll(/\b(?:[a-z]+(?:[A-Z][a-z0-9]+)+|[A-Z][a-z0-9]+(?:[A-Z][a-z0-9]+)+|[A-Za-z_][A-Za-z0-9_]*_[A-Za-z0-9_]+|[A-Za-z_][A-Za-z0-9_]*\(\))/gu)) {
+  for (const m of text.matchAll(/(?:>=|<=|==|!=|>|<|容量|长度|次数|重试|最多|至少|不超过)\s*(\d+)\b/gu)) {
+    if (m[1] !== undefined) add(m[1])
+  }
+  for (const m of text.matchAll(/\b(?:[A-Z]{2,}[A-Za-z0-9_]*|[a-z]+(?:[A-Z][a-z0-9]+)+|[A-Z][a-z0-9]+(?:[A-Z][a-z0-9]+)+|[A-Za-z_][A-Za-z0-9_]*_[A-Za-z0-9_]+|[A-Za-z_][A-Za-z0-9_]*\(\))/gu)) {
     add(m[0])
+  }
+  for (const m of text.matchAll(/(?:严禁|禁止|不要|切勿|不能)(?:使用|用|引入|依赖)?\s*([A-Za-z_][A-Za-z0-9_.]*(?:\(\))?)/gu)) {
+    if (m[1] !== undefined) add(m[1])
   }
   return [...anchors]
 }
@@ -175,7 +188,7 @@ export function auditHardAnchors(source: string, compiled: string): { text: stri
   const sourceHasNegation = NEGATION_PATTERN.test(source)
   let finalCompiled = compiled
   if (sourceHasNegation && !NEGATION_PATTERN.test(finalCompiled)) {
-    finalCompiled += ' !禁止:违背原约束'
+    finalCompiled += ' !ban:violate_constraint'
   }
   if (missing.length > 0) {
     finalCompiled += ` ![AnchorLock: ${missing.join(', ')}]`
@@ -253,6 +266,8 @@ export function neutralizeToBabelTele(raw: string): BabelTeleNeutralizeResult {
     working = working.replace(pattern, replacement)
   }
 
+  working = working.replace(/(!ban:[^;，。()（）]+)[（(]\s*!ban:\s*([^)）]+)[)）]/gu, '$1($2)')
+
   working = working
     .replace(/[，、；]+/gu, '; ')
     .replace(/(?:[。！？]+|!(?![=禁止banexc\[]))+/gu, ' | ')
@@ -289,11 +304,11 @@ export function neutralizeToBabelTele(raw: string): BabelTeleNeutralizeResult {
 export function decodeBabelTeleToZh(text: string): string {
   if (text.trim().length === 0) return text
   return text
-    .replace(/\[SMFT-T1\]/gu, '【巴别语语义默克尔检查点 SMFT-T1】')
-    .replace(/^#BT\b\s*/gmu, '【巴别语内核推理】')
-    .replace(/^#Task\b\s*/gmu, '【工程任务】')
-    .replace(/^#SubTask\b\s*/gmu, '【子智能体委派】')
-    .replace(/^#SubReport\b\s*/gmu, '【子智能体回执】')
+    .replace(/\[SMFT-T1\]/gu, '[语义检查点 SMFT-T1]')
+    .replace(/^#BT\b\s*/gmu, '[巴别语推理] ')
+    .replace(/^#Task\b\s*/gmu, '[工程任务] ')
+    .replace(/^#SubTask\b\s*/gmu, '[子任务委派] ')
+    .replace(/^#SubReport\b\s*/gmu, '[子任务回执] ')
     .replace(/^#Intent\b\s*:?\s*/gmu, '• 核心意图：')
     .replace(/^#Plan\b\s*:?\s*/gmu, '• 执行计划：')
     .replace(/^#Stack\b\s*:?\s*/gmu, '• 技术栈与约束：')
@@ -302,10 +317,10 @@ export function decodeBabelTeleToZh(text: string): string {
     .replace(/^#Pending\b\s*:?\s*/gmu, '• 待办事项：')
     .replace(/^#Next\b\s*:?\s*/gmu, '• 下一步动作：')
     .replace(/!\[AnchorLock:\s*([^\]]+)\]/gu, '（硬锚点锁定：$1）')
-    .replace(/!(?:禁止|ban):/gu, '【严禁】')
-    .replace(/!exc:/gu, '【例外豁免】')
-    .replace(/\s*=>\s*/gu, ' ⇒ 推导执行：')
+    .replace(/!(?:禁止|ban):/gu, '[严禁] ')
+    .replace(/!exc:/gu, '[豁免] ')
+    .replace(/\s*=>\s*/gu, ' ⇒ ')
     .replace(/\s*->\s*/gu, ' → ')
     .replace(/\s*&\s*/gu, ' 且 ')
-    .replace(/(^|[\s;])(\?)([^\s?])/gu, '$1若满足条件：$3')
+    .replace(/(^|[\s;])(\?)([^\s?])/gu, '$1若：$3')
 }

@@ -13,8 +13,8 @@
             name: '@deepseek-ai/dsh-persona'
             config:
               prefix: >-
-                You are BabelTele Super Agent, powered by the {{model}} model and built-in BT-Spec v1.0.
-                You help the user customize the BabelTele Harness and Cordis plugin architecture.
+                You are BabelTele Agent (巴别语 Agent), powered by the {{model}} model and built-in BT-Spec v1.0.
+                You help the user customize BabelTele Agent and its Cordis plugin architecture.
           - id: agent-instructions
             name: '@deepseek-ai/dsh-agent-instructions'
             config:

@@ -11,7 +11,7 @@
           - id: persona
             name: '@deepseek-ai/dsh-persona'
             config:
-              prefix: You are BabelTele Super Agent, a high-velocity coding agent powered by the {{model}} model and built-in BabelTele Dual-Plane Protocol (BT-Spec v1.0).
+              prefix: You are BabelTele Agent (巴别语 Agent), a high-velocity coding agent powered by the {{model}} model and built-in BabelTele Dual-Plane Protocol (BT-Spec v1.0).
           - id: agent-instructions
             name: '@deepseek-ai/dsh-agent-instructions'
             config:

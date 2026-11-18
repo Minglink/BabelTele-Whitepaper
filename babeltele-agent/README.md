@@ -1,43 +1,43 @@
-# 🗼 BabelTele · 巴别语超级 Agent (`babeltele-agent`)
+# 巴别语 Agent (`babeltele-agent`)
 
-> **全栈底层源码重构版（Bottom-Up Core & UI Refactoring）**  
-> 将 **巴别语标准体系（`BT-Spec v1.0`）** 直接内置固化进底层核心引擎、Agent Loop、语义默克尔压缩、子智能体总线、文件系统落盘守卫与前端原生组件树（基于 MIT 开源基础设施 [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness) 深度重构，**非外挂包装**）。
+> **全栈底层源码重构版（Bottom-Up Core & Minimalist Line UI）**  
+> 将 **巴别语标准体系（`BT-Spec v1.0` V2）** 直接内置固化进底层核心引擎、Agent Loop、语义默克尔压缩、子智能体总线、文件系统落盘守卫与极简线条风格前端组件树（基于 MIT 开源基础设施 [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness) 深度重构，**非外挂包装**）。
 
 ---
 
-## ⚡ 一、核心底层重写清单（Where BabelTele Lives in Source）
+## 一、 `deepseek-flash` 真机在线实测提升（Verified Live API Metrics）
 
-| 层级 | 重写源码路径 | 内置巴别语核心机制 |
+| 核心维度 | 原生基线 (`deepseek-flash`) | 巴别语 Agent V2 (`deepseek-flash`) | 实测增益 |
+| :--- | :---: | :---: | :---: |
+| **端到端代码生成耗时** | `35.71 s` | **`9.99 s`** | **提速 `3.58x`（耗时下降 `72.0%`）** |
+| **内部推理词元 (`reasoning_tokens`)** | `5,193` | **`1,189`** | **推理开销下降 `77.1%`** |
+| **单轮总计费词元 (`total_tokens`)** | `6,072` | **`1,711`** | **总词元下降 `71.8%`** |
+| **人类口语输入脱水率** | `157 tok` | **`71 tok`** | **输入缩减 `55%`（锚点 `100%` 锁定）** |
+| **`/compact` 上下文压缩体积** | `2,889 chars` | **`727 chars` (`[SMFT-T1]`)** | **检查点占用缩减 `74.8%`** |
+| **多步工具循环 KV Cache 命中率** | — | **`99.5%`** (`39,680 / 39,876`) | **幂等脱水零缓存击穿** |
+
+---
+
+## 二、 核心底层重写清单（Where BabelTele Lives in Source）
+
+| 层级 | 重写源码路径 | 内置机制 |
 | :--- | :--- | :--- |
-| **系统提示词与双平面协议引擎** | `packages/core/system-prompt/src/babeltele.ts`<br>`packages/core/system-prompt/src/index.ts` | 原生内置 `BABELTELE_DUAL_PLANE_KERNEL`：离线 `<1ms` 口水话/情绪词脱水编译器（`neutralizeToBabelTele`）、BPE 词元预算熔断器、**Tier-1 硬锚点 100% 防丢锁**（自动锁定路径、数值、API 标识符与 `!禁止:` 否定边界）及中文旁路解码器 |
-| **Agent 主循环自动脱水（保热缓存）** | `packages/core/agent-loop/src/agent.ts` | 在 `ReactLoopAgent.buildRequest()` 底层内置基于 `WeakMap` 的跨步幂等消息投影：自动将冗长自然语言输入脱水为 `#Task` 硅基指令，同时保持历史对象引用恒定以 **100% 复用服务端 KV Prefix Cache** |
-| **工作区 `[BT-Headers]` 骨架自动感知** | `packages/session/working-directory/src/index.ts` | 在 `WorkingDirectoryService` 原生注册 `BABELTELE_HEADERS` 上下文槽位，自动扫描工作区生成 `@relPath(L=n):[symbols]` 高密度代码骨架图谱 |
-| **`[SMFT-T1]` 语义默克尔上下文压缩** | `packages/compaction/compaction-basic/src/summarizer.ts` | 底层重写 `/compact` 与自动压缩指令，输出 `#Intent` / `#Stack` / `#Files` / `#DiagFix` / `#Next` / `#Anchors` 结构化 `[SMFT-T1]` 检查点，压缩率提升 ~60% 且保留热前缀缓存 |
-| **`babeltele/1.0` 子智能体高密协同总线** | `packages/subagent/tool-subagent/src/index.ts` | 重写 `subagent` 与 `subagent_fork` 底层协议，父子智能体默认通过 `#SubTask @scope ?constraints => goal` 与 `#SubReport` 极速传递任务与事实 |
-| **Plane-B 工程代码 100% 零污染硬门禁** | `packages/fs/tool-fs/src/write.ts`<br>`packages/fs/tool-fs/src/edit.ts` | 在 `parseWriteArgs` 与 `parseEditArgs` 底层直接接入 `sanitizeCodeArtifact` / `auditCodeArtifactPurity`：自动剥离多余外层 Markdown 代码块围栏，并硬拒绝任何含 `#BT`、`⟦...⟧`、`[SMFT-T1]` 内部符号污染的 `.py` / `.java` / `.ts` / `.go` / `.rs` 等源码落盘 |
-| **前端原生 Composer 提纯器 & 思考透视镜** | `packages/client/ui-primitives/src/babeltele.ts`<br>`packages/client/ui-conversation/src/client/skeleton/InputBar.tsx`<br>`packages/client/ui-chat/src/client/chat/ReasoningContent.tsx` | 全套自定义巴别语硅基塔徽标（`FishLogo.tsx` / `BrandWordmark.tsx`）；聊天输入框原生内嵌 **`⚡ 巴别语提纯 / 模板`** 实时预览面板与 **`🧹 自动脱水`** 开关；推理折叠块原生内嵌 **`👁️ 中文人话透视 / ⚡ #BT 硅基原文`** 一键切换 |
+| **双平面极速内核 V2 & 全词法脱水器** | `packages/core/system-prompt/src/babeltele.ts`<br>`packages/core/system-prompt/src/index.ts` | 内置 `BABELTELE_DUAL_PLANE_KERNEL`（严控 `<think>` 微图谱推理、杜绝思考流二次默写代码冗余）、全词法脱水器（`+typed`、`+threadsafe`、`!ban:`）与 **Tier-1 硬锚点锁** |
+| **Agent 主循环自动脱水（保热缓存）** | `packages/core/agent-loop/src/agent.ts` | 在 `ReactLoopAgent.buildRequest()` 底层内置 `WeakMap` 幂等消息投影，自动脱水口语输入并 100% 保持历史引用恒定 |
+| **实时 `mtime` 指纹顶层 AST 骨架** | `packages/session/working-directory/src/index.ts` | 自动提取顶层类/函数符号生成 `[BT-Headers v2.0]` 骨架，文件写入/编辑瞬间自动失效刷新 |
+| **`[SMFT-T1]` 压缩 & `#SubTask` 总线** | `packages/compaction/compaction-basic/src/summarizer.ts`<br>`packages/subagent/tool-subagent/src/index.ts` | `/compact` 原生输出 `[SMFT-T1]` 默克尔检查点；父子智能体默认以 `#SubTask` / `#SubReport` 并发协同 |
+| **Plane-B 零污染门禁 & Windows 终端优化** | `packages/fs/tool-fs/src/write.ts` & `edit.ts`<br>`packages/shell/pwsh-local/src/index.ts` | 自动剥离多余 Markdown 围栏并硬拦截 `#BT` 符号污染；消除 PowerShell 原生 `stderr` 误报退出码 |
+| **DeepSeek 极简细线条原生界面** | `packages/client/ui-primitives/src/FishLogo.tsx`<br>`packages/client/ui-conversation/src/client/skeleton/InputBar.tsx`<br>`packages/client/ui-chat/src/client/chat/ReasoningContent.tsx` | 纯粹极简 `1.5px` 细线塔标与「巴别语 Agent」字标，无冗余装饰色块；输入框原生融入细线版「提纯 / 自动提纯」抽屉，思考流原生支持「中文透视」 |
 
 ---
 
-## 🚀 二、快速启动（Windows / macOS / Linux）
+## 三、 快速启动
 
-### 方式 1：Windows 一键双击启动
-直接双击本目录下的 **`启动巴别语超级Agent.bat`**，自动启动并打开浏览器工作台（默认监听 `http://127.0.0.1:3720`）。
-
-### 方式 2：命令行启动与重编译
-```bash
-cd babeltele-agent
-pnpm install --ignore-scripts=false
-
-# 若克隆自 Git 仓库首次运行，先执行全量源码编译：
-pnpm run build:babeltele
-
-# 启动内置 Web 超级智能体工作台（默认端口 3720）
-DSH_HOME=./.dsh-home pnpm run web
-```
-
----
-
-## 📜 开源协议与致谢
-- 本项目遵循 **MIT License** 开源。
-- 底层运行时框架与插件系统基于开源项目 [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness)（MIT License）重构演化，谨向原开源团队致谢；所有品牌标识与核心协议层已遵照开源规范独立重塑为 **BabelTele (`BT-Spec v1.0`)**。
+- **Windows 一键启动**：双击 **`启动巴别语Agent.bat`**（默认监听 `http://127.0.0.1:3720`）。
+- **命令行启动**：
+  ```bash
+  cd babeltele-agent
+  pnpm install --ignore-scripts=false
+  pnpm run build:babeltele   # 首次从源码克隆时执行
+  DSH_HOME=./.dsh-home pnpm run web
+  ```

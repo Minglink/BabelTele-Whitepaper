@@ -76,13 +76,13 @@ flowchart TB
 
 ---
 
-## 🛠️ 官方旗舰超级 Agent 实现（Official Flagship Implementation）
+## 🛠️ 官方旗舰实现：巴别语 Agent（`babeltele-agent/`）
 
-本仓库内置基于开源智能体基础设施 **[`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness)**（MIT 协议）进行**全栈底层源码重构**的 **巴别语超级 Agent（[`babeltele-agent/`](./babeltele-agent/)）**，将 `BT-Spec v1.0` 双平面硅基协议直接固化编译进底层核心引擎与前端组件树（非外挂包装）：
+本仓库内置基于开源智能体基础设施 **[`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness)**（MIT 协议）进行**全栈底层源码重构**的 **巴别语 Agent（[`babeltele-agent/`](./babeltele-agent/)）**，将 `BT-Spec v1.0` 双平面硅基协议直接固化编译进底层核心引擎与极简线条风格前端组件树（非外挂包装）：
 
 | 旗舰目录 | 核心定位 | 底层重构核心亮点 | 快速启动（内置 Web 界面 + CLI） |
 | :--- | :--- | :--- | :--- |
-| **[`babeltele-agent/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent)** | **BabelTele · 巴别语超级 Agent（全栈底层源码重构版）** | • **核心运行时内置双平面内核**（`packages/core/system-prompt` & `agent-loop`）：底层内置 `BABELTELE_DUAL_PLANE_KERNEL` 与跨轮次 KV-Cache 一致性请求脱水器，支持人类口水话/情绪宣泄词秒级剥离，并通过 Tier-1 硬锚点锁 100% 锁定路径、数值、API 标识符与否定边界（`!禁止:`）<br>• **原生 `[SMFT-T1]` 压缩与 `#BT` 子智能体总线**（`compaction-basic` & `tool-subagent`）：底层重写 `/compact` 压缩器输出复用热前缀缓存的 `[SMFT-T1]` 语义默克尔检查点；父子智能体原生采用 `#SubTask` / `#SubReport` 硅基协议极速并发协同，并在 `working-directory` 自动注入 `[BT-Headers v1.0]` 工作区骨架索引<br>• **Plane-B 源码零污染硬门禁**（`packages/fs/tool-fs`）：直接重写 `write.ts` 与 `edit.ts`，自动剥离多余外层 Markdown 围栏并硬拦截任何 `#BT` 内部符号泄露，确保落盘 `.py` / `.java` / `.ts` / `.go` / `.rs` 等工程代码 **100% 原生纯净**<br>• **原生 UI 深度重塑**（`ui-primitives` / `ui-conversation` / `ui-chat`）：全套自定义巴别语硅基塔徽标、内置 Composer 中性提纯与自动脱水开关、思考流一键「👁️ 中文人话透视」 | Windows 双击 `babeltele-agent/启动巴别语超级Agent.bat`<br>或执行：<br>`cd babeltele-agent && pnpm web` |
+| **[`babeltele-agent/`](https://github.com/Minglink/BabelTele-Whitepaper/tree/main/babeltele-agent)** | **巴别语 Agent（BabelTele Agent · 全栈底层源码重构版）** | • **双平面极速内核 V2**（`packages/core/system-prompt` & `agent-loop`）：内置 `BABELTELE_DUAL_PLANE_KERNEL`（严格约束 `<think>` 微图谱推理、消除思考流二次默写代码冗余）与全词法输入脱水器（实测缩减 ~55% 输入词元），通过 Tier-1 硬锚点锁 100% 锁定路径、数值、符号与 `!ban:` 否定边界，并保持 99.5% 服务端 KV Cache 命中率<br>• **实时 `mtime` 指纹骨架与 `[SMFT-T1]` 压缩**（`working-directory`、`compaction-basic`、`tool-subagent`）：自动提取顶层 AST 符号生成零滞后 `[BT-Headers v2.0]` 骨架；`/compact` 输出缩减 ~75% 体积的 `[SMFT-T1]` 检查点；父子智能体原生采用 `#SubTask` / `#SubReport` 并发协同<br>• **Plane-B 源码零污染门禁 & Windows 终端优化**（`tool-fs` & `pwsh-local`）：底层硬拦截任何 `#BT` 符号污染并消除 PowerShell 原生 `stderr` 误报，确保 `.py` / `.java` / `.ts` / `.go` 等产出代码 **100% 原生纯净**<br>• **极简细线条原生界面**（`ui-primitives` / `ui-conversation` / `ui-chat`）：传承 DeepSeek 极简线条美学，无冗余装饰色块，内置细线版巴别语提纯抽屉、自动提纯开关与思考流一键中文透视 | Windows 双击 `babeltele-agent/启动巴别语Agent.bat`<br>或执行：<br>`cd babeltele-agent && pnpm web` |
 
 ---
 

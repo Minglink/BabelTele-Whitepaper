@@ -1,56 +1,44 @@
 import type { IconProps } from './icons/props.ts'
-import { FISH_LOGO_PATH } from './FishLogo.tsx'
 
-/** Display options for the BabelTele brand wordmark. */
+/** Display options for the minimalist BabelTele Agent wordmark. */
 export interface BrandWordmarkProps extends IconProps {
-  /** Whether to include the leading BabelTele emblem; defaults to true. */
+  /** Whether to include the leading fine-line emblem; defaults to true. */
   includeMark?: boolean | undefined
 }
 
 /**
- * Render the BabelTele brand wordmark (`BabelTele` + `BT-v1` pill).
- * @param props.size - height in px (default 24; width scales proportionally).
- * @param props.className - extra class for layout placement.
- * @param props.includeMark - whether to include the leading emblem.
- * @returns the wordmark svg (aria-hidden decorative brand art).
+ * Minimalist fine-line wordmark: `巴别语 Agent` (pure monochrome typography, zero heavy filled blocks).
  */
 export function BrandWordmark({ size = 24, className, includeMark = true }: BrandWordmarkProps) {
-  const width = includeMark ? 176 : 148
+  const width = includeMark ? 132 : 104
   return (
     <svg
       width={(size * width) / 24}
       height={size}
       className={className}
-      viewBox={includeMark ? '0 0 176 24' : '28 0 148 24'}
+      viewBox={includeMark ? '0 0 132 24' : '28 0 104 24'}
       fill="none"
       aria-hidden="true"
     >
       {includeMark && (
-        <path fillRule="evenodd" clipRule="evenodd" d={FISH_LOGO_PATH} fill="currentColor" />
+        <path
+          d="M12 4V20M8.5 7H15.5M6.5 12H17.5M4.5 17H19.5"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       )}
       <text
         x="29"
-        y="17.2"
+        y="16.8"
         fill="currentColor"
-        fontFamily="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-        fontSize="15.5"
-        fontWeight="700"
-        letterSpacing="-0.35"
+        fontFamily="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', Inter, sans-serif"
+        fontSize="14.5"
+        fontWeight="500"
+        letterSpacing="0.1"
       >
-        BabelTele
-      </text>
-      <rect x="112" y="5" width="58" height="14" rx="3.5" fill="currentColor" />
-      <text
-        x="141"
-        y="14.7"
-        textAnchor="middle"
-        fill="var(--dsw-alias-label-primary-inverted)"
-        fontFamily="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
-        fontSize="9.5"
-        fontWeight="700"
-        letterSpacing="0.4"
-      >
-        BT-v1.0
+        巴别语 Agent
       </text>
     </svg>
   )

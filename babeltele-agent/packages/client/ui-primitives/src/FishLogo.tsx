@@ -1,32 +1,35 @@
 import type { IconProps } from './icons/props.ts'
 
-/** Native viewBox of {@link FISH_LOGO_PATH} (BabelTele Silicon Tower-Bolt emblem). */
+/** Native viewBox of {@link FISH_LOGO_PATH} (minimalist fine-line Babel spire mark). */
 export const FISH_LOGO_VIEWBOX = { width: 24, height: 24 }
 
 /**
- * Geometric BabelTele Silicon Tower-Bolt vector silhouette.
- * Keeps the `FISH_LOGO_PATH` export contract so all Harness surfaces render the BabelTele emblem natively.
+ * Minimalist fine-line architectural spire silhouette (1.5px stroke geometry)
+ * for external single-path SVG consumers.
  */
 export const FISH_LOGO_PATH =
-  'M12 1.5L21 6.7V17.3L12 22.5L3 17.3V6.7L12 1.5ZM12 3.85L5.05 7.86V16.14L12 20.15L18.95 16.14V7.86L12 3.85ZM13.35 5.8L7.6 13.05H11.55L10.65 18.2L16.4 10.95H12.45L13.35 5.8Z'
+  'M11.25 3.25a.75.75 0 0 1 1.5 0v17.5a.75.75 0 0 1-1.5 0V3.25ZM7.5 6.75a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1-.75-.75Zm-2 5.25a.75.75 0 0 1 .75-.75h11.5a.75.75 0 0 1 0 1.5H6.25a.75.75 0 0 1-.75-.75Zm-2 5.25a.75.75 0 0 1 .75-.75h15.5a.75.75 0 0 1 0 1.5H4.25a.75.75 0 0 1-.75-.75Z'
 
 /**
- * Render the BabelTele Silicon Tower-Bolt emblem.
- * @param props.size - width in px (default 24; 1:1 geometric aspect ratio).
- * @param props.className - extra class for layout placement.
- * @returns the logo svg (aria-hidden; pair with the wordmark for accessibility).
+ * Minimalist fine-line BabelTele Agent emblem (airy 1.5px rounded stroke).
  */
 export function FishLogo({ size = 24, className }: IconProps) {
   return (
     <svg
       width={size}
-      height={(size * FISH_LOGO_VIEWBOX.height) / FISH_LOGO_VIEWBOX.width}
+      height={size}
       className={className}
-      viewBox={`0 0 ${FISH_LOGO_VIEWBOX.width} ${FISH_LOGO_VIEWBOX.height}`}
+      viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"
     >
-      <path fillRule="evenodd" clipRule="evenodd" d={FISH_LOGO_PATH} fill="currentColor" />
+      <path
+        d="M12 3.5V20.5M8.25 6.75H15.75M6.25 12H17.75M4.25 17.25H19.75"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

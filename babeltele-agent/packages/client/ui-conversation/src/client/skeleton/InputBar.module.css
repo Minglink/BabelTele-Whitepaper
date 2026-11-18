@@ -471,35 +471,37 @@
 .activity:empty { display: none; }
 .activityExpanded { flex: 1; min-width: 0; }
 
-/* ── Built-in BabelTele (BT-Spec v1.0) Composer Suite ────────────────────── */
+/* ── Built-in BabelTele (Minimalist Fine-Line Suite) ─────────────────────── */
 .btToolbarGroup {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   flex: none;
 }
 
 .btChip {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  height: 26px;
-  padding: 0 9px;
-  border: 1px solid var(--dsw-alias-border-l2);
-  border-radius: 999px;
+  gap: 5px;
+  height: 28px;
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--dsw-radius-sm);
   background: transparent;
   color: var(--dsw-alias-label-secondary);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 13px;
+  line-height: 20px;
   font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  transition: background-color 100ms ease, color 100ms ease;
 }
 
-.btChip:hover:not(:disabled) {
-  background: var(--dsw-alias-interactive-bg-hover);
-  color: var(--dsw-alias-label-primary);
+@media (hover: hover) {
+  .btChip:hover:not(:disabled) {
+    background: var(--dsw-alias-interactive-bg-hover);
+    color: var(--dsw-alias-label-primary);
+  }
 }
 
 .btChip:disabled {
@@ -508,17 +510,27 @@
 }
 
 .btChipActive {
-  border-color: color-mix(in srgb, var(--dsw-alias-button-info-fill, #3964fe) 48%, transparent);
-  background: color-mix(in srgb, var(--dsw-alias-button-info-fill, #3964fe) 11%, transparent);
-  color: var(--dsw-alias-button-info-fill, #3964fe);
+  color: var(--dsw-alias-label-primary);
+}
+
+.btDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--dsw-alias-border-l4);
+  transition: background-color 120ms ease;
+}
+
+.btDotOn {
+  background: var(--dsw-alias-state-business-primary, #3964fe);
 }
 
 .btPanel {
-  margin: 2px 10px 0;
+  margin: 2px 12px 0;
   padding: 10px 12px;
   border-radius: var(--dsw-radius-md);
-  border: 1px solid color-mix(in srgb, var(--dsw-alias-button-info-fill, #3964fe) 28%, var(--dsw-alias-border-l2));
-  background: color-mix(in srgb, var(--dsw-alias-button-info-fill, #3964fe) 5%, var(--dsw-alias-bg-base));
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  background: transparent;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -531,53 +543,40 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 8px;
+  color: var(--dsw-alias-label-tertiary);
 }
 
 .btBadges {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
+  font-size: 11.5px;
 }
 
 .btBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 1px 7px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  background: color-mix(in srgb, var(--dsw-alias-button-info-fill, #3964fe) 13%, transparent);
-  color: var(--dsw-alias-button-info-fill, #3964fe);
+  color: var(--dsw-alias-label-secondary);
+  font-family: var(--ds-font-family-code, ui-monospace, SFMono-Regular, Menlo, monospace);
 }
 
 .btBadgeOk {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 1px 7px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  background: rgba(16, 185, 129, 0.14);
-  color: #10b981;
+  color: var(--dsw-alias-label-tertiary);
 }
 
 .btPreviewCode {
   margin: 0;
   padding: 7px 10px;
   border-radius: var(--dsw-radius-sm);
-  background: var(--dsw-alias-bg-base);
-  border: 1px solid var(--dsw-alias-border-l2);
+  background: var(--dsw-alias-interactive-bg-hover);
+  border: 0.5px solid var(--dsw-alias-border-l2);
   color: var(--dsw-alias-label-primary);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--ds-font-family-code, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
   font-size: 12px;
   line-height: 18px;
   white-space: pre-wrap;
   word-break: break-word;
-  max-height: 112px;
+  max-height: 104px;
   overflow-y: auto;
 }
 
@@ -585,38 +584,40 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .btActionBtn {
-  height: 25px;
-  padding: 0 10px;
+  height: 24px;
+  padding: 0 9px;
   border-radius: var(--dsw-radius-sm);
-  border: 1px solid var(--dsw-alias-border-l2);
-  background: var(--dsw-alias-bg-base);
-  color: var(--dsw-alias-label-primary);
+  border: 0.5px solid var(--dsw-alias-border-l3);
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
+  transition: background-color 100ms ease, color 100ms ease, border-color 100ms ease;
 }
 
 .btActionBtn:hover:not(:disabled) {
   background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-primary);
 }
 
 .btActionBtnPrimary {
-  border-color: transparent;
-  background: var(--dsw-alias-button-info-fill, #3964fe);
-  color: var(--dsw-alias-label-on-color, #ffffff);
+  border-color: var(--dsw-alias-label-primary);
+  color: var(--dsw-alias-label-primary);
+  font-weight: 500;
 }
 
 .btActionBtnPrimary:hover:not(:disabled) {
-  background: var(--dsw-alias-button-info-hover, #2c54e8);
+  background: var(--dsw-alias-interactive-bg-hover);
 }
 
 .btTemplateGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
   gap: 8px;
 }
 
@@ -624,11 +625,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 3px;
+  gap: 2px;
   padding: 8px 10px;
   border-radius: var(--dsw-radius-sm);
-  border: 1px solid var(--dsw-alias-border-l2);
-  background: var(--dsw-alias-bg-base);
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  background: transparent;
   color: var(--dsw-alias-label-primary);
   text-align: left;
   cursor: pointer;
@@ -636,18 +637,18 @@
 }
 
 .btTemplateCard:hover {
-  border-color: var(--dsw-alias-button-info-fill, #3964fe);
+  border-color: var(--dsw-alias-border-l4);
   background: var(--dsw-alias-interactive-bg-hover);
 }
 
 .btTemplateBadge {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: var(--dsw-alias-button-info-fill, #3964fe);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--dsw-alias-label-caption);
 }
 
 .btTemplateTitle {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 12.5px;
+  font-weight: 500;
   color: var(--dsw-alias-label-primary);
 }

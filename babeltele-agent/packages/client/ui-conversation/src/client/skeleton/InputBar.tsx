@@ -519,19 +519,19 @@ export const InputBar = memo(function InputBar({
           <div className={css.btPanel} data-composer-overlay>
             <div className={css.btPanelHeader}>
               <div className={css.btBadges}>
-                <span className={css.btBadge}>⚡ BT-Spec v1.0 内置中性编译器</span>
+                <span className={css.btBadge}>BT-L2</span>
                 {draft.trim() !== '' && (
                   <>
                     <span className={css.btBadge}>
-                      BPE: {btPreview.originalTokens} → {btPreview.babelTokens} tok
-                      {btPreview.savedTokens > 0 ? ` (-${Math.round(btPreview.savedRatio * 100)}%)` : ' (精简直通)'}
+                      {btPreview.originalTokens} → {btPreview.babelTokens} tok
+                      {btPreview.savedTokens > 0 ? ` (-${Math.round(btPreview.savedRatio * 100)}%)` : ''}
                     </span>
                     <span className={css.btBadgeOk}>
-                      🔒 锚点硬锁 {btPreview.audit.matchedAnchors.length}/{btPreview.audit.totalAnchors} PASS
+                      锚点锁定 {btPreview.audit.matchedAnchors.length}/{btPreview.audit.totalAnchors}
                     </span>
                   </>
                 )}
-                <span className={css.btBadgeOk}>🛡️ Plane-B 纯净代码守卫已启用</span>
+                <span className={css.btBadgeOk}>纯净代码守卫</span>
               </div>
               <button
                 type="button"
@@ -574,7 +574,7 @@ export const InputBar = memo(function InputBar({
                         inputActions.setDraft(btPreview.babeltele)
                       }}
                     >
-                      ✅ 填入 #Task 巴别语
+                      填入巴别语
                     </button>
                   )}
                   {!looksLikeBabelTele(draft) && keyboard !== undefined && !uploadsPending && (
@@ -589,7 +589,7 @@ export const InputBar = memo(function InputBar({
                         keyboard.submit(primarySubmitMode, 'click')
                       }}
                     >
-                      🚀 提纯并立即发送
+                      提纯并发送
                     </button>
                   )}
                   {savedRawDraft !== null && savedRawDraft !== draft && (
@@ -601,7 +601,7 @@ export const InputBar = memo(function InputBar({
                         inputActions.setDraft(savedRawDraft)
                       }}
                     >
-                      ↩️ 还原原话
+                      还原原话
                     </button>
                   )}
                 </div>
@@ -679,9 +679,9 @@ export const InputBar = memo(function InputBar({
               {input === undefined || sessionId === undefined ? null : (
                 <div className={css.btToolbarGroup}>
                   <Tooltip
-                    label="打开内置巴别语 BT-L2 中性提纯与锚点硬锁面板（空草稿时提供实战演示模板）"
+                    label="预览巴别语 BT-L2 提纯结果与硬锚点（空草稿可载入示例）"
                     side="top"
-                    delayMs={400}
+                    delayMs={500}
                     portal
                   >
                     <button
@@ -691,15 +691,23 @@ export const InputBar = memo(function InputBar({
                       onMouseDown={keepFocus}
                       onClick={() => { setBtPanelOpen(v => !v) }}
                     >
-                      {draft.trim() === '' ? '⚡ 巴别语模板' : '⚡ 巴别语提纯'}
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path
+                          d="M8 2.25V13.75M5.25 4.75H10.75M3.75 8H12.25M2.25 11.25H13.75"
+                          stroke="currentColor"
+                          strokeWidth="1.3"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <span>{draft.trim() === '' ? '示例' : '提纯'}</span>
                     </button>
                   </Tooltip>
                   <Tooltip
                     label={autoDehydrate
-                      ? '已开启发送前口水话自动脱水（100% 锁定路径/数字/API/否定边界）'
-                      : '点击开启发送前口水话自动脱水'}
+                      ? '发送前自动提纯已开启（保留全部路径、数字与否定约束）'
+                      : '点击开启发送前自动提纯'}
                     side="top"
-                    delayMs={400}
+                    delayMs={500}
                     portal
                   >
                     <button
@@ -710,7 +718,8 @@ export const InputBar = memo(function InputBar({
                       onMouseDown={keepFocus}
                       onClick={toggleAutoDehydrate}
                     >
-                      {autoDehydrate ? '🧹 自动脱水: 开' : '🧹 自动脱水: 关'}
+                      <span className={clsx(css.btDot, autoDehydrate && css.btDotOn)} aria-hidden="true" />
+                      <span>自动提纯</span>
                     </button>
                   </Tooltip>
                 </div>

@@ -11,7 +11,7 @@
           - id: persona
             name: '@deepseek-ai/dsh-persona'
             config:
-              prefix: You are BabelTele Super Agent (Minimal Mode), a dual-plane silicon engineering assistant.
+              prefix: You are BabelTele Agent (巴别语 Agent), a dual-plane silicon engineering assistant.
               complete: true
               includeRuntimeContext: false
           - id: tool-fs

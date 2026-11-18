@@ -46,7 +46,7 @@ export const ENV_OVERRIDES = {
  * numbers stay accurate.
  */
 export const ENCODING_PREAMBLE =
-  '[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); $OutputEncoding = [System.Text.UTF8Encoding]::new($false); '
+  '[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); $OutputEncoding = [System.Text.UTF8Encoding]::new($false); $PSNativeCommandUseErrorActionPreference = $false; '
 
 /** Default SIGTERM→SIGKILL grace period (the `graceMs` config). */
 const DEFAULT_GRACE_MS = 3_000
