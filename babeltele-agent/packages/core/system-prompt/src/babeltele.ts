@@ -95,23 +95,23 @@ export interface CodeSyntaxDiag {
  * Enforces: [ZH/EN Natural Input] -> [Auto #Task BT] -> [100% Pure #BT CoT & #BT-Bus] -> [Exact @out User-Language Delivery].
  */
 export const BABELTELE_DUAL_PLANE_KERNEL_PROMPT = [
-  '## BabelTele Silicon Kernel (BT-Spec v1.0 · V6.2 Pure-#BT CoT & Bilingual Closed-Loop)',
+  '## BabelTele Silicon Kernel (BT-Spec v1.0 · V7 Ultra-Convergence & Pure-#BT CoT Engine)',
   '1. **Plane A — `100%` Pure `#BT` Chain-of-Thought (`thinking` / `reasoning` ONLY)**:',
-  '   - **When `thinking` Is Active**: Start `thinking` at character 0 with `#BT ` and keep `<= 5` compact `#BT` lines (`@in`, `@out`, `@obs`, `@diag`, `@cwd`, `@file:line`, `?cond => action`, `->`, `&`, `|`, `!ban:`, `#Contract[...]`). NEVER write conversational English/Chinese prose sentences or draft code inside `thinking`.',
-  '   - **When Adaptive Fast-Mode Skips `thinking`**: Call tools directly with **EMPTY assistant `text`** (`""`). **STRICTLY FORBIDDEN** to write `#BT ...` inside assistant `text` / `content`!',
-  '   - **Canonical `thinking` Exemplars**:',
-  '     * Step 1 (init): `#BT @in(en)->@out(en-US) | @cwd:empty => batch[write(limiter.py: TokenBucket+RLock), write(test_limiter.py: >=12 utest)]`',
-  '     * Step 2 (after write): `#BT @obs(write:AST:ok) => pwsh(python -m unittest -v)`',
-  '     * Step 3 (after test): `#BT @obs(utest:20/20 pass, exit:0) => @reply(en-US)`',
-  '     * Step on error: `#BT @diag(test_clock fail: rate=10>cap=2) => edit(test_limiter.py: rate=1) -> pwsh(python -m unittest -v)`',
-  '   - **Strict Channel Separation**: Emit `#BT` ONLY inside `thinking`. During tool-calling steps, emit **ZERO assistant `text`** (call tools directly without commentary). In the final human `text`, NEVER output `#BT`, `#Task`, `@in`, or `@out`.',
-  '2. **High-Velocity Execution & Contract-First Multi-Level Bus (`L0->L1->L2->L3`)**:',
-  '   - **Zero Blind Probing**: `[BT-Headers v4.0]` already lists `@cwd=(empty)` or `@file(L=n):[Sym@line]`. Never waste Step 1 on `glob`/`ls`.',
-  '   - **Parallel Batch Tooling**: Emit ALL independent `write`/`edit`/`read`/`subagent` calls in ONE assistant step; skip `todo_write` unless `>= 6` phases.',
-  '   - **Multi-Level Subagent Bus**: On 1–2 file tasks, execute directly (`0` subagents). On multi-agent or `>= 3` module tasks, lock exact `#Contract` API signatures across parallel `subagent` calls in Step 1, END TURN to await automatic `#SubReport`s, then run `pwsh` verification directly (`0` redundant `read`s on child files).',
-  '3. **Plane B — `100%` Pure Native Disk Code & `[BT-Diag]` Gate**:',
-  '   - Source files written via `write`/`edit` MUST be `100%` pure idiomatic code (zero `#BT`, `[SMFT-T1]`, `![AnchorLock:` leakage; lean 1-line docstrings). Fix any `[BT-Diag SYNTAX_ERROR]` immediately via `edit`.',
-  '4. **Stage-4 Exact User-Language Delivery (`@out=zh-CN` vs `@out=en-US`)**:',
+  '   - **Hard Rule**: In `thinking`, emit ONLY high-density `#BT` state-transition micro-graphs (max 4 lines, total < 300 chars).',
+  '   - **Strictly Banned in `thinking`**: Conversational prose ("Empty workspace... Let me plan...", "Now I will...", "Let us write...", "Plan: write..."). Any English/Chinese conversational paragraph inside thinking is a severe protocol breach.',
+  '   - **Allowed Thinking Syntax**: `#BT @in(...) | @env(...) => plan -> act`. That is ALL. Keep reasoning under 200 characters.',
+  '   - **Zero Assistant Text on Tool Turns**: When calling tools, assistant `text` MUST BE EMPTY (`""`). NEVER emit `#BT ...` or conversational commentary into assistant `text` / `content`!',
+  '2. **Execution Budget & Anti-Oververification Guardrail (`!ban_oververification`)**:',
+  '   - **Single-File Synthesis / Standalone App / Game / Script (e.g. HTML game, single script, utility)**:',
+  '     * BUDGET: MAXIMUM 3 STEPS TOTAL (`write` -> `syntax_check` -> `present` & deliver).',
+  '     * FORBIDDEN: DO NOT launch headless Chrome, DO NOT take screenshots (`read_image`), DO NOT write browser DOM test probes or test runners unless the user explicitly requested browser screenshot verification in their prompt.',
+  '     * After file writing and basic syntax check pass, call `present` IMMEDIATELY and deliver final response.',
+  '3. **Zero Blind Probing & Parallel Batch Tooling**:',
+  '   - `[BT-Headers v4.0]` already lists `@cwd=(empty)` or `@file(L=n):[Sym@line]`. Never waste Step 1 on `glob`/`ls`.',
+  '   - Emit all independent operations in ONE parallel step.',
+  '4. **Plane B — `100%` Pure Native Disk Code & `[BT-Diag]` Gate**:',
+  '   - Source files written via `write`/`edit` MUST be `100%` pure idiomatic code (zero `#BT`, `[SMFT-T1]` markers).',
+  '5. **Stage-4 Exact User-Language Delivery (`@out=zh-CN` vs `@out=en-US`)**:',
   '   - `@out=zh-CN` => Final user-facing response MUST be **100% fluent natural Simplified Chinese** (zero `#BT` tags).',
   '   - `@out=en-US` => Final user-facing response MUST be **100% fluent natural English** (zero `#BT` tags).',
 ].join('\n')
@@ -142,7 +142,7 @@ const TRIVIAL_CHAT_PATTERN =
 
 const CN_FILLER_PATTERNS: ReadonlyArray<RegExp> = [
   /^(?:(?:你好(?:呀|啊|吗)?|您好|嗨|哈喽|早上好|下午好|晚上好|在吗|老哥|兄弟|大佬|大神|师傅|亲)[，,。！!、\s]*)+/gu,
-  /(?:请问一下|我想问一下|我想让你帮我|能不能帮我|可不可以帮我|麻烦你?(?:帮我)?|劳驾(?:帮我)?|拜托(?:你)?(?:帮我)?|请帮我|帮我一下|帮我看下|请务必|跪求|求求你了?)[，,、\s]*/gu,
+  /(?:请问一下|我想问一下|我想让你帮我|我想让你|能不能帮我|能不能|可不可以帮我|可不可以|麻烦你?(?:帮我)?|劳驾(?:帮我)?|拜托(?:你)?(?:帮我)?|请帮我|(?:请|求)?帮我(?:一下|看下|去)?|给我(?:一下|整一个|搞一个)?|请务必|跪求|求求你了?)[，,、\s]*/gu,
   /(?:(?:我现在|我今天|我真的|我真是|真是|我都|真)?(?:服了|快崩溃了|崩溃了|要疯了|烦死了|急死我了|太折磨人了|搞了一整天了?|弄了一整天了?|卡了半天了?|头都大了|救命啊?|十万火急)[，,。！!、\s]*)+/gu,
   /[，,。！!、~～\s]*(?:非常感谢|万分感谢|太感谢了|谢谢(?:你|啦|啊|哈)?|感激不尽|辛苦了|好人一生平安)[，,。！!、~～\s]*$/gu,
   /(?:呃+|嗯+|啊这|那个啥|就是说|怎么说呢|其实吧|说白了就是|乱七八糟的)[，,、\s]*/gu,
@@ -172,7 +172,12 @@ const OMNILINGUAL_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
   // === 2. Chinese Spatial, Qualifiers & Systems ===
   [/在当前(?:工作区|目录|文件夹|项目)(?:下|中|里)?(?:创建|新建|编写|写)一个(?:完整的|标准的)?/gu, '@cwd impl '],
   [/在当前(?:工作区|目录|文件夹|项目)(?:下|中|里)?/gu, '@cwd '],
-  [/(?:创建|新建|编写|实现)一个(?:完整的|标准的)?/gu, 'impl '],
+  [/(?:创建|新建|编写|实现|写|制作|做一个|做|搞一个|搞)一个?(?:完整的|标准的|简单的)?/gu, 'impl '],
+  [/(?:贪吃蛇(?:游戏)?|snake(?:\s+game)?)/giu, 'snake(canvas+controls) @spec(1-file:html) | @budget(3)'],
+  [/(?:俄罗斯方块|tetris)/giu, 'tetris(canvas+controls) @spec(1-file:html) | @budget(3)'],
+  [/(?:扫雷|minesweeper)/giu, 'minesweeper(dom+controls) @spec(1-file:html) | @budget(3)'],
+  [/(?:五子棋|gomoku)/giu, 'gomoku(canvas+controls) @spec(1-file:html) | @budget(3)'],
+  [/(?:2048(?:游戏)?)/giu, '2048(canvas+controls) @spec(1-file:html) | @budget(3)'],
   [/单文件/gu, '1-file '],
   [/调用(?:命令行|终端)(?:运行|执行)/gu, 'run '],
   [/(?:运行|执行)验证(?:全部)?通过|验证全部通过|确保测试(?:全部)?通过|确认全部通过/gu, '=>pass'],
@@ -522,7 +527,7 @@ export function neutralizeToBabelTele(
   const babelTokens = estimateBabelTokens(lockedText)
   const savedTokens = Math.max(0, originalTokens - babelTokens)
   const savedRatio = originalTokens > 0 ? savedTokens / originalTokens : 0
-  const shortCircuit = strippedFillerCount === 0 && savedTokens < 2
+  const shortCircuit = strippedFillerCount === 0 && savedTokens < 2 && working === trimmed
 
   return {
     original: raw,

@@ -580,8 +580,40 @@ export class ReactLoopAgent implements Agent {
           continue
         }
 
+        const rawBlocks = live.blocks()
+        const toolCalls = rawBlocks.filter(block => block.type === 'tool-call')
+
+        let settledBlocks = rawBlocks
+        if (babelTeleRuntimeConfig.enabled) {
+          if (toolCalls.length > 0) {
+            // Intermediate tool turn: suppress any leaked internal #BT planning text from chat bubbles
+            settledBlocks = rawBlocks.map(block => {
+              if (block.type === 'text') {
+                const trimmed = block.text.trim()
+                if (trimmed.startsWith('#BT ') || trimmed.startsWith('#Task') || trimmed.startsWith('@in(') || trimmed.startsWith('@obs(')) {
+                  return { ...block, text: '' }
+                }
+              }
+              return block
+            }).filter(block => block.type !== 'text' || block.text.length > 0)
+          } else {
+            // Final delivery turn: strip any leading #BT tags so human text is 100% natural
+            settledBlocks = rawBlocks.map(block => {
+              if (block.type === 'text') {
+                const cleaned = block.text
+                  .replace(/^#BT\s+@in\([^)]+\)[^\n]*\n*/u, '')
+                  .replace(/^#BT\s+[^\n]*\n*/u, '')
+                  .replace(/^#Task\[[^\]]+\][^\n]*\n*/u, '')
+                  .trim()
+                return { ...block, text: cleaned }
+              }
+              return block
+            })
+          }
+        }
+
         const message = createAssistantMessage({
-          content: live.blocks(),
+          content: settledBlocks,
           source: {
             provider: request.provider,
             model: request.model,
@@ -600,7 +632,6 @@ export class ReactLoopAgent implements Agent {
         )
         if (finish.kind === 'max-tokens') return { kind: 'max-tokens' }
 
-        const toolCalls = message.content.filter(block => block.type === 'tool-call')
         if (toolCalls.length === 0) return { kind: 'completed' }
         const maxParallelToolCalls = this.loopCtx.agentLoop.config.maxParallelToolCalls.get()
         try {
