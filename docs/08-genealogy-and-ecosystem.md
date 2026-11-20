@@ -54,7 +54,7 @@
 2. **[1cyberlangke1/compressed-context](https://github.com/1cyberlangke1/compressed-context)**
    面向 OpenCode 生态的上下文压缩插件（npm 包），实践了 `T1 → T2 → T3` 树高滚动折叠与按需无损回溯架构。
 3. **[AliFlux/langchain-babeltele](https://github.com/AliFlux/langchain-babeltele)**
-   发布于 PyPI（`pip install langchain-babeltele`）的 Python 组件，为 LangChain 流水线提供检索文档压缩、历史与工具输出中间件、保真检查与自动回退机制。
+   Ali Ashraf（AliFlux）维护的社区集成包，采用 MIT 许可，要求 Python 3.11 及以上。通过 [PyPI](https://pypi.org/project/langchain-babeltele/) 安装（`pip install langchain-babeltele`），并配置所用模型的 LangChain 提供商。支持 RAG 检索文档压缩、智能体历史与工具输出压缩，以及基于向量库的长期记忆检索。可选的保真检查在重试后仍未通过时回退到原文。
 4. **[lukaszgryglicki/babeltele](https://github.com/lukaszgryglicki/babeltele)**
    基于 Rust 编写的离线、Token 感知型 UNIX 标准管道过滤器（AGPL-3.0），自动识别 19 种自然语言、JSON、源码、CSV 与日志，严格区分 `-O tokens`（省计费 Token）与 `-O chars`（省字符）双优化目标。
 5. **[mikenrafter/babeltele](https://github.com/mikenrafter/babeltele)**

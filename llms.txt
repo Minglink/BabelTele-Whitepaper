@@ -31,6 +31,10 @@
 - [Chinese Canonical Whitepaper (单文件完整典藏版)](https://minglink.github.io/BabelTele-Whitepaper/whitepaper.html): Complete 10-section architectural treatise in Simplified Chinese ([Markdown source](https://raw.githubusercontent.com/Minglink/BabelTele-Whitepaper/main/WHITEPAPER.md)).
 - [English Canonical Whitepaper](https://minglink.github.io/BabelTele-Whitepaper/en/whitepaper.html): Complete 10-section architectural treatise in English ([Markdown source](https://raw.githubusercontent.com/Minglink/BabelTele-Whitepaper/main/WHITEPAPER_EN.md)).
 
+## Community Implementations / 社区实现
+
+- [langchain-babeltele (PyPI)](https://pypi.org/project/langchain-babeltele/) is AliFlux's MIT-licensed LangChain integration for RAG document compression, agent history and tool output compression, and long-term memory retrieval. Requires Python 3.11 or later and a configured chat model provider. [Source and examples](https://github.com/AliFlux/langchain-babeltele).
+
 ## BT-Spec v1.0 Modular Specification (English)
 
 - [Chapter 01 — The Anthropocentric Readability Tax & The Babel Metaphor](https://minglink.github.io/BabelTele-Whitepaper/en/01-manifesto-and-problem.html): Biological prose padding, MCP/A2A channel limits, and historical telegraphese.

@@ -27,3 +27,5 @@ Portability: GPT-5.4(~75%_comp) & ClaudeSonnet4.6(~80-85%_comp) => highest_unive
 BT-Audit_Gateway(cf.Bitcoin_§8): Tier1(<2ms_regex_anchor_bit_exact_check) -> Tier2(heterogeneous_blind_contract + zero-shot_LLM_semantic_guardrail) -> Tier3(Human_Sidecar_Decoder).
 
 #7_Errata: Viral_OCR("CO2+H2O::(ox/red)<>O2!") != Paper_Fig("🌿光合: CO2+H2O ⇨(ox/red)⇨ O2↑ + Glucose. 💧-e⁻, CO2+e⁻."); BT(discrete_text) != GibberLink(ggwave_audio_modem); Next_gen => End-to-End_RL_native_compressor.
+
+#8_Community: langchain-babeltele(AliFlux, MIT, Python>=3.11) => LangChain(RAG_docs + agent_history + tool_output + long_term_memory); pypi=https://pypi.org/project/langchain-babeltele/; src=https://github.com/AliFlux/langchain-babeltele
