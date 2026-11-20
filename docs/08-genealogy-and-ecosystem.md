@@ -56,7 +56,7 @@
 3. **[AliFlux/langchain-babeltele](https://github.com/AliFlux/langchain-babeltele)**
    Ali Ashraf（AliFlux）维护的社区集成包，采用 MIT 许可，要求 Python 3.11 及以上。通过 [PyPI](https://pypi.org/project/langchain-babeltele/) 安装（`pip install langchain-babeltele`），并配置所用模型的 LangChain 提供商。支持 RAG 检索文档压缩、智能体历史与工具输出压缩，以及基于向量库的长期记忆检索。可选的保真检查在重试后仍未通过时回退到原文。
 4. **[lukaszgryglicki/babeltele](https://github.com/lukaszgryglicki/babeltele)**
-   基于 Rust 编写的离线、Token 感知型 UNIX 标准管道过滤器（AGPL-3.0），自动识别 19 种自然语言、JSON、源码、CSV 与日志，严格区分 `-O tokens`（省计费 Token）与 `-O chars`（省字符）双优化目标。
+   Łukasz Gryglicki 维护的社区 Rust 命令行工具，采用 AGPL-3.0-only 许可。读取文件或标准输入，支持 19 种自然语言以及 JSON、源码、CSV 和日志等格式。默认使用本地词表和规则离线编码，无需 API 密钥。`-O tokens`（默认）以减少词元为目标，`-O chars` 以减少字符为目标，`-s` 同时报告字符和 `o200k_base` 词元统计。
 5. **[mikenrafter/babeltele](https://github.com/mikenrafter/babeltele)**
    面向终端与 AI 编程智能体的会话转录压缩 CLI 与 NixOS 模块，支持 **Claude Code**（`PreCompact`）、**Codex**（`SessionStart` compact）与 **Cursor**（`preCompact`）自动压缩注入钩子。
 6. **[m-rui001/babeltele](https://github.com/m-rui001/babeltele)**

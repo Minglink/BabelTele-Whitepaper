@@ -34,6 +34,7 @@
 ## Community Implementations / 社区实现
 
 - [langchain-babeltele (PyPI)](https://pypi.org/project/langchain-babeltele/) is AliFlux's MIT-licensed LangChain integration for RAG document compression, agent history and tool output compression, and long-term memory retrieval. Requires Python 3.11 or later and a configured chat model provider. [Source and examples](https://github.com/AliFlux/langchain-babeltele).
+- [lukaszgryglicki/babeltele (Rust CLI)](https://github.com/lukaszgryglicki/babeltele) is a community UNIX filter licensed under AGPL-3.0-only. It encodes files or standard input offline by default, supports separate token and character optimization, and reports `o200k_base` token counts with `-s`.
 
 ## BT-Spec v1.0 Modular Specification (English)
 
